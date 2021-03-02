@@ -5,7 +5,7 @@ var fs = require("fs");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var pool = new pg.Pool(common.postgresConfig());
+//var pool = new pg.Pool(common.postgresConfig());
 
 var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 
