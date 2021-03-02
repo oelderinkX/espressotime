@@ -3,6 +3,7 @@ var app = express();
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
 var pg = require('pg');
+var common = require('./script/common.js');
 var port = process.env.PORT || 80
 
 var pool = new pg.Pool(common.postgresConfig());

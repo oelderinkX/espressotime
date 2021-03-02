@@ -1,4 +1,5 @@
 var pg = require('pg');
+var common = require('./script/common.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
