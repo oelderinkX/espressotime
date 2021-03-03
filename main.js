@@ -15,4 +15,13 @@ module.exports = function(app){
 	
 		res.send(webpage);
 	});	
+	
+	app.post('/getemployees', urlencodedParser, function(req, res) {
+		var shopId = req.body.shopId;
+		var pass = req.body.pass;
+		
+		var employees = [ { "name": "Bob" }, { "name": "Slob" } ];
+		
+		res.send(employees);
+	});
 }

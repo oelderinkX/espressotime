@@ -1,5 +1,21 @@
 <html>
+<script src="javascript/common.js" />
+<script>
+    function getEmployees() {
+        sendPost("/getemployees", displayEmployees);
+    }
+
+    function displayEmployees(res) {
+        for(var i = 0; i < res.length; i++)
+        {
+            alert(res[i]);
+        }
+    }
+</script>
 <body>
-Main page!
+Main page!<br/>
+<br/>
+Here are the employees:<br/>
+<div id="employees"></div>
 </body>
 </html>
