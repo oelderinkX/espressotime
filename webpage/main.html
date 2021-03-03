@@ -5,10 +5,11 @@
         sendPost("/getemployees", '', displayEmployees);
     }
 
-    function displayEmployees(employees) {
+    function displayEmployees(response) {
+        var employees = JSON.parse(response);
         for(var i = 0; i < employees.length; i++)
         {
-            alert(employees[i]);
+            console.log(employees[i]);
         }
     }
 </script>
