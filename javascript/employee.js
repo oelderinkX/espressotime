@@ -1,6 +1,3 @@
-var shopId = -1234567890121212;
-var pass = "!!%PASS%!!";
-
 function getEmployees() {
     sendPost("/getemployees", '', function(response) {
         var employees = JSON.parse(response);
