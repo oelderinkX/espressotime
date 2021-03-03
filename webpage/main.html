@@ -5,10 +5,10 @@
         sendPost("/getemployees", '', displayEmployees);
     }
 
-    function displayEmployees(res) {
-        for(var i = 0; i < res.length; i++)
+    function displayEmployees(response) {
+        for(var i = 0; i < response.length; i++)
         {
-            alert(res[i]);
+            alert(response[i]);
         }
     }
 </script>
