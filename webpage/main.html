@@ -1,17 +1,6 @@
 <html>
 <script src="javascript/common.js"></script>
-<script>
-    function getEmployees() {
-        sendPost("/getemployees", '', function(response) {
-            var employees = JSON.parse(response);
-            for(var i = 0; i < employees.length; i++)
-            {
-                console.log(employees[i].name);
-            }
-        });
-    }
-
-</script>
+<script src="javascript/employee.js"></script>
 <body>
 Main page!<br/>
 <br/>

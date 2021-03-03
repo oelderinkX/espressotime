@@ -1,6 +1,6 @@
 var url = require('url');
-var params = url.parse(process.env.DATABASE_URL);
-var auth = params.auth.split(':');
+//var params = url.parse(process.env.DATABASE_URL);
+//var auth = params.auth.split(':');
 
 function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
