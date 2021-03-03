@@ -1,5 +1,5 @@
 <html>
-<script src="javascript/common.js" />
+<script src="javascript/common.js"></script>
 <script>
     function getEmployees() {
         sendPost("/getemployees", displayEmployees);
@@ -18,4 +18,7 @@ Main page!<br/>
 Here are the employees:<br/>
 <div id="employees"></div>
 </body>
+<script>
+    getEmployees();
+</script>
 </html>
