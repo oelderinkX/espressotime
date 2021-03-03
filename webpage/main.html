@@ -2,16 +2,15 @@
 <script src="javascript/common.js"></script>
 <script>
     function getEmployees() {
-        sendPost("/getemployees", '', displayEmployees);
+        sendPost("/getemployees", '', function(response) {
+            var employees = JSON.parse(response);
+            for(var i = 0; i < employees.length; i++)
+            {
+                console.log(employees[i].name);
+            }
+        });
     }
 
-    function displayEmployees(response) {
-        var employees = JSON.parse(response);
-        for(var i = 0; i < employees.length; i++)
-        {
-            console.log(employees[i]);
-        }
-    }
 </script>
 <body>
 Main page!<br/>
