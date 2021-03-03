@@ -29,7 +29,7 @@ function sendPost(url, data, callback) {
 	
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			callback(this.response);
+			callback(JSON.parse(this.response));
 		}
     };
 }
