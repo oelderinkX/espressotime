@@ -23,3 +23,20 @@ function getEmployees() {
         }
     });
 }
+
+function getEmployeeDetails(employeeId) {
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '" }', function(response) {
+        var employee = JSON.parse(response);
+
+        var employeename = document.getElementById("employeename");
+        var starttime = document.getElementById("starttime");
+        var finishtime = document.getElementById("finishtime");
+        var breaks = document.getElementById("breaks");
+
+
+        employeename.innerHTML = employee.name;
+        starttime.innerHTML = employee.starttime;
+        finishtime.innerHTML = employee.finishtime;
+        breaks.innerHTML = employee.breaks;
+    });
+}
