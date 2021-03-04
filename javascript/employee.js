@@ -1,3 +1,26 @@
+function pad(num)
+{
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
+function clock() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    
+    m = pad(m);
+    s = pad(s);
+
+    document.getElementById('time').innerHTML = h + ":" + m;
+
+    t = setTimeout(function() {
+      clock()
+    }, 10000);
+  }
+  
 function getEmployees() {
     sendPost("/getemployees", '', function(response) {
         var employees = JSON.parse(response);
@@ -5,8 +28,7 @@ function getEmployees() {
         var employeelist1 = document.getElementById("employeelist1");
         var employeelist2 = document.getElementById("employeelist2");
 
-        for(var i = 0; i < employees.length; i++)
-        {
+        for(var i = 0; i < employees.length; i++) {
             var li1 = document.createElement("li");
             var a1 = document.createElement("a");
             a1.setAttribute('href', '#');
