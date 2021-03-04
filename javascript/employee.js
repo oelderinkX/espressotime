@@ -1,4 +1,4 @@
-function pad(num)
+function pad(i)
 {
     if (i < 10) {
         i = "0" + i;
