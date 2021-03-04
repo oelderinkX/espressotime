@@ -15,7 +15,7 @@ function clock() {
 
     if (h > 12) {
         ampm = "pm";
-        h = 24 - h;
+        h = h - 12;
     }
 
     document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm;
