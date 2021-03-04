@@ -10,10 +10,15 @@ function clock() {
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
-    
+    var ampm = "am";
     m = pad(m);
 
-    document.getElementById('time').innerHTML = h + ":" + m;
+    if (h > 12) {
+        ampm = "pm";
+        h = 24 - h;
+    }
+
+    document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm;
 
     t = setTimeout(function() {
       clock()
