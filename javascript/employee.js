@@ -35,8 +35,8 @@ function getEmployeeDetails(employeeId) {
 
 
         employeename.innerHTML = employee.name;
-        starttime.innerHTML = employee.starttime;
-        finishtime.innerHTML = employee.finishtime;
-        breaks.innerHTML = employee.breaks;
+        starttime.innerHTML = 'Start time: ' + employee.starttime;
+        finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
+        breaks.innerHTML = 'Breaks: ' + employee.breaks;
     });
 }
