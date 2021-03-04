@@ -12,7 +12,6 @@ function clock() {
     var m = today.getMinutes();
     
     m = pad(m);
-    s = pad(s);
 
     document.getElementById('time').innerHTML = h + ":" + m;
 
