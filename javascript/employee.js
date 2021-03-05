@@ -13,8 +13,11 @@ function clock() {
     var ampm = "am";
     m = pad(m);
 
-    if (h > 12) {
+    if (h > 11) {
         ampm = "pm";
+    }
+
+    if (h > 12) {
         h = h - 12;
     }
 
