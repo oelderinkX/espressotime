@@ -41,6 +41,7 @@ function getEmployees() {
             a1.setAttribute('href', '#');
             a1.innerHTML = employees[i].name;
             li1.appendChild(a1);
+            li1.classList.add('active');
             employeelist1.appendChild(li1);
 
             var li2 = document.createElement("li");
@@ -48,6 +49,7 @@ function getEmployees() {
             a2.setAttribute('href', '#');
             a2.innerHTML = employees[i].name;
             li2.appendChild(a2);
+            li2.classList.add('active');
             employeelist2.appendChild(li2);
         }
     });
