@@ -43,7 +43,7 @@ module.exports = function(app){
 		var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		
-		var employee = { "id": "123", "name": "Bob", "starttime": "123", "finishtime": "343", "breaks": {} };
+		var employee = { "id": "123", "name": "Bob", "starttime": "123", "finishtime": "343", "breaks": [] };
 		
 		res.send(employee);
 	});
@@ -54,7 +54,7 @@ module.exports = function(app){
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
 		
-		var result = { };
+		var result = { "result": "success" };
 		
 		res.send(result);
 	});
@@ -65,7 +65,7 @@ module.exports = function(app){
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
 		
-		var result = { };
+		var result = { "result": "success" };
 		
 		res.send(employee);
 	});
