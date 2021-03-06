@@ -91,12 +91,14 @@ module.exports = function(app){
 		var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
 		var startTime = d.getHours() + ':' + d.getMinutes();
 		
-		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)"
-		sql += "SELECT $1, $2, $3"
-		sql += "WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = $1 and pin = $4 );"
+		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
+		sql += "SELECT '" + employeeId + "', '" + date + "', '" + startTime + "'";
+		sql += "WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
+
+		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeId, date, startTime, employeePin], function(err, result) {
+			connection.query(sql, function(err, result) {
 				done();
 
 				if (err) {
