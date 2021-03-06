@@ -93,7 +93,7 @@ module.exports = function(app){
 		var startTime = d.getHours() + ':' + d.getMinutes();
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
-		sql += " SELECT '" + employeeId + "', '" + date + "', '" + startTime + "'";
+		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + startTime + ":00'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
 		console.log(sql);
