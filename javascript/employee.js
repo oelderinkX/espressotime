@@ -67,10 +67,22 @@ function getEmployeeDetails(employeeId) {
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
 
+        var startbutton = document.getElementById("startbutton");
+
         employeename.innerHTML = employee.name;
         contact.innerHTML = 'Contact: ' + employee.contact;
         starttime.innerHTML = 'Start time: ' + employee.starttime;
         finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
+
+        startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
+    });
+}
+
+function employeeStart(employeeId) {
+    var employeePin = 1234;  //use alert!!  maybe...
+
+    sendPost("/employeestart", '{ "employeeId": "' + employeeId +  '", "employeePin": "' + employeePin + '" }', function(response) {
+        //call get employee starttime!!!
     });
 }

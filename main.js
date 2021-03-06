@@ -52,10 +52,6 @@ module.exports = function(app){
 				res.send(employees);
 			});
 		});
-
-		var employees = [ { "name": "Bob" }, { "name": "Slob" } ];
-		
-
 	});
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
@@ -84,20 +80,29 @@ module.exports = function(app){
 				res.send(employee);
 			});
 		});
-
-		
-		
 	});
 
 	app.post('/employeestart', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
-		var pass = req.body.pass;
+		var shopId = 1; //req.body.shopId;
+		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
+		var date = date;
+		var startTime = time;
 		
-		var result = { "result": "success" };
-		
-		res.send(result);
+		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)"
+		sql += "SELECT $1, $2, $3"
+		sql += "WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = $1 and pin = $4 );"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [employeeId, date, startTime, employeePin], function(err, result) {
+				done();
+
+				var result = { "result": "success" };
+				res.send(result);
+			});
+		});
+
 	});
 
 	app.post('/employeefinish', urlencodedParser, function(req, res) {
