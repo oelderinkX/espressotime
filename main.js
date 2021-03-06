@@ -59,13 +59,13 @@ module.exports = function(app){
 	});
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
-		var shopId = 1;
 		var employeeId = req.body.employeeId;
+		var shopId = 1;
 		
-		var sql = "SELECT id, name, contact from espresso.employee where shopid = $1;"
+		var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [employeeId, shopId], function(err, result) {
 				done();
 
 				var employee = {};
