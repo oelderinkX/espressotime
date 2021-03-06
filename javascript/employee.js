@@ -68,7 +68,7 @@ function getEmployeeDetails(employeeId) {
         var breaks = document.getElementById("breaks");
 
         employeename.innerHTML = employee.name;
-        contact.innerHTML = employee.contact;
+        contact.innerHTML = 'Contact: ' + employee.contact;
         starttime.innerHTML = 'Start time: ' + employee.starttime;
         finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
