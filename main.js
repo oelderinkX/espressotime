@@ -99,7 +99,12 @@ module.exports = function(app){
 			connection.query(sql, [employeeId, date, startTime, employeePin], function(err, result) {
 				done();
 
-				var result = { "result": "success" };
+				if (err) {
+					console.error(err);
+				} else {
+					var result = { "result": "success" };
+				}
+
 				res.send(result);
 			});
 		});
