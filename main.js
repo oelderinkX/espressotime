@@ -58,13 +58,40 @@ module.exports = function(app){
 	});
 
 	app.post('/getemployeedetails', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
-		var pass = req.body.pass;
-		var employeeId = req.body.employeeId;
+		//var shopId = req.body.shopId;
+		var shopId = 1;
+		//var pass = req.body.pass;
+		//var employeeId = req.body.employeeId;
+		console.log('employee id: ' + req.body.employeeId);
+		var employeeId = 5;
 		
-		var employee = { "id": "123", "name": "Bob", "starttime": "123", "finishtime": "343", "breaks": [] };
+		var sql = "SELECT id, name, contact from espresso.employee where shopid = $1;"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var employees = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						employees.push({
+							id: result.rows[i].id,
+							name: result.rows[i].name,
+							contact: result.rows[i].contact,
+							starttime: "Not yet",
+							finishtime: "Not yet",
+							breaks: []
+						});
+					}
+				}
+
+				res.send(employee);
+			});
+		});
+
 		
-		res.send(employee);
+		
 	});
 
 	app.post('/employeestart', urlencodedParser, function(req, res) {

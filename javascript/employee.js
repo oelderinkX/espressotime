@@ -40,6 +40,7 @@ function getEmployees() {
             var a1 = document.createElement("a");
             a1.setAttribute('href', '#');
             a1.innerHTML = employees[i].name;
+            a1.onclick = getEmployeeDetails(employees[i].id);
             li1.appendChild(a1);
             li1.classList.add('active');
             employeelist1.appendChild(li1);
@@ -48,6 +49,7 @@ function getEmployees() {
             var a2 = document.createElement("a");
             a2.setAttribute('href', '#');
             a2.innerHTML = employees[i].name;
+            a2.onclick = getEmployeeDetails(employees[i].id);
             li2.appendChild(a2);
             li2.classList.add('active');
             employeelist2.appendChild(li2);
