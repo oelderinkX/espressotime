@@ -87,8 +87,9 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-		var date = date;
-		var startTime = time;
+		var d = new Date();
+		var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+		var startTime = d.getHours() + ':' + d.getMinutes();
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)"
 		sql += "SELECT $1, $2, $3"
