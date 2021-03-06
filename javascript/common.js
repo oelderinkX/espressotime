@@ -24,12 +24,12 @@ function getCookie(cname) {
 function sendPost(url, data, callback) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", url, true);
-    xhttp.setRequestHeader("Content-type", "application/json");
+    //xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(data);
 	
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			callback(this.response);
-		}
+	  xhttp.onreadystatechange = function() {
+		  if (this.readyState == 4 && this.status == 200) {
+			  callback(this.response);
+		  }
     };
 }
