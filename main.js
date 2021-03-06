@@ -30,12 +30,31 @@ module.exports = function(app){
 	});	
 	
 	app.post('/getemployees', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
+		//var shopId = req.body.shopId;
+		var shopId = 1;
 		var pass = req.body.pass;
 		
+		var sql = "SELECT id, name from espresso.employee where shopid = $1;"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var employees = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						employees.push({ id: result.rows[i].id, name: result.rows[i].name });
+					}
+				}
+					
+				res.send(employees);
+			});
+		});
+
 		var employees = [ { "name": "Bob" }, { "name": "Slob" } ];
 		
-		res.send(employees);
+
 	});
 
 	app.post('/getemployeedetails', urlencodedParser, function(req, res) {
