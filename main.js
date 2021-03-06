@@ -58,10 +58,17 @@ module.exports = function(app){
 		var employeeId = req.body.employeeId;
 		var shopId = 1;
 		
-		var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
+		var d = new Date();
+		var month = d.getMonth() + 1;
+		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
+
+		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
+		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime from espresso.employee";
+		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
+		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2 and espresso.start_finish.date = $3 limit 1;";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeId, shopId], function(err, result) {
+			connection.query(sql, [employeeId, shopId, date], function(err, result) {
 				done();
 
 				var employee = {};
@@ -87,6 +94,9 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
+
+
+		//these dates are wrong.  need to be 24!
 		var d = new Date();
 		var month = d.getMonth() + 1;
 		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
@@ -104,6 +114,7 @@ module.exports = function(app){
 
 				if (err) {
 					console.error(err);
+					var result = { "result": "fail" };
 				} else {
 					var result = { "result": "success" };
 				}

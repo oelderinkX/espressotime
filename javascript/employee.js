@@ -83,6 +83,6 @@ function employeeStart(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
 
     sendPost("/employeestart", '{ "employeeId": "' + employeeId +  '", "employeePin": "' + employeePin + '" }', function(response) {
-        //call get employee starttime!!!
+        getEmployeeDetails(employeeId);
     });
 }
