@@ -82,18 +82,19 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/employeestart', urlencodedParser, function(req, res) {
+	app.post('/employeestart', jsonParser, function(req, res) {
 		var shopId = 1; //req.body.shopId;
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
 		var d = new Date();
-		var date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+		var month = d.getMonth() + 1;
+		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
 		var startTime = d.getHours() + ':' + d.getMinutes();
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
-		sql += "SELECT '" + employeeId + "', '" + date + "', '" + startTime + "'";
-		sql += "WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
+		sql += " SELECT '" + employeeId + "', '" + date + "', '" + startTime + "'";
+		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
 		console.log(sql);
 
