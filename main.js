@@ -62,7 +62,7 @@ module.exports = function(app){
 		var shopId = 1;
 		//var pass = req.body.pass;
 		//var employeeId = req.body.employeeId;
-		console.log('req: ' + req);
+		console.log('req.body: ' + req.body);
 		var employeeId = 5;
 		
 		var sql = "SELECT id, name, contact from espresso.employee where shopid = $1;"
