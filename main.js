@@ -71,18 +71,18 @@ module.exports = function(app){
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
-				var employees = [];
+				var employee = {};
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						employees.push({
+						employee = {
 							id: result.rows[i].id,
 							name: result.rows[i].name,
 							contact: result.rows[i].contact,
 							starttime: "Not yet",
 							finishtime: "Not yet",
 							breaks: []
-						});
+						};
 					}
 				}
 
