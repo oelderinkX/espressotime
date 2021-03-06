@@ -70,17 +70,15 @@ module.exports = function(app){
 
 				var employee = {};
 
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						employee = {
-							id: result.rows[i].id,
-							name: result.rows[i].name,
-							contact: result.rows[i].contact,
-							starttime: "Not yet",
-							finishtime: "Not yet",
-							breaks: []
-						};
-					}
+				if (result && result.rowCount == 1) {
+					employee = {
+						id: result.rows[0].id,
+						name: result.rows[0].name,
+						contact: result.rows[0].contact,
+						starttime: "Not yet",
+						finishtime: "Not yet",
+						breaks: []
+					};
 				}
 
 				res.send(employee);

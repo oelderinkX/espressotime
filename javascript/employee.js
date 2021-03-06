@@ -62,11 +62,13 @@ function getEmployeeDetails(employeeId) {
         var employee = JSON.parse(response);
 
         var employeename = document.getElementById("employeename");
+        var contact = document.getElementById("contact");
         var starttime = document.getElementById("starttime");
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
 
         employeename.innerHTML = employee.name;
+        contact.innerHTML = employee.contact;
         starttime.innerHTML = 'Start time: ' + employee.starttime;
         finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
