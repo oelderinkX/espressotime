@@ -63,7 +63,7 @@ module.exports = function(app){
 		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
 
 		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
-		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime from espresso.employee";
+		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime, espresso.start_finish.finishtime from espresso.employee";
 		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
 		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2 and (espresso.start_finish.date = $3 or espresso.start_finish.date is null) limit 1;";
 
@@ -78,8 +78,8 @@ module.exports = function(app){
 						id: result.rows[0].id,
 						name: result.rows[0].name,
 						contact: result.rows[0].contact,
-						starttime: "Not yet",
-						finishtime: "Not yet",
+						starttime: result.rows[0].starttime,
+						finishtime: result.rows[0].finishtime,
 						breaks: []
 					};
 				}
