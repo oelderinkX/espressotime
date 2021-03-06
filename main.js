@@ -59,14 +59,8 @@ module.exports = function(app){
 	});
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
-		//var shopId = req.body.shopId;
 		var shopId = 1;
-		//var pass = req.body.pass;
-		//var employeeId = req.body.employeeId;
-		console.log('req:');
-		console.log(req);
-		console.log(req.body.employeeId);
-		var employeeId = 5;
+		var employeeId = req.body.employeeId;
 		
 		var sql = "SELECT id, name, contact from espresso.employee where shopid = $1;"
 

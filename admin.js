@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var fs = require("fs");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
