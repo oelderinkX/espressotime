@@ -73,15 +73,19 @@ module.exports = function(app){
 
 				var employee = {};
 
-				if (result && result.rowCount == 1) {
-					employee = {
-						id: result.rows[0].id,
-						name: result.rows[0].name,
-						contact: result.rows[0].contact,
-						starttime: result.rows[0].starttime,
-						finishtime: result.rows[0].finishtime,
-						breaks: []
-					};
+				if (err) {
+					console.error(err);
+				} else {
+					if (result && result.rowCount == 1) {
+						employee = {
+							id: result.rows[0].id,
+							name: result.rows[0].name,
+							contact: result.rows[0].contact,
+							starttime: result.rows[0].starttime,
+							finishtime: result.rows[0].finishtime,
+							breaks: []
+						};
+					}
 				}
 
 				res.send(employee);
