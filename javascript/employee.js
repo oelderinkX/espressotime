@@ -63,8 +63,21 @@ function getEmployeeDetails(employeeId) {
 
     if (employeeId == 0)
     {
-        all.className = "visible";
-        employeedetails.className = "invisible";
+        all.innerHTML = '';
+        all.className = 'visible';
+        employeedetails.className = 'invisible';
+
+        sendPost("/getemployees", '', function(response) {
+            var employees = JSON.parse(response);
+
+            for(var i = 0; i < employees.length; i++) {
+                var button = document.createElement('button');
+                button.className = 'btn btn-lg btn-primary';
+                button.innerHTML = employees[i].name + '<br/>Start X, Finish -';
+                all.appendChild(button);
+            }
+        });
+
     } else {
         all.className = "invisible";
         employeedetails.className = "visible";
