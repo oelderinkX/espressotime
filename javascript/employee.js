@@ -86,3 +86,11 @@ function employeeStart(employeeId) {
         getEmployeeDetails(employeeId);
     });
 }
+
+function employeeFinish(employeeId) {
+    var employeePin = 1234;  //use alert!!  maybe...
+
+    sendPost("/employeefinish", '{ "employeeId": "' + employeeId +  '", "employeePin": "' + employeePin + '" }', function(response) {
+        getEmployeeDetails(employeeId);
+    });
+}

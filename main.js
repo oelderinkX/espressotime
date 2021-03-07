@@ -122,16 +122,41 @@ module.exports = function(app){
 				res.send(result);
 			});
 		});
-
 	});
 
-	app.post('/employeefinish', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
-		var pass = req.body.pass;
+	app.post('/employeefinish', jsonParser, function(req, res) {
+		var shopId = 1; //req.body.shopId;
+		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
+
+
+		//these dates are wrong.  need to be 24!
+		var d = new Date();
+		var month = d.getMonth() + 1;
+		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
+		var finishTime = d.getHours() + ':' + d.getMinutes();
 		
-		var result = { "result": "success" };
+		var sql = "INSERT INTO espresso.start_finish (employeeid, date, finishtime)";
+		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + finishTime + ":00'";
+		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
+
+		console.log(sql);
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail" };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
 		
 		res.send(employee);
 	});
