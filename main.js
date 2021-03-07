@@ -65,9 +65,8 @@ module.exports = function(app){
 		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
 		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime, espresso.start_finish.finishtime from espresso.employee";
 		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
-		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2 and (espresso.start_finish.date = $3 or espresso.start_finish.date is null) limit 1;";
-
-		console.log(sql);
+		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2";
+		sql += " order by espresso.start_finish.date desc limit 1;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeId, shopId, date], function(err, result) {
