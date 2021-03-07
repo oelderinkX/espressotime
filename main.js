@@ -69,7 +69,7 @@ module.exports = function(app){
 		sql += " order by espresso.start_finish.date desc limit 1;"
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeId, shopId, date], function(err, result) {
+			connection.query(sql, [employeeId, shopId], function(err, result) {
 				done();
 
 				console.log(sql);
@@ -164,8 +164,6 @@ module.exports = function(app){
 				res.send(result);
 			});
 		});
-		
-		res.send(employee);
 	});
 
 	app.post('/employeebreak', urlencodedParser, function(req, res) {
