@@ -58,51 +58,27 @@ function getEmployees() {
 }
 
 function getEmployeeDetails(employeeId) {
-    var all = document.getElementById("all");
-    var employeedetails = document.getElementById("employeedetails");
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '" }', function(response) {
+        var employee = JSON.parse(response);
 
-    if (employeeId == 0)
-    {
-        all.innerHTML = '';
-        all.className = 'visible';
-        employeedetails.className = 'invisible';
+        var employeename = document.getElementById("employeename");
+        var contact = document.getElementById("contact");
+        var starttime = document.getElementById("starttime");
+        var finishtime = document.getElementById("finishtime");
+        var breaks = document.getElementById("breaks");
 
-        sendPost("/getemployees", '', function(response) {
-            var employees = JSON.parse(response);
+        var startbutton = document.getElementById("startbutton");
+        var finishbutton = document.getElementById("finishbutton");
 
-            for(var i = 0; i < employees.length; i++) {
-                var button = document.createElement('button');
-                button.className = 'btn btn-lg btn-primary';
-                button.innerHTML = employees[i].name + '<br/>Start X, Finish -';
-                all.appendChild(button);
-            }
-        });
+        employeename.innerHTML = employee.name;
+        contact.innerHTML = 'Contact: ' + employee.contact;
+        starttime.innerHTML = 'Start time: ' + employee.starttime;
+        finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
+        breaks.innerHTML = 'Breaks: ' + employee.breaks;
 
-    } else {
-        all.className = "invisible";
-        employeedetails.className = "visible";
-        sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '" }', function(response) {
-            var employee = JSON.parse(response);
-
-            var employeename = document.getElementById("employeename");
-            var contact = document.getElementById("contact");
-            var starttime = document.getElementById("starttime");
-            var finishtime = document.getElementById("finishtime");
-            var breaks = document.getElementById("breaks");
-
-            var startbutton = document.getElementById("startbutton");
-            var finishbutton = document.getElementById("finishbutton");
-
-            employeename.innerHTML = employee.name;
-            contact.innerHTML = 'Contact: ' + employee.contact;
-            starttime.innerHTML = 'Start time: ' + employee.starttime;
-            finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
-            breaks.innerHTML = 'Breaks: ' + employee.breaks;
-
-            startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
-            finishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
-        });
-    }
+        startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
+        finishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
+    });
 }
 
 function employeeStart(employeeId) {
