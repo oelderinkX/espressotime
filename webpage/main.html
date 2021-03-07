@@ -61,54 +61,56 @@
       </div>
       <br/>
       <div class="col-sm-9">
-        <div id="employeedetails" class="well invisible">
-          <h1 id="time" class="text-right">00:00</h1>
-          <h1 id="employeename"></h1>
-          <h4 id="contact">Contact:</h4>
-          <br/>
-          <br/>
-          <h3 id="starttime">Start Time:</h3>
-          <br/>
-          <h3 id="finishtime">Finish Time:</h3>
-          <br/>
-          <h3 id="breaks">Breaks:</h3>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <p>
-            <button id="startbutton" class="btn btn-lg btn-primary">Start</button>
-            <button id="finishbutton" class="btn btn-lg btn-primary">Finish</button>
-            <button id="break10button" class="btn btn-lg btn-primary">10min Break</button>
-            <button id="break30button" class="btn btn-lg btn-primary">30min Break</button>
-          </p>
+        <div class="well">
+          <div id="employeedetails" class="invisible">
+            <h1 id="time" class="text-right">00:00</h1>
+            <h1 id="employeename"></h1>
+            <h4 id="contact">Contact:</h4>
+            <br/>
+            <br/>
+            <h3 id="starttime">Start Time:</h3>
+            <br/>
+            <h3 id="finishtime">Finish Time:</h3>
+            <br/>
+            <h3 id="breaks">Breaks:</h3>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p>
+              <button id="startbutton" class="btn btn-lg btn-primary">Start</button>
+              <button id="finishbutton" class="btn btn-lg btn-primary">Finish</button>
+              <button id="break10button" class="btn btn-lg btn-primary">10min Break</button>
+              <button id="break30button" class="btn btn-lg btn-primary">30min Break</button>
+            </p>
+          </div>
+
+          <table id="all" class="table visible">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Start</th>
+                <th scope="col">Finish</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Jared</td>
+                <td>1pm</td>
+                <td>2pm</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Sarah R</td>
+                <td>10am</td>
+                <td>4pm</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-
-      <table id="all" class="table visible">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Start</th>
-            <th scope="col">Finish</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Jared</td>
-            <td>1pm</td>
-            <td>2pm</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Sarah R</td>
-            <td>10am</td>
-            <td>4pm</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </body>
