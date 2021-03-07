@@ -76,6 +76,7 @@ module.exports = function(app){
 				if (err) {
 					console.error(err);
 				} else {
+					console.log(result);
 					if (result && result.rowCount == 1) {
 						employee = {
 							id: result.rows[0].id,
