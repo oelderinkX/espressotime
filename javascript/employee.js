@@ -68,6 +68,7 @@ function getEmployeeDetails(employeeId) {
         var breaks = document.getElementById("breaks");
 
         var startbutton = document.getElementById("startbutton");
+        var finishbutton = document.getElementById("finishbutton");
 
         employeename.innerHTML = employee.name;
         contact.innerHTML = 'Contact: ' + employee.contact;
@@ -76,6 +77,7 @@ function getEmployeeDetails(employeeId) {
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
 
         startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
+        finishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
     });
 }
 

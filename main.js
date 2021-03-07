@@ -67,16 +67,19 @@ module.exports = function(app){
 		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
 		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2 and (espresso.start_finish.date = $3 or espresso.start_finish.date is null) limit 1;";
 
+		console.log(sql);
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeId, shopId, date], function(err, result) {
 				done();
+
+				console.log(sql);
 
 				var employee = {};
 
 				if (err) {
 					console.error(err);
 				} else {
-					console.log(result);
 					if (result && result.rowCount == 1) {
 						employee = {
 							id: result.rows[0].id,
