@@ -63,10 +63,10 @@ function getEmployeeDetails(employeeId) {
 
     if (employeeId == 0)
     {
-        all.className = "table visible";
+        all.className = "visible";
         employeedetails.className = "invisible";
     } else {
-        all.className = "table invisible";
+        all.className = "invisible";
         employeedetails.className = "visible";
         sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '" }', function(response) {
             var employee = JSON.parse(response);
