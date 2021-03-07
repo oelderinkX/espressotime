@@ -66,6 +66,8 @@ function getEmployeeDetails(employeeId) {
         var starttime = document.getElementById("starttime");
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
+        var break10Button = document.getElementById('break10button');
+        var break30Button = document.getElementById('break30button');
 
         var startbutton = document.getElementById("startbutton");
         var finishbutton = document.getElementById("finishbutton");
@@ -78,6 +80,29 @@ function getEmployeeDetails(employeeId) {
 
         startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
         finishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
+
+        if (employee.name) {
+            employeename.classList.remove("invisible");
+            contact.classList.remove("invisible");
+            starttime.classList.remove("invisible");
+            finishtime.classList.remove("invisible");
+            breaks.classList.remove("invisible");
+            startbutton.classList.remove("invisible");
+            finishbutton.classList.remove("invisible");
+            break10Button.classList.remove("invisible");
+            break30Button.classList.remove("invisible");
+        } else {
+            employeename.classList.add("invisible");
+            contact.classList.add("invisible");
+            starttime.classList.add("invisible");
+            finishtime.classList.add("invisible");
+            breaks.classList.add("invisible");
+            startbutton.classList.add("invisible");
+            finishbutton.classList.add("invisible");
+            break10Button.classList.add("invisible");
+            break30Button.classList.add("invisible");
+        }
+
     });
 }
 
