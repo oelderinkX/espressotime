@@ -56,7 +56,7 @@ module.exports = function(app){
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
 		var employeeId = req.body.employeeId;
-		var date = req.body.date;
+		//var date = req.body.date;
 		var shopId = 1;
 		
 		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
@@ -98,8 +98,8 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-		var startTime = req.body.startTime;
 		var date = req.body.date;
+		var startTime = req.body.startTime;
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
 		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + startTime + ":00'";
@@ -128,8 +128,8 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-		var finishTime = req.body.finishTime;
 		var date = req.body.date;
+		var finishTime = req.body.finishTime;
 
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, finishtime)";
 		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + finishTime + ":00'";

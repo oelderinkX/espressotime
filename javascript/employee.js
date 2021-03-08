@@ -105,16 +105,24 @@ function getEmployeeDetails(employeeId) {
 
 function employeeStart(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
+    var date = getDate();
+    var startTime = getTime();
 
-    sendPost("/employeestart", '{ "employeeId": "' + employeeId +  '", "employeePin": "' + employeePin + '" }', function(response) {
+    var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "startTime": startTime };
+
+    sendPost("/employeestart", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
     });
 }
 
 function employeeFinish(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
+    var date = getDate();
+    var finishTime = getTime();
 
-    sendPost("/employeefinish", '{ "employeeId": "' + employeeId +  '", "employeePin": "' + employeePin + '" }', function(response) {
+    var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
+
+    sendPost("/employeefinish", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
     });
 }
