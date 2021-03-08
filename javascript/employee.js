@@ -1,11 +1,3 @@
-function pad(i)
-{
-    if (i < 10) {
-        i = "0" + i;
-    }
-    return i;
-}
-
 function clock() {
     var today = new Date();
     var h = today.getHours();
@@ -69,17 +61,24 @@ function getEmployeeDetails(employeeId) {
         var break10Button = document.getElementById('break10button');
         var break30Button = document.getElementById('break30button');
 
-        var startbutton = document.getElementById("startbutton");
-        var finishbutton = document.getElementById("finishbutton");
+        var startfinishbutton = document.getElementById("startfinishbutton");
+        //var finishbutton = document.getElementById("finishbutton");
 
         employeename.innerHTML = employee.name;
         contact.innerHTML = 'Contact: ' + employee.contact;
-        starttime.innerHTML = 'Start time: ' + employee.starttime;
-        finishtime.innerHTML = 'Finish time: ' + employee.finishtime;
+        starttime.innerHTML = 'Start time: ' + getTime(employee.starttime);
+        finishtime.innerHTML = 'Finish time: ' + getTime(employee.finishtime);
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
 
-        startbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
-        finishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
+        if (employee.starttime) {
+            startfinishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
+            startfinishbutton.innerHTML = 'Finish Shift';
+        } else {
+            startfinishbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
+            startfinishbutton.innerHTML = 'Start Shift';
+        }
+        
+        
 
         if (employee.name) {
             employeename.classList.remove("invisible");

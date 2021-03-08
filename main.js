@@ -56,12 +56,9 @@ module.exports = function(app){
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
 		var employeeId = req.body.employeeId;
+		var date = req.body.date;
 		var shopId = 1;
 		
-		var d = new Date();
-		var month = d.getMonth() + 1;
-		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
-
 		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
 		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime, espresso.start_finish.finishtime from espresso.employee";
 		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
@@ -101,13 +98,8 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-
-
-		//these dates are wrong.  need to be 24!
-		var d = new Date();
-		var month = d.getMonth() + 1;
-		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
-		var startTime = d.getHours() + ':' + d.getMinutes();
+		var startTime = req.body.startTime;
+		var date = req.body.date;
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
 		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + startTime + ":00'";
@@ -136,19 +128,12 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
+		var finishTime = req.body.finishTime;
+		var date = req.body.date;
 
-
-		//these dates are wrong.  need to be 24!
-		var d = new Date();
-		var month = d.getMonth() + 1;
-		var date = d.getFullYear() + '-' + month + '-' + d.getDate();
-		var finishTime = d.getHours() + ':' + d.getMinutes();
-		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, date, finishtime)";
 		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + finishTime + ":00'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
-
-		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
