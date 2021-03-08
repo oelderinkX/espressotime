@@ -54,7 +54,7 @@ function formatTime(d) {
     if (isString(d)) {
       d = new Date(d);
     }
-    return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    return pad(d.getHours()) + ':' + pad(d.getMinutes());
   } else {
     return '-';
   }
