@@ -66,8 +66,8 @@ function getEmployeeDetails(employeeId) {
 
         employeename.innerHTML = employee.name;
         contact.innerHTML = 'Contact: ' + employee.contact;
-        starttime.innerHTML = 'Start time: ' + getTime(employee.starttime);
-        finishtime.innerHTML = 'Finish time: ' + getTime(employee.finishtime);
+        starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
+        finishtime.innerHTML = 'Finish time: ' + formatTime(employee.finishtime);
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
 
         if (employee.starttime) {
@@ -86,8 +86,7 @@ function getEmployeeDetails(employeeId) {
             starttime.classList.remove("invisible");
             finishtime.classList.remove("invisible");
             breaks.classList.remove("invisible");
-            startbutton.classList.remove("invisible");
-            finishbutton.classList.remove("invisible");
+            startfinishbutton.classList.remove("invisible");
             break10Button.classList.remove("invisible");
             break30Button.classList.remove("invisible");
         } else {
@@ -96,8 +95,7 @@ function getEmployeeDetails(employeeId) {
             starttime.classList.add("invisible");
             finishtime.classList.add("invisible");
             breaks.classList.add("invisible");
-            startbutton.classList.add("invisible");
-            finishbutton.classList.add("invisible");
+            startfinishbutton.classList.add("invisible");
             break10Button.classList.add("invisible");
             break30Button.classList.add("invisible");
         }

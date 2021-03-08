@@ -28,12 +28,22 @@ function pad(i) {
   return i;
 }
 
-function getDate(d = new Date()) {
+function formatDate(d) {
   return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
 }
 
-function getTime(d = new Date()) {
+function getDate() {
+  var d = new Date();
+  return formatDate(d);
+}
+
+function formatTime(d) {
   return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+}
+
+function getTime() {
+  var d = new Date();
+  return formatTime(d);
 }
   
 function sendPost(url, data, callback) {
