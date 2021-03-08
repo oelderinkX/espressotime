@@ -29,7 +29,11 @@ function pad(i) {
 }
 
 function formatDate(d) {
-  return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
+  if (d) {
+    return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
+  } else {
+    return '-';
+  }
 }
 
 function getDate() {
@@ -38,7 +42,11 @@ function getDate() {
 }
 
 function formatTime(d) {
-  return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  if (d) {
+    return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+  } else {
+    return '-';
+  }
 }
 
 function getTime() {
