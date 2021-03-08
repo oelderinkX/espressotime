@@ -21,6 +21,10 @@ function getCookie(cname) {
   return "";
 }
 
+function isString(s) {
+  return Object.prototype.toString.call(s) === "[object String]"
+}
+
 function pad(i) {
   if (i < 10) {
     i = "0" + i;
@@ -30,6 +34,10 @@ function pad(i) {
 
 function formatDate(d) {
   if (d) {
+    if (isString(d)) {
+      d = new Date(d);
+    }
+
     return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
   } else {
     return '-';
@@ -43,6 +51,9 @@ function getDate() {
 
 function formatTime(d) {
   if (d) {
+    if (isString(d)) {
+      d = new Date(d);
+    }
     return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
   } else {
     return '-';
