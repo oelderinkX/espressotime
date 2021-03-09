@@ -58,11 +58,10 @@ function getEmployeeDetails(employeeId) {
         var starttime = document.getElementById("starttime");
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
-        var break10Button = document.getElementById('break10button');
-        var break30Button = document.getElementById('break30button');
+        var restButton = document.getElementById('restbutton');
+        var mealButton = document.getElementById('mealbutton');
 
-        var startfinishbutton = document.getElementById("startfinishbutton");
-        //var finishbutton = document.getElementById("finishbutton");
+        var shiftbutton = document.getElementById("shiftbutton");
 
         employeename.innerHTML = employee.name;
         contact.innerHTML = 'Contact: ' + employee.contact;
@@ -71,14 +70,12 @@ function getEmployeeDetails(employeeId) {
         breaks.innerHTML = 'Breaks: ' + employee.breaks;
 
         if (employee.starttime) {
-            startfinishbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
-            startfinishbutton.innerHTML = 'Finish Shift';
+            shiftbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
+            shiftbutton.innerHTML = 'Finish Shift';
         } else {
-            startfinishbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
-            startfinishbutton.innerHTML = 'Start Shift';
+            shiftbutton.setAttribute('onclick', 'employeeStart(' + employeeId + ');');
+            shiftbutton.innerHTML = 'Start Shift';
         }
-        
-        
 
         if (employee.name) {
             employeename.classList.remove("invisible");
@@ -86,18 +83,18 @@ function getEmployeeDetails(employeeId) {
             starttime.classList.remove("invisible");
             finishtime.classList.remove("invisible");
             breaks.classList.remove("invisible");
-            startfinishbutton.classList.remove("invisible");
-            break10Button.classList.remove("invisible");
-            break30Button.classList.remove("invisible");
+            shiftbutton.classList.remove("invisible");
+            restButton.classList.remove("invisible");
+            mealButton.classList.remove("invisible");
         } else {
             employeename.classList.add("invisible");
             contact.classList.add("invisible");
             starttime.classList.add("invisible");
             finishtime.classList.add("invisible");
             breaks.classList.add("invisible");
-            startfinishbutton.classList.add("invisible");
-            break10Button.classList.add("invisible");
-            break30Button.classList.add("invisible");
+            shiftbutton.classList.add("invisible");
+            restButton.classList.add("invisible");
+            mealButton.classList.add("invisible");
         }
 
     });
