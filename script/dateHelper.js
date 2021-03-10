@@ -1,3 +1,8 @@
+function isString(s) {
+    return Object.prototype.toString.call(s) === "[object String]"
+}
+module.exports.isString = isString;
+
 function pad(i) {
     if (i < 10) {
       i = "0" + i;
