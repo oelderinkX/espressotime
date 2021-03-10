@@ -1,5 +1,6 @@
 var pg = require('pg');
 var common = require('./script/common.js');
+var common = require('./javascript/common.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -58,6 +59,9 @@ module.exports = function(app){
 		var employeeId = req.body.employeeId;
 		//var date = req.body.date;
 		var shopId = 1;
+		var dateFrom = getDate() + ' 00:00.00' ;
+		var dateTo = getDate() + ' 23:59.59';
+
 		
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
@@ -71,8 +75,6 @@ module.exports = function(app){
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
 				done();
-
-				console.log(sql);
 
 				var employee = {};
 
@@ -98,7 +100,7 @@ module.exports = function(app){
 						}
 
 						pool.connect(function(err, connection, done) {
-							connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, breaksResult) {
+							connection.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
 								done();
 
 								if (breaksResult && breaksResult.rowCount > 0) {
