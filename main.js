@@ -57,7 +57,6 @@ module.exports = function(app){
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
 		var employeeId = req.body.employeeId;
-		//var date = req.body.date;
 		var shopId = 1;
 		var dateFrom = dateHelper.getDate() + ' 00:00.00' ;
 		var dateTo = dateHelper.getDate() + ' 23:59.59';
@@ -67,8 +66,12 @@ module.exports = function(app){
 
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
 		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by starttime desc limit 1;";
+		console.log(sqlStartTime)
+		console.log(dateFrom)
+		console.log(dateTo)
 		
 		var sqlBreaks = "select time, breaktype from espresso.break where employeeid = $1 and time >= $2 and time <= $3;";
+
 
 
 		pool.connect(function(err, connection, done) {
