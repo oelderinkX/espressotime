@@ -67,10 +67,9 @@ module.exports = function(app){
 
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
 		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by starttime desc limit 1;";
-		//2021-03-10 00:00.00 to 2021-03-10 23:59.59
 		
 		var sqlBreaks = "select time, breaktype from espresso.break where employeeid = $1 and time >= $2 and time <= $3;";
-		//2021-03-10 00:00.00 to 2021-03-10 23:59.59
+
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
@@ -123,11 +122,10 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-		var date = req.body.date;
 		var startTime = req.body.startTime;
 		
-		var sql = "INSERT INTO espresso.start_finish (employeeid, date, starttime)";
-		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + startTime + ":00'";
+		var sql = "INSERT INTO espresso.start_finish (employeeid, starttime)";
+		sql += " SELECT '" + employeeId + "', " + startTime + ".00'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
 		console.log(sql);

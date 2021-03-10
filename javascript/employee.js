@@ -105,7 +105,7 @@ function employeeStart(employeeId) {
     var date = getDate();
     var startTime = getTime();
 
-    var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "startTime": startTime };
+    var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
 
     sendPost("/employeestart", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
