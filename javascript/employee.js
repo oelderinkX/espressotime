@@ -102,8 +102,7 @@ function getEmployeeDetails(employeeId) {
 
 function employeeStart(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
-    var date = getDate();
-    var startTime = getTime();
+    var startTime = getDate() + ' ' + getTime();
 
     var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
 
