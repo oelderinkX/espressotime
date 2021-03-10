@@ -125,7 +125,7 @@ module.exports = function(app){
 		var startTime = req.body.startTime;
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, starttime)";
-		sql += " SELECT '" + employeeId + "', " + startTime + ".00'";
+		sql += " SELECT '" + employeeId + "', '" + startTime + ".00'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
 		console.log(sql);
