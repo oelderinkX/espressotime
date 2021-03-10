@@ -59,36 +59,59 @@ module.exports = function(app){
 		//var date = req.body.date;
 		var shopId = 1;
 		
-		//var sql = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;"
-		var sql = "SELECT espresso.employee.id, espresso.employee.name, espresso.employee.contact, espresso.start_finish.starttime, espresso.start_finish.finishtime from espresso.employee";
-		sql += " left join espresso.start_finish on espresso.employee.id = espresso.start_finish.employeeid";
-		sql += " where espresso.employee.id = $1 and espresso.employee.shopid = $2";
-		sql += " order by espresso.start_finish.date desc limit 1;"
+		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
+
+		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
+		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by starttime desc limit 1;";
+		//2021-03-10 00:00.00 to 2021-03-10 23:59.59
+		
+		var sqlBreaks = "select time, breaktype from espresso.break where employeeid = $1 and time >= $2 and time <= $3;";
+		//2021-03-10 00:00.00 to 2021-03-10 23:59.59
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeId, shopId], function(err, result) {
+			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
 				done();
 
 				console.log(sql);
 
 				var employee = {};
 
-				if (err) {
-					console.error(err);
-				} else {
-					if (result && result.rowCount == 1) {
-						employee = {
-							id: result.rows[0].id,
-							name: result.rows[0].name,
-							contact: result.rows[0].contact,
-							starttime: result.rows[0].starttime,
-							finishtime: result.rows[0].finishtime,
-							breaks: []
-						};
-					}
+				if (employeeResult && employeeResult.rowCount == 1) {
+					employee = {
+						id: employeeResult.rows[0].id,
+						name: employeeResult.rows[0].name,
+						contact: employeeResult.rows[0].contact,
+						starttime: '',
+						finishtime: '',
+						breaks: []
+					};
 				}
 
-				res.send(employee);
+
+				pool.connect(function(err, connection, done) {
+					connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
+						done();
+
+						if (startFinishResult && startFinishResult.rowCount == 1) {
+							employee.starttime = startFinishResult.rows[0].starttime;
+							employee.finishtime = startFinishResult.rows[0].finishtime;
+						}
+
+						pool.connect(function(err, connection, done) {
+							connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, breaksResult) {
+								done();
+
+								if (breaksResult && breaksResult.rowCount > 0) {
+									for(var i = 0; i < breaksResult.rowCount; i++) {
+										employees.breaks.push({ time: breaksResult.rows[i].time, type: breaksResult.rows[i].breaktype });
+									}
+								}
+
+								res.send(employee);
+							});
+						});
+					});
+				});
 			});
 		});
 	});
