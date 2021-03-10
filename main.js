@@ -1,6 +1,6 @@
 var pg = require('pg');
 var common = require('./script/common.js');
-var jcommon = require('./javascript/common.js');
+var dateHelper = require('./script/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -59,8 +59,8 @@ module.exports = function(app){
 		var employeeId = req.body.employeeId;
 		//var date = req.body.date;
 		var shopId = 1;
-		var dateFrom = jcommon.getDate() + ' 00:00.00' ;
-		var dateTo = jcommon.getDate() + ' 23:59.59';
+		var dateFrom = dateHelper.getDate() + ' 00:00.00' ;
+		var dateTo = dateHelper.getDate() + ' 23:59.59';
 
 		
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
