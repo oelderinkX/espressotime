@@ -102,7 +102,7 @@ function getEmployeeDetails(employeeId) {
 
 function employeeStart(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
-    var startTime = getDate() + ' ' + getTime();
+    var startTime = getDbDate() + ' ' + getTime();
 
     var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
 
@@ -113,7 +113,7 @@ function employeeStart(employeeId) {
 
 function employeeFinish(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
-    var date = getDate();
+    var date = getDbDate();
     var finishTime = getTime();
 
     var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };

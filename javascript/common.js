@@ -44,6 +44,13 @@ function formatDate(d) {
   }
 }
 
+function getDbDate()
+{
+  var d = new Date();
+  d.setMonth(d.getMonth() + 1);
+  return formatDate(d);
+}
+
 function getDate() {
   var d = new Date();
   return formatDate(d);
