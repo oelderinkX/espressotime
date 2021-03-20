@@ -148,6 +148,20 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.add("invisible");
         }
 
+        if (!employee.starttime) {
+            restButton.classList.add("invisible");
+            mealButton.classList.add("invisible");
+        }
+
+        if (on10minBreak) {
+            shiftbutton.classList.add("invisible");
+            mealButton.classList.add("invisible");
+        }
+
+        if (on30minBreak) {
+            shiftbutton.classList.add("invisible");
+            restButton.classList.add("invisible");
+        }
     });
 }
 
