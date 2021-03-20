@@ -84,16 +84,16 @@ function getEmployeeDetails(employeeId) {
                 if (bStartTime) {
                     if (bFinishTime) {
                         if (bBreakType == 10) {
-                            breaks10mins += '(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
+                            breaks10mins += '(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
+                            breaks30mins += '(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         }
                     } else {
                         if (bBreakType == 10) {
-                            breaks10mins += '(Rest) ' + formatTime(bStartTime) + ' - ';
+                            breaks10mins += '(Rest) ' + formatTime(bStartTime) + ' - <br/>';
                             on10minBreak = true;
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(Meal) ' + formatTime(bStartTime) + ' - ';
+                            breaks30mins += '(Meal) ' + formatTime(bStartTime) + ' - <br/>';
                             on30minBreak = true;
                         }
                     }
@@ -101,7 +101,7 @@ function getEmployeeDetails(employeeId) {
             }
         }
 
-        breaks.innerHTML = 'Breaks: ' + breaks10mins + '<br/>' + breaks30mins;
+        breaks.innerHTML = 'Breaks: <br/>' + breaks10mins + '<br/>' + breaks30mins;
 
         if (employee.starttime) {
             shiftbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
