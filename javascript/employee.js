@@ -84,16 +84,16 @@ function getEmployeeDetails(employeeId) {
                 if (bStartTime) {
                     if (bFinishTime) {
                         if (bBreakType == 10) {
-                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest Break) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         } else if (bBreakType == 30) {
-                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal Break) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         }
                     } else {
                         if (bBreakType == 10) {
-                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest) ' + formatTime(bStartTime) + ' - <br/>';
+                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest Break) ' + formatTime(bStartTime) + ' - <br/>';
                             on10minBreak = true;
                         } else if (bBreakType == 30) {
-                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal) ' + formatTime(bStartTime) + ' - <br/>';
+                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal Break) ' + formatTime(bStartTime) + ' - <br/>';
                             on30minBreak = true;
                         }
                     }
