@@ -126,8 +126,6 @@ module.exports = function(app){
 		sql += " SELECT '" + employeeId + "', '" + startTime +"'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
-		console.log(sql);
-
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
 				done();
@@ -149,11 +147,17 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
+		var date = req.body.date;
 		var finishTime = req.body.finishTime;
 
-		var sql = "INSERT INTO espresso.start_finish (employeeid, finishtime)";
-		sql += " SELECT '" + employeeId + "', '" + finishTime +"'";
-		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
+		var dateFrom = date + ' 00:00:00' ;
+		var dateTo = date + ' 23:59:59';
+
+
+		var sql = "UPDATE espresso.start_finish SET finishtime = '" + finishTime + "'";
+		sql += " WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "' ORDER BY starttime desc limit 1;"
+
+		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
