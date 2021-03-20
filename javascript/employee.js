@@ -77,6 +77,8 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.innerHTML = 'Start Shift';
         }
 
+        restButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 10);');
+
         if (employee.name) {
             employeename.classList.remove("invisible");
             contact.classList.remove("invisible");
@@ -119,6 +121,27 @@ function employeeFinish(employeeId) {
     var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
 
     sendPost("/employeefinish", JSON.stringify(json), function(response) {
+        getEmployeeDetails(employeeId);
+    });
+}
+
+function employeeStartBreak(employeeId, breakType) {
+    var startTime = getDbFormat() + ' ' + getTime();
+
+    var json = { "employeeId": employeeId, "startTime": startTime, "breakType": breakType };
+
+    sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
+        getEmployeeDetails(employeeId);
+    });
+}
+
+function employeeFinishBreak(employeeId, breakType) {
+    var date = getDbFormat();
+    var finishTime = getDbFormat() + ' ' + getTime();
+
+    var json = { "employeeId": employeeId, "finishTime": finishTime, "breakType": breakType };
+
+    sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
     });
 }

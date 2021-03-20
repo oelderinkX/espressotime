@@ -176,15 +176,58 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/employeebreak', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
-		var pass = req.body.pass;
+	app.post('/employeebreakstart', jsonParser, function(req, res) {
+		var shopId = 1; //req.body.shopId;
 		var employeeId = req.body.employeeId;
-		var employeePin = req.body.employeePin;
-		var breakTime = req.body.breakTime;
+		var startTime = req.body.startTime;
+		var breakType = req.body.breakType;
 		
-		var result = { };
-		
-		res.send(employee);
+		var sql = "INSERT INTO espresso.break (employeeid, starttime, breakType)";
+		sql += " SELECT '" + employeeId + "', '" + startTime +"'" + "', '" + breakType +"'";
+		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "');"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
+
+	app.post('/employeebreakfinish', jsonParser, function(req, res) {
+		var shopId = 1; //req.body.shopId;
+		//var pass = req.body.pass;
+		var employeeId = req.body.employeeId;
+		var finishTime = req.body.finishTime;
+		var breakType = req.body.breakType;
+
+		var sql = "UPDATE espresso.break SET finishtime = '" + finishTime + "' WHERE id =";
+		sql += " (SELECT id FROM espresso.break WHERE employeeid = '" + employeeId + "' and breakType = '" + breakType + "' and starttime <= '" + dateTo + "'";
+		sql += " ORDER BY starttime DESC LIMIT 1);"
+
+		console.log(sql);
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
 	});
 }
