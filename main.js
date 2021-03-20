@@ -154,8 +154,9 @@ module.exports = function(app){
 		var dateTo = date + ' 23:59:59';
 
 
-		var sql = "UPDATE espresso.start_finish SET finishtime = '" + finishTime + "'";
-		sql += " WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "' ORDER BY starttime desc limit 1;"
+		var sql = "UPDATE espresso.start_finish SET finishtime = '" + finishTime + "' WHERE id =";
+		sql += " (SELECT id FROM espresso.start_finish WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "'";
+		sql += " ORDER BY starttime DESC LIMIT 1);"
 
 		console.log(sql);
 
