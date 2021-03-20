@@ -24,6 +24,14 @@ function pad(i) {
   }
   module.exports.formatDate = formatDate;
   
+function getDbFormat() {
+  var d = new Date();
+
+  return pad(d.getFullYear()) + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+module.exports.getDate = getDbFormat;
+
+
   function getDate() {
     var d = new Date();
     return formatDate(d);

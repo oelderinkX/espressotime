@@ -44,11 +44,11 @@ function formatDate(d) {
   }
 }
 
-function getDbDate()
+function getDbFormat()
 {
-  var d = new Date();
-  d.setMonth(d.getMonth() + 1);
-  return formatDate(d);
+  d = new Date(d);
+
+  return pad(d.getFullYear()) + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
 }
 
 function getDate() {
