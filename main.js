@@ -210,7 +210,7 @@ module.exports = function(app){
 		var breakType = req.body.breakType;
 
 		var sql = "UPDATE espresso.break SET finishtime = '" + finishTime + "' WHERE id =";
-		sql += " (SELECT id FROM espresso.break WHERE employeeid = '" + employeeId + "' and breakType = '" + breakType + "' and starttime <= '" + dateTo + "'";
+		sql += " (SELECT id FROM espresso.break WHERE employeeid = '" + employeeId + "' and breakType = '" + breakType + "' and starttime <= '" + finishTime + "'";
 		sql += " ORDER BY starttime DESC LIMIT 1);"
 
 		console.log(sql);
