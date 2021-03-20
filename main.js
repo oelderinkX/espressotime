@@ -149,11 +149,10 @@ module.exports = function(app){
 		//var pass = req.body.pass;
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
-		var date = req.body.date;
 		var finishTime = req.body.finishTime;
 
-		var sql = "INSERT INTO espresso.start_finish (employeeid, date, finishtime)";
-		sql += " SELECT '" + employeeId + "', '" + date + "', '" + date + " " + finishTime + ":00'";
+		var sql = "INSERT INTO espresso.start_finish (employeeid, finishtime)";
+		sql += " SELECT '" + employeeId + "', '" + finishTime +"'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
 
 		pool.connect(function(err, connection, done) {
