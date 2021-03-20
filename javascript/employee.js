@@ -162,6 +162,12 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
         }
+
+        if (employeeId != 0) {
+            window.setTimeout(function() {
+                window.location.href = "https://espressotime.herokuapp.com/";
+              }, 10000);
+        }
     });
 }
 
