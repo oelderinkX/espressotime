@@ -69,10 +69,6 @@ module.exports = function(app){
 		
 		var sqlBreaks = "select time, breaktype from espresso.break where employeeid = $1 and time >= $2 and time <= $3;";
 
-		console.log(dateFrom);
-		console.log(dateTo);
-		console.log(sqlStartTime);
-
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
 				done();

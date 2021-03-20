@@ -32,10 +32,19 @@ function pad(i) {
   return i;
 }
 
+function removeZuluTime(d)
+{
+  if (d) {
+    d = d.replace('Z', '');
+  }
+
+  return d;
+}
+
 function formatDate(d) {
   if (d) {
     if (isString(d)) {
-      d = new Date(d);
+      d = new Date();
     }
 
     return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
@@ -59,7 +68,7 @@ function getDate() {
 function formatTime(d) {
   if (d) {
     if (isString(d)) {
-      d = new Date(d);
+      d = new Date(removeZuluTime(d));
     }
     return pad(d.getHours()) + ':' + pad(d.getMinutes());
   } else {

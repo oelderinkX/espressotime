@@ -11,6 +11,16 @@ function pad(i) {
   }
   module.exports.pad = pad;
   
+function removeZuluTime(d)
+{
+  if (d) {
+    d = d.replace('Z', '');
+  }
+  
+  return d;
+}
+module.exports.removeZuluTime = removeZuluTime;
+
   function formatDate(d) {
     if (d) {
       if (isString(d)) {
@@ -41,7 +51,7 @@ module.exports.getDbFormat = getDbFormat;
   function formatTime(d) {
     if (d) {
       if (isString(d)) {
-        d = new Date(d);
+        d = new Date(removeZuluTime(d));
       }
       return pad(d.getHours()) + ':' + pad(d.getMinutes());
     } else {
