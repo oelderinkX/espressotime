@@ -114,7 +114,7 @@ function employeeStart(employeeId) {
 function employeeFinish(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
     var date = getDbFormat();
-    var finishTime = getTime();
+    var finishTime = getDbFormat() + ' ' + getTime();
 
     var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
 
