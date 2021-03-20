@@ -84,16 +84,16 @@ function getEmployeeDetails(employeeId) {
                 if (bStartTime) {
                     if (bFinishTime) {
                         if (bBreakType == 10) {
-                            breaks10mins += '(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         }
                     } else {
                         if (bBreakType == 10) {
-                            breaks10mins += '(Rest) ' + formatTime(bStartTime) + ' - <br/>';
+                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest) ' + formatTime(bStartTime) + ' - <br/>';
                             on10minBreak = true;
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(Meal) ' + formatTime(bStartTime) + ' - <br/>';
+                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal) ' + formatTime(bStartTime) + ' - <br/>';
                             on30minBreak = true;
                         }
                     }
@@ -103,7 +103,7 @@ function getEmployeeDetails(employeeId) {
 
         breaks.innerHTML = 'Breaks: <br/>' + breaks10mins + '<br/>' + breaks30mins;
 
-        if (employee.starttime) {
+        if (employee.starttime && !employee.finishtime) {
             shiftbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
             shiftbutton.innerHTML = 'Finish Shift';
         } else {
