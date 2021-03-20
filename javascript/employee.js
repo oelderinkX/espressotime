@@ -84,16 +84,16 @@ function getEmployeeDetails(employeeId) {
                 if (bStartTime) {
                     if (bFinishTime) {
                         if (bBreakType == 10) {
-                            breaks10mins += '(10) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
+                            breaks10mins += '(Rest) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(30) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
+                            breaks30mins += '(Meal) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins ';
                         }
                     } else {
                         if (bBreakType == 10) {
-                            breaks10mins += '(10) ' + formatTime(bStartTime) + ' - ';
+                            breaks10mins += '(Rest) ' + formatTime(bStartTime) + ' - ';
                             on10minBreak = true;
                         } else if (bBreakType == 30) {
-                            breaks30mins += '(30) ' + formatTime(bStartTime) + ' - ';
+                            breaks30mins += '(Meal) ' + formatTime(bStartTime) + ' - ';
                             on30minBreak = true;
                         }
                     }
