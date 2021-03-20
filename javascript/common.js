@@ -86,8 +86,7 @@ function getBreakMinutes(d1, d2) {
   var finish = new Date(d2);
 
   var diffInMilliseconds = Math.abs(start - finish);
-  var minutes = Math.floor(diffInMilliseconds / 60) % 60;
-  diffInMilliseconds -= minutes * 60;
+  var minutes = Math.floor(diffInMilliseconds / 1000 / 60);
 
   return minutes;
 }
