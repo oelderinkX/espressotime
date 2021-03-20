@@ -80,7 +80,18 @@ function getTime() {
   var d = new Date();
   return formatTime(d);
 }
-  
+
+function getBreakMinutes(d1, d2) {
+  var start = new Date(d1);
+  var finish = new Date(d2);
+
+  var diffInMilliseconds = Math.abs(start - finish);
+  var minutes = Math.floor(diffInMilliseconds / 60) % 60;
+  diffInMilliseconds -= minutes * 60;
+
+  return minutes;
+}
+
 function sendPost(url, data, callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", url, true);

@@ -67,7 +67,34 @@ function getEmployeeDetails(employeeId) {
         contact.innerHTML = 'Contact: ' + employee.contact;
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
         finishtime.innerHTML = 'Finish time: ' + formatTime(employee.finishtime);
-        breaks.innerHTML = 'Breaks: ' + employee.breaks;
+
+        var breaks10mins = '';
+        var breaks30mins = '';
+
+        for(var i = 0; i < employee.breaks.length; i++)
+        {
+            var bStartTime = employee.breaks[i].startTime;
+            var bFinishTime = employee.breaks[i].finishTime;
+            var bBreakType = employee.breaks[i].breakType;
+
+            if (bStartTime) {
+                if (bFinishTime) {
+                    if (bBreakType == 10) {
+                        breaks10mins += '(10)' + getBreakMinutes(bStartTime, bFinishTime) + ' ';
+                    } else if (bBreakType == 30) {
+                        breaks30mins += '(30)' + getBreakMinutes(bStartTime, bFinishTime) + ' ';
+                    }
+                } else {
+                    if (bBreakType == 10) {
+                        breaks10mins += '(10)' + formatTime(bStartTime) + ' ';
+                    } else if (bBreakType == 30) {
+                        breaks30mins += '(30)' + formatTime(bStartTime) + ' ';
+                    }
+                }
+            }
+        }
+
+        breaks.innerHTML = 'Breaks: ' + breaks10mins + '<br/>' + breaks30mins;
 
         if (employee.starttime) {
             shiftbutton.setAttribute('onclick', 'employeeFinish(' + employeeId + ');');
