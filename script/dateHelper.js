@@ -29,7 +29,7 @@ function getDbFormat() {
 
   return pad(d.getFullYear()) + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
 }
-module.exports.getDate = getDbFormat;
+module.exports.getDbFormat = getDbFormat;
 
 
   function getDate() {
