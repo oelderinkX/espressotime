@@ -71,6 +71,10 @@ function getEmployeeDetails(employeeId) {
         var breaks10mins = '';
         var breaks30mins = '';
 
+        var on10minBreak = false;
+        var on30minBreak = false;
+
+
         if (employee.breaks) {
             for(var i = 0; i < employee.breaks.length; i++) {
                 var bStartTime = employee.breaks[i].startTime;
@@ -87,8 +91,10 @@ function getEmployeeDetails(employeeId) {
                     } else {
                         if (bBreakType == 10) {
                             breaks10mins += '(10)' + formatTime(bStartTime) + ' - ';
+                            on10minBreak = true;
                         } else if (bBreakType == 30) {
                             breaks30mins += '(30)' + formatTime(bStartTime) + ' - ';
+                            on30minBreak = true;
                         }
                     }
                 }
@@ -105,7 +111,22 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.innerHTML = 'Start Shift';
         }
 
-        restButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 10);');
+        if (on10minBreak) {
+            restButton.setAttribute('onclick', 'employeeFinishBreak(' + employeeId + ', 10);');
+            restButton.innerHTML = 'Finish 10min Break';
+        } else {
+            restButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 10);');
+            restButton.innerHTML = 'Start 10min Break';
+        }
+
+        if (on30minBreak) {
+            mealButton.setAttribute('onclick', 'employeeFinishBreak(' + employeeId + ', 30);');
+            mealButton.innerHTML = 'Finish 30min Break';;
+        } else {
+            mealButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 30);');
+            mealButton.innerHTML = 'Start 30min Break';;
+        }
+
 
         if (employee.name) {
             employeename.classList.remove("invisible");
