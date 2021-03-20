@@ -183,7 +183,7 @@ module.exports = function(app){
 		var breakType = req.body.breakType;
 		
 		var sql = "INSERT INTO espresso.break (employeeid, starttime, breakType)";
-		sql += " SELECT '" + employeeId + "', '" + startTime +"'" + "', '" + breakType +"'";
+		sql += " SELECT '" + employeeId + "', '" + startTime + "', " + "'" + breakType + "'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "');"
 
 		pool.connect(function(err, connection, done) {
