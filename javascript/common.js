@@ -46,7 +46,7 @@ function formatDate(d) {
 
 function getDbFormat()
 {
-  d = new Date(d);
+  var d = new Date();
 
   return pad(d.getFullYear()) + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
 }
