@@ -102,7 +102,7 @@ module.exports = function(app){
 
 								if (breaksResult && breaksResult.rowCount > 0) {
 									for(var i = 0; i < breaksResult.rowCount; i++) {
-										employees.breaks.push({ time: breaksResult.rows[i].time, type: breaksResult.rows[i].breaktype });
+										employees.breaks.push({ time: breaksResult.rows[i].starttime, type: breaksResult.rows[i].breaktype });
 									}
 								}
 
