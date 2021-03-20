@@ -67,7 +67,7 @@ module.exports = function(app){
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
 		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by starttime desc limit 1;";
 		
-		var sqlBreaks = "select time, breaktype from espresso.break where employeeid = $1 and time >= $2 and time <= $3;";
+		var sqlBreaks = "select starttime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
