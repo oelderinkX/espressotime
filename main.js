@@ -36,7 +36,7 @@ module.exports = function(app){
 		var shopId = 1;
 		var pass = req.body.pass;
 		
-		var sql = "SELECT id, name from espresso.employee where shopid = $1;"
+		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -60,7 +60,6 @@ module.exports = function(app){
 		var shopId = 1;
 		var dateFrom = dateHelper.getDbFormat() + ' 00:00:00' ;
 		var dateTo = dateHelper.getDbFormat() + ' 23:59:59';
-
 		
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
