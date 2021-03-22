@@ -166,7 +166,7 @@ function getEmployeeDetails(employeeId) {
         if (employeeId != 0) {
             window.setTimeout(function() {
                 window.location.href = "https://espressotime.herokuapp.com/";
-              }, 10000);
+              }, 60000);
         }
     });
 }
