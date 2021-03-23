@@ -15,7 +15,7 @@ function clock() {
         h = h - 12;
     }
 
-    document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm;
+    document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
 
     t = setTimeout(function() {
       clock()
@@ -129,7 +129,6 @@ function getEmployeeDetails(employeeId) {
             mealButton.innerHTML = 'Start 30min Break';;
         }
 
-
         if (employee.name) {
             employeename.classList.remove("invisible");
             contact.classList.remove("invisible");
@@ -152,17 +151,23 @@ function getEmployeeDetails(employeeId) {
 
         if (!employee.starttime) {
             restButton.classList.add("disabled");
+            restButton.removeAttribute('onclick');
             mealButton.classList.add("disabled");
+            mealButton.removeAttribute('onclick');
         }
 
         if (on10minBreak) {
             shiftbutton.classList.add("disabled");
+            shiftbutton.removeAttribute('onclick');
             mealButton.classList.add("disabled");
+            mealButton.removeAttribute('onclick');
         }
 
         if (on30minBreak) {
             shiftbutton.classList.add("disabled");
+            shiftbutton.removeAttribute('onclick');
             restButton.classList.add("disabled");
+            restButton.removeAttribute('onclick');
         }
 
         if (employeeId != 0) {
