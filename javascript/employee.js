@@ -151,18 +151,18 @@ function getEmployeeDetails(employeeId) {
         }
 
         if (!employee.starttime) {
-            restButton.classList.add("invisible");
-            mealButton.classList.add("invisible");
+            restButton.classList.add("disabled");
+            mealButton.classList.add("disabled");
         }
 
         if (on10minBreak) {
-            shiftbutton.classList.add("invisible");
-            mealButton.classList.add("invisible");
+            shiftbutton.classList.add("disabled");
+            mealButton.classList.add("disabled");
         }
 
         if (on30minBreak) {
-            shiftbutton.classList.add("invisible");
-            restButton.classList.add("invisible");
+            shiftbutton.classList.add("disabled");
+            restButton.classList.add("disabled");
         }
 
         if (employeeId != 0) {
