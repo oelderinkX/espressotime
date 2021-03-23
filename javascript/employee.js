@@ -1,3 +1,5 @@
+var backToMainTimer;
+
 function clock() {
     var today = new Date();
     var h = today.getHours();
@@ -164,7 +166,8 @@ function getEmployeeDetails(employeeId) {
         }
 
         if (employeeId != 0) {
-            window.setTimeout(function() {
+            window.clearTimeout(backToMainTimer);
+            backToMainTimer = window.setTimeout(function() {
                 window.location.href = "https://espressotime.herokuapp.com/";
               }, 60000);
         }
