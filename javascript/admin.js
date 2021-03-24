@@ -68,7 +68,7 @@ function getEmployees() {
         var input1 = document.createElement('input');
         input1.setAttribute('type', 'text');
         input1.setAttribute('id', 'name0');
-        input1.setAttribute('value0');
+        input1.setAttribute('value', '');
         td1.appendChild(input1);
 
         var td2 = document.createElement('td');
