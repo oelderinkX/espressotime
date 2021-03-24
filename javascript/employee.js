@@ -132,7 +132,7 @@ function getEmployeeDetails(employeeId) {
             mealButton.innerHTML = 'Start 30min Break';;
         }
 
-        if (employee.starttime && && !employee.finishtime) {
+        if (employee.starttime && !employee.finishtime) {
             restButton.classList.remove("disabled");
             restButton.setAttribute('onclick', restButtonAttribute);
             mealButton.classList.remove("disabled");
