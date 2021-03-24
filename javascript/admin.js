@@ -36,7 +36,7 @@ function getEmployees() {
             var input4 = document.createElement('input');
             input4.setAttribute('type', 'checkbox');
             input4.setAttribute('id', 'ex' + employees[i].id);
-            input4.setAttribute('value', employees[i].ex);
+            input4.setAttribute('checked', employees[i].ex);
             td4.appendChild(input4);
 
             var td5 = document.createElement('td');
@@ -89,7 +89,7 @@ function getEmployees() {
         var input4 = document.createElement('input');
         input4.setAttribute('type', 'checkbox');
         input4.setAttribute('id', 'ex0');
-        input4.setAttribute('value', '');
+        input4.setAttribute('checked', 'false');
         td4.appendChild(input4);
 
         var td5 = document.createElement('td');
