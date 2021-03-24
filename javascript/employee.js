@@ -136,7 +136,7 @@ function getEmployeeDetails(employeeId) {
             restButton.classList.remove("disabled");
             restButton.setAttribute('onclick', restButtonAttribute);
             mealButton.classList.remove("disabled");
-            mealButton.setAttribute('onclick', restButtonAttribute);
+            mealButton.setAttribute('onclick', mealButtonAttribute);
         } else {
             restButton.classList.add("disabled");
             restButton.removeAttribute('onclick');
