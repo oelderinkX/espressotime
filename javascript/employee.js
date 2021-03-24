@@ -149,7 +149,12 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.add("invisible");
         }
 
-        if (!employee.starttime) {
+        if (employee.starttime) {
+            restButton.classList.remove("disabled");
+            restButton.removeAttribute('onclick');
+            mealButton.classList.remove("disabled");
+            mealButton.removeAttribute('onclick');
+        } else {
             restButton.classList.add("disabled");
             restButton.removeAttribute('onclick');
             mealButton.classList.add("disabled");
