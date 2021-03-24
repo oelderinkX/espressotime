@@ -113,20 +113,49 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.innerHTML = 'Start Shift';
         }
 
+        var restButtonAttribute = '';
+        var mealButtonAttribute = '';
+
         if (on10minBreak) {
-            restButton.setAttribute('onclick', 'employeeFinishBreak(' + employeeId + ', 10);');
+            restButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 10);';
             restButton.innerHTML = 'Finish 10min Break';
         } else {
-            restButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 10);');
+            restButtonAttribute = 'employeeStartBreak(' + employeeId + ', 10);';
             restButton.innerHTML = 'Start 10min Break';
         }
 
         if (on30minBreak) {
-            mealButton.setAttribute('onclick', 'employeeFinishBreak(' + employeeId + ', 30);');
+            mealButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 30);';
             mealButton.innerHTML = 'Finish 30min Break';;
         } else {
-            mealButton.setAttribute('onclick', 'employeeStartBreak(' + employeeId + ', 30);');
+            mealButtonAttribute = 'employeeStartBreak(' + employeeId + ', 30);';
             mealButton.innerHTML = 'Start 30min Break';;
+        }
+
+        if (employee.starttime) {
+            restButton.classList.remove("disabled");
+            restButton.setAttribute('onclick', restButtonAttribute);
+            mealButton.classList.remove("disabled");
+            mealButton.setAttribute('onclick', restButtonAttribute);
+        } else {
+            restButton.classList.add("disabled");
+            restButton.removeAttribute('onclick');
+            mealButton.classList.add("disabled");
+            mealButton.removeAttribute('onclick');
+        }
+
+        if (on10minBreak) {
+            shiftbutton.classList.add("disabled");
+            shiftbutton.removeAttribute('onclick');
+            mealButton.classList.add("disabled");
+            mealButton.removeAttribute('onclick');
+        }
+
+        if (on30minBreak) {
+            shiftbutton.classList.add("disabled");
+            shiftbutton.removeAttribute('onclick');
+            restButton.classList.add("disabled");
+            restButton.removeAttribute('onclick');
         }
 
         if (employee.name) {
@@ -147,32 +176,6 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
             mealButton.classList.add("invisible");
-        }
-
-        if (employee.starttime) {
-            restButton.classList.remove("disabled");
-            restButton.removeAttribute('onclick');
-            mealButton.classList.remove("disabled");
-            mealButton.removeAttribute('onclick');
-        } else {
-            restButton.classList.add("disabled");
-            restButton.removeAttribute('onclick');
-            mealButton.classList.add("disabled");
-            mealButton.removeAttribute('onclick');
-        }
-
-        if (on10minBreak) {
-            shiftbutton.classList.add("disabled");
-            shiftbutton.removeAttribute('onclick');
-            mealButton.classList.add("disabled");
-            mealButton.removeAttribute('onclick');
-        }
-
-        if (on30minBreak) {
-            shiftbutton.classList.add("disabled");
-            shiftbutton.removeAttribute('onclick');
-            restButton.classList.add("disabled");
-            restButton.removeAttribute('onclick');
         }
 
         if (employeeId != 0) {
