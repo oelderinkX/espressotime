@@ -1,5 +1,5 @@
 function getEmployees() {
-    sendPost("/getemployees", '', function(response) {
+    sendPost("/admin_getemployees", '', function(response) {
         var employees = JSON.parse(response);
 
         var employeelist = document.getElementById('employeelist');
@@ -55,5 +55,57 @@ function getEmployees() {
 
             employeelist.appendChild(tr);
         }
+
+
+        //Add new!
+        var tr = document.createElement("tr");
+
+        var th = document.createElement('th');
+        th.setAttribute('scope', 'row');
+        th.innerHTML = '0';
+
+        var td1 = document.createElement('td');
+        var input1 = document.createElement('input');
+        input1.setAttribute('type', 'text');
+        input1.setAttribute('id', 'name0');
+        input1.setAttribute('value0');
+        td1.appendChild(input1);
+
+        var td2 = document.createElement('td');
+        var input2 = document.createElement('input');
+        input2.setAttribute('type', 'text');
+        input2.setAttribute('id', 'contact0');
+        input2.setAttribute('value', '');
+        td2.appendChild(input2);
+
+        var td3 = document.createElement('td');
+        var input3 = document.createElement('input');
+        input3.setAttribute('type', 'text');
+        input3.setAttribute('id', 'pin0');
+        input3.setAttribute('value', '');
+        td3.appendChild(input3);
+
+        var td4 = document.createElement('td');
+        var input4 = document.createElement('input');
+        input4.setAttribute('type', 'checkbox');
+        input4.setAttribute('id', 'ex0');
+        input4.setAttribute('value', '');
+        td4.appendChild(input4);
+
+        var td5 = document.createElement('td');
+        var input5 = document.createElement('input');
+        input5.setAttribute('type', 'button');
+        input5.setAttribute('value', 'Add');
+        input5.setAttribute('onclick', 'alert("Add to DB"');
+        td5.appendChild(input5);
+
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+
+        employeelist.appendChild(tr);
     });
 }

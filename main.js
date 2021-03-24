@@ -36,7 +36,7 @@ module.exports = function(app){
 		var shopId = 1;
 		var pass = req.body.pass;
 		
-		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1 and ex = false;"
+		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -47,10 +47,7 @@ module.exports = function(app){
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
 						employees.push({	id: result.rows[i].id,
-											name: result.rows[i].name,
-											contact: result.rows[i].contact,
-											pin: result.rows[i].pin,
-											ex: result.rows[i].ex,
+											name: result.rows[i].name
 										});
 					}
 				}
