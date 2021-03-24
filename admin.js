@@ -32,7 +32,7 @@ module.exports = function(app){
 		var shopId = 1;
 		var pass = req.body.pass;
 		
-		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1 and ex = true;"
+		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
