@@ -52,7 +52,9 @@ function getEmployees() {
 }
 
 function getEmployeeDetails(employeeId) {
-    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '" }', function(response) {
+    var date = getDbFormat();
+
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
         var employee = JSON.parse(response);
 
         var employeename = document.getElementById("employeename");

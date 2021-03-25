@@ -60,14 +60,9 @@ module.exports = function(app){
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
 		var employeeId = req.body.employeeId;
 		var shopId = 1;
-		var dateFrom = dateHelper.getDbFormat() + ' 00:00:00' ;
-		var dateTo = dateHelper.getDbFormat() + ' 23:59:59';
+		var dateFrom = req.body.date + ' 00:00:00' ;
+		var dateTo = req.body.date + ' 23:59:59';
 		
-		console.log('****');
-		console.log(dateFrom);
-		console.log(dateTo);
-		console.log('****');
-
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
