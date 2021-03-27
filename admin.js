@@ -83,10 +83,10 @@ module.exports = function(app){
 		var dateTo = req.body.dateTo; //'2021-03-27 23:59:59'
 		
 		var sql = "select employee.name as name, start_finish.employeeid as id, start_finish.starttime as starttime, start_finish.finishtime as finishtime";
-		sql = " from espresso.start_finish";
-		sql = " INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
-		sql = " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3;"
-		sql = " order by start_finish.employeeid, start_finish.starttime";
+		sql += " from espresso.start_finish";
+		sql += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
+		sql += " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3;"
+		sql += " order by start_finish.employeeid, start_finish.starttime";
 
 		console.log(sql);
 		console.log(dateFrom);
