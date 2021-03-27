@@ -109,7 +109,7 @@ function getEmployees() {
     });
 }
 
-function getEmployees() {
+function getSchedule() {
     sendPost("/admin_getschedule", '', function(response) {
         var employees = JSON.parse(response);
 
