@@ -9,6 +9,9 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 var adminPage = fs.readFileSync(__dirname + "/webpage/admin.html", "utf8");
+var employeeListEditPage = fs.readFileSync(__dirname + "/webpage/employeelistedit.html", "utf8");
+var timesheetPage = fs.readFileSync(__dirname + "/webpage/timesheet.html", "utf8");
+var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
@@ -19,8 +22,24 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 
-	app.post('/admin', urlencodedParser, function(req, res) {
-		var webpage = adminPage;
+	app.get('/employeelistedit', urlencodedParser, function(req, res) {
+		var webpage = employeeListEditPage;
+	
+		// if shop and password missing, just say you should go through other page and redirect to there
+
+		res.send(webpage);
+	});	
+
+	app.get('/timesheet', urlencodedParser, function(req, res) {
+		var webpage = timesheetPage;
+	
+		// if shop and password missing, just say you should go through other page and redirect to there
+
+		res.send(webpage);
+	});	
+
+	app.get('/shop', urlencodedParser, function(req, res) {
+		var webpage = shopPage;
 	
 		// if shop and password missing, just say you should go through other page and redirect to there
 
