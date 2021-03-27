@@ -74,4 +74,35 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/admin_getschedule', jsonParser, function(req, res) {
+		//var shopId = req.body.shopId;
+		var shopId = 1;
+		var pass = req.body.pass;
+		var dateFrom = req.body.dateFrom;
+		var dateTo = req.body.dateTo;
+		
+		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1;"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var employees = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						employees.push({	id: result.rows[i].id,
+											name: result.rows[i].name,
+											contact: result.rows[i].contact,
+											pin: result.rows[i].pin,
+											ex: result.rows[i].ex,
+										});
+					}
+				}
+					
+				res.send(employees);
+			});
+		});
+	});
 }

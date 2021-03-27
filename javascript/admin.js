@@ -1,3 +1,6 @@
+var scheduleStart = new Date();
+var scheduleEnd = new Date();
+
 function getEmployees() {
     sendPost("/admin_getemployees", '', function(response) {
         var employees = JSON.parse(response);
@@ -218,4 +221,25 @@ function getSchedule() {
 
         employeelist.appendChild(tr);
     });
+
+    function getScheduleDates() {
+        var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+        var scheduleDate = document.getElementById("scheduleDate");
+        var d = new Date();
+        var day = d.getDay();
+
+        if (day == 0) {
+            d.setDate( d.getDate() - 6 );
+        } else {
+            d.setDate( d.getDate() - day - 1 );
+        }
+
+        scheduleStart.setDate(d.getDate());
+        scheduleEnd.setDate(d.getDate() + 6);
+
+        var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + scheduleStart.getFullYear();
+        var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + scheduleEnd.getFullYear();;
+        scheduleDate.innerHTML = ' ' + from + ' - ' + to + ' ';
+    }
 }
