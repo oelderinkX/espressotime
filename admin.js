@@ -79,24 +79,27 @@ module.exports = function(app){
 		//var shopId = req.body.shopId;
 		var shopId = 1;
 		var pass = req.body.pass;
-		var dateFrom = req.body.dateFrom;
-		var dateTo = req.body.dateTo;
+		var dateFrom = req.body.dateFrom; //'2021-03-22 00:00:00'
+		var dateTo = req.body.dateTo; //'2021-03-27 23:59:59'
 		
-		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1;"
+		var sql = "select employee.name, start_finish.employeeid, start_finish.starttime, start_finish.finishtime";
+		sql = "from espresso.start_finish";
+		sql = "INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
+		sql = "where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3;"
+		sql = "order by start_finish.employeeid, start_finish.starttime";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [dateFrom, dateTo, shopId], function(err, result) {
 				done();
 
-				var employees = [];
+				var schedule = [];
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						employees.push({	id: result.rows[i].id,
-											name: result.rows[i].name,
-											contact: result.rows[i].contact,
-											pin: result.rows[i].pin,
-											ex: result.rows[i].ex,
+						schedule.push({	name: result.rows[i].name,
+											id: result.rows[i].employeeid,
+											starttime: result.rows[i].starttime,
+											finishtime: result.rows[i].finishtime
 										});
 					}
 				}

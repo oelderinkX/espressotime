@@ -113,8 +113,11 @@ function getEmployees() {
 }
 
 function getSchedule() {
-    sendPost("/admin_getschedule", '', function(response) {
-        var employees = JSON.parse(response);
+    var dateFrom = getDbFormat(scheduleStart) + ' 00:00:00';
+    var dateTo = getDbFormat(scheduleEnd) + ' 23:59:59';
+    
+    sendPost("/admin_getschedule", '{ "dateFrom": "' + dateFrom +  '", "dateTo": "'  + dateTo + '" }', function(response) {
+        var schedule = JSON.parse(response);
 
         var employeelist = document.getElementById('employeelist');
 
@@ -238,6 +241,6 @@ function getScheduleDates() {
     scheduleEnd.setDate(scheduleStart.getDate() + 6);
 
     var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
-    var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();;
+    var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();
     scheduleDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
 }

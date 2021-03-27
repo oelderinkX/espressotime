@@ -53,9 +53,11 @@ function formatDate(d) {
   }
 }
 
-function getDbFormat()
+function getDbFormat(d)
 {
-  var d = new Date();
+  if (!d) {
+    var d = new Date();
+  }
 
   return pad(d.getFullYear()) + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
 }
