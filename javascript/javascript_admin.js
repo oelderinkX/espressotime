@@ -231,15 +231,13 @@ function getScheduleDates() {
     var day = d.getDay();
 
     if (day == 0) {
-        d.setDate( d.getDate() - 6 );
+        scheduleStart.setDate( d.getDate() - 6 );
     } else {
-        d.setDate( d.getDate() - day - 1 );
+        scheduleStart.setDate( d.getDate() - (day - 1) );
     }
+    scheduleEnd.setDate(scheduleStart.getDate() + 6);
 
-    scheduleStart.setDate(d.getDate());
-    scheduleEnd.setDate(d.getDate() + 6);
-
-    var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + scheduleStart.getFullYear();
-    var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + scheduleEnd.getFullYear();;
-    scheduleDate.innerHTML = ' ' + from + ' - ' + to + ' ';
+    var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
+    var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();;
+    scheduleDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
 }
