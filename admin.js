@@ -104,7 +104,7 @@ module.exports = function(app){
 					}
 				}
 					
-				res.send(employees);
+				res.send(schedule);
 			});
 		});
 	});
