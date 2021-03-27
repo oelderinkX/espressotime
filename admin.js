@@ -88,11 +88,6 @@ module.exports = function(app){
 		sql += " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3"
 		sql += " order by start_finish.employeeid, start_finish.starttime";
 
-		console.log(sql);
-		console.log(dateFrom);
-		console.log(dateTo);
-		console.log(1);
-
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [dateFrom, dateTo, shopId], function(err, result) {
 				done();
