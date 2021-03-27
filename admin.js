@@ -88,19 +88,28 @@ module.exports = function(app){
 		sql = " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3;"
 		sql = " order by start_finish.employeeid, start_finish.starttime";
 
+		console.log(sql);
+		console.log(dateFrom);
+		console.log(dateTo);
+		console.log(1);
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [dateFrom, dateTo, shopId], function(err, result) {
 				done();
 
 				var schedule = [];
 
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						schedule.push({	name: result.rows[i].name,
-											id: result.rows[i].id,
-											starttime: result.rows[i].starttime,
-											finishtime: result.rows[i].finishtime
-										});
+				if (err) {
+					schedule.push({error: err});
+				} else {
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							schedule.push({	name: result.rows[i].name,
+												id: result.rows[i].id,
+												starttime: result.rows[i].starttime,
+												finishtime: result.rows[i].finishtime
+											});
+						}
 					}
 				}
 					
