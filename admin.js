@@ -144,10 +144,10 @@ module.exports = function(app){
 						for(var i = 0; i < allBreaks.length; i++) {
 							for(var x = 0; x < schedule.length; x++) {
 								var breakDate = new Date(allBreaks[i].starttime);
-								var scheduleDate = new Date(schedule[i].starttime);
+								var scheduleDate = new Date(schedule[x].starttime);
 
-								console.log(allBreaks[i].employeeid + ' == ' +  schedule[i].id + ' ? ');
-								var equal1 = allBreaks[i].employeeid == schedule[i].id;
+								console.log(allBreaks[i].employeeid + ' == ' +  schedule[x].id + ' ? ');
+								var equal1 = allBreaks[i].employeeid == schedule[x].id;
 								console.log(equal1);
 								console.log('');
 								console.log(dateHelper.getDbFormat(breakDate) + ' == ' +  dateHelper.getDbFormat(scheduleDate) + ' ? ');
@@ -155,10 +155,10 @@ module.exports = function(app){
 								console.log(equal2);
 								console.log('');
 								console.log('');
-								
-								if (allBreaks[i].employeeid == schedule[i].id) {
+
+								if (allBreaks[i].employeeid == schedule[x].id) {
 									if (dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate)) {
-										schedule[i].breaks.push({	employeeid: allBreaks[i].employeeid,
+										schedule[x].breaks.push({	employeeid: allBreaks[i].employeeid,
 																	starttime: allBreaks[i].starttime,
 																	finishtime: allBreaks[i].finishtime,
 																	breaktype: allBreaks[i].breaktype,
