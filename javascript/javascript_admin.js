@@ -180,8 +180,16 @@ function getSchedule() {
             var sunday = document.createElement('td');
             sunday.innerHTML = calculateHours(scheduleDays[i].sunday);
 
+            var totalMinutes = scheduleDays[i].monday
+                                + scheduleDays[i].tuesday
+                                + scheduleDays[i].wednesday
+                                + scheduleDays[i].thursday
+                                + scheduleDays[i].friday
+                                + scheduleDays[i].saturday
+                                + scheduleDays[i].sunday;
+
             var total = document.createElement('td');
-            total.innerHTML = '0';
+            total.innerHTML = calculateHours(totalMinutes);
 
             tr.appendChild(name);
             tr.appendChild(monday);

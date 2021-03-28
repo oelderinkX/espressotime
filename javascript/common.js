@@ -97,7 +97,7 @@ function calculateHours(minutes) {
     if (minutes == 0) {
       return 0;
     } else {
-      const precision2 = Math.pow(10, 2);
+      const precision2 = Math.pow(10, 1);
       return Math.round((minutes / 60) * precision2) / precision2;
     }
 }
