@@ -107,8 +107,24 @@ module.exports = function(app){
 						}
 					}
 				}
-					
-				res.send(schedule);
+				
+				var sql2 = "select employeeid, starttime, finishtime, breaktype from espresso.break";
+				sql2 += " from espresso.start_finish";
+				sql2 += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
+				sql2 += " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3";
+
+				console.log(sql2);
+				console.log(dateFrom);
+				console.log(dateTo);
+				console.log(shopId);
+
+				pool.connect(function(err, connection, done) {
+					connection.query(sql2, [dateFrom, dateTo, shopId], function(err, result) {
+						done();
+
+						res.send(schedule);
+					});
+				});
 			});
 		});
 	});
