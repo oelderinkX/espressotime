@@ -83,7 +83,7 @@ function getTime() {
   return formatTime(d);
 }
 
-function getBreakMinutes(d1, d2) {
+function calculateMinutes(d1, d2) {
   var start = new Date(d1);
   var finish = new Date(d2);
 

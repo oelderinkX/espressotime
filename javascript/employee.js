@@ -88,9 +88,9 @@ function getEmployeeDetails(employeeId) {
                 if (bStartTime) {
                     if (bFinishTime) {
                         if (bBreakType == 10) {
-                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest Break) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks10mins += '&nbsp;&nbsp;&nbsp;(Rest Break) ' + calculateMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         } else if (bBreakType == 30) {
-                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal Break) ' + getBreakMinutes(bStartTime, bFinishTime) + 'mins <br/>';
+                            breaks30mins += '&nbsp;&nbsp;&nbsp;(Meal Break) ' + calculateMinutes(bStartTime, bFinishTime) + 'mins <br/>';
                         }
                     } else {
                         if (bBreakType == 10) {
