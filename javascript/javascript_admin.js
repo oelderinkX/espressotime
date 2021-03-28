@@ -128,26 +128,27 @@ function getSchedule() {
             if (!scheduleDays[schedule[i].id])
             {
                 scheduleDays[schedule[i].id] = { name: schedule[i].name, monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0 };
-            } else {
-                var workMinutes = calculateMinutes(schedule[i].starttime, schedule[i].finishtime);
-                var day = new Date(schedule.starttime);
-
-                if (day == 0) { //sunday
-                    scheduleDays[schedule[i].id].sunday += workMinutes;
-                } else if (day == 1) { //monday
-                    scheduleDays[schedule[i].id].monday += workMinutes;
-                } else if (day == 2) { 
-                    scheduleDays[schedule[i].id].tuesday += workMinutes;
-                } else if (day == 3) { 
-                    scheduleDays[schedule[i].id].wednesday += workMinutes;
-                } else if (day == 4) { 
-                    scheduleDays[schedule[i].id].thursday += workMinutes;
-                } else if (day == 5) { 
-                    scheduleDays[schedule[i].id].friday += workMinutes;
-                } else if (day == 6) { //saturday
-                    scheduleDays[schedule[i].id].saturday += workMinutes;
-                }
             }
+
+            var workMinutes = calculateMinutes(schedule[i].starttime, schedule[i].finishtime);
+            var day = new Date(schedule[i].starttime);
+
+            if (day == 0) { //sunday
+                scheduleDays[schedule[i].id].sunday += workMinutes;
+            } else if (day == 1) { //monday
+                scheduleDays[schedule[i].id].monday += workMinutes;
+            } else if (day == 2) { 
+                scheduleDays[schedule[i].id].tuesday += workMinutes;
+            } else if (day == 3) { 
+                scheduleDays[schedule[i].id].wednesday += workMinutes;
+            } else if (day == 4) { 
+                scheduleDays[schedule[i].id].thursday += workMinutes;
+            } else if (day == 5) { 
+                scheduleDays[schedule[i].id].friday += workMinutes;
+            } else if (day == 6) { //saturday
+                scheduleDays[schedule[i].id].saturday += workMinutes;
+            }
+        
         }
 
         for(var i = 0; i < scheduleDays.length; i++) {
