@@ -131,7 +131,8 @@ function getSchedule() {
             }
 
             var workMinutes = calculateMinutes(schedule[i].starttime, schedule[i].finishtime);
-            var day = new Date(schedule[i].starttime);
+            var workDate = new Date(removeZuluTime(schedule[i].starttime));
+            var day = workDate.getDay();
 
             if (day == 0) { //sunday
                 scheduleDays[schedule[i].id].sunday += workMinutes;
