@@ -160,25 +160,25 @@ function getSchedule() {
             name.innerHTML = scheduleDays[i].name;
 
             var monday = document.createElement('td');
-            monday.innerHTML = scheduleDays[i].monday;
+            monday.innerHTML = calculateHours(scheduleDays[i].monday);
 
             var tuesday = document.createElement('td');
-            tuesday.innerHTML = scheduleDays[i].tuesday;
+            tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday);
 
             var wednesday = document.createElement('td');
-            wednesday.innerHTML = scheduleDays[i].wednesday;
+            wednesday.innerHTML = calculateHours(scheduleDays[i].wednesday);
 
             var thursday = document.createElement('td');
-            thursday.innerHTML = scheduleDays[i].thursday;
+            thursday.innerHTML = calculateHours(scheduleDays[i].thursday);
 
             var friday = document.createElement('td');
-            friday.innerHTML = scheduleDays[i].friday;
+            friday.innerHTML = calculateHours(scheduleDays[i].friday);
 
             var saturday = document.createElement('td');
-            saturday.innerHTML = scheduleDays[i].saturday;
+            saturday.innerHTML = calculateHours(scheduleDays[i].saturday);
 
             var sunday = document.createElement('td');
-            sunday.innerHTML = scheduleDays[i].sunday;
+            sunday.innerHTML = calculateHours(scheduleDays[i].sunday);
 
             var total = document.createElement('td');
             total.innerHTML = '0';

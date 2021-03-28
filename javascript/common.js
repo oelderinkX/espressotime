@@ -93,6 +93,15 @@ function calculateMinutes(d1, d2) {
   return minutes;
 }
 
+function calculateHours(minutes) {
+    if (minutes == 0) {
+      return 0;
+    } else {
+      const precision2 = Math.pow(10, 2);
+      return Math.round((minutes / 60) * precision2) / precision2;
+    }
+}
+
 function sendPost(url, data, callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", url, true);
