@@ -152,7 +152,7 @@ function getSchedule() {
         
         }
 
-        for(var i = 0; i < scheduleDays.length; i++) {
+        for(var i in scheduleDays) {
             var tr = document.createElement("tr");
 
             var name = document.createElement('th');
