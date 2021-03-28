@@ -157,7 +157,8 @@ module.exports = function(app){
 								console.log('');
 
 								if (allBreaks[i].employeeid == schedule[x].id) {
-									if (dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate)) {
+									//if (dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate)) {
+									if (allBreaks[i].starttime >= schedule[x].starttime && allBreaks[i].starttime <= schedule[x].finishtime )
 										schedule[x].breaks.push({	employeeid: allBreaks[i].employeeid,
 																	starttime: allBreaks[i].starttime,
 																	finishtime: allBreaks[i].finishtime,
