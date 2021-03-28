@@ -146,6 +146,16 @@ module.exports = function(app){
 								var breakDate = new Date(allBreaks[i].starttime);
 								var scheduleDate = new Date(schedule[i].starttime);
 
+								console.log(allBreaks[i].employeeid + ' == ' +  schedule[i].id + ' ? ');
+								var equal1 = allBreaks[i].employeeid == schedule[i].id;
+								console.log(equal1);
+								console.log('');
+								console.log(dateHelper.getDbFormat(breakDate) + ' == ' +  dateHelper.getDbFormat(scheduleDate) + ' ? ');
+								var equal2 = dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate);
+								console.log(equal2);
+								console.log('');
+								console.log('');
+								
 								if (allBreaks[i].employeeid == schedule[i].id) {
 									if (dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate)) {
 										schedule[i].breaks.push({	employeeid: allBreaks[i].employeeid,
