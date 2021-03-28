@@ -1,5 +1,6 @@
 var pg = require('pg');
 var common = require('./script/common.js');
+var dateHelper = require('./script/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -102,16 +103,17 @@ module.exports = function(app){
 							schedule.push({	name: result.rows[i].name,
 												id: result.rows[i].id,
 												starttime: result.rows[i].starttime,
-												finishtime: result.rows[i].finishtime
+												finishtime: result.rows[i].finishtime,
+												breaks: []
 											});
 						}
 					}
 				}
 				
-				var sql2 = "select employeeid, starttime, finishtime, breaktype from espresso.break";
-				sql2 += " from espresso.start_finish";
-				sql2 += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
-				sql2 += " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3";
+				var sql2 = "select employeeid, starttime, finishtime, breaktype";
+				sql2 += " from espresso.break";
+				sql2 += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.break.employeeid";
+				sql2 += " where break.starttime >= $1 and break.finishtime <= $2 and shopid = $3";
 
 				console.log(sql2);
 				console.log(dateFrom);
@@ -121,6 +123,40 @@ module.exports = function(app){
 				pool.connect(function(err, connection, done) {
 					connection.query(sql2, [dateFrom, dateTo, shopId], function(err, result) {
 						done();
+
+						var allBreaks = [];
+
+						if (err) {
+							schedule.push({error: err});
+						} else {
+							if (result && result.rowCount > 0) {
+
+								for(var i = 0; i < result.rowCount; i++) {
+									allBreaks.push({	employeeid: result.rows[i].employeeid,
+														starttime: result.rows[i].starttime,
+														finishtime: result.rows[i].finishtime,
+														breaktype: result.rows[i].breaktype
+													});
+								}
+							}
+						}
+
+						for(var i = 0; i < allBreaks.length; i++) {
+							for(var x = 0; x < schedule.length; x++) {
+								var breakDate = new Date(allBreaks[i].starttime);
+								var scheduleDate = new Date(schedule[i].starttime);
+
+								if (allBreaks[i].employeeid == schedule[i].id) {
+									if (dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate)) {
+										schedule[i].breaks.push({	employeeid: allBreaks[i].employeeid,
+																	starttime: allBreaks[i].starttime,
+																	finishtime: allBreaks[i].finishtime,
+																	breaktype: allBreaks[i].breaktype,
+										});
+									}
+								}
+							}
+						}
 
 						res.send(schedule);
 					});
