@@ -143,22 +143,43 @@ function getSchedule() {
             var workDate = new Date(removeZuluTime(schedule[i].starttime));
             var day = workDate.getDay();
 
+            for(var x = 0; x < schedule[i].breaks.length; x++) {
+                if (schedule[i].breaks[x].breaktype == 10) {
+                    var restMinutes = calculateMinutes(schedule[i].breaks[x].startime, schedule[i].breaks[x].finishtime);
+                } else if (schedule[i].breaks[x].breaktype == 30) {
+                    var mealMinutes = calculateMinutes(schedule[i].breaks[x].startime, schedule[i].breaks[x].finishtime);
+                }
+            }
+
             if (day == 0) { //sunday
                 scheduleDays[schedule[i].id].sunday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].sunday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].sunday.mealMinutes += mealMinutes;
             } else if (day == 1) { //monday
                 scheduleDays[schedule[i].id].monday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].monday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].monday.mealMinutes += mealMinutes;
             } else if (day == 2) { 
                 scheduleDays[schedule[i].id].tuesday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].tuesday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].tuesday.mealMinutes += mealMinutes;
             } else if (day == 3) { 
                 scheduleDays[schedule[i].id].wednesday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].wednesday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].wednesday.mealMinutes += mealMinutes;
             } else if (day == 4) { 
                 scheduleDays[schedule[i].id].thursday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].thursday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].thursday.mealMinutes += mealMinutes;
             } else if (day == 5) { 
                 scheduleDays[schedule[i].id].friday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].friday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].friday.mealMinutes += mealMinutes;
             } else if (day == 6) { //saturday
                 scheduleDays[schedule[i].id].saturday.workMinutes += workMinutes;
+                scheduleDays[schedule[i].id].saturday.restMinutes += restMinutes;
+                scheduleDays[schedule[i].id].saturday.mealMinutes += mealMinutes;
             }
-        
         }
 
         // we NOW need to minus the rest breaks!!!!!
