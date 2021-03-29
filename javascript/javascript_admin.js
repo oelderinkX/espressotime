@@ -197,6 +197,7 @@ function getSchedule() {
             var mealMinutes = 0;
 
             var monday = document.createElement('td');
+            monday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].monday.workMinutes;
             restMinutes = scheduleDays[i].monday.restMinutes;
             mealMinutes = scheduleDays[i].monday.mealMinutes;
@@ -205,6 +206,7 @@ function getSchedule() {
             monday.innerHTML = paidHours;
 
             var tuesday = document.createElement('td');
+            tuesday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].tuesday.workMinutes;
             restMinutes = scheduleDays[i].tuesday.restMinutes;
             mealMinutes = scheduleDays[i].tuesday.mealMinutes;
@@ -213,6 +215,7 @@ function getSchedule() {
             tuesday.innerHTML =paidHours;
 
             var wednesday = document.createElement('td');
+            wednesday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].wednesday.workMinutes;
             restMinutes = scheduleDays[i].wednesday.restMinutes;
             mealMinutes = scheduleDays[i].wednesday.mealMinutes;
@@ -221,6 +224,7 @@ function getSchedule() {
             wednesday.innerHTML = paidHours;
 
             var thursday = document.createElement('td');
+            thursday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].thursday.workMinutes;
             restMinutes = scheduleDays[i].thursday.restMinutes;
             mealMinutes = scheduleDays[i].thursday.mealMinutes;
@@ -230,6 +234,7 @@ function getSchedule() {
 
 
             var friday = document.createElement('td');
+            friday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].friday.workMinutes;
             restMinutes = scheduleDays[i].friday.restMinutes;
             mealMinutes = scheduleDays[i].friday.mealMinutes;
@@ -239,6 +244,7 @@ function getSchedule() {
 
 
             var saturday = document.createElement('td');
+            saturday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].saturday.workMinutes;
             restMinutes = scheduleDays[i].saturday.restMinutes;
             mealMinutes = scheduleDays[i].saturday.mealMinutes;
@@ -248,6 +254,7 @@ function getSchedule() {
 
 
             var sunday = document.createElement('td');
+            sunday.style.cssText += 'text-align:center;';
             workMinutes = scheduleDays[i].sunday.workMinutes;
             restMinutes = scheduleDays[i].sunday.restMinutes;
             mealMinutes = scheduleDays[i].sunday.mealMinutes;
@@ -272,6 +279,7 @@ function getSchedule() {
                                         - scheduleDays[i].sunday.mealMinutes;
 
             var total = document.createElement('td');
+            total.style.cssText += 'text-align:center;';
             total.innerHTML = calculateHours(totalMinutes);
 
             tr.appendChild(name);
