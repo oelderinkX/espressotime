@@ -195,22 +195,22 @@ function getSchedule() {
             monday.innerHTML = calculateHours(scheduleDays[i].monday.workMinutes - scheduleDays[i].monday.mealMinutes);
 
             var tuesday = document.createElement('td');
-            tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday.workMinutes);
+            tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday.workMinutes - scheduleDays[i].tuesday.mealMinutes);
 
             var wednesday = document.createElement('td');
-            wednesday.innerHTML = calculateHours(scheduleDays[i].wednesday.workMinutes);
+            wednesday.innerHTML = calculateHours(scheduleDays[i].wednesday.workMinutes - scheduleDays[i].wednesday.mealMinutes);
 
             var thursday = document.createElement('td');
-            thursday.innerHTML = calculateHours(scheduleDays[i].thursday.workMinutes);
+            thursday.innerHTML = calculateHours(scheduleDays[i].thursday.workMinutes - scheduleDays[i].thursday.mealMinutes);
 
             var friday = document.createElement('td');
-            friday.innerHTML = calculateHours(scheduleDays[i].friday.workMinutes);
+            friday.innerHTML = calculateHours(scheduleDays[i].friday.workMinutes - scheduleDays[i].friday.mealMinutes);
 
             var saturday = document.createElement('td');
-            saturday.innerHTML = calculateHours(scheduleDays[i].saturday.workMinutes);
+            saturday.innerHTML = calculateHours(scheduleDays[i].saturday.workMinutes - scheduleDays[i].saturday.mealMinutes);
 
             var sunday = document.createElement('td');
-            sunday.innerHTML = calculateHours(scheduleDays[i].sunday.workMinutes);
+            sunday.innerHTML = calculateHours(scheduleDays[i].sunday.workMinutes - scheduleDays[i].sunday.mealMinutes);
 
             var totalMinutes = scheduleDays[i].monday.workMinutes
                                 + scheduleDays[i].tuesday.workMinutes
@@ -219,6 +219,14 @@ function getSchedule() {
                                 + scheduleDays[i].friday.workMinutes
                                 + scheduleDays[i].saturday.workMinutes
                                 + scheduleDays[i].sunday.workMinutes;
+
+            totalMinutes = totalMinutes - scheduleDays[i].monday.mealMinutes
+                                        - scheduleDays[i].tuesday.mealMinutes
+                                        - scheduleDays[i].wednesday.mealMinutes
+                                        - scheduleDays[i].thursday.mealMinutes
+                                        - scheduleDays[i].friday.mealMinutes
+                                        - scheduleDays[i].saturday.mealMinutes
+                                        - scheduleDays[i].sunday.mealMinutes;
 
             var total = document.createElement('td');
             total.innerHTML = calculateHours(totalMinutes);
