@@ -127,7 +127,16 @@ function getSchedule() {
         for(var i = 0; i < schedule.length; i++) {
             if (!scheduleDays[schedule[i].id])
             {
-                scheduleDays[schedule[i].id] = { name: schedule[i].name, monday: 0, tuesday: 0, wednesday: 0, thursday: 0, friday: 0, saturday: 0, sunday: 0 };
+                scheduleDays[schedule[i].id] = { 
+                    name: schedule[i].name,
+                    monday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    tuesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    wednesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    thursday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    friday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    saturday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0},
+                    sunday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0}
+                };
             }
 
             var workMinutes = calculateMinutes(schedule[i].starttime, schedule[i].finishtime);
@@ -135,23 +144,25 @@ function getSchedule() {
             var day = workDate.getDay();
 
             if (day == 0) { //sunday
-                scheduleDays[schedule[i].id].sunday += workMinutes;
+                scheduleDays[schedule[i].id].sunday.workMinutes += workMinutes;
             } else if (day == 1) { //monday
-                scheduleDays[schedule[i].id].monday += workMinutes;
+                scheduleDays[schedule[i].id].monday.workMinutes += workMinutes;
             } else if (day == 2) { 
-                scheduleDays[schedule[i].id].tuesday += workMinutes;
+                scheduleDays[schedule[i].id].tuesday.workMinutes += workMinutes;
             } else if (day == 3) { 
-                scheduleDays[schedule[i].id].wednesday += workMinutes;
+                scheduleDays[schedule[i].id].wednesday.workMinutes += workMinutes;
             } else if (day == 4) { 
-                scheduleDays[schedule[i].id].thursday += workMinutes;
+                scheduleDays[schedule[i].id].thursday.workMinutes += workMinutes;
             } else if (day == 5) { 
-                scheduleDays[schedule[i].id].friday += workMinutes;
+                scheduleDays[schedule[i].id].friday.workMinutes += workMinutes;
             } else if (day == 6) { //saturday
-                scheduleDays[schedule[i].id].saturday += workMinutes;
+                scheduleDays[schedule[i].id].saturday.workMinutes += workMinutes;
             }
         
         }
 
+        // we NOW need to minus the rest breaks!!!!!
+        // oh yeah!!!!!!!!!
         for(var i in scheduleDays) {
             var tr = document.createElement("tr");
 
@@ -160,33 +171,33 @@ function getSchedule() {
             name.innerHTML = scheduleDays[i].name;
 
             var monday = document.createElement('td');
-            monday.innerHTML = calculateHours(scheduleDays[i].monday);
+            monday.innerHTML = calculateHours(scheduleDays[i].monday.workMinutes);
 
             var tuesday = document.createElement('td');
-            tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday);
+            tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday.workMinutes);
 
             var wednesday = document.createElement('td');
-            wednesday.innerHTML = calculateHours(scheduleDays[i].wednesday);
+            wednesday.innerHTML = calculateHours(scheduleDays[i].wednesday.workMinutes);
 
             var thursday = document.createElement('td');
-            thursday.innerHTML = calculateHours(scheduleDays[i].thursday);
+            thursday.innerHTML = calculateHours(scheduleDays[i].thursday.workMinutes);
 
             var friday = document.createElement('td');
-            friday.innerHTML = calculateHours(scheduleDays[i].friday);
+            friday.innerHTML = calculateHours(scheduleDays[i].friday.workMinutes);
 
             var saturday = document.createElement('td');
-            saturday.innerHTML = calculateHours(scheduleDays[i].saturday);
+            saturday.innerHTML = calculateHours(scheduleDays[i].saturday.workMinutes);
 
             var sunday = document.createElement('td');
-            sunday.innerHTML = calculateHours(scheduleDays[i].sunday);
+            sunday.innerHTML = calculateHours(scheduleDays[i].sunday.workMinutes);
 
-            var totalMinutes = scheduleDays[i].monday
-                                + scheduleDays[i].tuesday
-                                + scheduleDays[i].wednesday
-                                + scheduleDays[i].thursday
-                                + scheduleDays[i].friday
-                                + scheduleDays[i].saturday
-                                + scheduleDays[i].sunday;
+            var totalMinutes = scheduleDays[i].monday.workMinutes
+                                + scheduleDays[i].tuesday.workMinutes
+                                + scheduleDays[i].wednesday.workMinutes
+                                + scheduleDays[i].thursday.workMinutes
+                                + scheduleDays[i].friday.workMinutes
+                                + scheduleDays[i].saturday.workMinutes
+                                + scheduleDays[i].sunday.workMinutes;
 
             var total = document.createElement('td');
             total.innerHTML = calculateHours(totalMinutes);
