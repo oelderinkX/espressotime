@@ -143,7 +143,7 @@ module.exports = function(app){
 						}
 
 						for(var i = 0; i < allBreaks.length; i++) {
-							for(var x = 0; x <= schedule.length; x++) {
+							for(var x = 0; x < schedule.length; x++) {
 								var breakDate = new Date(allBreaks[i].starttime);
 								var scheduleDate = new Date(schedule[x].starttime);
 
