@@ -145,9 +145,9 @@ function getSchedule() {
 
             for(var x = 0; x < schedule[i].breaks.length; x++) {
                 if (schedule[i].breaks[x].breaktype == 10) {
-                    var restMinutes = calculateMinutes(schedule[i].breaks[x].startime, schedule[i].breaks[x].finishtime);
+                    var restMinutes = calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
                 } else if (schedule[i].breaks[x].breaktype == 30) {
-                    var mealMinutes = calculateMinutes(schedule[i].breaks[x].startime, schedule[i].breaks[x].finishtime);
+                    var mealMinutes = calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
                 }
             }
 
