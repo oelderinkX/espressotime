@@ -192,7 +192,7 @@ function getSchedule() {
             name.innerHTML = scheduleDays[i].name;
 
             var monday = document.createElement('td');
-            monday.innerHTML = calculateHours(scheduleDays[i].monday.workMinutes);
+            monday.innerHTML = calculateHours(scheduleDays[i].monday.workMinutes - scheduleDays[i].monday.mealMinutes);
 
             var tuesday = document.createElement('td');
             tuesday.innerHTML = calculateHours(scheduleDays[i].tuesday.workMinutes);
