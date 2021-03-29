@@ -203,7 +203,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].monday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             monday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            monday.innerHTML = calculateHours(paidHours);
+            monday.innerHTML = paidHours;
 
             var tuesday = document.createElement('td');
             workMinutes = scheduleDays[i].tuesday.workMinutes;
@@ -211,7 +211,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].tuesday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             tuesday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            tuesday.innerHTML = calculateHours(paidHours);
+            tuesday.innerHTML =paidHours;
 
             var wednesday = document.createElement('td');
             workMinutes = scheduleDays[i].wednesday.workMinutes;
@@ -219,7 +219,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].wednesday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             wednesday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            wednesday.innerHTML = calculateHours(paidHours);
+            wednesday.innerHTML = paidHours;
 
             var thursday = document.createElement('td');
             workMinutes = scheduleDays[i].thursday.workMinutes;
@@ -227,7 +227,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].thursday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             thursday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            thursday.innerHTML = calculateHours(paidHours);
+            thursday.innerHTML = paidHours;
 
 
             var friday = document.createElement('td');
@@ -236,7 +236,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].friday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             friday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            friday.innerHTML = calculateHours(paidHours);
+            friday.innerHTML = paidHours;
 
 
             var saturday = document.createElement('td');
@@ -245,7 +245,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].saturday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             saturday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            saturday.innerHTML = calculateHours(paidHours);
+            saturday.innerHTML = paidHours;
 
 
             var sunday = document.createElement('td');
@@ -254,7 +254,7 @@ function getSchedule() {
             mealMinutes = scheduleDays[i].sunday.mealMinutes;
             paidHours = calculateHours(workMinutes - mealMinutes);
             sunday.title = 'Work Hours: ' + calculateHours(workMinutes) + 'hrs &#xA;Rest Minutes: ' + restMinutes + 'mins &#xA;Meal Minutes: ' + mealMinutes + 'mins';
-            sunday.innerHTML = calculateHours(paidHours);
+            sunday.innerHTML = paidHours;
 
             var totalMinutes = scheduleDays[i].monday.workMinutes
                                 + scheduleDays[i].tuesday.workMinutes
