@@ -182,8 +182,6 @@ function getSchedule() {
             }
         }
 
-        // we NOW need to minus the rest breaks!!!!!
-        // oh yeah!!!!!!!!!
         for(var i in scheduleDays) {
             var tr = document.createElement("tr");
 

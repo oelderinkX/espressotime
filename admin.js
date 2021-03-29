@@ -114,6 +114,7 @@ module.exports = function(app){
 				sql2 += " from espresso.break";
 				sql2 += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.break.employeeid";
 				sql2 += " where break.starttime >= $1 and break.finishtime <= $2 and shopid = $3";
+				sql2 += " order by employeeid, break.starttime";
 
 				console.log(sql2);
 				console.log(dateFrom);
@@ -142,7 +143,7 @@ module.exports = function(app){
 						}
 
 						for(var i = 0; i < allBreaks.length; i++) {
-							for(var x = 0; x < schedule.length; x++) {
+							for(var x = 0; x <= schedule.length; x++) {
 								var breakDate = new Date(allBreaks[i].starttime);
 								var scheduleDate = new Date(schedule[x].starttime);
 
