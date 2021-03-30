@@ -144,19 +144,6 @@ module.exports = function(app){
 
 						for(var i = 0; i < allBreaks.length; i++) {
 							for(var x = 0; x < schedule.length; x++) {
-								var breakDate = new Date(allBreaks[i].starttime);
-								var scheduleDate = new Date(schedule[x].starttime);
-
-								console.log(allBreaks[i].employeeid + ' == ' +  schedule[x].id + ' ? ');
-								var equal1 = allBreaks[i].employeeid == schedule[x].id;
-								console.log(equal1);
-								console.log('');
-								console.log(dateHelper.getDbFormat(breakDate) + ' == ' +  dateHelper.getDbFormat(scheduleDate) + ' ? ');
-								var equal2 = dateHelper.getDbFormat(breakDate) == dateHelper.getDbFormat(scheduleDate);
-								console.log(equal2);
-								console.log('');
-								console.log('');
-
 								if (allBreaks[i].employeeid == schedule[x].id) {
 									if (allBreaks[i].starttime >= schedule[x].starttime && allBreaks[i].starttime <= schedule[x].finishtime ) {
 										schedule[x].breaks.push({	employeeid: allBreaks[i].employeeid,
