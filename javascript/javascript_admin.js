@@ -143,11 +143,13 @@ function getSchedule() {
             var workDate = new Date(removeZuluTime(schedule[i].starttime));
             var day = workDate.getDay();
 
+            var restMinutes = 0;
+            var mealMinutes = 0;
             for(var x = 0; x < schedule[i].breaks.length; x++) {
                 if (schedule[i].breaks[x].breaktype == 10) {
-                    var restMinutes = calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
+                    restMinutes += calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
                 } else if (schedule[i].breaks[x].breaktype == 30) {
-                    var mealMinutes = calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
+                    mealMinutes += calculateMinutes(schedule[i].breaks[x].starttime, schedule[i].breaks[x].finishtime);
                 }
             }
 

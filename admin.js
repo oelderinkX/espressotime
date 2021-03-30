@@ -122,20 +122,12 @@ module.exports = function(app){
 
 						var allBreaks = [];
 
-						console.log('row count: ' + result.rowCount);
-
 						if (err) {
 							schedule.push({error: err});
 						} else {
 							if (result && result.rowCount > 0) {
 
 								for(var i = 0; i < result.rowCount; i++) {
-									console.log('id ' + result.rows[i].employeeid);
-									console.log('starttime ' + result.rows[i].starttime);
-									console.log('finishtime ' + result.rows[i].finishtime);
-									console.log('type ' + result.rows[i].breaktype);
-									console.log();
-
 									allBreaks.push({	employeeid: result.rows[i].employeeid,
 														starttime: result.rows[i].starttime,
 														finishtime: result.rows[i].finishtime,
