@@ -116,16 +116,13 @@ module.exports = function(app){
 				sql2 += " where break.starttime >= $1 and break.finishtime <= $2 and shopid = $3";
 				sql2 += " order by employeeid, break.starttime";
 
-				console.log(sql2);
-				console.log(dateFrom);
-				console.log(dateTo);
-				console.log(shopId);
-
 				pool.connect(function(err, connection, done) {
 					connection.query(sql2, [dateFrom, dateTo, shopId], function(err, result) {
 						done();
 
 						var allBreaks = [];
+
+						console.log('row count: ' + result.rowCount);
 
 						if (err) {
 							schedule.push({error: err});
@@ -133,6 +130,12 @@ module.exports = function(app){
 							if (result && result.rowCount > 0) {
 
 								for(var i = 0; i < result.rowCount; i++) {
+									console.log('id ' + result.rows[i].employeeid);
+									console.log('starttime ' + result.rows[i].starttime);
+									console.log('finishtime ' + result.rows[i].finishtime);
+									console.log('type ' + result.rows[i].breaktype);
+									console.log();
+
 									allBreaks.push({	employeeid: result.rows[i].employeeid,
 														starttime: result.rows[i].starttime,
 														finishtime: result.rows[i].finishtime,
