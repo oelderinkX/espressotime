@@ -169,7 +169,7 @@ module.exports = function(app){
 		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4, WHERE id = $5 and shopid = $6";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, employeeName, employeeContact, employeePin, employeeEx, employeeId, shopId, function(err, result) {
+			connection.query(sql, [employeeName, employeeContact, employeePin, employeeEx, employeeId, shopId], function(err, result) {
 				done();
 
 				if (err) {
