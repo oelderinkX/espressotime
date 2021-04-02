@@ -195,10 +195,12 @@ function getEmployeeDetails(employeeId) {
 }
 
 function employeeStart(employeeId) {
-    var employeePin = 1234;  //use alert!!  maybe...
+    var employeePin = 1234; 
     var startTime = getDbFormat() + ' ' + getTime();
-
     var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
+
+    var shiftbutton = document.getElementById("shiftbutton");
+    shiftbutton.removeAttribute('onclick');
 
     sendPost("/employeestart", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
@@ -209,8 +211,10 @@ function employeeFinish(employeeId) {
     var employeePin = 1234;  //use alert!!  maybe...
     var date = getDbFormat();
     var finishTime = getDbFormat() + ' ' + getTime();
-
     var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
+
+    var shiftbutton = document.getElementById("shiftbutton");
+    shiftbutton.removeAttribute('onclick');
 
     sendPost("/employeefinish", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
