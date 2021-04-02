@@ -26,6 +26,9 @@ function getEmployees() {
     sendPost("/getemployees", '', function(response) {
         var employees = JSON.parse(response);
 
+        var navbar1 = document.getElementById("navbar1");
+        var navbar2 = document.getElementById("navbar2");
+
         var employeelist1 = document.getElementById("employeelist1");
         var employeelist2 = document.getElementById("employeelist2");
 
@@ -223,8 +226,12 @@ function employeeFinish(employeeId) {
 
 function employeeStartBreak(employeeId, breakType) {
     var startTime = getDbFormat() + ' ' + getTime();
-
     var json = { "employeeId": employeeId, "startTime": startTime, "breakType": breakType };
+
+    var restButton = document.getElementById('restbutton');
+    var mealButton = document.getElementById('mealbutton');
+    restButton.removeAttribute('onclick');
+    mealButton.removeAttribute('onclick');
 
     sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
@@ -234,8 +241,12 @@ function employeeStartBreak(employeeId, breakType) {
 function employeeFinishBreak(employeeId, breakType) {
     var date = getDbFormat();
     var finishTime = getDbFormat() + ' ' + getTime();
-
     var json = { "employeeId": employeeId, "finishTime": finishTime, "breakType": breakType };
+
+    var restButton = document.getElementById('restbutton');
+    var mealButton = document.getElementById('mealbutton');
+    restButton.removeAttribute('onclick');
+    mealButton.removeAttribute('onclick');
 
     sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
