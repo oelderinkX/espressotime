@@ -66,8 +66,6 @@ function getEmployees() {
             employeelist.appendChild(tr);
         }
 
-
-        //Add new!
         var tr = document.createElement("tr");
 
         var th = document.createElement('th');
@@ -120,12 +118,12 @@ function getEmployees() {
 }
 
 function updateEmployee(id) {
-    var name = document.getElementById('name' + id);
-    var contact = document.getElementById('contact' + id);
-    var pin = document.getElementById('pin' + id);
-    var ex = document.getElementById('ex' + id);
+    var name = document.getElementById('name' + id).value;
+    var contact = document.getElementById('contact' + id).value;
+    var pin = document.getElementById('pin' + id).value;
+    var ex = document.getElementById('ex' + id).checked;
 
-    var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name.value + '", "employeeContact": "' + contact.value + '", "employeePin": "' + pin.value + '", "employeeEx": ' + ex.checked + ' }';
+    var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
 
     sendPost("/updateemployee", json, function(response) {
         getEmployees();
@@ -133,7 +131,20 @@ function updateEmployee(id) {
 }
 
 function addEmployee() {
-    
+    var name = document.getElementById('name0').value;
+    var contact = document.getElementById('contact0').value;
+    var pin = document.getElementById('pin0').value;
+    var ex = document.getElementById('ex0').checked;
+
+    if (name.length == 0 || contact.length == 0 || pin.length == 0) {
+        alert('All new employees need a name, contact number and pin');
+    } else {
+        var json = '{ "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+
+        sendPost("/addemployee", json, function(response) {
+            getEmployees();
+        });
+    }
 }
 
 function getSchedule() {

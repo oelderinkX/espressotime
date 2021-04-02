@@ -189,4 +189,29 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/addemployee', jsonParser, function(req, res) {
+		var shopId = 1;
+		var employeeName = req.body.employeeName;
+		var employeeContact = req.body.employeeContact;
+		var employeePin = req.body.employeePin;
+		var employeeEx = req.body.employeeEx;
+
+		var sql = "insert into espresso.employee (shopid, name, contact, pin, ex) VALUES ($1, $2, $3, $4, $5);";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, employeeName, employeeContact, employeePin, employeeEx], function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
 }
