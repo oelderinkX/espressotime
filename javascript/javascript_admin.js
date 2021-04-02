@@ -121,6 +121,10 @@ function getSchedule() {
 
         var schedulelist = document.getElementById('schedulelist');
 
+        while (schedulelist.firstChild) {
+            schedulelist.removeChild(schedulelist.firstChild);
+        }
+
         var scheduleDays = {};
         var lastEmployeeId = 0;
 
