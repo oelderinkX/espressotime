@@ -317,11 +317,16 @@ function getSchedule() {
 }
 
 function scheduleBack() {
-    getScheduleDates(scheduleStart.getDate() - 7);
+    var d = scheduleStart;
+    d.setDate(d.getDate() - 7);
+    getScheduleDates(d);
 }
 
 function scheduleForward() {
-    getScheduleDates(scheduleStart.getDate() + 7);
+    var d = scheduleStart;
+    d.setDate(d.getDate() + 7);
+    getScheduleDates(d);
+
 }
 
 function getScheduleDates(newDate) {
