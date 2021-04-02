@@ -232,7 +232,7 @@ function getSchedule() {
             time = scheduleDays[i].monday.starttime + ' - ' + scheduleDays[i].monday.finishtime;
             monday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             monday.innerHTML = paidHours;
-            totalMonday += paidHours;
+            totalMonday += workMinutes;
 
             var tuesday = document.createElement('td');
             tuesday.style.cssText += 'text-align:center;';
@@ -243,7 +243,7 @@ function getSchedule() {
             time = scheduleDays[i].tuesday.starttime + ' - ' + scheduleDays[i].tuesday.finishtime;
             tuesday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             tuesday.innerHTML =paidHours;
-            totalTuesday += paidHours;
+            totalTuesday += workMinutes;
 
             var wednesday = document.createElement('td');
             wednesday.style.cssText += 'text-align:center;';
@@ -254,7 +254,7 @@ function getSchedule() {
             time = scheduleDays[i].wednesday.starttime + ' - ' + scheduleDays[i].wednesday.finishtime;
             wednesday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             wednesday.innerHTML = paidHours;
-            totalWednesday += paidHours;
+            totalWednesday += workMinutes;
 
             var thursday = document.createElement('td');
             thursday.style.cssText += 'text-align:center;';
@@ -265,7 +265,7 @@ function getSchedule() {
             time = scheduleDays[i].thursday.starttime + ' - ' + scheduleDays[i].thursday.finishtime;
             thursday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             thursday.innerHTML = paidHours;
-            totalThursday += paidHours;
+            totalThursday += workMinutes;
 
             var friday = document.createElement('td');
             friday.style.cssText += 'text-align:center;';
@@ -276,7 +276,7 @@ function getSchedule() {
             time = scheduleDays[i].friday.starttime + ' - ' + scheduleDays[i].friday.finishtime;
             friday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             friday.innerHTML = paidHours;
-            totalFriday += paidHours;
+            totalFriday += workMinutes;
 
             var saturday = document.createElement('td');
             saturday.style.cssText += 'text-align:center;';
@@ -287,7 +287,7 @@ function getSchedule() {
             time = scheduleDays[i].saturday.starttime + ' - ' + scheduleDays[i].saturday.finishtime;
             saturday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             saturday.innerHTML = paidHours;
-            totalSaturday += paidHours;
+            totalSaturday += workMinutes;
 
             var sunday = document.createElement('td');
             sunday.style.cssText += 'text-align:center;';
@@ -298,7 +298,7 @@ function getSchedule() {
             time = scheduleDays[i].sunday.starttime + ' - ' + scheduleDays[i].sunday.finishtime;
             sunday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             sunday.innerHTML = paidHours;
-            totalSunday += paidHours;
+            totalSunday += workMinutes;
 
             var totalWorkMinutes = scheduleDays[i].monday.workMinutes
                                 + scheduleDays[i].tuesday.workMinutes
@@ -321,6 +321,8 @@ function getSchedule() {
             total.innerHTML = calculateHours(totalPaidMinutes);
             total.title = 'Total Work Hours: ' + calculateHours(totalWorkMinutes);
 
+            totalTotal += totalPaidMinutes;
+
             tr.appendChild(name);
             tr.appendChild(monday);
             tr.appendChild(tuesday);
@@ -335,7 +337,8 @@ function getSchedule() {
         }
 
         var tr2 = document.createElement("tr");
-        var blankname = document.createElement('th');
+        var totaltr = document.createElement('th');
+        totalth.innerHTML = "Total";
         
         var mondayTotal = document.createElement('td');
         mondayTotal.style.cssText += 'text-align:center;';
@@ -365,13 +368,14 @@ function getSchedule() {
         sundayTotal.style.cssText += 'text-align:center;';
         sundayTotal.innerHTML = totalSunday;
 
-        tr2.appendChild(blankname);
-        tr2.appendChild(tuesdayTotal);
-        tr2.appendChild(wednesdayTotal);
-        tr2.appendChild(thursdayTotal);
-        tr2.appendChild(fridayTotal);
-        tr2.appendChild(saturdayTotal);
-        tr2.appendChild(sundayTotal);
+        tr2.appendChild(totalth);
+        tr2.appendChild(calculateHours(mondayTotal));
+        tr2.appendChild(calculateHours(tuesdayTotal));
+        tr2.appendChild(calculateHours(wednesdayTotal));
+        tr2.appendChild(calculateHours(thursdayTotal));
+        tr2.appendChild(calculateHours(fridayTotal));
+        tr2.appendChild(calculateHours(saturdayTotal));
+        tr2.appendChild(calculateHours(sundayTotal));
         
         schedulelist.appendChild(tr2);
     });
