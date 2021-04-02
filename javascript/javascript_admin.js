@@ -2,10 +2,14 @@ var scheduleStart = new Date();
 var scheduleEnd = new Date();
 
 function getEmployees() {
+    var employeelist = document.getElementById('employeelist');
+
+    while (employeelist.firstChild) {
+        employeelist.removeChild(employeelist.firstChild);
+    }
+
     sendPost("/admin_getemployees", '', function(response) {
         var employees = JSON.parse(response);
-
-        var employeelist = document.getElementById('employeelist');
 
         for(var i = 0; i < employees.length; i++) {
             var tr = document.createElement("tr");
@@ -46,7 +50,7 @@ function getEmployees() {
             var input5 = document.createElement('input');
             input5.setAttribute('type', 'button');
             input5.setAttribute('value', 'Update');
-            input5.setAttribute('onclick', 'alert("Update in DB"');
+            input5.setAttribute('onclick', 'updateEmployee(' + employees[i].id + ');');
             td5.appendChild(input5);
 
             tr.appendChild(th);
@@ -98,7 +102,7 @@ function getEmployees() {
         var input5 = document.createElement('input');
         input5.setAttribute('type', 'button');
         input5.setAttribute('value', 'Add');
-        input5.setAttribute('onclick', 'alert("Add to DB"');
+        input5.setAttribute('onclick', 'AddEmployee();');
         td5.appendChild(input5);
 
         tr.appendChild(th);
@@ -112,18 +116,36 @@ function getEmployees() {
     });
 }
 
+function updateEmployee(id) {
+    var name = document.getElementById('name' + id);
+    var contact = document.getElementById('contact' + id);
+    var pin = document.getElementById('pin' + id);
+    var ex = document.getElementById('ex' + id);
+
+    alert('id: ' + id);
+    alert('name: ' + name.value);
+    alert('contact: ' + contact.value);
+    alert('pin: ' + pin.value);
+    alert('ex: ' + ex.checked);
+
+}
+
+function addEmployee() {
+    
+}
+
 function getSchedule() {
     var dateFrom = getDbFormat(scheduleStart) + ' 00:00:00';
     var dateTo = getDbFormat(scheduleEnd) + ' 23:59:59';
 
+    var schedulelist = document.getElementById('schedulelist');
+
+    while (schedulelist.firstChild) {
+        schedulelist.removeChild(schedulelist.firstChild);
+    }
+
     sendPost("/admin_getschedule", '{ "dateFrom": "' + dateFrom +  '", "dateTo": "'  + dateTo + '" }', function(response) {
         var schedule = JSON.parse(response);
-
-        var schedulelist = document.getElementById('schedulelist');
-
-        while (schedulelist.firstChild) {
-            schedulelist.removeChild(schedulelist.firstChild);
-        }
 
         var scheduleDays = {};
         var lastEmployeeId = 0;
