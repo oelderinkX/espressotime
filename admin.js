@@ -166,7 +166,7 @@ module.exports = function(app){
 		var employeePin = req.body.employeePin;
 		var employeeEx = req.body.employeeEx;
 
-		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4, WHERE id = $5 and shopid = $6";
+		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4 WHERE id = $5 and shopid = $6";
 
 		console.log(sql);
 		console.log(employeeName);
