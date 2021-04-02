@@ -337,7 +337,7 @@ function getSchedule() {
         }
 
         var tr2 = document.createElement("tr");
-        var totaltr = document.createElement('th');
+        var totalth = document.createElement('th');
         totalth.innerHTML = "Total";
         
         var mondayTotal = document.createElement('td');
