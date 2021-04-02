@@ -122,12 +122,6 @@ function updateEmployee(id) {
     var pin = document.getElementById('pin' + id);
     var ex = document.getElementById('ex' + id);
 
-    alert('id: ' + id);
-    alert('name: ' + name.value);
-    alert('contact: ' + contact.value);
-    alert('pin: ' + pin.value);
-    alert('ex: ' + ex.checked);
-
     var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name.value + '", "employeeContact": "' + contact.value + '", "employeePin": "' + pin.value + '", "employeeEx": ' + ex.checked + ' }';
 
     sendPost("/updateemployee", json, function(response) {

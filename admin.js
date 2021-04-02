@@ -159,16 +159,12 @@ module.exports = function(app){
 	});
 
 	app.post('/updateemployee', jsonParser, function(req, res) {
-		var shopId = 1; //req.body.shopId;
-		//var pass = req.body.pass;
+		var shopId = 1;
 		var employeeId = req.body.employeeId;
 		var employeeName = req.body.employeeName;
 		var employeeContact = req.body.employeeContact;
 		var employeePin = req.body.employeePin;
 		var employeeEx = req.body.employeeEx;
-
-		var dateFrom = date + ' 00:00:00' ;
-		var dateTo = date + ' 23:59:59';
 
 		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4, WHERE id = $5 and shopid = $6";
 
@@ -187,5 +183,4 @@ module.exports = function(app){
 			});
 		});
 	});
-
 }
