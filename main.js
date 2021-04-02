@@ -36,7 +36,7 @@ module.exports = function(app){
 		var shopId = 1;
 		var pass = req.body.pass;
 		
-		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false;"
+		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false order by name;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {

@@ -52,7 +52,7 @@ module.exports = function(app){
 		var shopId = 1;
 		var pass = req.body.pass;
 		
-		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1;"
+		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1 order by name, ex;"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -87,7 +87,7 @@ module.exports = function(app){
 		sql += " from espresso.start_finish";
 		sql += " INNER JOIN espresso.employee ON espresso.employee.id = espresso.start_finish.employeeid";
 		sql += " where start_finish.starttime >= $1 and start_finish.finishtime <= $2 and shopid = $3"
-		sql += " order by start_finish.employeeid, start_finish.starttime";
+		sql += " order by employee.name, start_finish.employeeid, start_finish.starttime";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [dateFrom, dateTo, shopId], function(err, result) {
@@ -167,14 +167,6 @@ module.exports = function(app){
 		var employeeEx = req.body.employeeEx;
 
 		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4 WHERE id = $5 and shopid = $6";
-
-		console.log(sql);
-		console.log(employeeName);
-		console.log(employeeContact);
-		console.log(employeePin);
-		console.log(employeeEx);
-		console.log(employeeId);
-		console.log(shopId);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeName, employeeContact, employeePin, employeeEx, employeeId, shopId], function(err, result) {
