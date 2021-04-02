@@ -337,18 +337,18 @@ function getScheduleDates(newDate) {
 
     var d = new Date();
     if (newDate) {
-        d = newDate;
+        d = new Date(newDate);
     }
     var day = d.getDay();
 
-    scheduleStart = d;
+    scheduleStart = new Date(d);
     if (day == 0) {
         scheduleStart.setDate( scheduleStart.getDate() - 6 );
     } else {
 
         scheduleStart.setDate( scheduleStart.getDate() - (day - 1) );
     }
-    scheduleEnd = scheduleStart;
+    scheduleEnd = new Date(scheduleStart);
     scheduleEnd.setDate(scheduleEnd.getDate() + 6);
 
     var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
