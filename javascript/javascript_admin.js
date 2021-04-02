@@ -3,12 +3,15 @@ var scheduleEnd = new Date();
 
 function getEmployees() {
     var employeelist = document.getElementById('employeelist');
+    var showExCheckbox = document.getElementById('showEx');
 
     while (employeelist.firstChild) {
         employeelist.removeChild(employeelist.firstChild);
     }
 
-    sendPost("/admin_getemployees", '', function(response) {
+    var showEx = showExCheckbox.checked;
+
+    sendPost("/admin_getemployees", '{ "showEx": ' + showEx + ' }', function(response) {
         var employees = JSON.parse(response);
 
         for(var i = 0; i < employees.length; i++) {

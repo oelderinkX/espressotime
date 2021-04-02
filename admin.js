@@ -47,12 +47,18 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 
-	app.post('/admin_getemployees', urlencodedParser, function(req, res) {
+	app.post('/admin_getemployees', jsonParser, function(req, res) {
 		//var shopId = req.body.shopId;
 		var shopId = 1;
 		var pass = req.body.pass;
+		var showEx = req.body.showEx;
 		
-		var sql = "SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1 order by name, ex;"
+		var filterEx = '';
+		if (showEx == false) {
+			filterEx = ' and ex = false';
+		}
+
+		var sql = 'SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1' + filterEx + ' order by name;'
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
