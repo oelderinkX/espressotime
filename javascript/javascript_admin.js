@@ -342,40 +342,44 @@ function getSchedule() {
         
         var mondayTotal = document.createElement('td');
         mondayTotal.style.cssText += 'text-align:center;';
-        mondayTotal.innerHTML = totalMonday;
+        mondayTotal.innerHTML = calculateHours(totalMonday);
         
         var tuesdayTotal = document.createElement('td');
         tuesdayTotal.style.cssText += 'text-align:center;';
-        tuesdayTotal.innerHTML = totalTuesday;
+        tuesdayTotal.innerHTML = calculateHours(totalTuesday);
 
         var wednesdayTotal = document.createElement('td');
         wednesdayTotal.style.cssText += 'text-align:center;';
-        wednesdayTotal.innerHTML = totalWednesday;
+        wednesdayTotal.innerHTML = calculateHours(totalWednesday);
         
         var thursdayTotal = document.createElement('td');
         thursdayTotal.style.cssText += 'text-align:center;';
-        thursdayTotal.innerHTML = totalThursday;
+        thursdayTotal.innerHTML = calculateHours(totalThursday);
 
         var fridayTotal = document.createElement('td');
         fridayTotal.style.cssText += 'text-align:center;';
-        fridayTotal.innerHTML = totalFriday;
+        fridayTotal.innerHTML = calculateHours(totalFriday);
         
         var saturdayTotal = document.createElement('td');
         saturdayTotal.style.cssText += 'text-align:center;';
-        saturdayTotal.innerHTML = totalSaturday;
+        saturdayTotal.innerHTML = calculateHours(totalSaturday);
 
         var sundayTotal = document.createElement('td');
         sundayTotal.style.cssText += 'text-align:center;';
-        sundayTotal.innerHTML = totalSunday;
+        sundayTotal.innerHTML = calculateHours(totalSunday);
+
+        var totalTotalTd = document.createElement('td');
+        totalTotalTd.style.cssText += 'text-align:center;';
+        totalTotalTd.innerHTML = calculateHours(totalTotal);
 
         tr2.appendChild(totalth);
-        tr2.appendChild(calculateHours(mondayTotal));
-        tr2.appendChild(calculateHours(tuesdayTotal));
-        tr2.appendChild(calculateHours(wednesdayTotal));
-        tr2.appendChild(calculateHours(thursdayTotal));
-        tr2.appendChild(calculateHours(fridayTotal));
-        tr2.appendChild(calculateHours(saturdayTotal));
-        tr2.appendChild(calculateHours(sundayTotal));
+        tr2.appendChild(mondayTotal);
+        tr2.appendChild(tuesdayTotal);
+        tr2.appendChild(wednesdayTotal);
+        tr2.appendChild(thursdayTotal);
+        tr2.appendChild(fridayTotal);
+        tr2.appendChild(saturdayTotal);
+        tr2.appendChild(sundayTotal);
         
         schedulelist.appendChild(tr2);
     });
