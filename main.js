@@ -159,8 +159,6 @@ module.exports = function(app){
 		sql += " (SELECT id FROM espresso.start_finish WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "'";
 		sql += " ORDER BY starttime DESC LIMIT 1);"
 
-		console.log(sql);
-
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
 				done();
@@ -213,8 +211,6 @@ module.exports = function(app){
 		var sql = "UPDATE espresso.break SET finishtime = '" + finishTime + "' WHERE id =";
 		sql += " (SELECT id FROM espresso.break WHERE employeeid = '" + employeeId + "' and breakType = '" + breakType + "' and starttime <= '" + finishTime + "'";
 		sql += " ORDER BY starttime DESC LIMIT 1);"
-
-		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {

@@ -128,6 +128,11 @@ function updateEmployee(id) {
     alert('pin: ' + pin.value);
     alert('ex: ' + ex.checked);
 
+    var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name.value + '", "employeeContact": "' + contact.value + '", "employeePin": "' + pin.value + '", "employeeEx": ' + ex.checked + ' }';
+
+    sendPost("/updateemployee", json, function(response) {
+        getEmployees();
+    });
 }
 
 function addEmployee() {
