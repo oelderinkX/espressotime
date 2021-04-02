@@ -316,11 +316,23 @@ function getSchedule() {
     });
 }
 
-function getScheduleDates() {
+function scheduleBack() {
+    getScheduleDates(scheduleStart.getDate() - 7);
+}
+
+function scheduleForward() {
+    getScheduleDates(scheduleStart.getDate() + 7);
+}
+
+function getScheduleDates(newDate) {
     var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
     var scheduleDate = document.getElementById("scheduleDate");
+
     var d = new Date();
+    if (newDate) {
+        d = newDate;
+    }
     var day = d.getDay();
 
     if (day == 0) {
