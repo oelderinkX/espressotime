@@ -285,7 +285,7 @@ function getSchedule() {
             sunday.title = 'Time: ' + time +  '\nWork Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             sunday.innerHTML = paidHours;
 
-            var totalMinutes = scheduleDays[i].monday.workMinutes
+            var totalWorkMinutes = scheduleDays[i].monday.workMinutes
                                 + scheduleDays[i].tuesday.workMinutes
                                 + scheduleDays[i].wednesday.workMinutes
                                 + scheduleDays[i].thursday.workMinutes
@@ -293,7 +293,7 @@ function getSchedule() {
                                 + scheduleDays[i].saturday.workMinutes
                                 + scheduleDays[i].sunday.workMinutes;
 
-            totalMinutes = totalMinutes - scheduleDays[i].monday.mealMinutes
+            var totalPaidMinutes = totalWorkMinutes - scheduleDays[i].monday.mealMinutes
                                         - scheduleDays[i].tuesday.mealMinutes
                                         - scheduleDays[i].wednesday.mealMinutes
                                         - scheduleDays[i].thursday.mealMinutes
@@ -303,7 +303,8 @@ function getSchedule() {
 
             var total = document.createElement('td');
             total.style.cssText += 'text-align:center;';
-            total.innerHTML = calculateHours(totalMinutes);
+            total.innerHTML = calculateHours(totalPaidMinutes);
+            total.title = 'Total Work Hours: ' + calculateHours(totalWorkMinutes);
 
             tr.appendChild(name);
             tr.appendChild(monday);
