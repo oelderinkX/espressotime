@@ -103,7 +103,7 @@ function getEmployees() {
         var input5 = document.createElement('input');
         input5.setAttribute('type', 'button');
         input5.setAttribute('value', 'Add');
-        input5.setAttribute('onclick', 'AddEmployee();');
+        input5.setAttribute('onclick', 'addEmployee();');
         td5.appendChild(input5);
 
         tr.appendChild(th);
