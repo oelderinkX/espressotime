@@ -320,13 +320,14 @@ function scheduleBack() {
     var d = scheduleStart;
     d.setDate(d.getDate() - 7);
     getScheduleDates(d);
+    getSchedule();
 }
 
 function scheduleForward() {
     var d = scheduleStart;
     d.setDate(d.getDate() + 7);
     getScheduleDates(d);
-
+    getSchedule();
 }
 
 function getScheduleDates(newDate) {
@@ -340,12 +341,15 @@ function getScheduleDates(newDate) {
     }
     var day = d.getDay();
 
+    scheduleStart = d;
     if (day == 0) {
-        scheduleStart.setDate( d.getDate() - 6 );
+        scheduleStart.setDate( scheduleStart.getDate() - 6 );
     } else {
-        scheduleStart.setDate( d.getDate() - (day - 1) );
+
+        scheduleStart.setDate( scheduleStart.getDate() - (day - 1) );
     }
-    scheduleEnd.setDate(scheduleStart.getDate() + 6);
+    scheduleEnd = scheduleStart;
+    scheduleEnd.setDate(scheduleEnd.getDate() + 6);
 
     var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
     var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();
