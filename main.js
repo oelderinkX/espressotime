@@ -30,8 +30,8 @@ module.exports = function(app){
 
 				var login = { success: false, reason: "unknown error" };
 
-				if (result && result.rowCount == 0) {
-					var encode = btoa(result.rows[0].name + ';12121976;' + result.rows[0].id);
+				if (result && result.rowCount == 1) {
+					var encode = Buffer.from(result.rows[0].name + ';12121976;' + result.rows[0].id).toString('base64');
 					login = { success: true, identifier: encode };
 				} else if (result && result.rowCount > 1 ) {
 					login = { success: false, reason: "multiple shops found, call administrator" };

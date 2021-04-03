@@ -15,7 +15,7 @@
             var usr = document.getElementById("usr");
             var pwd = document.getElementById("pwd");
 
-            var json = { name: usr.value, password: pwd };
+            var json = { name: usr.value, password: pwd.value };
 
             sendPost("/login", JSON.stringify(json), function(response) {
                 var login = JSON.parse(response);
