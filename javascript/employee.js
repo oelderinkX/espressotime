@@ -86,9 +86,14 @@ function getEmployeeDetails(employeeId) {
         var shiftbutton = document.getElementById("shiftbutton");
 
         employeename.innerHTML = employee.name;
-        contactLabel.innerHTML = 'Contact: ';
         contact.innerHTML = employee.contact;
         contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
+        if (employee.contact && employee.contact.length > 0) {
+            contactLabel.innerHTML = 'Contact: ';
+        } else {
+            contactLabel.innerHTML = '';
+        }
+
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
         finishtime.innerHTML = 'Finish time: ' + formatTime(employee.finishtime);
 
