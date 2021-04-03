@@ -9,12 +9,21 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
+var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 
 module.exports = function(app){
 	app.get('/', urlencodedParser, function(req, res) {
-		var webpage = mainPage;
+		var webpage = loginPage;
 	
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = mainPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/');
+		}
+
 		res.send(webpage);
 	});	
 
@@ -43,24 +52,9 @@ module.exports = function(app){
 			});
 		});
 	});
-
-	app.post('/', urlencodedParser, function(req, res) {
-		var shopId = req.body.shopId;
-		var pass = req.body.pass;
-
-		var webpage = mainPage;
-
-		//if invalid, don't set shopId and pass
-		webpage = common.replaceAll(webpage, '-1234567890121212', shopId);
-		webpage = common.replaceAll(webpage, '!!%PASS%!!', pass);
-	
-		res.send(webpage);
-	});	
 	
 	app.post('/getemployees', urlencodedParser, function(req, res) {
-		//var shopId = req.body.shopId;
-		var shopId = 1;
-		var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		
 		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false order by name;"
 
@@ -84,8 +78,8 @@ module.exports = function(app){
 	});
 
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
-		var shopId = 1;
 		var dateFrom = req.body.date + ' 00:00:00' ;
 		var dateTo = req.body.date + ' 23:59:59';
 		
@@ -143,8 +137,7 @@ module.exports = function(app){
 	});
 
 	app.post('/employeestart', jsonParser, function(req, res) {
-		var shopId = 1; //req.body.shopId;
-		//var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
 		var startTime = req.body.startTime;
@@ -174,8 +167,7 @@ module.exports = function(app){
 	});
 
 	app.post('/employeefinish', jsonParser, function(req, res) {
-		var shopId = 1; //req.body.shopId;
-		//var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
 		var employeePin = req.body.employeePin;
 		var date = req.body.date;
@@ -206,7 +198,7 @@ module.exports = function(app){
 	});
 
 	app.post('/employeebreakstart', jsonParser, function(req, res) {
-		var shopId = 1; //req.body.shopId;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
 		var startTime = req.body.startTime;
 		var breakType = req.body.breakType;
@@ -232,8 +224,7 @@ module.exports = function(app){
 	});
 
 	app.post('/employeebreakfinish', jsonParser, function(req, res) {
-		var shopId = 1; //req.body.shopId;
-		//var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
 		var finishTime = req.body.finishTime;
 		var breakType = req.body.breakType;

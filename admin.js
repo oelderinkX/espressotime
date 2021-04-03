@@ -19,9 +19,7 @@ module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
 		var webpage = loginPage;
 
-		var identifier = req.cookies['identifier'];
-		var shopid = common.getShopId(identifier);
-		console.log(shopid);
+		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
 			webpage = adminPage;
@@ -33,33 +31,49 @@ module.exports = function(app){
 	});	
 
 	app.get('/employeelistedit', urlencodedParser, function(req, res) {
-		var webpage = employeeListEditPage;
+		var webpage = loginPage;
 	
-		// if shop and password missing, just say you should go through other page and redirect to there
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = employeeListEditPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/employeelistedit');
+		}
 
 		res.send(webpage);
 	});	
 
 	app.get('/timesheet', urlencodedParser, function(req, res) {
-		var webpage = timesheetPage;
+		var webpage = loginPage;
 	
-		// if shop and password missing, just say you should go through other page and redirect to there
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = timesheetPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/timesheet');
+		}
 
 		res.send(webpage);
 	});	
 
 	app.get('/shop', urlencodedParser, function(req, res) {
-		var webpage = shopPage;
+		var webpage = loginPage;
 	
-		// if shop and password missing, just say you should go through other page and redirect to there
+		var shopid = common.getShopId(req.cookies['identifier']);
+
+		if (shopid && shopid != -1) {
+			webpage = shopPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/shop');
+		}
 
 		res.send(webpage);
 	});	
 
 	app.post('/admin_getemployees', jsonParser, function(req, res) {
-		//var shopId = req.body.shopId;
-		var shopId = 1;
-		var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var showEx = req.body.showEx;
 		
 		var filterEx = '';
@@ -92,9 +106,7 @@ module.exports = function(app){
 	});
 
 	app.post('/admin_getschedule', jsonParser, function(req, res) {
-		//var shopId = req.body.shopId;
-		var shopId = 1;
-		var pass = req.body.pass;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var dateFrom = req.body.dateFrom; //'2021-03-22 00:00:00'
 		var dateTo = req.body.dateTo; //'2021-03-27 23:59:59'
 		
@@ -174,7 +186,7 @@ module.exports = function(app){
 	});
 
 	app.post('/updateemployee', jsonParser, function(req, res) {
-		var shopId = 1;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
 		var employeeName = req.body.employeeName;
 		var employeeContact = req.body.employeeContact;
@@ -200,7 +212,7 @@ module.exports = function(app){
 	});
 
 	app.post('/addemployee', jsonParser, function(req, res) {
-		var shopId = 1;
+		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeName = req.body.employeeName;
 		var employeeContact = req.body.employeeContact;
 		var employeePin = req.body.employeePin;
