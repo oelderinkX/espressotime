@@ -27,7 +27,7 @@ function parseTelephone(ph) {
         ph = ph.replace('(', '');    
         ph = ph.replace(')', '');
         ph = ph.replace(/^0+/, '')
-        while (ph.contains(' ')) {
+        while (ph.indexOf(' ') > -1) {
             ph = ph.replace(' ', '');
         }
     }
