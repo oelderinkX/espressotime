@@ -236,8 +236,16 @@ function getEmployeeDetails(employeeId) {
 }
 
 function employeeStart(employeeId) {
-    var employeePin = 1234; 
+    var employeePin = 1234;
+
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    if (h == 6 && m >= 0 & m <= 15 ) {
+        now.setMinutes(15);
+    }
     var startTime = getDbFormat() + ' ' + getTime();
+
     var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
 
     var shiftbutton = document.getElementById("shiftbutton");

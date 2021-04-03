@@ -78,8 +78,17 @@ function formatTime(d) {
   }
 }
 
-function getTime() {
-  var d = new Date();
+function getTime(d) {
+  if (d) {
+    if (isString(d)) {
+      d = new Date(removeZuluTime(d));
+    } else {
+      d = new Date(d);
+    }
+  } else {
+    d = new Date();
+  }
+
   return formatTime(d);
 }
 
