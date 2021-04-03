@@ -21,7 +21,7 @@
                 var login = JSON.parse(response);
 
                 if (login.success == true) {
-                    setCookie('identifier', login.encode);
+                    setCookie('identifier', login.identifier);
                     window.location.href = redirectPage;
                 } else {
                     alert('Login failure: ' + login.reason);

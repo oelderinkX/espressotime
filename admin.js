@@ -20,15 +20,14 @@ module.exports = function(app){
 		var webpage = loginPage;
 
 		var identifier = req.cookies['identifier'];
-
 		var shopid = common.getShopId(identifier);
+		console.log(shopid);
 		
 		if (shopid && shopid != -1) {
 			webpage = adminPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/admin');
 		}
-		
 
 		res.send(webpage);
 	});	
