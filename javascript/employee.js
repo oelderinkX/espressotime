@@ -89,7 +89,7 @@ function getEmployeeDetails(employeeId) {
         employeename.innerHTML = employee.name;
         
         if (employee.contact && employee.contact.length > 0) {
-            contact.innerHTML = 'Contact: <a class="ah3" href="tel:+' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
+            contact.innerHTML = 'Contact: <a class="ah3" href="tel:' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
         } else {
             contact.innerHTML = '';
         }
