@@ -32,8 +32,6 @@ function getEmployees() {
         var mobileemployeelist = document.getElementById("mobileemployeelist");
         var webemployeelist = document.getElementById("webemployeelist");
 
-        alert(webnavbar.offsetHeight);
-
         for(var i = 0; i < employees.length; i++) {
             if (webnavbar.offsetHeight == 0) {
                 var li1 = document.createElement("li");
