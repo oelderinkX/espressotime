@@ -90,7 +90,8 @@ function getEmployees() {
         var input3 = document.createElement('input');
         input3.setAttribute('type', 'text');
         input3.setAttribute('id', 'pin0');
-        input3.setAttribute('value', '');
+        input3.setAttribute('value', '1234');
+        input3.disabled = true;
         td3.appendChild(input3);
 
         var td4 = document.createElement('td');
