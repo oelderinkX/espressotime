@@ -27,6 +27,7 @@ function parseTelephone(ph) {
         ph = ph.replace('(', '');    
         ph = ph.replace(')', '');
         ph = ph.replace(/^0+/, '')
+        ph = ph.replace(/^ +/, '')
     }
     return ph;
 }
@@ -75,6 +76,7 @@ function getEmployeeDetails(employeeId) {
 
         var employeename = document.getElementById("employeename");
         var contact = document.getElementById("contact");
+        var contactLabel = document.getElementById("contactLabel");
         var starttime = document.getElementById("starttime");
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
@@ -84,6 +86,7 @@ function getEmployeeDetails(employeeId) {
         var shiftbutton = document.getElementById("shiftbutton");
 
         employeename.innerHTML = employee.name;
+        contactLabel.innerHTML = 'Contact: ';
         contact.innerHTML = employee.contact;
         contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
