@@ -22,6 +22,12 @@ function clock() {
     }, 10000);
   }
   
+function parseTelephone(ph) {
+    ph = ph.replace('(', '');    
+    ph = ph.replace(')', '');
+    return ph;
+}
+
 function getEmployees() {
     sendPost("/getemployees", '', function(response) {
         var employees = JSON.parse(response);
@@ -75,7 +81,8 @@ function getEmployeeDetails(employeeId) {
         var shiftbutton = document.getElementById("shiftbutton");
 
         employeename.innerHTML = employee.name;
-        contact.innerHTML = 'Contact: ' + employee.contact;
+        contact.innerHTML = employee.contact;
+        contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
         finishtime.innerHTML = 'Finish time: ' + formatTime(employee.finishtime);
 
