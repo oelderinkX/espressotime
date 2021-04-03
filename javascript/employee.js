@@ -255,11 +255,14 @@ function employeeFinish(employeeId) {
     var now = new Date();
     var h = now.getHours();
     var m = now.getMinutes();
-    if (h == 6 && m >= 0 & m <= 15 ) {
+    var d = now.getDay();
+
+    //after 6pm, between 0 and 15mins and not thursday
+    if (h == 18 && m >= 0 & m <= 15 & d != 4 ) {
         now.setMinutes(15);
     }
     var finishTime = getDbFormat() + ' ' + getTime(now);
-    
+
     var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
 
     var shiftbutton = document.getElementById("shiftbutton");
