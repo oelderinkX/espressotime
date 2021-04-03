@@ -66,7 +66,7 @@ module.exports = function(app){
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
-		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by starttime desc limit 1;";
+		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by finishtime desc limit 1;";
 		
 		var sqlBreaks = "select starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
@@ -161,7 +161,7 @@ module.exports = function(app){
 
 		var sql = "UPDATE espresso.start_finish SET finishtime = '" + finishTime + "' WHERE id =";
 		sql += " (SELECT id FROM espresso.start_finish WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "'";
-		sql += " ORDER BY starttime DESC LIMIT 1);"
+		sql += " and finishtime is null ORDER BY starttime DESC LIMIT 1);"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
