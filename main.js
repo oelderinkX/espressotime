@@ -123,12 +123,11 @@ module.exports = function(app){
 		var employeePin = req.body.employeePin;
 		var startTime = req.body.startTime;
 		
-		var sql = "IF NOT EXISTS (select id from espresso.start_finish where employeeid = " + employeeId + "";
-		sql += " and starttime > '" + startTime + "'::timestamp::date and finishtime is null)"
-		sql += "INSERT INTO espresso.start_finish (employeeid, starttime)";
+		var sql = "INSERT INTO espresso.start_finish (employeeid, starttime)";
 		sql += " SELECT '" + employeeId + "', '" + startTime +"'";
-		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' );"
-		sql += " END IF";
+		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' ) "
+		sql += " and NOT EXISTS (select id from espresso.start_finish where employeeid = " + employeeId + "";
+		sql += " and starttime > '" + startTime + "'::timestamp::date and finishtime is null)"
 
 		console.log(sql);
 
