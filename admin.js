@@ -26,7 +26,7 @@ module.exports = function(app){
 		if (shopid && shopid != -1) {
 			webpage = adminPage;
 		} else {
-			webpage.replaceAll('!%REDIRECT_URL%!', '/admin');
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/admin');
 		}
 		
 
