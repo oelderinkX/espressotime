@@ -22,7 +22,7 @@
 
                 if (login.success == true) {
                     setCookie('identifier', login.encode);
-                    window.location.href = directPage;
+                    window.location.href = redirectPage;
                 } else {
                     alert('Login failure: ' + login.reason);
                 }
