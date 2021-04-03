@@ -76,7 +76,6 @@ function getEmployeeDetails(employeeId) {
 
         var employeename = document.getElementById("employeename");
         var contact = document.getElementById("contact");
-        var contactLabel = document.getElementById("contactLabel");
         var starttime = document.getElementById("starttime");
         var finishtime = document.getElementById("finishtime");
         var breaks = document.getElementById("breaks");
@@ -85,17 +84,12 @@ function getEmployeeDetails(employeeId) {
 
         var shiftbutton = document.getElementById("shiftbutton");
 
-        if (employee.name) {
-            employeename.innerHTML = employee.name;
-            contact.textContent = employee.contact;
-            contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
-            if (employee.contact && employee.contact.length > 0) {
-                contactLabel.innerHTML = 'Contact: ';
-            } else {
-                contactLabel.innerHTML = '';
-            }
+        employeename.innerHTML = employee.name;
+        
+        if (employee.contact && employee.contact.length > 0) {
+            contact.innerHTML = 'Contact: <a class="ah3" href="tel:+' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
         } else {
-            contactLabel.innerHTML = '';
+            contact.innerHTML = '';
         }
 
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
