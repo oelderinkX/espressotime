@@ -26,7 +26,6 @@ function parseTelephone(ph) {
     if (ph) {
         ph = ph.replace('(', '');    
         ph = ph.replace(')', '');
-        ph = ph.replace(/^0+/, '')
         while (ph.indexOf(' ') > -1) {
             ph = ph.replace(' ', '');
         }
@@ -34,18 +33,25 @@ function parseTelephone(ph) {
     return ph;
 }
 
+function isMobileDevice() {
+    var webnavbar = document.getElementById("webnavbar");
+
+    if (webnavbar.offsetHeight == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function getEmployees() {
     sendPost("/getemployees", '', function(response) {
         var employees = JSON.parse(response);
-
-        var mobilenavbar = document.getElementById("mobilenavbar");
-        var webnavbar = document.getElementById("webnavbar");
 
         var mobileemployeelist = document.getElementById("mobileemployeelist");
         var webemployeelist = document.getElementById("webemployeelist");
 
         for(var i = 0; i < employees.length; i++) {
-            if (webnavbar.offsetHeight == 0) {
+            if (isMobileDevice()) {
                 var li1 = document.createElement("li");
                 var a1 = document.createElement("a");
                 a1.setAttribute('href', '#');
@@ -54,9 +60,7 @@ function getEmployees() {
                 li1.appendChild(a1);
                 li1.classList.add('active');
                 mobileemployeelist.appendChild(li1);
-            }
-
-            if (webnavbar.offsetHeight > 0) {
+            } else {
                 var li2 = document.createElement("li");
                 var a2 = document.createElement("a");
                 a2.setAttribute('href', '#');
@@ -89,7 +93,11 @@ function getEmployeeDetails(employeeId) {
         employeename.innerHTML = employee.name;
         
         if (employee.contact && employee.contact.length > 0) {
-            contact.innerHTML = 'Contact: <a class="ah3" href="tel:' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
+            if (isMobileDevice()) {
+                contact.innerHTML = 'Contact: <a class="ah3" href="tel:' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
+            } else {
+                contact.innerHTML = 'Contact: ' + employee.contact;
+            }
         } else {
             contact.innerHTML = '';
         }
@@ -211,7 +219,7 @@ function getEmployeeDetails(employeeId) {
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
-        if (mobilenavbar.offsetHeight > 0) {
+        if (isMobileDevice()) {
             breaks.classList.add("invisible");
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
