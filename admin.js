@@ -9,6 +9,7 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
+var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var adminPage = fs.readFileSync(__dirname + "/webpage/admin.html", "utf8");
 var employeeListEditPage = fs.readFileSync(__dirname + "/webpage/employeelistedit.html", "utf8");
 var timesheetPage = fs.readFileSync(__dirname + "/webpage/timesheet.html", "utf8");
@@ -16,9 +17,18 @@ var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
-		var webpage = adminPage;
-	
-		// if shop and password missing, just say you should go through other page and redirect to there
+		var webpage = loginPage;
+
+		var identifier = req.cookies['identifier'];
+
+		var shopid = common.getShopId(identifier);
+		
+		if (shopid && shopid != -1) {
+			webpage = adminPage;
+		} else {
+			webpage.replaceAll('!%REDIRECT_URL%!', '/admin');
+		}
+		
 
 		res.send(webpage);
 	});	

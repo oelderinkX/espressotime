@@ -18,6 +18,32 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 
+	app.post('/login', jsonParser, function(req, res) {
+		var name = req.body.name;
+		var pass = req.body.password;
+		
+		var sql = "SELECT id, name from espresso.shop where name = $1 and password = $2"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [name, pass], function(err, result) {
+				done();
+
+				var login = { success: false, reason: "unknown error" };
+
+				if (result && result.rowCount == 0) {
+					var encode = btoa(result.rows[0].name + ';12121976;' + result.rows[0].id);
+					login = { success: true, identifier: encode };
+				} else if (result && result.rowCount > 1 ) {
+					login = { success: false, reason: "multiple shops found, call administrator" };
+				} else {
+					login = { success: false, reason: "shop name or password incorrect" };
+				}
+					
+				res.send(login);
+			});
+		});
+	});
+
 	app.post('/', urlencodedParser, function(req, res) {
 		var shopId = req.body.shopId;
 		var pass = req.body.pass;

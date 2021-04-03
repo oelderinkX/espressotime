@@ -39,3 +39,22 @@ function replaceAll(str, searchValue, replaceWith) {
 	return str;
 }
 module.exports.replaceAll = replaceAll;
+
+function getShopName(identifier) {
+  if (identifier) {
+    var decode = atob(identifier);
+    return decode.split(';12121976;')[0];
+  }
+  return '';
+}
+module.exports.getShopName = getShopName;
+
+function getShopId(identifier) {
+  if (identifier) {
+    var decode = atob(identifier);
+    return decode.split(';12121976;')[1];
+  }
+  return -1;
+}
+module.exports.getShopId = getShopId;
+
