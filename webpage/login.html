@@ -12,8 +12,8 @@
         var redirectPage = '!%REDIRECT_URL%!';
 
         function login() {
-            var usr = document.createElement("usr");
-            var pwd = document.createElement("pwd");
+            var usr = document.getElementById("usr");
+            var pwd = document.getElementById("pwd");
 
             var json = { name: usr.value, password: pwd };
 
