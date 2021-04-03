@@ -17,7 +17,7 @@
 
             var json = { name: usr.value, password: pwd };
 
-            sendPost("/login", json, function(response) {
+            sendPost("/login", JSON.stringify(json), function(response) {
                 var login = JSON.parse(response);
 
                 if (login.success == true) {
@@ -41,7 +41,7 @@
     <br/>
     <br/>
     <div class="form-group">
-        <label for="usr">Shop Number:</label>
+        <label for="usr">Shop Name:</label>
         <input type="text" class="form-control" id="usr">
       </div>
       <div class="form-group">
