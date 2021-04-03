@@ -42,7 +42,7 @@ module.exports.replaceAll = replaceAll;
 
 function getShopName(identifier) {
   if (identifier) {
-    var decode = atob(identifier);
+    var decode = Buffer.from(identifier, 'base64').toString('utf-8');
     return decode.split(';12121976;')[0];
   }
   return '';
@@ -51,7 +51,7 @@ module.exports.getShopName = getShopName;
 
 function getShopId(identifier) {
   if (identifier) {
-    var decode = atob(identifier);
+    var decode =  Buffer.from(identifier, 'base64').toString('utf-8');
     return decode.split(';12121976;')[1];
   }
   return -1;
