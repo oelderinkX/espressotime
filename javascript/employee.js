@@ -85,11 +85,15 @@ function getEmployeeDetails(employeeId) {
 
         var shiftbutton = document.getElementById("shiftbutton");
 
-        employeename.innerHTML = employee.name;
-        contact.innerHTML = employee.contact;
-        contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
-        if (employee.contact && employee.contact.length > 0) {
-            contactLabel.innerHTML = 'Contact: ';
+        if (employee.name) {
+            employeename.innerHTML = employee.name;
+            contact.innerHTML = employee.contact;
+            contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
+            if (employee.contact && employee.contact.length > 0) {
+                contactLabel.innerHTML = 'Contact: ';
+            } else {
+                contactLabel.innerHTML = '';
+            }
         } else {
             contactLabel.innerHTML = '';
         }
