@@ -87,7 +87,7 @@ function getEmployeeDetails(employeeId) {
 
         if (employee.name) {
             employeename.innerHTML = employee.name;
-            contact.innerHTML = employee.contact;
+            contact.textContent = employee.contact;
             contact.setAttribute('href', 'tel:+' + parseTelephone(employee.contact));
             if (employee.contact && employee.contact.length > 0) {
                 contactLabel.innerHTML = 'Contact: ';
