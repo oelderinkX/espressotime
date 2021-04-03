@@ -40,6 +40,7 @@ function getEmployees() {
             input3.setAttribute('type', 'text');
             input3.setAttribute('id', 'pin' + employees[i].id);
             input3.setAttribute('value', employees[i].pin);
+            input3.disabled = true;
             td3.appendChild(input3);
 
             var td4 = document.createElement('td');
