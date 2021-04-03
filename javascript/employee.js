@@ -23,8 +23,11 @@ function clock() {
   }
   
 function parseTelephone(ph) {
-    ph = ph.replace('(', '');    
-    ph = ph.replace(')', '');
+    if (ph) {
+        ph = ph.replace('(', '');    
+        ph = ph.replace(')', '');
+        ph = ph.replace(/^0+/, '')
+    }
     return ph;
 }
 
