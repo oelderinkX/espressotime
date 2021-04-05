@@ -1,4 +1,5 @@
 var backToMainTimer;
+var slowConnectTimer;
 
 function clock() {
     var today = new Date();
@@ -94,9 +95,14 @@ function getEmployeeDetails(employeeId) {
     restButton.classList.add("invisible");
     mealButton.classList.add("invisible");
 
-    employeename.innerHTML = 'Loading, please wait...';
+    clearTimeout(slowConnectTimer);
+    slowConnectTimer = setTimeout(function() {
+        employeename.innerHTML = 'Loading, please wait...';
+    }, 500);
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
+        clearTimeout(slowConnectTimer);
+        
         var employee = JSON.parse(response);
 
         employeename.innerHTML = employee.name;
