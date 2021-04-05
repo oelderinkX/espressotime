@@ -77,18 +77,19 @@ function getEmployees() {
 function getEmployeeDetails(employeeId) {
     var date = getDbFormat();
 
+    var employeename = document.getElementById("employeename");
+    var contact = document.getElementById("contact");
+    var starttime = document.getElementById("starttime");
+    var finishtime = document.getElementById("finishtime");
+    var breaks = document.getElementById("breaks");
+    var restButton = document.getElementById('restbutton');
+    var mealButton = document.getElementById('mealbutton');
+    var shiftbutton = document.getElementById("shiftbutton");
+
+    employeename.innerHTML = 'Loading, please wait...';
+
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
         var employee = JSON.parse(response);
-
-        var employeename = document.getElementById("employeename");
-        var contact = document.getElementById("contact");
-        var starttime = document.getElementById("starttime");
-        var finishtime = document.getElementById("finishtime");
-        var breaks = document.getElementById("breaks");
-        var restButton = document.getElementById('restbutton');
-        var mealButton = document.getElementById('mealbutton');
-
-        var shiftbutton = document.getElementById("shiftbutton");
 
         employeename.innerHTML = employee.name;
         
