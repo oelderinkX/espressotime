@@ -86,6 +86,14 @@ function getEmployeeDetails(employeeId) {
     var mealButton = document.getElementById('mealbutton');
     var shiftbutton = document.getElementById("shiftbutton");
 
+    contact.classList.add("invisible");
+    starttime.classList.add("invisible");
+    finishtime.classList.add("invisible");
+    breaks.classList.add("invisible");
+    shiftbutton.classList.add("invisible");
+    restButton.classList.add("invisible");
+    mealButton.classList.add("invisible");
+
     employeename.innerHTML = 'Loading, please wait...';
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
@@ -210,13 +218,6 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.remove("invisible");
         } else {
             employeename.classList.add("invisible");
-            contact.classList.add("invisible");
-            starttime.classList.add("invisible");
-            finishtime.classList.add("invisible");
-            breaks.classList.add("invisible");
-            shiftbutton.classList.add("invisible");
-            restButton.classList.add("invisible");
-            mealButton.classList.add("invisible");
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
