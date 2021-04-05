@@ -95,6 +95,7 @@ function getEmployeeDetails(employeeId) {
     restButton.classList.add("invisible");
     mealButton.classList.add("invisible");
 
+    employeename.innerHTML = '';
     clearTimeout(slowConnectTimer);
     slowConnectTimer = setTimeout(function() {
         employeename.innerHTML = 'Loading, please wait...';
@@ -102,7 +103,7 @@ function getEmployeeDetails(employeeId) {
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
         clearTimeout(slowConnectTimer);
-        
+
         var employee = JSON.parse(response);
 
         employeename.innerHTML = employee.name;
