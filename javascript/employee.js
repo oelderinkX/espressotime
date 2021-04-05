@@ -99,7 +99,7 @@ function getEmployeeDetails(employeeId) {
     clearTimeout(slowConnectTimer);
     slowConnectTimer = setTimeout(function() {
         employeename.innerHTML = 'Loading, please wait...';
-    }, 500);
+    }, 700);
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + date + '" }', function(response) {
         clearTimeout(slowConnectTimer);
