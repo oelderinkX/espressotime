@@ -57,7 +57,7 @@ function getEmployees() {
                 var a1 = document.createElement("a");
                 a1.setAttribute('href', '#');
                 a1.innerHTML = employees[i].name;
-                a1.setAttribute('onclick', 'getEmployeeDetails(' + employees[i].id + ');');
+                a1.setAttribute('onclick', 'document.getElementById("mobilenavbar").click(); getEmployeeDetails(' + employees[i].id + ');');
                 li1.appendChild(a1);
                 li1.classList.add('active');
                 mobileemployeelist.appendChild(li1);

@@ -1,0 +1,22 @@
+{
+    "short_name": "Espresso Time",
+    "name": "Espresso Time",
+    "icons": [
+      {
+        "src": "/images/favicon192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/images/favicon.ico",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ac9175",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#000000",
+    "description": "Espresso Time"
+}
