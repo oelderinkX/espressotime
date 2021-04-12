@@ -438,8 +438,6 @@ function scheduleForward() {
 }
 
 function getScheduleDates(newDate) {
-    var months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
     var scheduleDate = document.getElementById("scheduleDate");
 
     var d = new Date();
@@ -458,7 +456,7 @@ function getScheduleDates(newDate) {
     scheduleEnd = new Date(scheduleStart);
     scheduleEnd.setDate(scheduleEnd.getDate() + 6);
 
-    var from = pad(scheduleStart.getDate()) + ' ' + months[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
-    var to = pad(scheduleEnd.getDate()) + ' ' + months[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();
+    var from = pad(scheduleStart.getDate()) + ' ' + monthNames[scheduleStart.getMonth()] + ' ' + scheduleStart.getFullYear();
+    var to = pad(scheduleEnd.getDate()) + ' ' + monthNames[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();
     scheduleDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
 }

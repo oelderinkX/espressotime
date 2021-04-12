@@ -7,7 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script src="javascript/common.js"></script>
-    <script src="javascript/javascript_admin.js"></script>
+    <script src="javascript/javascript_edit.js"></script>
 
     <style>
         body {
@@ -25,24 +25,15 @@
     <form role="form">
         <div class="form-group">
             <label>Employee</label>
-            <select class="input-large form-control">
+            <select class="input-large form-control" id="employeecombox">
                 <option value>Select Employee</option>
-                <option value="1">Barbara</option>
-                <option value="2">Jared</option>
-                <option value="3">Suyan</option>
             </select>
         </div>
     </form>
     
     <div class="input-group">
         <span class="input-group-addon" id="day-addon">Day</span>
-        <select class="input-large form-control" aria-describedby="day-addon">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+        <select class="input-large form-control" aria-describedby="day-addon" id="Day">
         </select>
 
         <span class="input-group-addon" id="month-addon">Month</span>
@@ -62,65 +53,37 @@
 
     <br/>
     <br/>
+    <hr>
     <br/>
 
+	<div class="form-group">
+		<div class="input-group">
+			<span class = "input-group-addon">Start Time</span>
+			<input type="text" value="9:00" name="time" class="form-control">
+			<span class = "input-group-addon">Finish Time</span>
+			<input type="text" value="17:00" name="time" class="form-control">
 
-        <div class="col-sm-10">
-            <span class="input-group-addon" id="hour-addon">Hour</span>
-            <select class="input-small form-control" aria-describedby="hour-addon">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">5</option>
-                <option value="6">6</option>
-            </select>
-
-            <span class="input-group-addon" id="minute-addon">Minute</span>
-            <select class="input-small form-control" aria-describedby="minute-addon">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">3</option>
-                <option value="5">3</option>
-                <option value="6">3</option>
-            </select>
-        </div>
-
-
+		</div>
+	</div>
     <br/>
     Breaks <br/>
 
-    <div class="col-sm-10">
-        <span class="input-group-addon" id="hour1-addon">Hour</span>
-        <select class="input-small form-control" aria-describedby="hour1-addon">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">5</option>
-            <option value="6">6</option>
-        </select>
-
-        <span class="input-group-addon" id="minute1-addon">Minute</span>
-        <select class="input-small form-control" aria-describedby="minute1-addon">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">3</option>
-            <option value="5">3</option>
-            <option value="6">3</option>
-        </select>
-
-        <span class="input-group-addon" id="type1-addon">Type</span>
-        <select class="input-small form-control" aria-describedby="type1-addon">
-            <option value="1">10 Rest</option>
-            <option value="2">30 Meal</option>
-        </select>
+	<div class="form-group">
+		<div class="input-group">
+			<span class = "input-group-addon">Break 1</span>
+			<input type="text" value="12:00" name="time" class="form-control">
+            <span class="input-group-addon" id="type1-addon">Type</span>
+            <select class="input-small form-control" aria-describedby="type1-addon">
+                <option value="1">10 Rest</option>
+                <option value="2">30 Meal</option>
+            </select>
+		</div>
+	</div>
     <br/>
     <button type="button" class="btn btn-default">Update</button>
 </body>
 <script>
-
+    getEmployees();
+    setDates();
 </script>
 </html>
