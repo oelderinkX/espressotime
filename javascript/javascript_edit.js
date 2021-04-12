@@ -52,7 +52,7 @@ function getStartFinishBreaks() {
     var month = document.getElementById('month');
     var year = document.getElementById('year');
 
-    var d = new Date(year.value, month.value, day.value);
+    var d = new Date(year.value, month.value - 1, day.value);
     var dbDate = getDbFormat(d);
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
