@@ -56,6 +56,16 @@ function getStartFinishBreaks() {
     var dbDate = getDbFormat(d);
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
-        var employee = JSON.parse(response);
+        var times = JSON.parse(response);
+
+        var starttime = getTime(times.starttime);
+        var finishtime = getTime(times.finishtimetime);
+
+        var starttimeField = document.getElementById('starttime');
+        var finishtimeField = document.getElementById('finishtime');
+
+        starttimeField.value = starttime;
+        finishtimeField.value = finishtime;
+
     });
 }
