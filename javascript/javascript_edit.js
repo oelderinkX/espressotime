@@ -41,7 +41,7 @@ function setDates() {
 
     var today = new Date();
 
-    day.selectedIndex = today.getDate();
-    month.selectedIndex = (today.getMonth() + 1);
-    year.selectedIndex = today.getFullYear();
+    day.selectedIndex = today.getDate() - 1;
+    month.selectedIndex = (today.getMonth());
+    year.selectedIndex = today.getFullYear() - 2021;
 }
