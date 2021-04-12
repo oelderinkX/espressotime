@@ -53,7 +53,7 @@ function getStartFinishBreaks() {
     var year = document.getElementById('year');
 
     var d = new Date(year.value, month.value, day.value);
-    var dbDate = getDbFormat();
+    var dbDate = getDbFormat(d);
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
         var employee = JSON.parse(response);
