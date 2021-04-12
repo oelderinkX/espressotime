@@ -1,5 +1,3 @@
-
-
 function getEmployees() {
     var employeecombo = document.getElementById('employeecombox');
 
@@ -9,7 +7,7 @@ function getEmployees() {
         for(var i = 0; i < employees.length; i++) {
             var option = document.createElement("option");
             option.setAttribute('value', employees[i].id);
-            option.innerHTML(employees[i].name);
+            option.text(employees[i].name);
             employeecombo.appendChild(option);
         }
     });
@@ -23,21 +21,21 @@ function setDates() {
     for(var i = 1; i < 32; i++) {
         var option = document.createElement("option");
         option.setAttribute('value', i);
-        option.innerHTML(i);
+        option.text(i);
         day.appendChild(option);
     }
 
     for(var i = 0; i < 12; i++) {
         var option = document.createElement("option");
         option.setAttribute('value', i+1);
-        option.innerHTML(monthNames[i]);
+        option.text(monthNames[i]);
         month.appendChild(option);
     }
 
     for(var i = 2021; i < 2023; i++) {
         var option = document.createElement("option");
         option.setAttribute('value', i);
-        option.innerHTML(i);
+        option.text(i);
         month.appendChild(option);
     }
 
