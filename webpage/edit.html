@@ -25,7 +25,7 @@
     <form role="form">
         <div class="form-group">
             <label>Employee</label>
-            <select class="input-large form-control" id="employeecombox">
+            <select class="input-large form-control" id="employeecombox" onchange="getStartFinishBreaks();">
                 <option value>Select Employee</option>
             </select>
         </div>
@@ -33,15 +33,15 @@
     
     <div class="input-group">
         <span class="input-group-addon" id="day-addon">Day</span>
-        <select class="input-large form-control" aria-describedby="day-addon" id="day">
+        <select class="input-large form-control" aria-describedby="day-addon" id="day" onchange="getStartFinishBreaks();">
         </select>
 
         <span class="input-group-addon" id="month-addon">Month</span>
-        <select class="input-large form-control" aria-describedby="month-addon" id="month">
+        <select class="input-large form-control" aria-describedby="month-addon" id="month" onchange="getStartFinishBreaks();">
         </select>
 
         <span class="input-group-addon" id="year-addon">Year</span>
-        <select class="input-large form-control" aria-describedby="year-addon" id="year">
+        <select class="input-large form-control" aria-describedby="year-addon" id="year" onchange="getStartFinishBreaks();">
         </select>
     </div>
 
@@ -53,9 +53,9 @@
 	<div class="form-group">
 		<div class="input-group">
 			<span class = "input-group-addon">Start Time</span>
-			<input type="text" value="9:00" name="time" class="form-control">
+			<input type="text" value="-" name="starttime" class="form-control">
 			<span class = "input-group-addon">Finish Time</span>
-			<input type="text" value="17:00" name="time" class="form-control">
+			<input type="text" value="-" name="finishtime" class="form-control">
 
 		</div>
 	</div>

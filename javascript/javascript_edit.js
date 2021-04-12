@@ -45,3 +45,16 @@ function setDates() {
     month.selectedIndex = (today.getMonth());
     year.selectedIndex = today.getFullYear() - 2021;
 }
+
+function getStartFinishBreaks() {
+    var day = document.getElementById('day');
+    var month = document.getElementById('month');
+    var year = document.getElementById('year');
+
+    var d = new Date(year.value, month.value, day.value);
+    var dbDate = getDbFormat();
+
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + dbDate + '" }', function(response) {
+        var employee = JSON.parse(response);
+    });
+}
