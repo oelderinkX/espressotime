@@ -47,6 +47,7 @@ function setDates() {
 }
 
 function getStartFinishBreaks() {
+    var employeecombo = document.getElementById('employeecombox');
     var day = document.getElementById('day');
     var month = document.getElementById('month');
     var year = document.getElementById('year');
@@ -54,7 +55,7 @@ function getStartFinishBreaks() {
     var d = new Date(year.value, month.value, day.value);
     var dbDate = getDbFormat();
 
-    sendPost("/getemployeedetails", '{ "employeeId": "' + employeeId +  '", "date": "'  + dbDate + '" }', function(response) {
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
         var employee = JSON.parse(response);
     });
 }
