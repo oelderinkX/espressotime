@@ -39,7 +39,7 @@ function setDates() {
         year.appendChild(option);
     }
 
-    var today = Date.now();
+    var today = Date();
 
     day.selectedIndex = today.getDate();
     month.selectedIndex = (today.getMonth() + 1);
