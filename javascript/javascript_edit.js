@@ -48,6 +48,11 @@ function setDates() {
 
 function getStartFinishBreaks() {
     var employeecombo = document.getElementById('employeecombox');
+
+    if (employeecombo.value.length == 0) {
+        return;
+    }
+
     var day = document.getElementById('day');
     var month = document.getElementById('month');
     var year = document.getElementById('year');
