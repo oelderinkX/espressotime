@@ -36,7 +36,12 @@ function setDates() {
         var option = document.createElement("option");
         option.setAttribute('value', i);
         option.innerHTML = i;
-        month.appendChild(option);
+        year.appendChild(option);
     }
 
+    var today = Date.now();
+
+    day.selectedIndex = today.getDate();
+    month.selectedIndex = (today.getMonth() + 1);
+    year.selectedIndex = today.getFullYear();
 }
