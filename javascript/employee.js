@@ -229,7 +229,6 @@ function getEmployeeDetails(employeeId) {
 
         var mobilenavbar = document.getElementById("mobilenavbar");
         if (isMobileDevice()) {
-            breaks.classList.add("invisible");
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
             mealButton.classList.add("invisible");

@@ -63,6 +63,11 @@ function getStartFinishBreaks() {
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
         var times = JSON.parse(response);
 
+        //check if empty and clear and recreate elements
+        //maybe allow for multiple ?  not sure
+        //lets just maybe update breaks on id's!!!!  
+        
+
         var starttime = getTime(times.starttime);
         var finishtime = getTime(times.finishtime);
 
