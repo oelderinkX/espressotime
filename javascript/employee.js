@@ -244,6 +244,10 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.remove("invisible");
         } else {
             employeename.classList.add("invisible");
+            shiftbutton.classList.add("invisible");
+            restButton.classList.add("invisible");
+            mealButton.classList.add("invisible");
+
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
