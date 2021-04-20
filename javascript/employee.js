@@ -126,6 +126,7 @@ function getEmployeeDetails(employeeId) {
 
         var on10minBreak = false;
         var on30minBreak = false;
+        var startedShift = false;
 
 
         if (employee.breaks) {
@@ -157,7 +158,10 @@ function getEmployeeDetails(employeeId) {
         breaks.innerHTML = 'Breaks: <br/>' + breaks10mins + '<br/>' + breaks30mins;
 
         var shiftButtonAttribute = '';
+        var shiftButtonStyle = 'btn-success';
         if (employee.starttime && !employee.finishtime) {
+            startedShift = true;
+            shiftButtonStyle = 'btn-danger';
             shiftButtonAttribute = 'employeeFinish(' + employeeId + ');';
             shiftbutton.innerHTML = 'Finish Shift';
         } else {
@@ -166,51 +170,66 @@ function getEmployeeDetails(employeeId) {
         }
 
         var restButtonAttribute = '';
+        var restButtonStyle = '';
         var mealButtonAttribute = '';
+        var mealButtonStyle = '';
         if (on10minBreak) {
+            restButtonStyle = 'btn-danger';
             restButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 10);';
             restButton.innerHTML = 'Finish 10min Break';
         } else {
+            restButtonStyle = 'btn-success';
             restButtonAttribute = 'employeeStartBreak(' + employeeId + ', 10);';
             restButton.innerHTML = 'Start 10min Break';
         }
 
         if (on30minBreak) {
+            mealButtonStyle = 'btn-danger';
             mealButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 30);';
             mealButton.innerHTML = 'Finish 30min Break';;
         } else {
+            mealButtonStyle = 'btn-success';
             mealButtonAttribute = 'employeeStartBreak(' + employeeId + ', 30);';
             mealButton.innerHTML = 'Start 30min Break';;
         }
 
         if (employee.starttime && !employee.finishtime) {
-            restButton.classList.remove("disabled");
+            //restButton.classList.remove("disabled");
+            restButton.className = 'btn btn-lg ' + restButtonStyle;
             restButton.setAttribute('onclick', restButtonAttribute);
-            mealButton.classList.remove("disabled");
+            //mealButton.classList.remove("disabled");
+            mealButton.className = 'btn btn-lg ' + mealButtonStyle;
             mealButton.setAttribute('onclick', mealButtonAttribute);
         } else {
-            restButton.classList.add("disabled");
+            //restButton.classList.add("disabled");
             restButton.removeAttribute('onclick');
-            mealButton.classList.add("disabled");
+            restButton.className = 'btn btn-lg btn-secondary disabled';
+            //mealButton.classList.add("disabled");
             mealButton.removeAttribute('onclick');
+            mealButton.className = 'btn btn-lg btn-secondary disabled';
         }
 
         if (on10minBreak) {
-            shiftbutton.classList.add("disabled");
+            //shiftbutton.classList.add("disabled");
+            shiftbutton.className = 'btn btn-lg btn-secondary disabled';
             shiftbutton.removeAttribute('onclick');
-            mealButton.classList.add("disabled");
+            //mealButton.classList.add("disabled");
+            mealButton.className = 'btn btn-lg btn-secondary disabled';
             mealButton.removeAttribute('onclick');
         }
 
         if (on30minBreak) {
-            shiftbutton.classList.add("disabled");
+            //shiftbutton.classList.add("disabled");
+            shiftbutton.className = 'btn btn-lg btn-secondary disabled';
             shiftbutton.removeAttribute('onclick');
-            restButton.classList.add("disabled");
+            //restButton.classList.add("disabled");
+            restButton.className = 'btn btn-lg btn-secondary disabled';
             restButton.removeAttribute('onclick');
         }
 
         if (!on10minBreak && !on30minBreak) {
-            shiftbutton.classList.remove("disabled");
+            //shiftbutton.classList.remove("disabled");
+            shiftbutton.className = 'btn btn-lg ' + shiftButtonStyle;
             shiftbutton.setAttribute('onclick', shiftButtonAttribute);
         }
 
