@@ -127,6 +127,14 @@ function calculateHours(minutes) {
     }
 }
 
+function selectIndexByValue(select, value) {
+  for (var i=0; i < select.options.length; i++) {
+    if (select.options[i].value == value) {
+      select.selectedIndex = i;
+    }
+  }
+}
+
 function sendPost(url, data, callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST", url, true);
