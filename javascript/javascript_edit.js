@@ -46,7 +46,7 @@ function getStartFinishBreaks() {
         return;
     }
 
-    var dayCombo = document.getElementById('dayCombo');
+    var dayCombo = document.getElementById('day');
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dayCombo.value + '" }', function(response) {
         var times = JSON.parse(response);
