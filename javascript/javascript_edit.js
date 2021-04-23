@@ -14,29 +14,25 @@ function getEmployees() {
 }
 
 function setDates() {
-    var day = document.getElementById('day');
-    var month = document.getElementById('month');
-    var year = document.getElementById('year');
+    var dayCombo = document.getElementById('day');
 
-    for(var i = 1; i < 32; i++) {
-        var option = document.createElement("option");
-        option.setAttribute('value', i);
-        option.innerHTML = i;
-        day.appendChild(option);
+    var d = new Date();
+    var day = d.getDay();
+
+    optionDate = new Date(d);
+    if (day == 0) {
+        optionDate.setDate( scheduleStart.getDate() - 6 );
+    } else {
+        optionDate.setDate( scheduleStart.getDate() - (day - 1) );
     }
 
-    for(var i = 0; i < 12; i++) {
+    for(var i = 1; i < 7; i++) {
+        var value = formatDate(startDate);
+        var display = displayDate(startDate);
         var option = document.createElement("option");
-        option.setAttribute('value', i+1);
-        option.innerHTML = monthNames[i];
-        month.appendChild(option);
-    }
-
-    for(var i = 2021; i < 2023; i++) {
-        var option = document.createElement("option");
-        option.setAttribute('value', i);
-        option.innerHTML = i;
-        year.appendChild(option);
+        option.setAttribute('value', value);
+        option.innerHTML = display;
+        dayCombo.appendChild(option);
     }
 
     var today = new Date();

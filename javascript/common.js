@@ -56,6 +56,18 @@ function formatDate(d) {
   }
 }
 
+function displayDate(d) {
+  if (d) {
+    if (isString(d)) {
+      d = new Date();
+    }
+
+    return pad(d.getDate()) + ' / ' + pad(d.getMonth()) + ' / ' + pad(d.getFullYear());
+  } else {
+    return '-';
+  }
+}
+
 function getDbFormat(d)
 {
   if (!d) {
