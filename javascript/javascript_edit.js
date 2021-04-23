@@ -47,11 +47,13 @@ function getStartFinishBreaks() {
     }
 
     var timesArea = document.getElementById('times');
-    timesArea.innerHTML = 'Loading...';
+    timesArea.innerHTML = '<h3>Loading...</h3>';
 
     var dayCombo = document.getElementById('day');
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dayCombo.value + '" }', function(response) {
+        timesArea.innerHTML = '';
+
         var times = JSON.parse(response);
 
         var starttime = getTime(times.starttime);
@@ -83,5 +85,42 @@ function getStartFinishBreaks() {
         inputGroup.appendChild(input2); 
 
         timesArea.appendChild(inputGroup);
+
+        // breaks
+        var inputGroup2 = document.createElement("div");
+
+        var span3 = document.createElement("span");
+        span3.classList.add('input-group-addon');
+        span3.innerHTML = 'Break NUM';
+        inputGroup2.appendChild(span3);
+
+        var input3 = document.createElement("input");
+        input3.classList.add('form-control');
+        input3.type = 'text';
+        input3.value = '12:00';
+        inputGroup2.appendChild(input3); 
+
+        var span4 = document.createElement("span");
+        span4.classList.add('input-group-addon');
+        span4.setAttribute('id', 'type1-addon')
+        span4.innerHTML = 'Type NUM';
+        inputGroup2.appendChild(span4);
+        
+        var select = document.createElement("select");
+        select.classList.add('input-small');
+        select.classList.add('form-control');
+        select.setAttribute('aria-describedby', 'type1-addon')
+
+        var option1 = document.createElement("option");
+        option1.value = "10";
+        option1.innerHTML = '10m Rest Break'
+
+        var option2 = document.createElement("option");
+        option2.value = "30";
+        option2.innerHTML = '30m Meal Break'
+
+        select.appendChild(option1);
+        select.appendChild(option2);
+        inputGroup2.appendChild(select);
     });
 }
