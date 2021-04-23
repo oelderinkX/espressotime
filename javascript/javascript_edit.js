@@ -48,6 +48,8 @@ function getStartFinishBreaks() {
 
     var timesArea = document.getElementById('times');
     timesArea.innerHTML = '<h3>Loading...</h3>';
+    var breaksArea = document.getElementById('breaks');
+    breaksArea.innerHTML = '';
 
     var dayCombo = document.getElementById('day');
 
@@ -122,5 +124,7 @@ function getStartFinishBreaks() {
         select.appendChild(option1);
         select.appendChild(option2);
         inputGroup2.appendChild(select);
+
+        breaksArea.appendChild(inputGroup2);
     });
 }
