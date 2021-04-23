@@ -90,10 +90,11 @@ function getStartFinishBreaks() {
 
         // breaks
         var inputGroup2 = document.createElement("div");
+        inputGroup2.classList.add('input-group');
 
         var span3 = document.createElement("span");
         span3.classList.add('input-group-addon');
-        span3.innerHTML = 'Break NUM';
+        span3.innerHTML = 'Break 1';
         inputGroup2.appendChild(span3);
 
         var input3 = document.createElement("input");
