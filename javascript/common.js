@@ -1,4 +1,5 @@
 var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+var daysNames = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
 
 function setCookie(cname, cvalue) {
   var timeElapsed  = Date().now;
