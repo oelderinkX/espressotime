@@ -62,7 +62,7 @@ function displayDate(d) {
       d = new Date();
     }
 
-    return pad(d.getDate()) + ' / ' + pad(d.getMonth()) + ' / ' + pad(d.getFullYear());
+    return pad(d.getDate()) + ' / ' + pad(d.getMonth()+1) + ' / ' + pad(d.getFullYear());
   } else {
     return '-';
   }

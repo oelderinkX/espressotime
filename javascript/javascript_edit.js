@@ -27,7 +27,7 @@ function setDates() {
     }
 
     for(var i = 1; i < 8; i++) {
-        var value = formatDate(optionDate);
+        var value = getDbFormat(optionDate);
         var display = displayDate(optionDate);
         var option = document.createElement("option");
         option.setAttribute('value', value);
