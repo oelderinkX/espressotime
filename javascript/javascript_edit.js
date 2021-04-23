@@ -21,14 +21,14 @@ function setDates() {
 
     optionDate = new Date(d);
     if (day == 0) {
-        optionDate.setDate( scheduleStart.getDate() - 6 );
+        optionDate.setDate( optionDate.getDate() - 6 );
     } else {
-        optionDate.setDate( scheduleStart.getDate() - (day - 1) );
+        optionDate.setDate( optionDate.getDate() - (day - 1) );
     }
 
     for(var i = 1; i < 7; i++) {
-        var value = formatDate(startDate);
-        var display = displayDate(startDate);
+        var value = formatDate(optionDate);
+        var display = displayDate(optionDate);
         var option = document.createElement("option");
         option.setAttribute('value', value);
         option.innerHTML = display;
