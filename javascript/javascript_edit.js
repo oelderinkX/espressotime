@@ -58,6 +58,10 @@ function getStartFinishBreaks() {
 
         var times = JSON.parse(response);
 
+        if (times.starttime == "") {
+            return;
+        }
+
         var starttime = getTime(times.starttime);
         var finishtime = getTime(times.finishtime);
 
