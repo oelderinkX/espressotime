@@ -101,7 +101,7 @@ function getStartFinishBreaks() {
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
             input3.type = 'text';
-            input3.value = times.breaks[i].starttime;
+            input3.value = times.breaks[i].startTime + ' - ' + times.breaks[i].finishTime;
             inputGroup2.appendChild(input3); 
 
             var span4 = document.createElement("span");
@@ -123,7 +123,7 @@ function getStartFinishBreaks() {
             option2.value = "30";
             option2.innerHTML = '30m Meal Break'
 
-            select.value = times.breaks[i].type;
+            select.value = times.breaks[i].breakType;
 
             select.appendChild(option1);
             select.appendChild(option2);
