@@ -26,20 +26,15 @@ function setDates() {
         optionDate.setDate( optionDate.getDate() - (day - 1) );
     }
 
-    for(var i = 1; i < 7; i++) {
+    for(var i = 1; i < 8; i++) {
         var value = formatDate(optionDate);
         var display = displayDate(optionDate);
         var option = document.createElement("option");
         option.setAttribute('value', value);
         option.innerHTML = display;
         dayCombo.appendChild(option);
+        optionDate.setDate(optionDate.getDate() + 1);
     }
-
-    var today = new Date();
-
-    day.selectedIndex = today.getDate() - 1;
-    month.selectedIndex = (today.getMonth());
-    year.selectedIndex = today.getFullYear() - 2021;
 }
 
 function getStartFinishBreaks() {
