@@ -46,8 +46,8 @@ function getStartFinishBreaks() {
         return;
     }
 
-    var times = document.getElementById('times');
-    times.innerHTML = '';
+    var timesArea = document.getElementById('times');
+    timesArea.innerHTML = 'Loading...';
 
     var dayCombo = document.getElementById('day');
 
@@ -82,6 +82,6 @@ function getStartFinishBreaks() {
         input2.value = finishtime;
         inputGroup.appendChild(input2); 
 
-        times.appendChild(inputGroup);
+        timesArea.appendChild(inputGroup);
     });
 }
