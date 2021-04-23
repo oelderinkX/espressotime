@@ -123,11 +123,11 @@ function getStartFinishBreaks() {
             option2.value = "30";
             option2.innerHTML = '30m Meal Break'
 
-            selectIndexByValue(select, times.breaks[i].breakType);
-
             select.appendChild(option1);
             select.appendChild(option2);
             inputGroup2.appendChild(select);
+
+            select.value = times.breaks[i].breakType;
 
             breaksArea.appendChild(inputGroup2);
         }
