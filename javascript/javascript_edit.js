@@ -46,24 +46,42 @@ function getStartFinishBreaks() {
         return;
     }
 
+    var times = document.getElementById('times');
+    times.innerHTML = '';
+
     var dayCombo = document.getElementById('day');
 
     sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dayCombo.value + '" }', function(response) {
         var times = JSON.parse(response);
 
-        //check if empty and clear and recreate elements
-        //maybe allow for multiple ?  not sure
-        //lets just maybe update breaks on id's!!!!  
-        
-
         var starttime = getTime(times.starttime);
         var finishtime = getTime(times.finishtime);
 
-        var starttimeField = document.getElementById('starttime');
-        var finishtimeField = document.getElementById('finishtime');
+        var inputGroup = document.createElement("div");
+        inputGroup.classList.add('input-group');
 
-        starttimeField.value = starttime;
-        finishtimeField.value = finishtime;
+        var span1 = document.createElement("span");
+        span1.classList.add('input-group-addon');
+        span1.innerHTML = 'Start Time';
+        inputGroup.appendChild(span1);
 
+        var input1 = document.createElement("input");
+        input1.classList.add('form-control');
+        input1.type = 'text';
+        input1.value = starttime;
+        inputGroup.appendChild(input1); 
+
+        var span2 = document.createElement("span");
+        span2.classList.add('input-group-addon');
+        span2.innerHTML = 'Finish Time';
+        inputGroup.appendChild(span2);
+
+        var input2 = document.createElement("input");
+        input2.classList.add('form-control');
+        input2.type = 'text';
+        input2.value = finishtime;
+        inputGroup.appendChild(input2); 
+
+        times.appendChild(inputGroup);
     });
 }

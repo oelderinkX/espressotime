@@ -22,6 +22,12 @@
     <h1>Edit</h1>
     <br/>
     <br/>
+    <div class="input-group">
+        <span class="input-group-addon" id="day-addon">Day</span>
+        <select class="input-large form-control" aria-describedby="day-addon" id="day" onchange="getStartFinishBreaks();">
+        </select>
+    </div>
+
     <form role="form">
         <div class="form-group">
             <label>Employee</label>
@@ -30,25 +36,25 @@
             </select>
         </div>
     </form>
-    
-    <div class="input-group">
-        <span class="input-group-addon" id="day-addon">Day</span>
-        <select class="input-large form-control" aria-describedby="day-addon" id="day" onchange="getStartFinishBreaks();">
-        </select>
-    </div>
-
+  
     <br/>
     <br/>
     <hr>
     <br/>
 
-	<div class="form-group">
+	<div class="form-group" id="times">
+
+
+        delete
 		<div class="input-group">
 			<span class = "input-group-addon">Start Time</span>
 			<input type="text" value="-" id="starttime" class="form-control">
 			<span class = "input-group-addon">Finish Time</span>
 			<input type="text" value="-" id="finishtime" class="form-control">
 		</div>
+
+
+
 	</div>
     <br/>
     Breaks <br/>
