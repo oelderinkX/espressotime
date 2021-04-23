@@ -35,6 +35,8 @@ function setDates() {
         dayCombo.appendChild(option);
         optionDate.setDate(optionDate.getDate() + 1);
     }
+
+    dayCombo.selectedIndex = 0;
 }
 
 function getStartFinishBreaks() {
@@ -44,14 +46,9 @@ function getStartFinishBreaks() {
         return;
     }
 
-    var day = document.getElementById('day');
-    var month = document.getElementById('month');
-    var year = document.getElementById('year');
+    var dayCombo = document.getElementById('dayCombo');
 
-    var d = new Date(year.value, month.value - 1, day.value);
-    var dbDate = getDbFormat(d);
-
-    sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dbDate + '" }', function(response) {
+    sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dayCombo.value + '" }', function(response) {
         var times = JSON.parse(response);
 
         //check if empty and clear and recreate elements
