@@ -89,43 +89,47 @@ function getStartFinishBreaks() {
         timesArea.appendChild(inputGroup);
 
         // breaks
-        var inputGroup2 = document.createElement("div");
-        inputGroup2.classList.add('input-group');
+        for(var i = 0; i < times.breaks.length; i++) {
+            var inputGroup2 = document.createElement("div");
+            inputGroup2.classList.add('input-group');
 
-        var span3 = document.createElement("span");
-        span3.classList.add('input-group-addon');
-        span3.innerHTML = 'Break 1';
-        inputGroup2.appendChild(span3);
+            var span3 = document.createElement("span");
+            span3.classList.add('input-group-addon');
+            span3.innerHTML = 'Break 1';
+            inputGroup2.appendChild(span3);
 
-        var input3 = document.createElement("input");
-        input3.classList.add('form-control');
-        input3.type = 'text';
-        input3.value = '12:00';
-        inputGroup2.appendChild(input3); 
+            var input3 = document.createElement("input");
+            input3.classList.add('form-control');
+            input3.type = 'text';
+            input3.value = times.breaks[i].starttime;
+            inputGroup2.appendChild(input3); 
 
-        var span4 = document.createElement("span");
-        span4.classList.add('input-group-addon');
-        span4.setAttribute('id', 'type1-addon')
-        span4.innerHTML = 'Type NUM';
-        inputGroup2.appendChild(span4);
-        
-        var select = document.createElement("select");
-        select.classList.add('input-small');
-        select.classList.add('form-control');
-        select.setAttribute('aria-describedby', 'type1-addon')
+            var span4 = document.createElement("span");
+            span4.classList.add('input-group-addon');
+            span4.setAttribute('id', 'type1-addon')
+            span4.innerHTML = 'Type 1';
+            inputGroup2.appendChild(span4);
+            
+            var select = document.createElement("select");
+            select.classList.add('input-small');
+            select.classList.add('form-control');
+            select.setAttribute('aria-describedby', 'type1-addon')
 
-        var option1 = document.createElement("option");
-        option1.value = "10";
-        option1.innerHTML = '10m Rest Break'
+            var option1 = document.createElement("option");
+            option1.value = "10";
+            option1.innerHTML = '10m Rest Break'
 
-        var option2 = document.createElement("option");
-        option2.value = "30";
-        option2.innerHTML = '30m Meal Break'
+            var option2 = document.createElement("option");
+            option2.value = "30";
+            option2.innerHTML = '30m Meal Break'
 
-        select.appendChild(option1);
-        select.appendChild(option2);
-        inputGroup2.appendChild(select);
+            select.value = times.breaks[i].type;
 
-        breaksArea.appendChild(inputGroup2);
+            select.appendChild(option1);
+            select.appendChild(option2);
+            inputGroup2.appendChild(select);
+
+            breaksArea.appendChild(inputGroup2);
+        }
     });
 }
