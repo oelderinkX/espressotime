@@ -33,7 +33,7 @@
         <select class="input-large form-control" aria-describedby="employee-addon" id="employeecombox" onchange="getStartFinishBreaks();">
             <option value>Select Employee</option>
         </select>
-    </form>
+    </div>
   
     <br/>
     <br/>
@@ -44,11 +44,13 @@
 	<div class="form-group" id="times">
 	</div>
     <br/>
+    <button type="button" class="btn btn-default" onclick="updateTimes();">Update Times</button>
+    <br/>
     <h1>Breaks</h1>
 	<div class="form-group" id="breaks">
 	</div>
     <br/>
-    <button type="button" class="btn btn-default">Update</button>
+    <button type="button" class="btn btn-default" onclick="updateBreaks();">Update Breaks</button>
 </body>
 <script>
     getEmployees();
