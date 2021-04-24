@@ -68,6 +68,7 @@ function getStartFinishBreaks() {
 
             var inputGroup = document.createElement("div");
             inputGroup.classList.add('input-group');
+            inputGroup.classList.add('times');
 
             var span1 = document.createElement("span");
             span1.classList.add('input-group-addon');
@@ -76,6 +77,7 @@ function getStartFinishBreaks() {
 
             var input1 = document.createElement("input");
             input1.classList.add('form-control');
+            input1.classList.add('starttime');
             input1.type = 'text';
             input1.value = starttime;
             input1.setAttribute('rowid', times.starttimes[i].id);
@@ -88,6 +90,7 @@ function getStartFinishBreaks() {
 
             var input2 = document.createElement("input");
             input2.classList.add('form-control');
+            input1.classList.add('finishtime');
             input2.type = 'text';
             input2.value = finishtime;
             input2.setAttribute('rowid', times.finishtimes[i].id);
@@ -142,3 +145,27 @@ function getStartFinishBreaks() {
         }
     });
 }
+
+function updateTimes() {
+    var sql = 'select * from espresso.startfinish where id in ';
+    var rows = [];
+
+    var times = getElementsByClassName('times');
+
+    for(var i = 0; i < times.length; i++) {
+        var time = times[i];
+        var starttime = time.getElementsByClassName('starttime');
+        var finishtime = time.getElementsByClassName('finishtime');
+        rows.push(starttime.getAttribute('rowid'));
+    }
+
+    sql += '(' + rows.join(',') + ')';
+
+    alert(sql);
+}
+
+function updateBreaks() {
+    var sql = '';
+    alert(sql);
+}
+
