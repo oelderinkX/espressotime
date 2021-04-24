@@ -62,35 +62,38 @@ function getStartFinishBreaks() {
             return;
         }
 
-        var starttime = getTime(times.starttime);
-        var finishtime = getTime(times.finishtime);
+        for(var i = 0; i < times.starttimes.length; i++) {
+            var starttime = getTime(times.starttimes[i]);
+            var finishtime = getTime(times.finishtimes[i]);
 
-        var inputGroup = document.createElement("div");
-        inputGroup.classList.add('input-group');
+            var inputGroup = document.createElement("div");
+            inputGroup.classList.add('input-group');
 
-        var span1 = document.createElement("span");
-        span1.classList.add('input-group-addon');
-        span1.innerHTML = 'Start Time';
-        inputGroup.appendChild(span1);
+            var span1 = document.createElement("span");
+            span1.classList.add('input-group-addon');
+            span1.innerHTML = 'Start Time';
+            inputGroup.appendChild(span1);
 
-        var input1 = document.createElement("input");
-        input1.classList.add('form-control');
-        input1.type = 'text';
-        input1.value = starttime;
-        inputGroup.appendChild(input1); 
+            var input1 = document.createElement("input");
+            input1.classList.add('form-control');
+            input1.type = 'text';
+            input1.value = starttime;
+            inputGroup.appendChild(input1); 
 
-        var span2 = document.createElement("span");
-        span2.classList.add('input-group-addon');
-        span2.innerHTML = 'Finish Time';
-        inputGroup.appendChild(span2);
+            var span2 = document.createElement("span");
+            span2.classList.add('input-group-addon');
+            span2.innerHTML = 'Finish Time';
+            inputGroup.appendChild(span2);
 
-        var input2 = document.createElement("input");
-        input2.classList.add('form-control');
-        input2.type = 'text';
-        input2.value = finishtime;
-        inputGroup.appendChild(input2); 
+            var input2 = document.createElement("input");
+            input2.classList.add('form-control');
+            input2.type = 'text';
+            input2.value = finishtime;
+            inputGroup.appendChild(input2); 
 
-        timesArea.appendChild(inputGroup);
+            timesArea.appendChild(inputGroup);
+            timesArea.appendChild(document.createElement('br'));
+        }
 
         for(var i = 0; i < times.breaks.length; i++) {
             var inputGroup2 = document.createElement("div");
