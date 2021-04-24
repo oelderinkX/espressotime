@@ -85,10 +85,10 @@ module.exports = function(app){
 		
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
-		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
+		var sqlStartTime = "SELECT id, employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
 		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by finishtime desc;";
 		
-		var sqlBreaks = "select starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
+		var sqlBreaks = "select id, starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
@@ -120,8 +120,8 @@ module.exports = function(app){
 						}
 
 						for(var i = 0; i < startFinishResult.rows.length; i++) {
-							employee.starttimes.push(startFinishResult.rows[i].starttime);
-							employee.finishtimes.push(startFinishResult.rows[i].finishtime);
+							employee.starttimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].starttime });
+							employee.finishtimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].finishtime });
 						}
 
 						pool.connect(function(err, connection, done) {
@@ -130,7 +130,7 @@ module.exports = function(app){
 
 								if (breaksResult && breaksResult.rowCount > 0) {
 									for(var i = 0; i < breaksResult.rowCount; i++) {
-										employee.breaks.push({ startTime: breaksResult.rows[i].starttime, finishTime: breaksResult.rows[i].finishtime, breakType: breaksResult.rows[i].breaktype });
+										employee.breaks.push({ id: breaksResult.rows[i].id, startTime: breaksResult.rows[i].starttime, finishTime: breaksResult.rows[i].finishtime, breakType: breaksResult.rows[i].breaktype });
 									}
 								}
 
