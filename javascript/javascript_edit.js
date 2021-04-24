@@ -63,8 +63,8 @@ function getStartFinishBreaks() {
         }
 
         for(var i = 0; i < times.starttimes.length; i++) {
-            var starttime = getTime(times.starttimes[i]);
-            var finishtime = getTime(times.finishtimes[i]);
+            var starttime = getTime(times.starttimes[i].time);
+            var finishtime = getTime(times.finishtimes[i].time);
 
             var inputGroup = document.createElement("div");
             inputGroup.classList.add('input-group');
@@ -78,6 +78,7 @@ function getStartFinishBreaks() {
             input1.classList.add('form-control');
             input1.type = 'text';
             input1.value = starttime;
+            input1.setAttribute('rowid', times.starttimes[i].id);
             inputGroup.appendChild(input1); 
 
             var span2 = document.createElement("span");
@@ -89,6 +90,7 @@ function getStartFinishBreaks() {
             input2.classList.add('form-control');
             input2.type = 'text';
             input2.value = finishtime;
+            input2.setAttribute('rowid', times.finishtimes[i].id);
             inputGroup.appendChild(input2); 
 
             timesArea.appendChild(inputGroup);
@@ -108,6 +110,7 @@ function getStartFinishBreaks() {
             input3.classList.add('form-control');
             input3.type = 'text';
             input3.value = formatTime(times.breaks[i].startTime) + ' - ' + formatTime(times.breaks[i].finishTime);
+            input3.setAttribute('rowid', times.breaks[i].id);
             inputGroup2.appendChild(input3); 
 
             var span4 = document.createElement("span");
