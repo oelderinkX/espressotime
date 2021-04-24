@@ -209,42 +209,56 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].sunday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].sunday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].sunday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].sunday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].sunday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 1) { //monday
                 scheduleDays[schedule[i].id].monday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].monday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].monday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].monday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].monday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].monday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].monday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 2) { 
                 scheduleDays[schedule[i].id].tuesday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].tuesday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].tuesday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].tuesday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].tuesday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].tuesday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].tuesday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 3) { 
                 scheduleDays[schedule[i].id].wednesday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].wednesday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].wednesday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].wednesday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].wednesday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].wednesday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].wednesday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 4) { 
                 scheduleDays[schedule[i].id].thursday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].thursday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].thursday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].thursday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].thursday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].thursday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].thursday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 5) { 
                 scheduleDays[schedule[i].id].friday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].friday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].friday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].friday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].friday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].friday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].friday.finishtimes.push(formatTime(schedule[i].finishtime));
             } else if (day == 6) { //saturday
                 scheduleDays[schedule[i].id].saturday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].saturday.restMinutes += restMinutes;
                 scheduleDays[schedule[i].id].saturday.mealMinutes += mealMinutes;
                 scheduleDays[schedule[i].id].saturday.starttime = formatTime(schedule[i].starttime);
                 scheduleDays[schedule[i].id].saturday.finishtime = formatTime(schedule[i].finishtime);
+                scheduleDays[schedule[i].id].saturday.starttimes.push(formatTime(schedule[i].starttime));
+                scheduleDays[schedule[i].id].saturday.finishtimes.push(formatTime(schedule[i].finishtime));
             }
         }
 
