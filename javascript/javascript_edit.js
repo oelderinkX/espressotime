@@ -92,7 +92,6 @@ function getStartFinishBreaks() {
 
         timesArea.appendChild(inputGroup);
 
-        // breaks
         for(var i = 0; i < times.breaks.length; i++) {
             var inputGroup2 = document.createElement("div");
             inputGroup2.classList.add('input-group');
