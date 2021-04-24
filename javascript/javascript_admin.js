@@ -179,13 +179,13 @@ function getSchedule() {
             {
                 scheduleDays[schedule[i].id] = { 
                     name: schedule[i].name,
-                    monday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    tuesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    wednesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    thursday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    friday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    saturday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' },
-                    sunday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '' }
+                    monday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [] },
+                    tuesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
+                    wednesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
+                    thursday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
+                    friday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
+                    saturday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
+                    sunday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  }
                 };
             }
 
