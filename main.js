@@ -86,7 +86,7 @@ module.exports = function(app){
 		var sqlEmployeeDetails = "SELECT id, name, contact from espresso.employee where id = $1 and shopid = $2 limit 1;";
 
 		var sqlStartTime = "SELECT employeeid, starttime, finishtime from espresso.start_finish where employeeid = $1";
-		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by finishtime desc limit 1;";
+		sqlStartTime += " and starttime >= $2 and starttime <= $3 order by finishtime desc;";
 		
 		var sqlBreaks = "select starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
@@ -103,6 +103,8 @@ module.exports = function(app){
 						contact: employeeResult.rows[0].contact,
 						starttime: '',
 						finishtime: '',
+						starttimes: [],
+						finishtimes: [],
 						breaks: []
 					};
 				}
@@ -112,9 +114,14 @@ module.exports = function(app){
 					connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
 						done();
 
-						if (startFinishResult && startFinishResult.rowCount == 1) {
+						if (startFinishResult && startFinishResult.rowCount > 0) {
 							employee.starttime = startFinishResult.rows[0].starttime;
 							employee.finishtime = startFinishResult.rows[0].finishtime;
+						}
+
+						for(var i = 0; i < startFinishResult.rows.length; i++) {
+							employee.starttimes.push(startFinishResult.rows[i].starttime);
+							employee.finishtimes.push(startFinishResult.rows[i].finishtime);
 						}
 
 						pool.connect(function(err, connection, done) {
