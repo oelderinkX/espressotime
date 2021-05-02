@@ -186,11 +186,11 @@ function getEmployeeDetails(employeeId) {
         if (on30minBreak) {
             mealButtonStyle = 'btn-danger';
             mealButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 30);';
-            mealButton.innerHTML = 'Finish 30min Break';;
+            mealButton.innerHTML = '<span class="glyphicon glyphicon-cutlery"></span> 30min Break';;
         } else {
             mealButtonStyle = 'btn-success';
             mealButtonAttribute = 'employeeStartBreak(' + employeeId + ', 30);';
-            mealButton.innerHTML = 'Start 30min Break';;
+            mealButton.innerHTML = '<span class="glyphicon glyphicon-cutlery"></span> 30min Break';;
         }
 
         if (employee.starttime && !employee.finishtime) {
