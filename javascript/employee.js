@@ -163,10 +163,10 @@ function getEmployeeDetails(employeeId) {
             startedShift = true;
             shiftButtonStyle = 'btn-danger';
             shiftButtonAttribute = 'employeeFinish(' + employeeId + ');';
-            shiftbutton.innerHTML = 'Finish Shift';
+            shiftbutton.innerHTML = '<span class="glyphicon glyphicon-user"></span> Finish Shift';
         } else {
             shiftButtonAttribute = 'employeeStart(' + employeeId + ');';
-            shiftbutton.innerHTML = 'Start Shift';
+            shiftbutton.innerHTML = '<span class="glyphicon glyphicon-user"></span> Start Shift';
         }
 
         var restButtonAttribute = '';
