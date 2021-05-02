@@ -176,11 +176,11 @@ function getEmployeeDetails(employeeId) {
         if (on10minBreak) {
             restButtonStyle = 'btn-danger';
             restButtonAttribute = 'employeeFinishBreak(' + employeeId + ', 10);';
-            restButton.innerHTML = '<i class="bi bi-alarm"></i> 10min Break';
+            restButton.innerHTML = '<span class="glyphicon glyphicon-time"></span> 10min Break';
         } else {
             restButtonStyle = 'btn-success';
             restButtonAttribute = 'employeeStartBreak(' + employeeId + ', 10);';
-            restButton.innerHTML = '<i class="bi bi-alarm"></i> 10min Break';
+            restButton.innerHTML = '<span class="glyphicon glyphicon-time"></span> 10min Break';
         }
 
         if (on30minBreak) {
