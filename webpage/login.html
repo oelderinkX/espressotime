@@ -2,190 +2,57 @@
 <html lang="en">
 <head>
     <title>Espresso Time - Login</title>
-    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
-    <link href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel="manifest" href="/webpage/manifest.json">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="javascript/common.js"></script>
     <script src="javascript/javascript_admin.js"></script>
+    <script>
+        var redirectPage = '!%REDIRECT_URL%!';
+
+        function login() {
+            var usr = document.getElementById("usr");
+            var pwd = document.getElementById("pwd");
+
+            var json = { name: usr.value, password: pwd.value };
+
+            sendPost("/login", JSON.stringify(json), function(response) {
+                var login = JSON.parse(response);
+
+                if (login.success == true) {
+                    setCookie('identifier', login.identifier);
+                    window.location.href = redirectPage;
+                } else {
+                    alert('Login failure: ' + login.reason);
+                }
+            });
+        }
+    </script>
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
 </head>
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: #ac9175;
-}
-
-.card {
-    margin-bottom: 20px;
-    border: none
-}
-
-.box {
-    width: 500px;
-    padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background: #191919;
-    ;
-    text-align: center;
-    transition: 0.25s;
-    margin-top: 100px
-}
-
-.box input[type="text"],
-.box input[type="password"] {
-    border: 0;
-    background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    border: 2px solid #3498db;
-    padding: 10px 10px;
-    width: 250px;
-    outline: none;
-    color: white;
-    border-radius: 24px;
-    transition: 0.25s
-}
-
-.box h1 {
-    color: white;
-    text-transform: uppercase;
-    font-weight: 500
-}
-
-.box input[type="text"]:focus,
-.box input[type="password"]:focus {
-    width: 300px;
-    border-color: #2ecc71
-}
-
-.box input[type="submit"] {
-    border: 0;
-    background: none;
-    display: block;
-    margin: 20px auto;
-    text-align: center;
-    border: 2px solid #2ecc71;
-    padding: 14px 40px;
-    outline: none;
-    color: white;
-    border-radius: 24px;
-    transition: 0.25s;
-    cursor: pointer
-}
-
-.box input[type="submit"]:hover {
-    background: #2ecc71
-}
-
-.forgot {
-    text-decoration: underline
-}
-
-ul.social-network {
-    list-style: none;
-    display: inline;
-    margin-left: 0 !important;
-    padding: 0
-}
-
-ul.social-network li {
-    display: inline;
-    margin: 0 5px
-}
-
-.social-network a.icoFacebook:hover {
-    background-color: #3B5998
-}
-
-.social-network a.icoTwitter:hover {
-    background-color: #33ccff
-}
-
-.social-network a.icoGoogle:hover {
-    background-color: #BD3518
-}
-
-.social-network a.icoFacebook:hover i,
-.social-network a.icoTwitter:hover i,
-.social-network a.icoGoogle:hover i {
-    color: #fff
-}
-
-a.socialIcon:hover,
-.socialHoverClass {
-    color: #44BCDD
-}
-
-.social-circle li a {
-    display: inline-block;
-    position: relative;
-    margin: 0 auto 0 auto;
-    border-radius: 50%;
-    text-align: center;
-    width: 50px;
-    height: 50px;
-    font-size: 20px
-}
-
-.social-circle li i {
-    margin: 0;
-    line-height: 50px;
-    text-align: center
-}
-
-.social-circle li a:hover i,
-.triggeredHover {
-    transform: rotate(360deg);
-    transition: all 0.2s
-}
-
-.social-circle i {
-    color: #fff;
-    transition: all 0.8s;
-    transition: all 0.8s
-}
-</style>
-
-<script>
-    var redirectPage = '!%REDIRECT_URL%!';
-
-    function login() {
-        var usr = document.getElementById("usr");
-        var pwd = document.getElementById("pwd");
-
-        var json = { name: usr.value, password: pwd.value };
-
-        sendPost("/login", JSON.stringify(json), function(response) {
-            var login = JSON.parse(response);
-
-            if (login.success == true) {
-                setCookie('identifier', login.identifier);
-                window.location.href = redirectPage;
-            } else {
-                alert('Login failure: ' + login.reason);
-            }
-        });
-    }
-</script>
-
 <html>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <h1>Login</h1>
-                    <input type="text" id="usr" name="" placeholder="Username">
-                    <input type="password" id="pwd" name="" placeholder="Password">
-                    <input type="button" name="" value="Login" onclick="login();">
-                </div>
-            </div>
+    <h1>Login</h1>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <div class="input-group-lg">
+            <label for="usr">Shop Name:</label>
+            <input type="text" class="form-control" id="usr">
+            <br/>
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd">
+            <br/>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login();">Login</button>
         </div>
     </div>
 </body>
