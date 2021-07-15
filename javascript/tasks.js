@@ -18,7 +18,7 @@ function clock() {
     document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
 
     if (m == 40) {
-        alert('re-load the tasks for the hour');
+        //alert('re-load the tasks for the hour');
     }
 
     t = setTimeout(function() {
@@ -60,7 +60,7 @@ function getTasksForHour() {
 
 function showDescription(description) {
     var desciptionarea = document.getElementById('descriptionarea');
-    descriptionarea.innerHTML = '<h1>' + description + '</h1>';
+    descriptionarea.innerHTML = '<h1>Description</h1><h2>' + description + '</h2><h1>Completed by:</h1>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
