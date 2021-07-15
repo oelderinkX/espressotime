@@ -60,7 +60,7 @@ function getTasksForHour() {
 
 function showDescription(description) {
     var desciptionarea = document.getElementById('descriptionarea');
-    descriptionarea.innerHTML = '<h1>Description</h1><h2>' + description + '</h2><h1>Completed by:</h1>';
+    descriptionarea.innerHTML = '<h1>Description</h1>' + description + '<br/><h1>Completed by:</h1><br/><span id="buttonarea"></span>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
