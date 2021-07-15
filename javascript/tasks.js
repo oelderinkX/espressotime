@@ -31,7 +31,7 @@ function loadEmployees() {
         var taskemployees = JSON.parse(response);
 
         for(var i = 0; i < taskemployees.length; i++) {
-            employees.push({name: taskemployees.name});
+            employees.push({name: taskemployees[i].name});
         }
     });
 }
