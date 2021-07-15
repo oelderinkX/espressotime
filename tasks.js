@@ -40,7 +40,7 @@ module.exports = function(app){
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						employees.push({	name: result.rows[i].name,
+						tasks.push({	name: result.rows[i].name,
 											description: result.rows[i].description,
 											starttime: result.rows[i].starttime
 										});
