@@ -27,32 +27,35 @@ function clock() {
   }
 
 function loadEmployees() {
-    //get from DB!!!
-    employees.push({name: 'Emma Lee'});
-    employees.push({name: 'Neha'});
-    employees.push({name: 'Jamela'});
+    sendPost("/gettaskemployees", '{}', function(response) {
+        var taskemployees = JSON.parse(response);
+
+        for(var i = 0; i < taskemployees.length; i++) {
+            employees.push({name: taskemployees.name});
+        }
+    });
 }
 
 function getTasksForHour() {
-    var tasks = [];
-    //get from json, just fake at the moment
-    tasks.push({ name: 'back floor', starttime: '4:00 pm', description: 'clean it people!'});
+    sendPost("/gettaskemployees", '{}', function(response) {
+        var tasks = JSON.parse(response);
 
-    var tasksarea = document.getElementById("tasksarea")
+        var tasksarea = document.getElementById("tasksarea")
 
-    for(var t in tasks) {
-        var task = document.createElement("li");
-        task.innerHTML = tasks[t].name;
-        task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-        task.setAttribute('onclick', 'showDescription("' +  tasks[t].description + '");');
+        for(var t in tasks) {
+            var task = document.createElement("li");
+            task.innerHTML = tasks[t].name;
+            task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
+            task.setAttribute('onclick', 'showDescription("' +  tasks[t].description + '");');
 
-        var tasktime = document.createElement("span");
-        tasktime.innerHTML = tasks[t].starttime;
-        tasktime.className = 'badge badge-primary badge-pill';
+            var tasktime = document.createElement("span");
+            tasktime.innerHTML = tasks[t].starttime;
+            tasktime.className = 'badge badge-primary badge-pill';
 
-        task.appendChild(tasktime);
-        tasksarea.appendChild(task);
-    }
+            task.appendChild(tasktime);
+            tasksarea.appendChild(task);
+        }
+    });
 }
 
 function showDescription(description) {
