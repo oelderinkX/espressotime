@@ -37,7 +37,7 @@ function loadEmployees() {
 }
 
 function getTasksForHour() {
-    sendPost("/gettaskemployees", '{}', function(response) {
+    sendPost("/gettasks", '{}', function(response) {
         var tasks = JSON.parse(response);
 
         var tasksarea = document.getElementById("tasksarea")
