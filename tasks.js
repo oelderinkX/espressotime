@@ -54,13 +54,15 @@ module.exports = function(app){
 
 	app.post('/gettaskemployees', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		//var dateFrom = req.body.dateFrom; //'2021-03-22 00:00:00'
-		//var dateTo = req.body.dateTo; //'2021-03-27 23:59:59'
+		var date = req.body.date; //'2021-03-22 00:00:00'
 		
-		var sql = "select id, name from espresso.employee where shopid = $1 and ex = false order by name";
+		var sql = "select espresso.employee.id, espresso.employee.name from espresso.start_finish  ";
+		sql += "inner join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
+		//sql += where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= '2021-07-16 00:00:00' and espresso.start_finish.finishtime is null order by espresso.employee.name";
+		sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [shopId, date], function(err, result) {
 				done();
 
 				var employees = [];

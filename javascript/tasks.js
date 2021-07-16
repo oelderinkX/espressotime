@@ -27,7 +27,9 @@ function clock() {
   }
 
 function loadEmployees() {
-    sendPost("/gettaskemployees", '{}', function(response) {
+    var date = getDate() + ' 00:00:00';
+    sendPost("/gettaskemployees", '{ "date": "' + date + '"}', function(response) {
+        employees = [];
         var taskemployees = JSON.parse(response);
 
         for(var i = 0; i < taskemployees.length; i++) {
@@ -62,7 +64,7 @@ function showDescription(description) {
     var desciptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
-    descriptionarea.innerHTML = description + '<br/><br/><h3>Completed by:</h3><br/><span id="buttonarea"></span>';
+    descriptionarea.innerHTML = description + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
