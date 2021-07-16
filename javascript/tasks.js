@@ -33,7 +33,7 @@ function loadEmployees() {
         var taskemployees = JSON.parse(response);
 
         for(var i = 0; i < taskemployees.length; i++) {
-            employees.push({name: taskemployees[i].name});
+            employees.push({id: taskemployees[i].id, name: taskemployees[i].name});
         }
     });
 }

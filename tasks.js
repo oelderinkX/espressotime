@@ -54,9 +54,9 @@ module.exports = function(app){
 
 	app.post('/gettaskemployees', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var date = req.body.date; //'2021-03-22 00:00:00'
+		var date = req.body.date;
 		
-		var sql = "select espresso.employee.id, espresso.employee.name from espresso.start_finish  ";
+		var sql = "select distinct(espresso.employee.id) as id, espresso.employee.name as name from espresso.start_finish ";
 		sql += "inner join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
 		//sql += where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= '2021-07-16 00:00:00' and espresso.start_finish.finishtime is null order by espresso.employee.name";
 		sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
@@ -69,7 +69,7 @@ module.exports = function(app){
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						employees.push({ name: result.rows[i].name });
+						employees.push({ id: result.rows[i].id, name: result.rows[i].name });
 					}
 				}
 					
