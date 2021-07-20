@@ -29,7 +29,7 @@ module.exports = function(app){
 
 	app.post('/gettasks', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var timestamp = req.body.timestamp;
+		//var timestamp = req.body.timestamp;
 
 		var sql = 'select id, name, description, starttime from espresso.task where shopid = $1 order by starttime;'
 
