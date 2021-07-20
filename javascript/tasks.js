@@ -81,7 +81,7 @@ function showDescription(taskid, name, description) {
 }
 
 function completeTask(taskid, by) {
-    var timestamp = getDbFormat() + ' ' + formatTime;
+    var timestamp = getDbFormat() + ' ' + formatTime();
     var request = {taskid: taskid, timestamp: timestamp, by: by};
     sendPost("/completetask", request, function(response) {
         var success  = JSON.parse(response);
