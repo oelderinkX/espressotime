@@ -65,6 +65,8 @@ module.exports = function(app){
 			connection.query(sql, [shopId, date], function(err, result) {
 				done();
 
+				console.log(result);
+
 				var employees = [];
 
 				if (result && result.rowCount > 0) {
