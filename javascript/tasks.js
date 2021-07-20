@@ -74,7 +74,7 @@ function showDescription(taskid, name, description) {
         b.setAttribute('type', 'button');
         b.className = 'btn btn-em';
         b.innerHTML = employees[e].name;
-        b.setAttribute('onclick', 'completeTask(' + taskid + ',' + employees[e].id + ');')
+        b.setAttribute('onclick', 'completeTask(' + taskid + ',' + employees[e].id + ');');
         buttonarea.appendChild(b);
         buttonarea.innerHTML = buttonarea.innerHTML + '&nbsp;'
     }
