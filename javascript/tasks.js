@@ -27,7 +27,8 @@ function clock() {
   }
 
 function loadEmployees() {
-    var date = getDbFormat() + ' 00:00:00';
+    //var date = getDbFormat() + ' 00:00:00';
+    var date = '2021-07-20 00:00:00';
     sendPost("/gettaskemployees", '{ "date": "' + date + '"}', function(response) {
         employees = [];
         var taskemployees = JSON.parse(response);
@@ -39,7 +40,10 @@ function loadEmployees() {
 }
 
 function getTasksForHour() {
-    sendPost("/gettasks", '{}', function(response) {
+    var timestamp = getDbFormat() + ' ' + getTime() + ':00';
+    var request = {timestamp: timestamp};
+
+    sendPost("/gettasks", request, function(response) {
         var tasks = JSON.parse(response);
 
         var tasksarea = document.getElementById("tasksarea")
