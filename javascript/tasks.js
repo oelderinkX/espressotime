@@ -48,7 +48,7 @@ function getTasksForHour() {
             var task = document.createElement("li");
             task.innerHTML = tasks[t].name;
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-            task.setAttribute('onclick', 'showDescription("' + tasks[t].name + '","' +  tasks[t].description + '");');
+            task.setAttribute('onclick', 'showDescription(' + tasks[t].id + '"' + tasks[t].name + '","' +  tasks[t].description + '");');
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = tasks[t].starttime;
@@ -60,7 +60,7 @@ function getTasksForHour() {
     });
 }
 
-function showDescription(name, description) {
+function showDescription(taskid, name, description) {
     var desciptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
@@ -74,7 +74,16 @@ function showDescription(name, description) {
         b.setAttribute('type', 'button');
         b.className = 'btn btn-em';
         b.innerHTML = employees[e].name;
+        b.setAttribute('onclick', 'completeTask(' + taskid + ',' + employees[e].id + ');')
         buttonarea.appendChild(b);
         buttonarea.innerHTML = buttonarea.innerHTML + '&nbsp;'
     }
+}
+
+function completeTask(taskid, by) {
+    var timestamp = getDbFormat() + ' ' + formatTime;
+    var request = {taskid: taskid, timestamp: timestamp, by: by};
+    sendPost("/completetask", request, function(response) {
+        var success  = JSON.parse(response);
+    });
 }

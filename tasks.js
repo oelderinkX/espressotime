@@ -80,11 +80,14 @@ module.exports = function(app){
 
 	app.post('/completetask', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
+		var taskid = req.body.taskid;
+		var timestamp = req.body.timestamp;
+		var by = req.body.by;
 
-		var sql = "UPDATE espresso.employee SET name = $1, contact = $2, pin = $3, ex = $4 WHERE id = $5 and shopid = $6";
+		var sql = "INSERT INTO espresso.task_complete (taskid, timestamp, by, shopid) VALUES ($1,$2,$3,$4);";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeName, employeeContact, employeePin, employeeEx, employeeId, shopId], function(err, result) {
+			connection.query(sql, [taskid, timestamp, by, shopId], function(err, result) {
 				done();
 
 				if (err) {
