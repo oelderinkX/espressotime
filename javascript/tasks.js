@@ -48,7 +48,7 @@ function getTasksForHour() {
             var task = document.createElement("li");
             task.innerHTML = tasks[t].name;
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-            task.setAttribute('onclick', 'showDescription("' +  tasks[t].description + '");');
+            task.setAttribute('onclick', 'showDescription("' + tasls[t].name + '","' +  tasks[t].description + '");');
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = tasks[t].starttime;
@@ -60,11 +60,11 @@ function getTasksForHour() {
     });
 }
 
-function showDescription(description) {
+function showDescription(name, description) {
     var desciptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
-    descriptionarea.innerHTML = description + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
+    descriptionarea.innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
