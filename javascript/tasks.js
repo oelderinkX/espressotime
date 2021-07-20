@@ -27,7 +27,7 @@ function clock() {
   }
 
 function loadEmployees() {
-    var date = getDate() + ' 00:00:00';
+    var date = getDbFormat() + ' 00:00:00';
     sendPost("/gettaskemployees", '{ "date": "' + date + '"}', function(response) {
         employees = [];
         var taskemployees = JSON.parse(response);
