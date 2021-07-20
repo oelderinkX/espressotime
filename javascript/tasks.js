@@ -48,7 +48,7 @@ function getTasksForHour() {
             var task = document.createElement("li");
             task.innerHTML = tasks[t].name;
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-            task.setAttribute('onclick', 'showDescription("' + tasls[t].name + '","' +  tasks[t].description + '");');
+            task.setAttribute('onclick', 'showDescription("' + tasks[t].name + '","' +  tasks[t].description + '");');
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = tasks[t].starttime;
