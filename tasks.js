@@ -57,7 +57,7 @@ module.exports = function(app){
 		var date = req.body.date;
 		
 		var sql = "select distinct(espresso.employee.id) as id, espresso.employee.name as name from espresso.start_finish ";
-		sql += "inner join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
+		sql += "left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
 		//sql += where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= '2021-07-16 00:00:00' and espresso.start_finish.finishtime is null order by espresso.employee.name";
 		sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
 
