@@ -597,3 +597,18 @@ function getTasks() {
         tasklist.appendChild(tr);
     });
 }
+
+function updateTask(id) {
+    var name = document.getElementById('name' + id).value;
+    var description = document.getElementById('description' + id).value;
+    var starttime = document.getElementById('starttime' + id).value;
+
+    //var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+
+    //sendPost("/updateemployee", json, function(response) {
+    //    getEmployees();
+    //});
+    alert(name);
+    alert(description);
+    alert(starttime);
+}
