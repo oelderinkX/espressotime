@@ -534,7 +534,7 @@ function getTasks() {
             var input3 = document.createElement('input');
             input3.setAttribute('type', 'text');
             input3.setAttribute('id', 'starttime' + tasks[i].id);
-            input3.setAttribute('value', employees[i].starttime);
+            input3.setAttribute('value', tasks[i].starttime);
             input3.disabled = true;
             td3.appendChild(input3);
 
