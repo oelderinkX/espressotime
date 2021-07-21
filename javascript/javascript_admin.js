@@ -526,8 +526,8 @@ function getTasks() {
             var td2 = document.createElement('td');
             var textarea2 = document.createElement('textarea');
             textarea2.setAttribute('id', 'description' + tasks[i].id);
-            textarea2.setAttribute('rows', '3');
-            textarea2.setAttribute('cols', '30');
+            textarea2.setAttribute('rows', '4');
+            textarea2.setAttribute('cols', '60');
             textarea2.innerHTML = tasks[i].description;
             td2.appendChild(textarea2);
 
@@ -567,10 +567,11 @@ function getTasks() {
         input1.setAttribute('value', '');
         td1.appendChild(input1);
 
+        var td2 = document.createElement('td');
         var textarea2 = document.createElement('textarea');
         textarea2.setAttribute('id', 'description0');
-        textarea2.setAttribute('rows', '3');
-        textarea2.setAttribute('cols', '30');
+        textarea2.setAttribute('rows', '4');
+        textarea2.setAttribute('cols', '60');
         td2.appendChild(textarea2);
 
         var td3 = document.createElement('td');
