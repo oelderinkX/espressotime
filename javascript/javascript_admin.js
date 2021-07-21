@@ -603,14 +603,21 @@ function updateTask(id) {
     var description = document.getElementById('description' + id).value;
     var starttime = document.getElementById('starttime' + id).value;
 
-    //var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+    if (name.length == 0 || description.length == 0) {
+        alert('Make sure you have enter the name and description of the task');
+    } else if (starttime.length != 0 && timeRegEx.test(starttime) == false) {
+        alert('Incorrect start time of task.  Use format like 09:00:00 for 9am, or 13:30:00 for 1:30pm.  Leave empty to delete task');
+    } else {
+        if (starttime.length == 0) {
+            starttime = '00:00:00';
+        }
 
-    //sendPost("/updateemployee", json, function(response) {
-    //    getEmployees();
-    //});
-    alert(name);
-    alert(description);
-    alert(starttime);
+        var json = '{ "id": "' + id +  '", "name": "' + name + '", "description": "' + description + '", "starttime": "' + starttime + '" }';
+
+        sendPost("/updatetask", json, function(response) {
+            getTasks();
+        });
+    }
 }
 
 function addTask() {
