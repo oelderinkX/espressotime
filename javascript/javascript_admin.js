@@ -600,7 +600,6 @@ function getTasks() {
 
 function updateTask(id) {
     var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
-    
     var name = document.getElementById('name' + id).value;
     var description = document.getElementById('description' + id).value;
     var starttime = document.getElementById('starttime' + id).value;
@@ -614,7 +613,8 @@ function updateTask(id) {
             starttime = '00:00:00';
         }
 
-        var json = '{ "id": "' + id +  '", "name": "' + name + '", "description": "' + description + '", "starttime": "' + starttime + '" }';
+        //var json = '{ "id": "' + id +  '", "name": "' + name + '", "description": "' + description + '", "starttime": "' + starttime + '" }';
+        var json = { "id": id, "name": name, "description": description, "starttime": starttime };
 
         sendPost("/updatetask", json, function(response) {
             getTasks();
