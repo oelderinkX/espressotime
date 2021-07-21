@@ -585,7 +585,7 @@ function getTasks() {
         var input4 = document.createElement('input');
         input4.setAttribute('type', 'button');
         input4.setAttribute('value', 'Add');
-        input4.setAttribute('onclick', 'addTasks();');
+        input4.setAttribute('onclick', 'addTask();');
         td4.appendChild(input4);
 
         tr.appendChild(th);
