@@ -306,7 +306,7 @@ module.exports = function(app){
 		var description = req.body.description;
 		var starttime = req.body.starttime;
 
-		var sql = "UPDATE espresso.task SET name = $1, description = $2, starttime = $3 WHERE id = $4 and shopid = $5";
+		var sql = "UPDATE espresso.task SET name = $1, description = '$2', starttime = $3 WHERE id = $4 and shopid = $5";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [name, description, starttime, id, shopId], function(err, result) {
