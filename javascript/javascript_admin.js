@@ -524,18 +524,18 @@ function getTasks() {
             td1.appendChild(input1);
 
             var td2 = document.createElement('td');
-            var input2 = document.createElement('input');
-            input2.setAttribute('type', 'text');
-            input2.setAttribute('id', 'description' + tasks[i].id);
-            input2.setAttribute('value', tasks[i].description);
-            td2.appendChild(input2);
+            var textarea2 = document.createElement('textarea');
+            textarea2.setAttribute('id', 'description' + tasks[i].id);
+            textarea2.setAttribute('rows', '3');
+            textarea2.setAttribute('cols', '30');
+            textarea2.innerHTML = tasks[i].description;
+            td2.appendChild(textarea2);
 
             var td3 = document.createElement('td');
             var input3 = document.createElement('input');
             input3.setAttribute('type', 'text');
             input3.setAttribute('id', 'starttime' + tasks[i].id);
             input3.setAttribute('value', tasks[i].starttime);
-            input3.disabled = true;
             td3.appendChild(input3);
 
             var td4 = document.createElement('td');
@@ -567,12 +567,11 @@ function getTasks() {
         input1.setAttribute('value', '');
         td1.appendChild(input1);
 
-        var td2 = document.createElement('td');
-        var input2 = document.createElement('input');
-        input2.setAttribute('type', 'text');
-        input2.setAttribute('id', 'description0');
-        input2.setAttribute('value', '');
-        td2.appendChild(input2);
+        var textarea2 = document.createElement('textarea');
+        textarea2.setAttribute('id', 'description0');
+        textarea2.setAttribute('rows', '3');
+        textarea2.setAttribute('cols', '30');
+        td2.appendChild(textarea2);
 
         var td3 = document.createElement('td');
         var input3 = document.createElement('input');
