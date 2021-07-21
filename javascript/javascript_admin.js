@@ -599,6 +599,8 @@ function getTasks() {
 }
 
 function updateTask(id) {
+    var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
+    
     var name = document.getElementById('name' + id).value;
     var description = document.getElementById('description' + id).value;
     var starttime = document.getElementById('starttime' + id).value;
