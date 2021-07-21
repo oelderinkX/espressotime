@@ -15,6 +15,7 @@ var employeeListEditPage = fs.readFileSync(__dirname + "/webpage/employeelistedi
 var timesheetPage = fs.readFileSync(__dirname + "/webpage/timesheet.html", "utf8");
 var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
 var editPage = fs.readFileSync(__dirname + "/webpage/edit.html", "utf8");
+var taskEditPage= fs.readFileSync(__dirname + "/webpage/taskedit.html", "utf8");
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
@@ -73,6 +74,7 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 	
+	// edit time of staff!  when they clocked in!
 	app.get('/edit', urlencodedParser, function(req, res) {
 		var webpage = loginPage;
 	
@@ -82,6 +84,20 @@ module.exports = function(app){
 			webpage = editPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/edit');
+		}
+
+		res.send(webpage);
+	});	
+
+	app.get('/taskedit', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+	
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = taskEditPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/taskedit');
 		}
 
 		res.send(webpage);
@@ -247,6 +263,38 @@ module.exports = function(app){
 				}
 
 				res.send(result);
+			});
+		});
+	});
+
+	app.post('/admin_gettasks', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var showOld = req.body.showOld;
+		
+		var filterOld = '';
+		if (showOld == false) {
+			filterOld = ' and 1 = 1';
+		}
+
+		var sql = 'select id, name, description, starttime from espresso.task where shopid = $1 order by name'
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var tasks = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						tasks.push({	id: result.rows[i].id,
+											name: result.rows[i].name,
+											description: result.rows[i].description,
+											starttime: result.rows[i].starttime
+										});
+					}
+				}
+					
+				res.send(tasks);
 			});
 		});
 	});

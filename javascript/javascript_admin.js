@@ -495,3 +495,105 @@ function getScheduleDates(newDate) {
     var to = pad(scheduleEnd.getDate()) + ' ' + monthNames[scheduleEnd.getMonth()] + ' ' + scheduleEnd.getFullYear();
     scheduleDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
 }
+
+function getTasks() {
+    var tasklist = document.getElementById('tasklist');
+    var showOldTasksCheckbox = document.getElementById('showOldTasks');
+
+    while (tasklist.firstChild) {
+        tasklist.removeChild(tasklist.firstChild);
+    }
+
+    var showOld = showOldTasksCheckbox.checked;
+
+    sendPost("/admin_gettasks", '{ "showOld": ' + showOld + ' }', function(response) {
+        var tasks = JSON.parse(response);
+
+        for(var i = 0; i < tasks.length; i++) {
+            var tr = document.createElement("tr");
+
+            var th = document.createElement('th');
+            th.setAttribute('scope', 'row');
+            th.innerHTML = tasks[i].id;
+
+            var td1 = document.createElement('td');
+            var input1 = document.createElement('input');
+            input1.setAttribute('type', 'text');
+            input1.setAttribute('id', 'name' + tasks[i].id);
+            input1.setAttribute('value', tasks[i].name);
+            td1.appendChild(input1);
+
+            var td2 = document.createElement('td');
+            var input2 = document.createElement('input');
+            input2.setAttribute('type', 'text');
+            input2.setAttribute('id', 'description' + tasks[i].id);
+            input2.setAttribute('value', tasks[i].description);
+            td2.appendChild(input2);
+
+            var td3 = document.createElement('td');
+            var input3 = document.createElement('input');
+            input3.setAttribute('type', 'text');
+            input3.setAttribute('id', 'starttime' + tasks[i].id);
+            input3.setAttribute('value', employees[i].starttime);
+            input3.disabled = true;
+            td3.appendChild(input3);
+
+            var td4 = document.createElement('td');
+            var input4 = document.createElement('input');
+            input4.setAttribute('type', 'button');
+            input4.setAttribute('value', 'Update');
+            input4.setAttribute('onclick', 'updateTask(' + tasks[i].id + ');');
+            td4.appendChild(input4);
+
+            tr.appendChild(th);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+
+            tasklist.appendChild(tr);
+        }
+
+        var tr = document.createElement("tr");
+
+        var th = document.createElement('th');
+        th.setAttribute('scope', 'row');
+        th.innerHTML = '0';
+
+        var td1 = document.createElement('td');
+        var input1 = document.createElement('input');
+        input1.setAttribute('type', 'text');
+        input1.setAttribute('id', 'name0');
+        input1.setAttribute('value', '');
+        td1.appendChild(input1);
+
+        var td2 = document.createElement('td');
+        var input2 = document.createElement('input');
+        input2.setAttribute('type', 'text');
+        input2.setAttribute('id', 'description0');
+        input2.setAttribute('value', '');
+        td2.appendChild(input2);
+
+        var td3 = document.createElement('td');
+        var input3 = document.createElement('input');
+        input3.setAttribute('type', 'text');
+        input3.setAttribute('id', 'starttime0');
+        input3.setAttribute('value', '09:00:00');
+        td3.appendChild(input3);
+
+        var td4 = document.createElement('td');
+        var input4 = document.createElement('input');
+        input4.setAttribute('type', 'button');
+        input4.setAttribute('value', 'Add');
+        input4.setAttribute('onclick', 'addTasks();');
+        td4.appendChild(input4);
+
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+
+        tasklist.appendChild(tr);
+    });
+}
