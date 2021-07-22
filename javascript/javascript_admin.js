@@ -616,7 +616,7 @@ function updateTask(id) {
         //var json = '{ "id": "' + id +  '", "name": "' + name + '", "description": "' + description + '", "starttime": "' + starttime + '" }';
         var json = { "id": id, "name": name, "description": description, "starttime": starttime };
 
-        sendPost("/updatetask", json, function(response) {
+        sendPost("/updatetask", JSON.stringify(json), function(response) {
             getTasks();
         });
     }
