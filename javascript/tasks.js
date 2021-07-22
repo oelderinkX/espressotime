@@ -52,7 +52,7 @@ function getTasksForHour() {
             task.innerHTML = tasks[t].name;
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
             var description = tasks[t].description;
-            description = replaceAll(description, '\n', '\\n');
+            description = replaceAll(description, '\n', '<br/>');
             task.setAttribute('onclick', 'showDescription(' + tasks[t].id + ',"' + tasks[t].name + '","' +  description + '");');
 
             var tasktime = document.createElement("span");
@@ -70,7 +70,7 @@ function showDescription(taskid, name, description) {
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
     
-    descriptionarea.innerHTML = '<h4>' + name + '</h4><br/>' + replaceAll(description, '\\n', '\n') + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
+    descriptionarea.innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
