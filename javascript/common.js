@@ -147,3 +147,9 @@ function sendPost(url, data, callback) {
     }
   };
 }
+
+function replaceAll(str,find,replaceWith) {
+  while(str.indexOf(find) >= 0) {
+    str = str.replace(find, replaceWith);
+  }
+}
