@@ -152,4 +152,5 @@ function replaceAll(str,find,replaceWith) {
   while(str.indexOf(find) >= 0) {
     str = str.replace(find, replaceWith);
   }
+  return str;
 }
