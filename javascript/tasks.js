@@ -43,7 +43,7 @@ function getTasksForHour() {
     var date = getDbFormat();
     var request = {date: date, timestamp: timestamp};
 
-    sendPost("/gettasks", JSON.parse(request), function(response) {
+    sendPost("/gettasks", JSON.stringify(request), function(response) {
         var tasks = JSON.parse(response);
 
         var tasksarea = document.getElementById("tasksarea")
