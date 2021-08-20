@@ -29,12 +29,16 @@ module.exports = function(app){
 
 	app.post('/gettasks', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		//var timestamp = req.body.timestamp;
+		var dayStart = req.body.date + ' 00:00:00';
+		var dayEnd = req.body.date + ' 23:59:59';
+		var timestamp = req.body.timestamp; //not being used yet
 
-		var sql = 'select id, name, description, starttime from espresso.task where shopid = $1 order by starttime;'
+		var sql = "select id, name, description, starttime from espresso.task";
+		sql += " where shopid = $1 and id not in (select taskid from espresso.task_complete where timestamp > $2 and timestamp <= $3)";
+		sql += " order by starttime;";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [shopId, dayStart, dayEnd], function(err, result) {
 				done();
 
 				var tasks = [];

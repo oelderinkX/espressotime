@@ -40,9 +40,10 @@ function loadEmployees() {
 
 function getTasksForHour() {
     var timestamp = getDbFormat() + ' ' + getTime() + ':00';
-    //var request = {timestamp: timestamp};
+    var date = getDbFormat();
+    var request = {date: date, timestamp: timestamp};
 
-    sendPost("/gettasks", '{}', function(response) {
+    sendPost("/gettasks", request, function(response) {
         var tasks = JSON.parse(response);
 
         var tasksarea = document.getElementById("tasksarea")
