@@ -68,7 +68,7 @@ function getTasksForHour() {
 }
 
 function showDescription(taskid, name, description) {
-    var desciptionarea = document.getElementById('descriptionarea');
+    var descriptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
     
@@ -93,7 +93,11 @@ function completeTask(taskid, by) {
     var request = '{ "taskid": ' + taskid + ', "timestamp": "' + timestamp + '", "by": ' + by + ' }';
 
     sendPost("/completetask", request, function(response) {
+        var descriptionarea = document.getElementById('descriptionarea');
+        desciptiontitle.classList.add("invisible");
+
         var success  = JSON.parse(response);
+        
         getTasksForHour();
     });
 }
