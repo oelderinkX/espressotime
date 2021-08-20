@@ -47,6 +47,7 @@ function getTasksForHour() {
         var tasks = JSON.parse(response);
 
         var tasksarea = document.getElementById("tasksarea")
+        tasksarea.innerHTML = '';
 
         for(var t in tasks) {
             var task = document.createElement("li");
