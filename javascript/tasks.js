@@ -93,5 +93,6 @@ function completeTask(taskid, by) {
 
     sendPost("/completetask", request, function(response) {
         var success  = JSON.parse(response);
+        getTasksForHour();
     });
 }
