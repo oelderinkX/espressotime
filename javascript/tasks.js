@@ -94,10 +94,12 @@ function completeTask(taskid, by) {
 
     sendPost("/completetask", request, function(response) {
         var descriptionarea = document.getElementById('descriptionarea');
+        descriptionarea.innerHTML = '';
+        var desciptiontitle = document.getElementById('descriptiontitle');
         desciptiontitle.classList.add("invisible");
 
         var success  = JSON.parse(response);
-        
+
         getTasksForHour();
     });
 }
