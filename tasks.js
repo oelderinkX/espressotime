@@ -62,7 +62,7 @@ module.exports = function(app){
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
 		
-		var sql = "select * from espresso.employee and ex = false and shopid = $1";
+		var sql = "select id, name from espresso.employee and ex = false and shopid = $1";
 
 		//var sql = "select distinct(espresso.employee.id) as id, espresso.employee.name as name from espresso.start_finish ";
 		//sql += "left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
