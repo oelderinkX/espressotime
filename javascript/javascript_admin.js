@@ -613,7 +613,6 @@ function updateTask(id) {
             starttime = '00:00:00';
         }
 
-        //var json = '{ "id": "' + id +  '", "name": "' + name + '", "description": "' + description + '", "starttime": "' + starttime + '" }';
         var json = { "id": id, "name": name, "description": description, "starttime": starttime };
 
         sendPost("/updatetask", JSON.stringify(json), function(response) {
@@ -634,13 +633,10 @@ function addTask() {
     } else if (starttime.length != 0 && timeRegEx.test(starttime) == false) {
         alert('Incorrect start time of task.  Use format like 09:00:00 for 9am, or 13:30:00 for 1:30pm.  Leave empty to delete task');
     } else {
-        /* var json = '{ "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+        var json = { "name": name, "description": description, "starttime": startime };
 
-        sendPost("/addemployee", json, function(response) {
-            getEmployees();
-        });*/
-        alert(name);
-        alert(description);
-        alert(starttime);
+        sendPost("/addtask", JSON.stringify(json), function(response) {
+            getTasks();
+        });
     }
 }

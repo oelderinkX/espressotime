@@ -324,4 +324,30 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/addtask', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+		var name = req.body.name;
+		var description = req.body.description;
+		var starttime = req.body.starttime;
+
+		var sql = "INSERT INTO espresso.task (shopid, name, description, starttime) VALUES ($1, $2, $3, $4)";
+		console.log(sql);
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, name, description, starttime], function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
 }
