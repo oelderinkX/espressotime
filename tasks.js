@@ -34,7 +34,7 @@ module.exports = function(app){
 		var time = req.body.time;
 
 		var sql = "select id, name, description, starttime from espresso.task";
-		sql += " where shopid = $1 and starttime < $2 and id not in (select taskid from espresso.task_complete where timestamp > $3 and timestamp <= $4)";
+		sql += " where shopid = $1 and starttime <= $2 and id not in (select taskid from espresso.task_complete where timestamp > $3 and timestamp <= $4)";
 		sql += " order by starttime;";
 
 		pool.connect(function(err, connection, done) {
