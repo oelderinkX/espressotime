@@ -95,9 +95,9 @@ function showDescription(taskid, name, description) {
     desciptiontitle.classList.remove("invisible");
     
     var innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/>';
-    innerHTML += '<hr noshade/>';
+    innerHTML += '<br/><hr noshade/><br/>';
     innerHTML += '<h5>Extra notes:</h5><textarea class="form-control" rows="3" id="extranotes"></textarea><br/>';
-    innerHTML += '<h4>Completed by:</h4><br/><span id="buttonarea"></span>';
+    innerHTML += '<h4>Completed by:</h4><span id="buttonarea"></span>';
 
     descriptionarea.innerHTML = innerHTML;
 
@@ -110,7 +110,7 @@ function showDescription(taskid, name, description) {
         b.className = 'btn btn-em';
         b.innerHTML = employees[e].name;
         b.setAttribute('onclick', 'completeTask(' + taskid + ',' + employees[e].id + ');');
-        b.setAttribute('style', 'margin:5px');
+        b.setAttribute('style', 'margin:3px');
         buttonarea.appendChild(b);
         buttonarea.innerHTML = buttonarea.innerHTML + '&nbsp;'
     }
