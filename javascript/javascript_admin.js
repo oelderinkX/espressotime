@@ -524,32 +524,50 @@ function getTasks() {
             td1.appendChild(input1);
 
             var td2 = document.createElement('td');
-            var textarea2 = document.createElement('textarea');
-            textarea2.setAttribute('id', 'description' + tasks[i].id);
-            textarea2.setAttribute('rows', '4');
-            textarea2.setAttribute('cols', '60');
-            textarea2.innerHTML = tasks[i].description;
-            td2.appendChild(textarea2);
+            var select1 = document.createElement('select');
+            var option1 = document.createElement('option');
+            option1.setAttribute('value', '0');
+            option1.innerHTML = 'None';
+            var option2 = document.createElement('option');
+            option2.setAttribute('value', '1');
+            option2.innerHTML = 'Text';
+            var option3 = document.createElement('option');
+            option3.setAttribute('value', '2');
+            option3.innerHTML = 'Number';
+            select1.appendChild(option1);
+            select1.appendChild(option2);
+            select1.appendChild(option3);
+            select1.value = tasks[i].inputtype;
+            td2.appendChild(select1);
 
             var td3 = document.createElement('td');
-            var input3 = document.createElement('input');
-            input3.setAttribute('type', 'text');
-            input3.setAttribute('id', 'starttime' + tasks[i].id);
-            input3.setAttribute('value', tasks[i].starttime);
-            td3.appendChild(input3);
+            var textarea3 = document.createElement('textarea');
+            textarea3.setAttribute('id', 'description' + tasks[i].id);
+            textarea3.setAttribute('rows', '4');
+            textarea3.setAttribute('cols', '60');
+            textarea3.innerHTML = tasks[i].description;
+            td3.appendChild(textarea3);
 
             var td4 = document.createElement('td');
             var input4 = document.createElement('input');
-            input4.setAttribute('type', 'button');
-            input4.setAttribute('value', 'Update');
-            input4.setAttribute('onclick', 'updateTask(' + tasks[i].id + ');');
+            input4.setAttribute('type', 'text');
+            input4.setAttribute('id', 'starttime' + tasks[i].id);
+            input4.setAttribute('value', tasks[i].starttime);
             td4.appendChild(input4);
+
+            var td5 = document.createElement('td');
+            var input5 = document.createElement('input');
+            input5.setAttribute('type', 'button');
+            input5.setAttribute('value', 'Update');
+            input5.setAttribute('onclick', 'updateTask(' + tasks[i].id + ');');
+            td5.appendChild(input5);
 
             tr.appendChild(th);
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
+            tr.appendChild(td5);
 
             tasklist.appendChild(tr);
         }

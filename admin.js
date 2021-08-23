@@ -276,7 +276,7 @@ module.exports = function(app){
 			filterOld = ' and 1 = 1';
 		}
 
-		var sql = 'select id, name, description, starttime from espresso.task where shopid = $1 order by starttime'
+		var sql = 'select id, name, inputtype, description, starttime from espresso.task where shopid = $1 order by starttime'
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -288,6 +288,7 @@ module.exports = function(app){
 					for(var i = 0; i < result.rowCount; i++) {
 						tasks.push({	id: result.rows[i].id,
 											name: result.rows[i].name,
+											inputtype: result.rows[i].inputtype,
 											description: result.rows[i].description,
 											starttime: result.rows[i].starttime
 										});
