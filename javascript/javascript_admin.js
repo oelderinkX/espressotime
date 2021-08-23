@@ -601,7 +601,7 @@ function getTasks() {
         select1.appendChild(option1);
         select1.appendChild(option2);
         select1.appendChild(option3);
-        select1.value = tasks[i].inputtype;
+        select1.value = 0;
         td2.appendChild(select1);
 
         var td3 = document.createElement('td');
