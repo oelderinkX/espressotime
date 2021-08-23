@@ -60,7 +60,23 @@ function getTasksForHour() {
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = tasks[t].starttime;
-            tasktime.className = 'badge badge-primary badge-pill';
+
+            var today = new Date();
+            var starttime = new Date('2021-08-23 ' + tasks[t].starttime)
+            var minutesDiff = calculateMinutes(today, starttime);
+
+            if (minutesDiff < 60)
+            {
+                tasktime.className = 'badge badge-success badge-pill';
+            }
+            else if (minutesDiff < 120)
+            {
+                tasktime.className = 'badge badge-warning badge-pill';
+            }
+            else
+            {
+                tasktime.className = 'badge badge-danger badge-pill';
+            }
 
             task.appendChild(tasktime);
             tasksarea.appendChild(task);
@@ -70,7 +86,7 @@ function getTasksForHour() {
     window.clearTimeout(reloadTasks);
     reloadTasks = window.setTimeout(function() {
         window.location.href = "/tasks";
-      }, 1 * 60 * 1000);
+      }, 5 * 60 * 1000);
 }
 
 function showDescription(taskid, name, description) {
