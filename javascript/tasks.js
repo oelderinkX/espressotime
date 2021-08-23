@@ -1,3 +1,4 @@
+var reloadTasks;
 var employees = [];
 
 function clock() {
@@ -65,6 +66,11 @@ function getTasksForHour() {
             tasksarea.appendChild(task);
         }
     });
+
+    window.clearTimeout(reloadTasks);
+    reloadTasks = window.setTimeout(function() {
+        window.location.href = "/tasks";
+      }, 1 * 60 * 1000);
 }
 
 function showDescription(taskid, name, description) {
