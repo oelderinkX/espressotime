@@ -31,14 +31,14 @@ module.exports = function(app){
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var dayStart = req.body.date + ' 00:00:00';
 		var dayEnd = req.body.date + ' 23:59:59';
-		var timestamp = req.body.timestamp; //not being used yet
+		var time = req.body.time;
 
 		var sql = "select id, name, description, starttime from espresso.task";
-		sql += " where shopid = $1 and id not in (select taskid from espresso.task_complete where timestamp > $2 and timestamp <= $3)";
+		sql += " where shopid = $1 and starttime < $2 and id not in (select taskid from espresso.task_complete where timestamp > $3 and timestamp <= $4)";
 		sql += " order by starttime;";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, dayStart, dayEnd], function(err, result) {
+			connection.query(sql, [shopId, time, dayStart, dayEnd], function(err, result) {
 				done();
 
 				var tasks = [];
