@@ -62,16 +62,12 @@ module.exports = function(app){
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
 		
-		var sql = "select id, name from espresso.employee where ex = false and shopid = $1";
-
-		//var sql = "select distinct(espresso.employee.id) as id, espresso.employee.name as name from espresso.start_finish ";
-		//sql += "left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
-		//sql += where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= '2021-07-16 00:00:00' and espresso.start_finish.finishtime is null order by espresso.employee.name";
-		//sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
+		var sql = "select distinct(espresso.employee.id) as id, espresso.employee.name as name from espresso.start_finish ";
+		sql += "left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid ";
+		sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
 
 		pool.connect(function(err, connection, done) {
-			//connection.query(sql, [shopId, date], function(err, result) {
-				connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [shopId, date], function(err, result) {
 				done();
 
 				var employees = [];
