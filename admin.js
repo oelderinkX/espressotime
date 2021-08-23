@@ -306,8 +306,9 @@ module.exports = function(app){
 		var name = req.body.name;
 		var description = req.body.description;
 		var starttime = req.body.starttime;
+		var inputtype = req.body.inputtype;
 
-		var sql = "UPDATE espresso.task SET name = '" + name + "', description = '" + description + "', starttime = '" + starttime + "' WHERE id = " + id + " and shopid = " + shopId;
+		var sql = "UPDATE espresso.task SET name = '" + name + "', inputtype = '" + inputtype + "', description = '" + description + "', starttime = '" + starttime + "' WHERE id = " + id + " and shopid = " + shopId;
 		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
@@ -328,16 +329,15 @@ module.exports = function(app){
 
 	app.post('/addtask', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var id = req.body.id;
 		var name = req.body.name;
 		var description = req.body.description;
 		var starttime = req.body.starttime;
+		var inputtype = req.body.inputtype;
 
-		var sql = "INSERT INTO espresso.task (shopid, name, description, starttime) VALUES ($1, $2, $3, $4)";
-		console.log(sql);
+		var sql = "INSERT INTO espresso.task (shopid, name, inputtype, description, starttime) VALUES ($1, $2, $3, $4, $5)";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, name, description, starttime], function(err, result) {
+			connection.query(sql, [shopId, name, inputtype, description, starttime], function(err, result) {
 				done();
 
 				if (err) {

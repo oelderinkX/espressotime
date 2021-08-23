@@ -525,6 +525,7 @@ function getTasks() {
 
             var td2 = document.createElement('td');
             var select1 = document.createElement('select');
+            select1.setAttribute('id', 'input' + tasks[i].id);
             var option1 = document.createElement('option');
             option1.setAttribute('value', '0');
             option1.innerHTML = 'None';
@@ -586,31 +587,50 @@ function getTasks() {
         td1.appendChild(input1);
 
         var td2 = document.createElement('td');
-        var textarea2 = document.createElement('textarea');
-        textarea2.setAttribute('id', 'description0');
-        textarea2.setAttribute('rows', '4');
-        textarea2.setAttribute('cols', '60');
-        td2.appendChild(textarea2);
+        var select1 = document.createElement('select');
+        select1.setAttribute('id', 'input0');
+        var option1 = document.createElement('option');
+        option1.setAttribute('value', '0');
+        option1.innerHTML = 'None';
+        var option2 = document.createElement('option');
+        option2.setAttribute('value', '1');
+        option2.innerHTML = 'Text';
+        var option3 = document.createElement('option');
+        option3.setAttribute('value', '2');
+        option3.innerHTML = 'Number';
+        select1.appendChild(option1);
+        select1.appendChild(option2);
+        select1.appendChild(option3);
+        select1.value = tasks[i].inputtype;
+        td2.appendChild(select1);
 
         var td3 = document.createElement('td');
-        var input3 = document.createElement('input');
-        input3.setAttribute('type', 'text');
-        input3.setAttribute('id', 'starttime0');
-        input3.setAttribute('value', '09:00:00');
-        td3.appendChild(input3);
+        var textarea3 = document.createElement('textarea');
+        textarea3.setAttribute('id', 'description0');
+        textarea3.setAttribute('rows', '4');
+        textarea3.setAttribute('cols', '60');
+        td3.appendChild(textarea3);
 
         var td4 = document.createElement('td');
         var input4 = document.createElement('input');
-        input4.setAttribute('type', 'button');
-        input4.setAttribute('value', 'Add');
-        input4.setAttribute('onclick', 'addTask();');
+        input4.setAttribute('type', 'text');
+        input4.setAttribute('id', 'starttime0');
+        input4.setAttribute('value', '09:00:00');
         td4.appendChild(input4);
+
+        var td5 = document.createElement('td');
+        var input5 = document.createElement('input');
+        input5.setAttribute('type', 'button');
+        input5.setAttribute('value', 'Add');
+        input5.setAttribute('onclick', 'addTask();');
+        td5.appendChild(input5);
 
         tr.appendChild(th);
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        tr.appendChild(td5);
 
         tasklist.appendChild(tr);
     });
@@ -619,6 +639,7 @@ function getTasks() {
 function updateTask(id) {
     var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
     var name = document.getElementById('name' + id).value;
+    var inputtype = document.getElementById('inputtype' + id).value;
     var description = document.getElementById('description' + id).value;
     var starttime = document.getElementById('starttime' + id).value;
 
@@ -631,7 +652,7 @@ function updateTask(id) {
             starttime = '00:00:00';
         }
 
-        var json = { "id": id, "name": name, "description": description, "starttime": starttime };
+        var json = { "id": id, "name": name, "inputtype": inputtype, "description": description, "starttime": starttime };
 
         sendPost("/updatetask", JSON.stringify(json), function(response) {
             getTasks();
@@ -643,6 +664,7 @@ function addTask() {
     var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
 
     var name = document.getElementById('name0').value;
+    var inputtype = document.getElementById('inputtype' + id).value;
     var description = document.getElementById('description0').value;
     var starttime = document.getElementById('starttime0').value;
 
@@ -651,7 +673,7 @@ function addTask() {
     } else if (starttime.length != 0 && timeRegEx.test(starttime) == false) {
         alert('Incorrect start time of task.  Use format like 09:00:00 for 9am, or 13:30:00 for 1:30pm.  Leave empty to delete task');
     } else {
-        var json = { "name": name, "description": description, "starttime": starttime };
+        var json = { "name": name, "inputtype": inputtype, "description": description, "starttime": starttime };
 
         sendPost("/addtask", JSON.stringify(json), function(response) {
             getTasks();
