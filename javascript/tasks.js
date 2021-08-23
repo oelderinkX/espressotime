@@ -55,7 +55,7 @@ function getTasksForHour() {
             var params = "'" + tasks[t].id + "',";
             params += "'" + tasks[t].name + "',";
             params += "'" + tasks[t].inputtype + "',";
-            params += "'" + tasks[t].description + "'";
+            params += "'" + description + "'";
             task.setAttribute('onclick', 'showDescription(' + params + ');');
 
             var tasktime = document.createElement("span");
