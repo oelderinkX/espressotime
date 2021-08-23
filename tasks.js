@@ -95,7 +95,7 @@ module.exports = function(app){
 		var value = req.body.value;
 		var notes = req.body.notes;
 
-		var sql = "INSERT INTO espresso.task_complete (taskid, timestamp, by, shopid, value, notes) VALUES ($1,$2,$3,$4,$5,$6);";
+		var sql = "INSERT INTO espresso.task_complete (taskid, timestamp, by, shopid, input, notes) VALUES ($1,$2,$3,$4,$5,$6);";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [taskid, timestamp, by, shopId, value, notes], function(err, result) {
