@@ -94,7 +94,7 @@ function showDescription(taskid, name, description) {
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
     
-    descriptionarea.innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/><br/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
+    descriptionarea.innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/><hr noshade/><h4>Completed by:</h4><br/><span id="buttonarea"></span>';
 
     var buttonarea = document.getElementById('buttonarea');
     buttonarea.innerHTML = '';
