@@ -96,8 +96,11 @@ function showDescription(taskid, name, description) {
     
     var innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/>';
     innerHTML += '<br/><hr noshade/>';
+
+    //input box with two br's
+
     innerHTML += '<h4>Completed by:</h4><span id="buttonarea"></span>';
-    innerHTML += '<br/><h5>Extra notes:</h5><textarea class="form-control" rows="2" id="extranotes"></textarea><br/>';
+    innerHTML += '<br/><br/><h5>Extra notes:</h5><textarea class="form-control" rows="2" id="extranotes"></textarea><br/>';
 
     descriptionarea.innerHTML = innerHTML;
 
