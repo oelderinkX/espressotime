@@ -18,10 +18,6 @@ function clock() {
 
     document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
 
-    if (m == 40) {
-        //alert('re-load the tasks for the hour');
-    }
-
     t = setTimeout(function() {
       clock()
     }, 10000);
@@ -56,7 +52,11 @@ function getTasksForHour() {
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
             var description = tasks[t].description;
             description = replaceAll(description, '\n', '<br/>');
-            task.setAttribute('onclick', 'showDescription(' + tasks[t].id + ',"' + tasks[t].name + '","' +  description + '");');
+            var params = "'" + tasks[t].id + "',";
+            params += "'" + tasks[t].name + "',";
+            params += "'" + tasks[t].inputtype + "',";
+            params += "'" + tasks[t].description + "'";
+            task.setAttribute('onclick', 'showDescription(' + params + ');');
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = tasks[t].starttime;
@@ -89,7 +89,7 @@ function getTasksForHour() {
       }, 5 * 60 * 1000);
 }
 
-function showDescription(taskid, name, description) {
+function showDescription(taskid, name, inputtype, description) {
     var descriptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
     desciptiontitle.classList.remove("invisible");
@@ -97,9 +97,13 @@ function showDescription(taskid, name, description) {
     var innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/>';
     innerHTML += '<br/><hr noshade/>';
 
-    //input box with two br's
+    if (inputtype == 1) {
+        innerHTML += '<br/><h5>Value:</h5><input type="text" class="form-control" id="input"><br/>';
+    } else if (inputtype == 2) {
+        innerHTML += '<br/><h5>Value:</h5><input type="number" class="form-control" id="input"><br/>';
+    }
 
-    innerHTML += '<h4>Completed by:</h4><span id="buttonarea"></span>';
+    innerHTML += '<h5>Completed by:</h5><span id="buttonarea"></span>';
     innerHTML += '<br/><br/><h5>Extra notes:</h5><textarea class="form-control" rows="2" id="extranotes"></textarea><br/>';
 
     descriptionarea.innerHTML = innerHTML;
@@ -121,9 +125,23 @@ function showDescription(taskid, name, description) {
 
 function completeTask(taskid, by) {
     var timestamp = getDbFormat() + ' ' + getTime() + ':00';
-    var request = '{ "taskid": ' + taskid + ', "timestamp": "' + timestamp + '", "by": ' + by + ' }';
 
-    sendPost("/completetask", request, function(response) {
+    var value = '';
+    var notes = '';
+
+    var valueelement = document.getElementById("input");
+    if (valueelement) {
+        value = valueelement.value;
+    }
+
+    var noteselement = document.getElementById("extranotes");
+    if (noteselement) {
+        notes = noteselement.value;
+    }
+
+    var request = { "taskid": taskid, "timestamp": timestamp, "by": by, "value": value, "notes": notes };
+
+    sendPost("/completetask", JSON.stringify(request), function(response) {
         var descriptionarea = document.getElementById('descriptionarea');
         descriptionarea.innerHTML = '';
         var desciptiontitle = document.getElementById('descriptiontitle');

@@ -33,7 +33,7 @@ module.exports = function(app){
 		var dayEnd = req.body.date + ' 23:59:59';
 		var time = req.body.time;
 
-		var sql = "select id, name, description, starttime from espresso.task";
+		var sql = "select id, name, inputtype, description, starttime from espresso.task";
 		sql += " where shopid = $1 and starttime <= $2 and id not in (select taskid from espresso.task_complete where timestamp > $3 and timestamp <= $4)";
 		sql += " order by starttime;";
 
@@ -47,6 +47,7 @@ module.exports = function(app){
 					for(var i = 0; i < result.rowCount; i++) {
 						tasks.push({	id: result.rows[i].id,
 										name: result.rows[i].name,
+										inputtype: result.rows[i].inputtype,
 										description: result.rows[i].description,
 										starttime: result.rows[i].starttime
 									});
@@ -91,11 +92,13 @@ module.exports = function(app){
 		var taskid = req.body.taskid;
 		var timestamp = req.body.timestamp;
 		var by = req.body.by;
+		var value = req.body.value;
+		var notes = req.body.notes;
 
-		var sql = "INSERT INTO espresso.task_complete (taskid, timestamp, by, shopid) VALUES ($1,$2,$3,$4);";
+		var sql = "INSERT INTO espresso.task_complete (taskid, timestamp, by, shopid, value, notes) VALUES ($1,$2,$3,$4,$5,$6);";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [taskid, timestamp, by, shopId], function(err, result) {
+			connection.query(sql, [taskid, timestamp, by, shopId, value, notes], function(err, result) {
 				done();
 
 				if (err) {
