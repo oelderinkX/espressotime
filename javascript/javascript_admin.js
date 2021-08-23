@@ -639,7 +639,7 @@ function getTasks() {
 function updateTask(id) {
     var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
     var name = document.getElementById('name' + id).value;
-    var inputtype = document.getElementById('inputtype' + id).value;
+    var inputtype = document.getElementById('input' + id).value;
     var description = document.getElementById('description' + id).value;
     var starttime = document.getElementById('starttime' + id).value;
 
@@ -664,7 +664,7 @@ function addTask() {
     var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/;
 
     var name = document.getElementById('name0').value;
-    var inputtype = document.getElementById('inputtype' + id).value;
+    var inputtype = document.getElementById('input' + id).value;
     var description = document.getElementById('description0').value;
     var starttime = document.getElementById('starttime0').value;
 
