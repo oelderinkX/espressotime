@@ -401,7 +401,7 @@ module.exports = function(app){
 					}
 				}
 					
-				res.send(tasks);
+				res.send(assets);
 			});
 		});
 	});
