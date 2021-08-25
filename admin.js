@@ -418,25 +418,19 @@ module.exports = function(app){
 		var dateassigned = req.body.dateassigned;
 		var statuschangedate = req.body.statuschangedate;
 
-		if (id == 0)
-		{
+		if (id == 0) {
 			var sql = 'insert into espresso.asset (shopid, name, cost, status, employeeid, notes, assigneddate, status_change_date) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) '
 			pool.connect(function(err, connection, done) {
 				connection.query(sql, [shopId, name, cost, status, employeeid, notes, dateassigned, statuschangedate], function(err, result) {
 					done();
-						
 					res.send({success: true});
 				});
 			});
-		}
-		else
-		{
-			console.log('updating!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+		} else {
 			var sql = 'update espresso.asset set name=$1, cost=$2, status=$3, employeeid=$4, notes=$5, assigneddate=$6, status_change_date=$7 where id=$8 and shopId=$9';
 			pool.connect(function(err, connection, done) {
 				connection.query(sql, [name, cost, status, employeeid, notes, dateassigned, statuschangedate,id,shopId], function(err, result) {
 					done();
-					console.log(err);
 					res.send({success: true});
 				});
 			});

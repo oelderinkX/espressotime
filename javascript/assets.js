@@ -1,6 +1,35 @@
 var assets = {};
 var employees = {};
 
+function readableDate(date)
+{
+    var split = date.split('T');
+    if (split.length >= 2) {
+        var date = split[0];
+        var time = split[1];
+
+        split = date.split('-');
+        if (split.length >= 3) {
+            var year = split[0];
+            var month = split[1];
+            var day = split[2];
+
+            split = time.split(':');
+            if (split.length >= 3) {
+                var hour = split[0];
+                var minute = split[1];
+
+                split = minute.split('.');
+                if (split.length > 0) {
+                    minute = split[0];
+                }
+
+                return hour + ':' + minute + ' ' + day + '-' + month + '-' + year;
+            }
+        }
+    }
+}
+
 function loadAssets() {
     var json = {};
 
@@ -44,8 +73,8 @@ function displayAsset(id)
             status.value = asset.status;
             employeeid.value = asset.employeeid;  //not right, need to combo box it!
             notes.value = asset.notes;
-            dateassigned.value = asset.assigneddate;
-            statuschangedate.value = asset.status_change_date;
+            dateassigned.value = readableDate(asset.assigneddate);
+            statuschangedate.value = readableDate(asset.status_change_date);
         }
     }
 }
