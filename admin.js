@@ -366,4 +366,43 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/getassets', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		
+		var sql = 'select id, name, cost, status, employeeid, notes, assigneddate, status_change_date from espresso.asset where shopid = $1 order by name'
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var assets = [];
+				assets.push({	id: 0,
+								name: '',
+								cost: '',
+								status: 0,
+								employeeid: 0,
+								notes: '',
+								assigneddate: new Date(),
+								status_change_date: new Date()
+				});
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						assets.push({	id: result.rows[i].id,
+										name: result.rows[i].name,
+										cost: result.rows[i].cost,
+										status: result.rows[i].status,
+										employeeid: result.rows[i].employeeid,
+										notes: result.rows[i].notes,
+										assigneddate: result.rows[i].assigneddate,
+										status_change_date: result.rows[i].status_change_date,
+						});
+					}
+				}
+					
+				res.send(tasks);
+			});
+		});
+	});
 }
