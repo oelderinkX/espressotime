@@ -432,7 +432,7 @@ module.exports = function(app){
 		else
 		{
 			console.log('updating!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-			var sql = 'update espresso.asset set name=$1, cost=$2, status=$3, employeeid=$4, notes=$5, assigneddate=$6, status_change_date=$7 where id=$8 shopId=$9';
+			var sql = 'update espresso.asset set name=$1, cost=$2, status=$3, employeeid=$4, notes=$5, assigneddate=$6, status_change_date=$7 where id=$8 and shopId=$9';
 			pool.connect(function(err, connection, done) {
 				connection.query(sql, [name, cost, status, employeeid, notes, dateassigned, statuschangedate,id,shopId], function(err, result) {
 					done();
