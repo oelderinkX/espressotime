@@ -379,7 +379,7 @@ module.exports = function(app){
 				var assets = [];
 				assets.push({	id: 0,
 								name: '(New Asset)',
-								cost: '',
+								cost: '$0.00',
 								status: 0,
 								employeeid: 0,
 								notes: '',
@@ -404,5 +404,35 @@ module.exports = function(app){
 				res.send(assets);
 			});
 		});
+	});
+
+	app.post('/saveasset', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+		var name = req.body.name;
+		var cost = req.body.cost;
+		var status = req.body.status;
+		var employeeid = req.body.employeeid;
+		var notes = req.body.notes;
+	
+		var dateassigned = req.body.dateassigned;
+		var statuschangedate = req.body.statuschangedate;
+
+		if (id == 0)
+		{
+			var sql = 'insert into espresso.asset (shopid, name, cost, status, employeeid, notes, assigneddate, status_change_date) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) '
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, [shopId, name, cost, status, employeeid, notes, assigneddate, status_change_date], function(err, result) {
+					done();
+						
+					res.send({success: true});
+				});
+			});
+		}
+		else
+		{
+			//need pool here too!
+			res.send({success: true});
+		}
 	});
 }
