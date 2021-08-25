@@ -23,6 +23,7 @@ function loadAssets() {
 
 function displayAsset(id)
 {
+    var selectedId =  document.getElementById('assetselect');
     var id = document.getElementById('id');
     var name = document.getElementById('name');
     var cost = document.getElementById('cost');
@@ -35,7 +36,7 @@ function displayAsset(id)
 
     for(var i = 0; i < assets.length; i++) {
         var asset = assets[i];
-        if (asset.id == id.value)
+        if (asset.id == selectedId.value)
         {
             id.value = asset.id;
             name.value = asset.name;
