@@ -35,7 +35,7 @@ function displayAsset(id)
 
     for(var i = 0; i < assets.length; i++) {
         var asset = assets[i];
-        if (asset.id == id)
+        if (asset.id == id.value)
         {
             id.value = asset.id;
             name.value = asset.name;
