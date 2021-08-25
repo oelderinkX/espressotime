@@ -62,7 +62,7 @@ function save()
     {
         alert('you must enter an asset name');
     }
-    else if (name.contains("(New Asset)"))
+    else if (name.includes("(New Asset)"))
     {
         alert('the asset name must not contain "(New Asset)"');
     }
