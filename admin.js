@@ -422,7 +422,7 @@ module.exports = function(app){
 		{
 			var sql = 'insert into espresso.asset (shopid, name, cost, status, employeeid, notes, assigneddate, status_change_date) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) '
 			pool.connect(function(err, connection, done) {
-				connection.query(sql, [shopId, name, cost, status, employeeid, notes, assigneddate, status_change_date], function(err, result) {
+				connection.query(sql, [shopId, name, cost, status, employeeid, notes, dateassigned, statuschangedate], function(err, result) {
 					done();
 						
 					res.send({success: true});
