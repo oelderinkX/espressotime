@@ -378,7 +378,7 @@ module.exports = function(app){
 
 				var assets = [];
 				assets.push({	id: 0,
-								name: '',
+								name: '(New Asset)',
 								cost: '',
 								status: 0,
 								employeeid: 0,
