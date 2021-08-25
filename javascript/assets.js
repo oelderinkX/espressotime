@@ -44,8 +44,8 @@ function displayAsset(id)
             status.value = asset.status;
             employeeid.value = asset.employeeid;  //not right, need to combo box it!
             notes.value = asset.notes;
-            dateassigned.value = asset.dateassigned;
-            statuschangedate.value = asset.statuschangedate;
+            dateassigned.value = asset.assigneddate;
+            statuschangedate.value = asset.status_change_date;
         }
     }
 }
