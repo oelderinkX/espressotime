@@ -31,6 +31,7 @@ function readableDate(date)
 }
 
 function loadEmployees() {
+    var json = {};
     sendPost("/getemployeesforassets", JSON.stringify(json), function(response) {
         employees = JSON.parse(response);
 
