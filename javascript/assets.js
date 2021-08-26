@@ -68,8 +68,17 @@ function loadAssets() {
     });
 }
 
-function displayAsset(id)
-{
+function getAssetById(id) {
+    for(var i = 0; i < assets.length; i++) {
+        var asset = assets[i];
+        if (asset.id == id)
+        {
+            return asset;
+        }
+    }
+}
+
+function displayAsset(id) {
     var selectedId =  document.getElementById('assetselect');
     var id = document.getElementById('id');
     var name = document.getElementById('name');
@@ -81,20 +90,16 @@ function displayAsset(id)
     var dateassigned = document.getElementById('dateassigned');
     var statuschangedate = document.getElementById('statuschangedate');
 
-    for(var i = 0; i < assets.length; i++) {
-        var asset = assets[i];
-        if (asset.id == selectedId.value)
-        {
-            id.value = asset.id;
-            name.value = asset.name;
-            cost.value = asset.cost;
-            status.value = asset.status;
-            employeeid.value = asset.employeeid;  //not right, need to combo box it!
-            notes.value = asset.notes;
-            dateassigned.value = readableDate(asset.assigneddate);
-            statuschangedate.value = readableDate(asset.status_change_date);
-        }
-    }
+    var asset = getAssetById(selectedId.value);
+
+    id.value = asset.id;
+    name.value = asset.name;
+    cost.value = asset.cost;
+    status.value = asset.status;
+    employeeid.value = asset.employeeid;  //not right, need to combo box it!
+    notes.value = asset.notes;
+    dateassigned.value = readableDate(asset.assigneddate);
+    statuschangedate.value = readableDate(asset.status_change_date);
 }
 
 function save()
@@ -106,19 +111,29 @@ function save()
     var employeeid = document.getElementById('employeeid').value;
     var notes = document.getElementById('notes').value;
 
-    if (name.trim().length == 0)
+    var originalAsset = getAssetById(id);
+
+    if (status == 0)
     {
-        alert('you must enter an asset name');
+        employeeid = 0;
     }
-    else if (name.includes("(New Asset)"))
-    {
-        alert('the asset name must not contain "(New Asset)"');
-    }
-    else
+
+    if (status == 1)
     {
         var dateassigned = getDbFormat() + ' ' + getTime() + ":00";
-		var statuschangedate = getDbFormat() + ' ' + getTime() + ":00";
+    } else {
+        var dateassigned = originalAsset.assigneddate;
+    }
 
+    var statuschangedate = getDbFormat() + ' ' + getTime() + ":00";
+
+    if (name.trim().length == 0) {
+        alert('you must enter an asset name');
+    } else if (name.includes("(New Asset)")) {
+        alert('the asset name must not contain "(New Asset)"');
+    } else if (status > 0 && employeeid <= 0) {
+        alert('If an asset is assigned, lost, damage you need to set the employee');
+    } else {
         var json = {id: id, name: name, cost: cost, status: status, employeeid: employeeid, notes: notes, dateassigned: dateassigned, statuschangedate: statuschangedate};
 
         sendPost("/saveasset", JSON.stringify(json), function(response) {
