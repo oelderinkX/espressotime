@@ -113,6 +113,22 @@ function displayAsset() {
     statuschangedate.value = readableDate(asset.status_change_date);
 }
 
+function getStatusName(status) {
+    if (status == 0) {
+        return 'Unassigned';
+    } else if (status == 1) {
+        return 'Assigned';
+    } else if (status == 2) {
+        return 'Lost';
+    } else if (status == 3) {
+        return 'Damaged';
+    } else if (status == 4) {
+        return 'Cost recouped';
+    } else {
+        return 'Unknown status';
+    }
+}
+
 function displayAssigned() {
     var haslist = document.getElementById('haslist');
     haslist.innerHTML = '';
@@ -123,7 +139,7 @@ function displayAssigned() {
         if (asset.employeeid == employeeid)
         {
             var h5 = document.createElement('h5');
-            h5.innerHTML = asset.name;
+            h5.innerHTML = asset.name + ' (' + getStatusName(asset.status) + ')';
             haslist.appendChild(h5);
         }
     }
