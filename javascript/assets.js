@@ -43,7 +43,7 @@ function loadEmployees() {
             var option = document.createElement('option');
             option.setAttribute('value', employee.id);
             option.innerHTML = employee.name;
-            assetselect.appendChild(option);
+            employeeidselect.appendChild(option);
         }   
     });
 }
