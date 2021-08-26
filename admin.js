@@ -447,6 +447,7 @@ module.exports = function(app){
 				done();
 
 				var employees = [];
+				employees.push({id: 0, name: ''});
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {

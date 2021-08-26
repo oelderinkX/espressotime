@@ -54,18 +54,27 @@
           <label for="cost">Cost:</label>
           <input type="text" class="form-control" id="cost">
           <br/>
-          <label for="status">Status:</label>
-          <select id="status" class="custom-select" size="15">
-            <option value="0">Unassigned</option>
-            <option value="1">Assigned</option>
-            <option value="2">Lost</option>
-            <option value="3">Damaged</option>
-            <option value="4">Cost-recouped</option>
-          </select>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="status-addon">Status:</span>
+            <br/>
+            <select class="input-large form-control" aria-describedby="status-addon" id="status">
+              <option value="0">Unassigned</option>
+              <option value="1">Assigned</option>
+              <option value="2">Lost</option>
+              <option value="3">Damaged</option>
+              <option value="4">Cost-recouped</option>
+            </select>
+          </div>
           <br/>
-          <label for="employeeid">Employee:</label>
-          <select id="employeeid" class="custom-select" size="15">
-          </select>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="employee-addon">Employee:</span>
+            <br/>
+            <select class="input-large form-control" aria-describedby="employee-addon" id="employeeid">
+            </select>
+          </div>
+          <br/>
           <br/>
           <label for="notes">Notes:</label>
           <textarea class="form-control" rows="2" id="notes"></textarea>
