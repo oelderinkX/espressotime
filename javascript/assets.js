@@ -74,7 +74,6 @@ function loadAssets() {
             var option = document.createElement('option');
             option.setAttribute('value', asset.id);
             option.innerHTML = asset.name;
-            option.setAttribute('onclick', "displayAsset(" + asset.id + ");");
             assetselect.appendChild(option);
         }   
     });
@@ -90,7 +89,7 @@ function getAssetById(id) {
     }
 }
 
-function displayAsset(id) {
+function displayAsset() {
     var selectedId =  document.getElementById('assetselect');
     var id = document.getElementById('id');
     var name = document.getElementById('name');
@@ -112,6 +111,22 @@ function displayAsset(id) {
     notes.value = asset.notes;
     dateassigned.value = readableDate(asset.assigneddate);
     statuschangedate.value = readableDate(asset.status_change_date);
+}
+
+function displayAssigned() {
+    var haslist = document.getElementById('haslist');
+    haslist.innerHTML = '';
+    var employeeid = document.getElementById('employeehasselect').value;
+    
+    for(var i = 0; i < assets.length; i++) {
+        var asset = assets[i];
+        if (asset.employeeid == employeeid)
+        {
+            var h5 = document.createElement('h5');
+            h5.innerHTML = asset.name;
+            haslist.appendChild(h5);
+        }
+    }
 }
 
 function save()
