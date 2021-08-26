@@ -48,11 +48,14 @@ function loadEmployees() {
             option.innerHTML = employee.name;
             employeeidselect.appendChild(option);
 
-            var optiono = document.createElement('option');
-            optiono.setAttribute('value', employee.id);
-            optiono.innerHTML = employee.name;
-            //set click too!
-            employeehasselect.appendChild(optiono);
+            if (employee.id > 0)
+            {
+                var optiono = document.createElement('option');
+                optiono.setAttribute('value', employee.id);
+                optiono.innerHTML = employee.name;
+                //set click too!
+                employeehasselect.appendChild(optiono);
+            }
         }   
     });
 }
