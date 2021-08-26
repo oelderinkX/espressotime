@@ -39,14 +39,14 @@
   <br/>
   <button type="button" class="btn btn-em" onclick="">Assigned</button> --- <button type="button" class="btn btn-em" onclick="">Unassigned</button>
   <table border=0 width="100%">
-    <tr>
-      <td style="vertical-align:top;">
+    <tr >
+      <td style="vertical-align:top;padding: 15px">
         <select id="assetselect" class="custom-select" size="15">
         </select>
       </td>
       <td>
       </td>
-      <td style="vertical-align:top;">
+      <td style="vertical-align:top;padding: 15px">
           <input type="hidden" id="id" value="">
           <label for="name">Name:</label>
           <input type="text" class="form-control" id="name">
@@ -54,11 +54,10 @@
           <label for="cost">Cost:</label>
           <input type="text" class="form-control" id="cost">
           <br/>
-
+          
+          Status:
           <div class="input-group">
-            <span class="input-group-addon" id="status-addon">Status:</span>
-            <br/>
-            <select class="input-large form-control" aria-describedby="status-addon" id="status">
+            <select class="input-large form-control" id="status">
               <option value="0">Unassigned</option>
               <option value="1">Assigned</option>
               <option value="2">Lost</option>
@@ -68,13 +67,11 @@
           </div>
           <br/>
 
+          Employee:
           <div class="input-group">
-            <span class="input-group-addon" id="employee-addon">Employee:</span>
-            <br/>
             <select class="input-large form-control" aria-describedby="employee-addon" id="employeeid">
             </select>
           </div>
-          <br/>
           <br/>
           <label for="notes">Notes:</label>
           <textarea class="form-control" rows="2" id="notes"></textarea>
