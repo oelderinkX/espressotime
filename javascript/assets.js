@@ -30,6 +30,23 @@ function readableDate(date)
     }
 }
 
+function loadEmployees() {
+    sendPost("/getemployeesforassets", JSON.stringify(json), function(response) {
+        employees = JSON.parse(response);
+
+        var employeeidselect = document.getElementById('employeeid');
+        employeeidselect.innerHTML = '';
+    
+        for(var i = 0; i < employees.length; i++) {
+            var employee = employees[i];
+            var option = document.createElement('option');
+            option.setAttribute('value', employee.id);
+            option.innerHTML = employee.name;
+            assetselect.appendChild(option);
+        }   
+    });
+}
+
 function loadAssets() {
     var json = {};
 

@@ -55,10 +55,17 @@
           <input type="text" class="form-control" id="cost">
           <br/>
           <label for="status">Status:</label>
-          <input type="text" class="form-control" id="status">
+          <select id="status" class="custom-select" size="15">
+            <option value="0">Unassigned</option>
+            <option value="1">Assigned</option>
+            <option value="2">Lost</option>
+            <option value="3">Damaged</option>
+            <option value="4">Cost-recouped</option>
+          </select>
           <br/>
           <label for="employeeid">Employee:</label>
-          <input type="text" class="form-control" id="employeeid">
+          <select id="employeeid" class="custom-select" size="15">
+          </select>
           <br/>
           <label for="notes">Notes:</label>
           <textarea class="form-control" rows="2" id="notes"></textarea>
@@ -75,6 +82,7 @@
   </table>
 </body>
 <script>
+    loadEmployees();
     loadAssets();
 </script>
 </html>

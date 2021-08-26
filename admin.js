@@ -436,4 +436,28 @@ module.exports = function(app){
 			});
 		}
 	});
+
+	app.post('/getemployeesforassets', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		
+		var sql = 'select id,name from espresso.employee where shopid = $1 and ex=false or id in (select employeeid from espresso.asset) order by id'
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var employees = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						employees.push({	id: result.rows[i].id,
+										name: result.rows[i].name,
+						});
+					}
+				}
+					
+				res.send(employees);
+			});
+		});
+	});
 }
