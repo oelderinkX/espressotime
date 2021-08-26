@@ -37,13 +37,22 @@ function loadEmployees() {
 
         var employeeidselect = document.getElementById('employeeid');
         employeeidselect.innerHTML = '';
-    
+
+        var employeehasselect = document.getElementById('employeehasselect');
+        employeehasselect.innerHTML = '';
+
         for(var i = 0; i < employees.length; i++) {
             var employee = employees[i];
             var option = document.createElement('option');
             option.setAttribute('value', employee.id);
             option.innerHTML = employee.name;
             employeeidselect.appendChild(option);
+
+            var optiono = document.createElement('option');
+            optiono.setAttribute('value', employee.id);
+            optiono.innerHTML = employee.name;
+            //set click too!
+            employeehasselect.appendChild(optiono);
         }   
     });
 }
