@@ -82,7 +82,7 @@ function getStartFinishBreaks() {
             var input1 = document.createElement("input");
             input1.classList.add('form-control');
             input1.classList.add('starttime');
-            input1.type = 'text';
+            input1.type = 'time';
             input1.value = starttime;
             input1.setAttribute('rowid', startFinishAndBreaks.starttimes[i].id);
             input1.setAttribute('employeeid', startFinishAndBreaks.id);
@@ -96,7 +96,7 @@ function getStartFinishBreaks() {
             var input2 = document.createElement("input");
             input2.classList.add('form-control');
             input2.classList.add('finishtime');
-            input2.type = 'text';
+            input2.type = 'time';
             input2.value = finishtime;
             input2.setAttribute('rowid', startFinishAndBreaks.finishtimes[i].id);
             input2.setAttribute('employeeid', startFinishAndBreaks.id);
@@ -117,7 +117,7 @@ function getStartFinishBreaks() {
 
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
-            input3.type = 'text';
+            input3.type = 'time';
             input3.value = formatTime(startFinishAndBreaks.breaks[i].startTime) + ' - ' + formatTime(startFinishAndBreaks.breaks[i].finishTime);
             input3.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
             inputGroup2.appendChild(input3); 
@@ -169,11 +169,11 @@ function updateTimes() {
     var starttime = starttimes[0];
     var finishtime = finishtimes[finishtimes.length -1];
 
-    var start = starttime.value;
+    var new_starttime = starttime.value;
     var starttime_rowid = starttime.getAttribute('rowid');
     var starttime_employeeid = starttime.getAttribute('employeeid');
 
-    var finish = finishtime.value;
+    var new_finishtime = finishtime.value;
     var finishtime_rowid = finishtime.getAttribute('rowid');
     var finishtime_employeeid = finishtime.getAttribute('employeeid');
 
@@ -183,11 +183,10 @@ function updateTimes() {
         return;
     }
 
-    var json = { employeeid: starttime_employeeid, starttime_rowid: starttime_rowid, finishtime_rowid: finishtime_rowid };
+    var json = { employeeid: starttime_employeeid, starttime_rowid: starttime_rowid, new_starttime: new_starttime, finishtime_rowid: finishtime_rowid, new_finishtime: new_finishtime };
 
     //sendPost("/updatetimes", JSON.stringify(json), function(response) {
     //});
-
 }
 
 function updateBreaks() {
