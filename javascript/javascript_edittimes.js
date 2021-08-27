@@ -26,7 +26,7 @@ function setDates() {
         optionDate.setDate( optionDate.getDate() - (day - 1) );
     }
 
-    for(var i = 1; i < 8; i++) {
+    for(var i = 1; i < 15; i++) {
         var value = getDbFormat(optionDate);
         var display = displayDate(optionDate) + ' (' + dayNames[optionDate.getDay()] + ')';
         var option = document.createElement("option");

@@ -14,7 +14,7 @@ var adminPage = fs.readFileSync(__dirname + "/webpage/admin.html", "utf8");
 var employeeListEditPage = fs.readFileSync(__dirname + "/webpage/employeelistedit.html", "utf8");
 var timesheetPage = fs.readFileSync(__dirname + "/webpage/timesheet.html", "utf8");
 var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
-var editPage = fs.readFileSync(__dirname + "/webpage/edit.html", "utf8");
+var editTimesPage = fs.readFileSync(__dirname + "/webpage/edittimes.html", "utf8");
 var taskEditPage= fs.readFileSync(__dirname + "/webpage/taskedit.html", "utf8");
 var assetsPage= fs.readFileSync(__dirname + "/webpage/assets.html", "utf8");
 
@@ -76,13 +76,13 @@ module.exports = function(app){
 	});	
 	
 	// edit time of staff!  when they clocked in!
-	app.get('/edit', urlencodedParser, function(req, res) {
+	app.get('/edittimes', urlencodedParser, function(req, res) {
 		var webpage = loginPage;
 	
 		var shopid = common.getShopId(req.cookies['identifier']);
 
 		if (shopid && shopid != -1) {
-			webpage = editPage;
+			webpage = editTimesPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/edit');
 		}
