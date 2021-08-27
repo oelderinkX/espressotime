@@ -461,4 +461,43 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/updatetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']); // not used, so a bit dangerous
+
+		var employeeid = req.body.employeeid;
+
+		var starttime_rowid = req.body.starttime_rowid;
+		var new_starttime = req.body.new_starttime;
+
+		var finishtime_rowid = req.body.finishtime_rowid;
+		var new_finishtime = req.body.new_finishtime;
+
+		var startsql = "update espresso.start_finish set starttime = $1 where id = $2 and employeeid = $3";
+		var finishsql = "update espresso.start_finish set finishtime = $1 where id = $2 and employeeid = $3";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(startsql, [new_starttime, starttime_rowid, employeeid], function(err, result) {
+				done();
+
+				console.log('err 1:')
+				console.log(err);
+				console.log('result 1:')
+				console.log(result);
+
+				pool.connect(function(err, connection, done) {
+					connection.query(finishsql, [new_starttime, starttime_rowid, employeeid], function(err, result) {
+						done();
+
+						console.log('err 2:')
+						console.log(err);
+						console.log('result 2:')
+						console.log(result);
+
+						res.send({success: true});
+					});
+				});
+			});
+		});
+	});
 }

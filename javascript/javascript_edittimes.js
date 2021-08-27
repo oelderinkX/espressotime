@@ -117,7 +117,7 @@ function getStartFinishBreaks() {
 
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
-            input3.type = 'time';
+            input3.type = 'number';
             input3.value = formatTime(startFinishAndBreaks.breaks[i].startTime) + ' - ' + formatTime(startFinishAndBreaks.breaks[i].finishTime);
             input3.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
             inputGroup2.appendChild(input3); 
