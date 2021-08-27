@@ -169,11 +169,11 @@ function updateTimes() {
     var starttime = starttimes[0];
     var finishtime = finishtimes[finishtimes.length -1];
 
-    var new_starttime = starttime.value;
+    var new_starttime = date + ' ' + starttime.value + ':00';
     var starttime_rowid = starttime.getAttribute('rowid');
     var starttime_employeeid = starttime.getAttribute('employeeid');
 
-    var new_finishtime = finishtime.value;
+    var new_finishtime = date + ' ' + finishtime.value + ':00';
     var finishtime_rowid = finishtime.getAttribute('rowid');
     var finishtime_employeeid = finishtime.getAttribute('employeeid');
 
