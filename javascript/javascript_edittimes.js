@@ -1,3 +1,5 @@
+var startFinishAndBreaks = {};
+
 function getEmployees() {
     var employeecombo = document.getElementById('employeecombox');
 
@@ -13,7 +15,7 @@ function getEmployees() {
     });
 }
 
-function setDates() {
+function setDatesCombo() {
     var dayCombo = document.getElementById('day');
 
     var d = new Date();
@@ -53,18 +55,20 @@ function getStartFinishBreaks() {
 
     var dayCombo = document.getElementById('day');
 
-    sendPost("/getemployeedetails", '{ "employeeId": "' + employeecombo.value +  '", "date": "'  + dayCombo.value + '" }', function(response) {
+    var json = { "employeeId": employeecombo.value, "date": dayCombo.value };
+
+    sendPost("/getemployeedetails", JSON.stringify(json), function(response) {
         timesArea.innerHTML = '';
 
-        var times = JSON.parse(response);
+        startFinishAndBreaks = JSON.parse(response);
 
-        if (times.starttime == "") {
+        if (startFinishAndBreaks.starttime == "") {
             return;
         }
 
-        for(var i = 0; i < times.starttimes.length; i++) {
-            var starttime = getTime(times.starttimes[i].time);
-            var finishtime = getTime(times.finishtimes[i].time);
+        for(var i = 0; i < startFinishAndBreaks.starttimes.length; i++) {
+            var starttime = getTime(startFinishAndBreaks.starttimes[i].time);
+            var finishtime = getTime(startFinishAndBreaks.finishtimes[i].time);
 
             var inputGroup = document.createElement("div");
             inputGroup.classList.add('input-group');
@@ -80,7 +84,8 @@ function getStartFinishBreaks() {
             input1.classList.add('starttime');
             input1.type = 'text';
             input1.value = starttime;
-            input1.setAttribute('rowid', times.starttimes[i].id);
+            input1.setAttribute('rowid', startFinishAndBreaks.starttimes[i].id);
+            input1.setAttribute('employeeid', startFinishAndBreaks.id);
             inputGroup.appendChild(input1); 
 
             var span2 = document.createElement("span");
@@ -90,17 +95,18 @@ function getStartFinishBreaks() {
 
             var input2 = document.createElement("input");
             input2.classList.add('form-control');
-            input1.classList.add('finishtime');
+            input2.classList.add('finishtime');
             input2.type = 'text';
             input2.value = finishtime;
-            input2.setAttribute('rowid', times.finishtimes[i].id);
+            input2.setAttribute('rowid', startFinishAndBreaks.finishtimes[i].id);
+            input2.setAttribute('employeeid', startFinishAndBreaks.id);
             inputGroup.appendChild(input2); 
 
             timesArea.appendChild(inputGroup);
             timesArea.appendChild(document.createElement('br'));
         }
 
-        for(var i = 0; i < times.breaks.length; i++) {
+        for(var i = 0; i < startFinishAndBreaks.breaks.length; i++) {
             var inputGroup2 = document.createElement("div");
             inputGroup2.classList.add('input-group');
 
@@ -112,8 +118,8 @@ function getStartFinishBreaks() {
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
             input3.type = 'text';
-            input3.value = formatTime(times.breaks[i].startTime) + ' - ' + formatTime(times.breaks[i].finishTime);
-            input3.setAttribute('rowid', times.breaks[i].id);
+            input3.value = formatTime(startFinishAndBreaks.breaks[i].startTime) + ' - ' + formatTime(startFinishAndBreaks.breaks[i].finishTime);
+            input3.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
             inputGroup2.appendChild(input3); 
 
             var span4 = document.createElement("span");
@@ -139,7 +145,7 @@ function getStartFinishBreaks() {
             select.appendChild(option2);
             inputGroup2.appendChild(select);
 
-            select.value = times.breaks[i].breakType;
+            select.value = startFinishAndBreaks.breaks[i].breakType;
 
             breaksArea.appendChild(inputGroup2);
         }
@@ -150,16 +156,16 @@ function updateTimes() {
     var sql = 'select * from espresso.startfinish where id in ';
     var rows = [];
 
-    var times = getElementsByClassName('times');
+        var starttimes = document.getElementsByClassName('starttime');
+        var finishtimes = document.getElementsByClassName('finishtime');
+        //rows.push(starttime.getAttribute('rowid'));
 
-    for(var i = 0; i < times.length; i++) {
-        var time = times[i];
-        var starttime = time.getElementsByClassName('starttime');
-        var finishtime = time.getElementsByClassName('finishtime');
-        rows.push(starttime.getAttribute('rowid'));
-    }
 
     sql += '(' + rows.join(',') + ')';
+
+    //times.id
+    //times.starttimes[0].id
+    //times.finishtimes[0].id
 
     alert(sql);
 }
