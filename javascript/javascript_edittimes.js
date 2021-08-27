@@ -155,7 +155,7 @@ function getStartFinishBreaks() {
 function updateTimes() {
     var starttimes = document.getElementsByClassName('starttime');
     var finishtimes = document.getElementsByClassName('finishtime');
-
+    var date = document.getElementById('day').value;
     
     if (!starttimes || starttimes.length == 0)
     {
@@ -169,14 +169,25 @@ function updateTimes() {
     var starttime = starttimes[0];
     var finishtime = finishtimes[finishtimes.length -1];
 
-    var rowid = starttime.getAttribute('rowid');
-    var employeeid = starttime.getAttribute('employeeid');
+    var start = starttime.value;
+    var starttime_rowid = starttime.getAttribute('rowid');
+    var starttime_employeeid = starttime.getAttribute('employeeid');
 
-    //times.id
-    //times.starttimes[0].id
-    //times.finishtimes[0].id
+    var finish = finishtime.value;
+    var finishtime_rowid = finishtime.getAttribute('rowid');
+    var finishtime_employeeid = finishtime.getAttribute('employeeid');
 
-    alert(sql);
+    if (starttime_employeeid != finishtime_employeeid)
+    {
+        alert('unexpected employeeid.  try refreshing the page');
+        return;
+    }
+
+    var json = { employeeid: starttime_employeeid, starttime_rowid: starttime_rowid, finishtime_rowid: finishtime_rowid };
+
+    //sendPost("/updatetimes", JSON.stringify(json), function(response) {
+    //});
+
 }
 
 function updateBreaks() {
