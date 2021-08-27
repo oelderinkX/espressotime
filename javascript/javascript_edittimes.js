@@ -153,15 +153,24 @@ function getStartFinishBreaks() {
 }
 
 function updateTimes() {
-    var sql = 'select * from espresso.startfinish where id in ';
-    var rows = [];
+    var starttimes = document.getElementsByClassName('starttime');
+    var finishtimes = document.getElementsByClassName('finishtime');
 
-        var starttimes = document.getElementsByClassName('starttime');
-        var finishtimes = document.getElementsByClassName('finishtime');
-        //rows.push(starttime.getAttribute('rowid'));
+    
+    if (!starttimes || starttimes.length == 0)
+    {
+        return;
+    }
+    if (!finishtimes || finishtimes.length == 0)
+    {
+        return;
+    }
 
+    var starttime = starttimes[0];
+    var finishtime = finishtimes[finishtimes.length -1];
 
-    sql += '(' + rows.join(',') + ')';
+    var rowid = starttime.getAttribute('rowid');
+    var employeeid = starttime.getAttribute('employeeid');
 
     //times.id
     //times.starttimes[0].id
