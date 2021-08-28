@@ -176,13 +176,11 @@ function getTasksForMobile() {
 
             if (tasks[t].completed == true) {
                 tasktime.className = 'badge badge-success badge-pill';
-                tasktime.innerHTML = '&#10004;';
-                tasktime.style = "font-family: 'Zapf Dingbats';";
+                tasktime.innerHTML = '<img src="/images/pill_black_tick.png">';
             } else {
                 if (minutesDiff > 120) {
                     tasktime.className = 'badge badge-danger badge-pill';
-                    tasktime.innerHTML = '&#10008;';
-                    tasktime.style = "font-family: 'Zapf Dingbats';";
+                    tasktime.innerHTML = '<img src="/images/pill_black_cross.png">';
                 }   
             }
 
