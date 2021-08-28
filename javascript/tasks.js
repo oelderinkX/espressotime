@@ -175,19 +175,12 @@ function getTasksForMobile() {
             var minutesDiff = calculateMinutes(today, starttime);
 
             if (tasks[t].completed == true) {
-                tasktime.className = 'badge badge-success badge-pill glyphicon glyphicon-ok';
+                tasktime.className = 'badge badge-success badge-pill';
+                tasktime.innerHTML = '&#10004;';
             } else {
-                if (minutesDiff < 60)
-                {
-                    tasktime.className = 'badge badge-success badge-pill glyphicon glyphicon-remove';
-                }
-                else if (minutesDiff < 120)
-                {
-                    tasktime.className = 'badge badge-warning badge-pill glyphicon glyphicon-remove';
-                }
-                else
-                {
-                    tasktime.className = 'badge badge-danger badge-pill glyphicon glyphicon-remove';
+                if (minutesDiff > 120) {
+                    tasktime.className = 'badge badge-danger badge-pill';
+                    tasktime.innerHTML = '&#10008;';
                 }   
             }
 
