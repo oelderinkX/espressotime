@@ -332,3 +332,10 @@ function employeeFinishBreak(employeeId, breakType) {
         getEmployeeDetails(employeeId);
     });
 }
+
+function setTasksButton() {
+    if (isMobileDevice()) {
+        var tasksbutton = document.getElementById('tasksbutton');
+        tasksbutton.setAttribute('onclick', "window.location.href='/tasksmobile';");
+    }
+}

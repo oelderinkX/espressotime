@@ -61,7 +61,7 @@
     </style>
 </head>
 <body>
-  <button type="button" style="float:top;margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasks';">Tasks</button><h1 id="time" style="float:right">00:00</h1>
+  <button id="tasksbutton" type="button" style="float:top;margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasks';">Tasks</button><h1 id="time" style="float:right">00:00</h1>
   <nav class="navbar navbar-inverse visible-xs">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -116,6 +116,7 @@
   </div>
 </body>
 <script>
+  setTasksButton();
   getEmployees();
   getEmployeeDetails(0);
   clock();
