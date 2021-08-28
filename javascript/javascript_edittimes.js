@@ -185,8 +185,9 @@ function updateTimes() {
 
     var json = { employeeid: starttime_employeeid, starttime_rowid: starttime_rowid, new_starttime: new_starttime, finishtime_rowid: finishtime_rowid, new_finishtime: new_finishtime };
 
-    //sendPost("/updatetimes", JSON.stringify(json), function(response) {
-    //});
+    sendPost("/updatetimes", JSON.stringify(json), function(response) {
+        alert('start and finish time has been updated');
+    });
 }
 
 function updateBreaks() {
