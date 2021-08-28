@@ -486,7 +486,7 @@ module.exports = function(app){
 				console.log(result);
 
 				pool.connect(function(err, connection, done) {
-					connection.query(finishsql, [new_starttime, starttime_rowid, employeeid], function(err, result) {
+					connection.query(finishsql, [new_finishtime, finishtime_rowid, employeeid], function(err, result) {
 						done();
 
 						console.log('err 2:')
