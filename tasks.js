@@ -11,6 +11,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var tasksPage = fs.readFileSync(__dirname + "/webpage/tasks.html", "utf8");
+var tasksMobilePage = fs.readFileSync(__dirname + "/webpage/tasksmobile.html", "utf8");
 
 module.exports = function(app){
 	app.get('/tasks', urlencodedParser, function(req, res) {
@@ -22,6 +23,20 @@ module.exports = function(app){
 			webpage = tasksPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/tasks');
+		}
+
+		res.send(webpage);
+	});
+
+	app.get('/tasksmobile', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = tasksMobilePage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/tasksmobile');
 		}
 
 		res.send(webpage);
@@ -51,6 +66,37 @@ module.exports = function(app){
 										description: result.rows[i].description,
 										starttime: result.rows[i].starttime
 									});
+					}
+				}
+					
+				res.send(tasks);
+			});
+		});
+	});
+
+	app.post('/getalltasks', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var dayStart = req.body.date + ' 00:00:00';
+		var dayEnd = req.body.date + ' 23:59:59';
+
+		var sql = "select name, starttime,";
+		sql += " exists(select taskid from espresso.task_complete where timestamp > $1 and timestamp <= $2) as completed";
+		sql += " from espresso.task";
+		sql += " where shopid = $3";
+		sql += " order by starttime;";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [dayStart, dayEnd, shopId], function(err, result) {
+				done();
+
+				var tasks = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						tasks.push({name: result.rows[i].name,
+									starttime: result.rows[i].starttime,
+									completed: result.rows[i].completed
+						});
 					}
 				}
 					

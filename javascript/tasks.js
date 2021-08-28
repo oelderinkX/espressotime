@@ -152,3 +152,47 @@ function completeTask(taskid, by) {
         getTasksForHour();
     });
 }
+
+function getTasksForMobile() {
+    var date = getDbFormat();
+    var request = {date: date};
+
+    sendPost("/getalltasks", JSON.stringify(request), function(response) {
+        var tasks = JSON.parse(response);
+
+        var tasksarea = document.getElementById("tasksarea")
+        tasksarea.innerHTML = '';
+
+        for(var t in tasks) {
+            var task = document.createElement("li");
+            task.innerHTML = tasks[t].name;
+            task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
+
+            var tasktime = document.createElement("span");
+
+            var today = new Date();
+            var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime)
+            var minutesDiff = calculateMinutes(today, starttime);
+
+            if (tasks[t].completed == true) {
+                tasktime.className = 'badge badge-success badge-pill glyphicon glyphicon-ok';
+            } else {
+                if (minutesDiff < 60)
+                {
+                    tasktime.className = 'badge badge-success badge-pill glyphicon glyphicon-remove';
+                }
+                else if (minutesDiff < 120)
+                {
+                    tasktime.className = 'badge badge-warning badge-pill glyphicon glyphicon-remove';
+                }
+                else
+                {
+                    tasktime.className = 'badge badge-danger badge-pill glyphicon glyphicon-remove';
+                }   
+            }
+
+            task.appendChild(tasktime);
+            tasksarea.appendChild(task);
+        }
+    });
+}
