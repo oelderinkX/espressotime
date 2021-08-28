@@ -223,12 +223,11 @@ function updateBreaks() {
             var db_starttime = getDbFormat(newStartTime)  + ' ' + formatTime(newStartTime);
             var db_new_finishtime = getDbFormat(newFinishTime)  + ' ' + formatTime(newFinishTime);
 
-            var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: db_starttime, db_new_finishtime: db_new_finishtime, type: type };
+            var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: db_starttime, new_finishtime: db_new_finishtime, type: type };
 
-            //sendPost("/updatebreaks", JSON.stringify(json), function(response) {
-            //    alert('break times has been updated');
-            //});
-            console.log('hello');
+            sendPost("/updatebreaks", JSON.stringify(json), function(response) {
+                alert('break times has been updated');
+            });
         }
     }
 }

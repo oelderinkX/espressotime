@@ -500,4 +500,24 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/updatebreaks', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']); // not used, so a bit dangerous
+
+		var rowid = req.body.rowid;
+		var employeeid = req.body.employeeid;
+		var starttime = req.body.starttime;
+		var new_finishtime = req.body.new_finishtime;
+		var type = req.body.type;
+
+		var sql = "update espresso.break set starttime = $1, finishtime = $2, breaktype = $3 where id = $4 and employeeid = $5";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [starttime, new_finishtime, type, rowid, employeeid], function(err, result) {
+				done();
+
+				res.send({success: true});
+			});
+		});
+	});
 }
