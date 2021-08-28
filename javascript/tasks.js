@@ -62,7 +62,7 @@ function getTasksForHour() {
             tasktime.innerHTML = tasks[t].starttime;
 
             var today = new Date();
-            var starttime = new Date('2021-08-23 ' + tasks[t].starttime)
+            var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime);
             var minutesDiff = calculateMinutes(today, starttime);
 
             if (minutesDiff < 60)
@@ -171,7 +171,7 @@ function getTasksForMobile() {
             var tasktime = document.createElement("span");
 
             var today = new Date();
-            var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime)
+            var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime);
             var minutesDiff = calculateMinutes(today, starttime);
 
             if (tasks[t].completed == true) {

@@ -80,7 +80,7 @@ module.exports = function(app){
 		var dayEnd = req.body.date + ' 23:59:59';
 
 		var sql = "select name, starttime,";
-		sql += " exists(select taskid from espresso.task_complete where timestamp > $1 and timestamp <= $2) as completed";
+		sql += " exists(select taskid from espresso.task_complete where timestamp > $1 and timestamp <= $2 and taskid = espresso.task.id) as completed";
 		sql += " from espresso.task";
 		sql += " where shopid = $3";
 		sql += " order by starttime;";
