@@ -218,14 +218,13 @@ function updateBreaks() {
             
             var newFinishTime = new Date(removeZuluTime(m_starttime));
             newFinishTime.setMinutes(newFinishTime.getMinutes()+parseInt(minutes));
-
             //check things
 
             var db_starttime = formatDate(m_starttime)  + ' ' + formatTime(m_starttime);
-            var db_new_starttime = formatDate(newFinishTime)  + ' ' + formatTime(newFinishTime);
+            var db_new_finishtime = getDbFormat(newFinishTime)  + ' ' + formatTime(newFinishTime);  //actual Date is one month off!
 
 
-            var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: db_starttime, db_new_starttime: db_new_starttime, type: type };
+            var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: db_starttime, db_new_finishtime: db_new_finishtime, type: type };
 
             //sendPost("/updatebreaks", JSON.stringify(json), function(response) {
             //    alert('break times has been updated');
