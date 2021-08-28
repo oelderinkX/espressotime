@@ -171,7 +171,7 @@ function getTasksForMobile() {
             var tasktime = document.createElement("span");
 
             var today = new Date();
-            var starttime = new Date(Date.parse(getDbFormat() + ' ' + tasks[t].starttime));
+            var starttime = new Date(Date.parse(displayDate() + ' ' + tasks[t].starttime));
             var minutesDiff = calculateMinutes(today, starttime);
 
             if (tasks[t].completed == true) {
