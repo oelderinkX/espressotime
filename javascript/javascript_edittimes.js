@@ -218,11 +218,10 @@ function updateBreaks() {
             
             var newFinishTime = new Date(removeZuluTime(m_starttime));
             newFinishTime.setMinutes(newFinishTime.getMinutes()+parseInt(minutes));
-            //check things
+            var newStartTime = new Date(removeZuluTime(m_starttime));
 
-            var db_starttime = formatDate(m_starttime)  + ' ' + formatTime(m_starttime);
-            var db_new_finishtime = getDbFormat(newFinishTime)  + ' ' + formatTime(newFinishTime);  //actual Date is one month off!
-
+            var db_starttime = getDbFormat(newStartTime)  + ' ' + formatTime(newStartTime);
+            var db_new_finishtime = getDbFormat(newFinishTime)  + ' ' + formatTime(newFinishTime);
 
             var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: db_starttime, db_new_finishtime: db_new_finishtime, type: type };
 
