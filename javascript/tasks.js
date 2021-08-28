@@ -176,12 +176,18 @@ function getTasksForMobile() {
 
             if (tasks[t].completed == true) {
                 tasktime.className = 'badge badge-success badge-pill';
-                tasktime.innerHTML = '<img src="/images/pill_black_tick.png">';
+                tasktime.innerHTML = '&#10004;';
+                tasktime.style = "font-family: 'Zapf Dingbats';";
             } else {
                 if (minutesDiff > 120) {
                     tasktime.className = 'badge badge-danger badge-pill';
-                    tasktime.innerHTML = '<img src="/images/pill_black_cross.png">';
-                }   
+                    tasktime.innerHTML = '&#10008;';
+                    tasktime.style = "font-family: 'Zapf Dingbats';";
+                }
+                else {
+                    alert('empty ->' + minutesDiff);
+                }
+
             }
 
             task.appendChild(tasktime);
