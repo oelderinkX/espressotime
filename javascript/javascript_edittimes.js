@@ -117,11 +117,13 @@ function getStartFinishBreaks() {
 
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
+            input3.classList.add('breakminutes');
             input3.type = 'number';
             var breakmins = calculateMinutes(startFinishAndBreaks.breaks[i].startTime, startFinishAndBreaks.breaks[i].finishTime);
             input3.value = breakmins;
             input3.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
             input3.setAttribute('employeeid', startFinishAndBreaks.id);
+            input3.setAttribute('starttime', startFinishAndBreaks.breaks[i].startTime);
             inputGroup2.appendChild(input3); 
 
             var span4 = document.createElement("span");
@@ -133,7 +135,10 @@ function getStartFinishBreaks() {
             var select = document.createElement("select");
             select.classList.add('input-small');
             select.classList.add('form-control');
-            select.setAttribute('aria-describedby', 'type1-addon')
+            input3.classList.add('breaktype');
+            select.setAttribute('aria-describedby', 'type1-addon');
+            select.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
+            select.setAttribute('employeeid', startFinishAndBreaks.id);
 
             var option1 = document.createElement("option");
             option1.value = "10";
@@ -193,7 +198,16 @@ function updateTimes() {
 }
 
 function updateBreaks() {
-    var sql = '';
-    alert(sql);
+    var breakminutes = document.getElementsByClassName('breakminutes');
+    var breaktypes = document.getElementsByClassName('breaktype');
+
+    if (breakminutes) {
+        for(var i = 0; i < breakminutes.length; i++) {
+            var minutes = breakminutes[i].value;
+            var type = breaktypes[i].value;
+            
+            console.log('now i need to work the end time');
+        }
+    }
 }
 
