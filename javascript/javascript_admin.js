@@ -682,7 +682,7 @@ function addTask() {
 }
 
 function getShopDetails() {
-    sendPost("/getshopdetails", JSON.stringify(json), function(response) {
+    sendPost("/getshopdetails", JSON.stringify({}), function(response) {
         var shop = response;
 
         var name = document.getElementById('name');
