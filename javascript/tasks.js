@@ -185,7 +185,8 @@ function getTasksForMobile() {
                     tasktime.style = "font-family: 'Zapf Dingbats';";
                 }
                 else {
-                    alert('empty ->' + minutesDiff);
+                    alert('today: ' + today);
+                    alert('starttime: ' + starttime);
                 }
 
             }
