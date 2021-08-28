@@ -203,15 +203,18 @@ function updateBreaks() {
 
     if (breakminutes) {
         for(var i = 0; i < breakminutes.length; i++) {
-            var minutes = breakminutes[i].value;
+            var minutesElement = breakminutes[i];
 
-            var m_rowid = minutes.getAttribute('rowid');
-            var m_employeeid = minutes.getAttribute('employeeid');
-            var m_starttime = minutes.getAttribute('starttime');
+            var minutes = minutesElement.value;
+            var m_rowid = minutesElement.getAttribute('rowid');
+            var m_employeeid = minutesElement.getAttribute('employeeid');
+            var m_starttime = minutesElement.getAttribute('starttime');
 
-            var b_type = breaktypes[i].value;
-            var b_rowid = minutes.getAttribute('rowid');
-            var b_employeeid = minutes.getAttribute('employeeid');
+            var typeElement = breaktypes[i];
+
+            var type = typeElement.value;
+            var b_rowid = typeElement.getAttribute('rowid');
+            var b_employeeid = typeElement.getAttribute('employeeid');
             
             console.log('now i need to work the end time');
         }
