@@ -135,7 +135,7 @@ function getStartFinishBreaks() {
             var select = document.createElement("select");
             select.classList.add('input-small');
             select.classList.add('form-control');
-            input3.classList.add('breaktype');
+            select.classList.add('breaktype');
             select.setAttribute('aria-describedby', 'type1-addon');
             select.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
             select.setAttribute('employeeid', startFinishAndBreaks.id);
@@ -204,7 +204,14 @@ function updateBreaks() {
     if (breakminutes) {
         for(var i = 0; i < breakminutes.length; i++) {
             var minutes = breakminutes[i].value;
-            var type = breaktypes[i].value;
+
+            var m_rowid = minutes.getAttribute('rowid');
+            var m_employeeid = minutes.getAttribute('employeeid');
+            var m_starttime = minutes.getAttribute('starttime');
+
+            var b_type = breaktypes[i].value;
+            var b_rowid = minutes.getAttribute('rowid');
+            var b_employeeid = minutes.getAttribute('employeeid');
             
             console.log('now i need to work the end time');
         }
