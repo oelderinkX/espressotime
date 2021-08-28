@@ -480,19 +480,9 @@ module.exports = function(app){
 			connection.query(startsql, [new_starttime, starttime_rowid, employeeid], function(err, result) {
 				done();
 
-				console.log('err 1:')
-				console.log(err);
-				console.log('result 1:')
-				console.log(result);
-
 				pool.connect(function(err, connection, done) {
 					connection.query(finishsql, [new_finishtime, finishtime_rowid, employeeid], function(err, result) {
 						done();
-
-						console.log('err 2:')
-						console.log(err);
-						console.log('result 2:')
-						console.log(result);
 
 						res.send({success: true});
 					});
@@ -537,6 +527,21 @@ module.exports = function(app){
 				}
 
 				res.send(shop);
+			});
+		});
+	});
+
+	app.post('/saveshopdetails', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var password = req.body.password;
+
+		var sql = "update espresso.shop set password = $1 where id = $2";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [password, shopId], function(err, result) {
+				done();
+
+				res.send({success: true});
 			});
 		});
 	});

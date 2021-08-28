@@ -692,3 +692,13 @@ function getShopDetails() {
         password.value = shop.password;
     });
 }
+
+function saveShopDetails() {
+    var password = document.getElementById('password');
+
+    var json = { password: password.value };
+
+    sendPost("/saveshopdetails", JSON.stringify(json), function(response) {
+        alert('saved shop details');
+    });
+}
