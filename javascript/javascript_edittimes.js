@@ -118,8 +118,10 @@ function getStartFinishBreaks() {
             var input3 = document.createElement("input");
             input3.classList.add('form-control');
             input3.type = 'number';
-            input3.value = formatTime(startFinishAndBreaks.breaks[i].startTime) + ' - ' + formatTime(startFinishAndBreaks.breaks[i].finishTime);
+            var breakmins = calculateMinutes(startFinishAndBreaks.breaks[i].startTime, startFinishAndBreaks.breaks[i].finishTime);
+            input3.value = breakmins;
             input3.setAttribute('rowid', startFinishAndBreaks.breaks[i].id);
+            input3.setAttribute('employeeid', startFinishAndBreaks.id);
             inputGroup2.appendChild(input3); 
 
             var span4 = document.createElement("span");
