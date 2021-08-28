@@ -527,7 +527,7 @@ module.exports = function(app){
 		var sql = "select name, password from espresso.shop where id = $1";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [starttime, new_finishtime, type, rowid, employeeid], function(err, result) {
+			connection.query(sql, [shopId], function(err, result) {
 				done();
 
 				var shop = {};
