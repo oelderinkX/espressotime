@@ -217,9 +217,16 @@ function updateBreaks() {
             var b_employeeid = typeElement.getAttribute('employeeid');
             
             var newFinishTime = new Date(removeZuluTime(m_starttime));
-            newFinishTime.setMinutes(newFinishTime.getMinutes()+minutes);
+            newFinishTime.setMinutes(newFinishTime.getMinutes()+parseInt(minutes));
 
-            console.log('now i need to work the end time');
+            //check things
+
+            var json = { rowid: m_rowid, employeeid: m_employeeid, starttime: m_starttime, newFinishTime: newFinishTime, type: type };
+
+            //sendPost("/updatebreaks", JSON.stringify(json), function(response) {
+            //    alert('break times has been updated');
+            //});
+            console.log('hello');
         }
     }
 }
