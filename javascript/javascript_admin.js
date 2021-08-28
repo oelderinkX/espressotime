@@ -680,3 +680,15 @@ function addTask() {
         });
     }
 }
+
+function getShopDetails() {
+    sendPost("/getshopdetails", JSON.stringify(json), function(response) {
+        var shop = response;
+
+        var name = document.getElementById('name');
+        var password = document.getElementById('password');
+
+        name.value = shop.name;
+        password.value = shop.password;
+    });
+}

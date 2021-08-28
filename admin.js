@@ -520,4 +520,24 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/getshopdetails', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']); // not used, so a bit dangerous
+
+		var sql = "select name, password from espresso.shop where id = $1";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [starttime, new_finishtime, type, rowid, employeeid], function(err, result) {
+				done();
+
+				var shop = {};
+
+				if (result && result.rowCount > 0) {
+					shop = { name: result.rows[0].name, password: result.rows[0].password };
+				}
+
+				res.send(shop);
+			});
+		});
+	});
 }
