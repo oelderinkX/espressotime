@@ -182,7 +182,7 @@ function getTasksForMobile() {
                 tasktime.innerHTML = '&#10004;';
                 tasktime.style = "font-family: 'Zapf Dingbats';";
             } else {
-                if (minutesDiff > 120) {
+                if (today > starttime && minutesDiff > 120) {
                     tasktime.className = 'badge badge-danger badge-pill';
                     tasktime.innerHTML = '&#10008;';
                     tasktime.style = "font-family: 'Zapf Dingbats';";
