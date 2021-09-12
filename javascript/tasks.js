@@ -52,7 +52,7 @@ function getTasksForHour() {
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
             var description = tasks[t].description;
             description = replaceAll(description, '\n', '<br/>');
-            description = replaceAll(description, '\'', '\\\'');
+            description = replaceAll(description, '\'', '&#39;');
             var params = "'" + tasks[t].id + "',";
             params += "'" + tasks[t].name + "',";
             params += "'" + tasks[t].inputtype + "',";
