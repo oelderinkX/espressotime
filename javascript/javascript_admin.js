@@ -551,7 +551,7 @@ function getTasks() {
 
             var td4 = document.createElement('td');
             var input4 = document.createElement('input');
-            input4.setAttribute('type', 'text');
+            input4.setAttribute('type', 'time');
             input4.setAttribute('id', 'starttime' + tasks[i].id);
             input4.setAttribute('value', tasks[i].starttime);
             td4.appendChild(input4);
@@ -613,7 +613,7 @@ function getTasks() {
 
         var td4 = document.createElement('td');
         var input4 = document.createElement('input');
-        input4.setAttribute('type', 'text');
+        input4.setAttribute('type', 'time');
         input4.setAttribute('id', 'starttime0');
         input4.setAttribute('value', '09:00:00');
         td4.appendChild(input4);
