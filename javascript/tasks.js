@@ -60,7 +60,7 @@ function getTasksForHour() {
             task.setAttribute('onclick', 'showDescription(' + params + ');');
 
             var tasktime = document.createElement("span");
-            tasktime.innerHTML = tasks[t].starttime;
+            tasktime.innerHTML = formatAMPM(tasks[t].starttime);
 
             var today = new Date();
             var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime);
