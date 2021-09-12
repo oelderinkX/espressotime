@@ -637,7 +637,6 @@ function getTasks() {
 }
 
 function updateTask(id) {
-    var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/;
     var name = document.getElementById('name' + id).value;
     var inputtype = document.getElementById('input' + id).value;
     var description = document.getElementById('description' + id).value;
@@ -645,8 +644,6 @@ function updateTask(id) {
 
     if (name.length == 0 || description.length == 0) {
         alert('Make sure you have enter the name and description of the task');
-    } else if (starttime.length != 0 && timeRegEx.test(starttime) == false) {
-        alert('Incorrect start time of task.  Use format like 09:00:00 for 9am, or 13:30:00 for 1:30pm.  Leave empty to delete task');
     } else {
         if (starttime.length == 0) {
             starttime = '00:00:00';
@@ -661,8 +658,6 @@ function updateTask(id) {
 }
 
 function addTask() {
-    var timeRegEx = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/;
-
     var name = document.getElementById('name0').value;
     var inputtype = document.getElementById('input0').value;
     var description = document.getElementById('description0').value;
@@ -670,8 +665,6 @@ function addTask() {
 
     if (name.length == 0 || description.length == 0) {
         alert('Make sure you have enter the name and description of the task');
-    } else if (starttime.length != 0 && timeRegEx.test(starttime) == false) {
-        alert('Incorrect start time of task.  Use format like 09:00:00 for 9am, or 13:30:00 for 1:30pm.  Leave empty to delete task');
     } else {
         var json = { "name": name, "inputtype": inputtype, "description": description, "starttime": starttime };
 
