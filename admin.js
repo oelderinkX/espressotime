@@ -323,11 +323,11 @@ module.exports = function(app){
 		var starttime = req.body.starttime;
 		var inputtype = req.body.inputtype;
 
-		var sql = "UPDATE espresso.task SET name = '" + name + "', inputtype = '" + inputtype + "', description = '" + description + "', starttime = '" + starttime + "' WHERE id = " + id + " and shopid = " + shopId;
+		var sql = "UPDATE espresso.task SET name=$1, inputtype=2, description=$3, starttime=$4 WHERE id=$5 and shopid=$6";
 		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, function(err, result) {
+			connection.query(sql, [name, inputtype, description, starttime, id, shopId], function(err, result) {
 				done();
 
 				if (err) {
