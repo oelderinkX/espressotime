@@ -94,6 +94,7 @@ function getTasksForHour() {
 function showDescription(taskid, name, inputtype, description) {
     var descriptionarea = document.getElementById('descriptionarea');
     var desciptiontitle = document.getElementById('descriptiontitle');
+    descriptionarea.classList.remove("invisible");
     desciptiontitle.classList.remove("invisible");
     
     var innerHTML = '<h4>' + name + '</h4><br/>' + description + '<br/>';
@@ -147,6 +148,7 @@ function completeTask(taskid, by) {
         var descriptionarea = document.getElementById('descriptionarea');
         descriptionarea.innerHTML = '';
         var desciptiontitle = document.getElementById('descriptiontitle');
+        descriptionarea.classList.add("invisible");
         desciptiontitle.classList.add("invisible");
 
         var success  = JSON.parse(response);
