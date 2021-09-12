@@ -109,7 +109,7 @@ function getTime(d) {
 }
 
 function formatAMPM(dateStr) {
-  var timeSplit = dateStr.Split(':');
+  var timeSplit = dateStr.split(':');
   var hours = timeSplit[0];
   var minutes = timeSplit[1];
   var ampm = hours >= 12 ? 'pm' : 'am';
