@@ -61,7 +61,7 @@ function getTasksForHour() {
 
             var tasktime = document.createElement("span");
             tasktime.innerHTML = formatAMPM(tasks[t].starttime);
-            tasktime.setAttribute('style', 'font-size: 1.1em;');
+            tasktime.setAttribute('style', 'font-size: 1.0em;');
 
             var today = new Date();
             var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime);
@@ -119,7 +119,7 @@ function showDescription(taskid, name, inputtype, description) {
         b.className = 'btn btn-em';
         b.innerHTML = employees[e].name;
         b.setAttribute('onclick', 'completeTask(' + taskid + ',' + employees[e].id + ');');
-        b.setAttribute('style', 'margin:3px');
+        b.setAttribute('style', 'margin:4px');
         buttonarea.appendChild(b);
         buttonarea.innerHTML = buttonarea.innerHTML + '&nbsp;'
     }
