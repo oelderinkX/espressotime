@@ -42,11 +42,13 @@ function getTasksForHour() {
 
     sendPost("/gettasks", JSON.stringify(request), function(response) {
         var tasks = JSON.parse(response);
+        var hasTasks = false;
 
         var tasksarea = document.getElementById("tasksarea")
         tasksarea.innerHTML = '';
 
         for(var t in tasks) {
+            hasTasks = true;
             var task = document.createElement("li");
             task.innerHTML = tasks[t].name;
             task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
@@ -82,6 +84,13 @@ function getTasksForHour() {
 
             task.appendChild(tasktime);
             tasksarea.appendChild(task);
+        }
+
+        var taskstatus = document.getElementById("taskstatus");
+        if (hasTasks == false) {
+            taskstatus.innerHTML = '<h4>&nbsp;&nbsp;&nbsp;Nothing to do at the moment...</h4>';
+        } else {
+            taskstatus.innerHTML = '';
         }
     });
 
