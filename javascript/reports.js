@@ -109,7 +109,7 @@ function displayReport() {
     var br3 = document.createElement('br');
     reportArea.appendChild(br3);
     var button = document.createElement('input');
-    input.setAttribute('type', 'button');
-    input.setAttribute('value', 'Run Report');
+    button.setAttribute('type', 'button');
+    button.setAttribute('value', 'Run Report');
     reportArea.appendChild(button);
 }
