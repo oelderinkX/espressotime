@@ -77,17 +77,12 @@ function displayReport() {
 
     reportArea.innerHTML = '';
 
-    var h1 = document.createElement('h2');
-    h1.innerHTML = report.name;
-    reportArea.appendChild(h1);
-    var br1 = document.createElement('br');
-    reportArea.appendChild(br1);
-    var span = document.createElement('span');
-    span.innerHTML = report.description;
-    reportArea.appendChild(span);
-    var br2 = document.createElement('br');
-    reportArea.appendChild(br2);
-
+    var h2 = document.createElement('h2');
+    h2.innerHTML = report.name;
+    reportArea.appendChild(h2);
+    var h5 = document.createElement('h5');
+    h5.innerHTML = report.description;
+    reportArea.appendChild(h5);
 
     for(var i = 0; i < report.parameters.length; i++) {
         var name = report.parameters[i].name;
@@ -110,4 +105,11 @@ function displayReport() {
             reportArea.appendChild(br);
         }
     }
+
+    var br3 = document.createElement('br');
+    reportArea.appendChild(br3);
+    var button = document.createElement('input');
+    input.setAttribute('type', 'button');
+    input.setAttribute('value', 'Run Report');
+    reportArea.appendChild(button);
 }
