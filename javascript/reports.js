@@ -66,6 +66,12 @@ function displayReport() {
     var id = reportselect.value;
     var report = getReport(id);
 
+    reportArea.innerHTML = '';
+
+    var h1 = document.createElement('h1');
+    h1.innerHTML = report.name;
+    reportArea.appendChild(h1);
+
     for(var i = 0; i < report.parameters.length; i++) {
         var name = report.parameters[i].name;
         var type = report.parameters[i].type;
