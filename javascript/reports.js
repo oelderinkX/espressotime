@@ -2,6 +2,24 @@ var reports = [
     {
         name: "Daily Tasks",
         id: "dailytasks",
+        description: "All the daily tasks done, time and who did them",
+        parameters: [
+            {
+                name: "Start",
+                id: "start",
+                type: "date"
+            },
+            {
+                name: "End",
+                id: "end",
+                type: "date"
+            }
+        ]
+    },
+    {
+        name: "Asset Report",
+        id: "assetreport",
+        description: "monetary value of lost and damaged assets",
         parameters: [
             {
                 name: "Start",
@@ -28,15 +46,6 @@ var reports = [
             </select>
           </div>
           <br/>
-*/
-
-/*
-          <label for="notes">Notes:</label>
-          <textarea class="form-control" rows="2" id="notes"></textarea>
-*/
-
-/*
-          <button type="button" class="btn btn-em" onclick="save()">Save</button>
 */
 
 function loadReport() {
@@ -68,9 +77,17 @@ function displayReport() {
 
     reportArea.innerHTML = '';
 
-    var h1 = document.createElement('h1');
+    var h1 = document.createElement('h2');
     h1.innerHTML = report.name;
     reportArea.appendChild(h1);
+    var br1 = document.createElement('br');
+    reportArea.appendChild(br1);
+    var span = document.createElement('span');
+    span.innerHTML = report.description;
+    reportArea.appendChild(span);
+    var br2 = document.createElement('br');
+    reportArea.appendChild(br2);
+
 
     for(var i = 0; i < report.parameters.length; i++) {
         var name = report.parameters[i].name;
