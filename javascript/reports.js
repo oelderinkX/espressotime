@@ -4,23 +4,18 @@ var reports = [
         id: "dailytasks",
         parameters: [
             {
-                name: "start",
+                name: "Start",
+                id: "start",
                 type: "date"
             },
             {
-                name: "end",
+                name: "End",
+                id: "end",
                 type: "date"
             }
         ]
     }
 ];
-
-/*
-          <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name">
-          <br/>
-*/
-
 /*
           Status:
           <div class="input-group">
@@ -67,6 +62,29 @@ function getReport(id) {
 
 function displayReport() {
     var reportselect = document.getElementById('reportselect');
+    var reportArea = document.getElementById('report');
     var id = reportselect.value;
     var report = getReport(id);
+
+    for(var i = 0; i < report.parameters.length; i++) {
+        var name = report.parameters[i].name;
+        var type = report.parameters[i].type;
+        var id = report.parameters[i].id;
+
+        if (type == 'date') {
+            var label = document.createElement('label');
+            label.setAttribute('for',id);
+            label.innerHTML = name + ':';
+            reportArea.appendChild(label);
+
+            var input = document.createElement('input');
+            input.setAttribute('type', type);
+            input.addClass('form-control');
+            input.setAttribute('id', id);
+            reportArea.appendChild(input);
+
+            var br = document.createElement('br');
+            reportArea.appendChild(br);
+        }
+    }
 }
