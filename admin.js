@@ -17,6 +17,7 @@ var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
 var editTimesPage = fs.readFileSync(__dirname + "/webpage/edittimes.html", "utf8");
 var taskEditPage= fs.readFileSync(__dirname + "/webpage/taskedit.html", "utf8");
 var assetsPage= fs.readFileSync(__dirname + "/webpage/assets.html", "utf8");
+var reportsPage= fs.readFileSync(__dirname + "/webpage/reports.html", "utf8");
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
@@ -113,6 +114,20 @@ module.exports = function(app){
 			webpage = assetsPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/assets');
+		}
+
+		res.send(webpage);
+	});	
+
+	app.get('/reports', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+	
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = reportsPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/reports');
 		}
 
 		res.send(webpage);
