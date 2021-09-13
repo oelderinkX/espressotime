@@ -79,7 +79,7 @@ function displayReport() {
 
             var input = document.createElement('input');
             input.setAttribute('type', type);
-            input.addClass('form-control');
+            input.classList.add('form-control');
             input.setAttribute('id', id);
             reportArea.appendChild(input);
 
