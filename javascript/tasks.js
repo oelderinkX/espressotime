@@ -61,29 +61,6 @@ function getTasksForHour() {
             params += "'" + description + "'";
             task.setAttribute('onclick', 'showDescription(' + params + ');');
 
-            /*var tasktime = document.createElement("span");
-            tasktime.innerHTML = formatAMPM(tasks[t].starttime);
-            tasktime.setAttribute('style', 'font-size: 1.0em;');
-
-            var today = new Date();
-            var starttime = new Date(getDbFormat() + ' ' + tasks[t].starttime);
-            var minutesDiff = calculateMinutes(today, starttime);
-
-            if (minutesDiff < 60)
-            {
-                tasktime.className = 'badge badge-success badge-pill';
-            }
-            else if (minutesDiff < 120)
-            {
-                tasktime.className = 'badge badge-warning badge-pill';
-            }
-            else
-            {
-                tasktime.className = 'badge badge-danger badge-pill';
-            }
-
-            task.appendChild(tasktime);
-            */
             tasksarea.appendChild(task);
         }
 

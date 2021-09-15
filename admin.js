@@ -303,10 +303,10 @@ module.exports = function(app){
 		
 		var filterOld = '';
 		if (showOld == false) {
-			filterOld = ' and 1 = 1';
+			filterOld = " and starttime <> '00:00:00'";
 		}
 
-		var sql = 'select id, name, inputtype, description, starttime from espresso.task where shopid = $1 order by starttime'
+		var sql = 'select id, name, inputtype, description, starttime from espresso.task where shopid = $1' + filterOld +' order by starttime';
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
