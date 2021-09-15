@@ -84,6 +84,7 @@ module.exports = function(app){
 		sql += " exists(select taskid from espresso.task_complete where timestamp > $1 and timestamp <= $2 and taskid = espresso.task.id) as completed";
 		sql += " from espresso.task";
 		sql += " where shopid = $3";
+		sql += " and starttime <> '00:00:00'";
 		sql += " order by starttime;";
 
 		pool.connect(function(err, connection, done) {
