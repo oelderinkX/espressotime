@@ -128,7 +128,6 @@ function getEmployeeDetails(employeeId) {
         var on30minBreak = false;
         var startedShift = false;
 
-
         if (employee.breaks) {
             for(var i = 0; i < employee.breaks.length; i++) {
                 var bStartTime = employee.breaks[i].startTime;
@@ -194,41 +193,32 @@ function getEmployeeDetails(employeeId) {
         }
 
         if (employee.starttime && !employee.finishtime) {
-            //restButton.classList.remove("disabled");
             restButton.className = 'btn btn-lg ' + restButtonStyle;
             restButton.setAttribute('onclick', restButtonAttribute);
-            //mealButton.classList.remove("disabled");
             mealButton.className = 'btn btn-lg ' + mealButtonStyle;
             mealButton.setAttribute('onclick', mealButtonAttribute);
         } else {
-            //restButton.classList.add("disabled");
             restButton.removeAttribute('onclick');
             restButton.className = 'btn btn-lg btn-secondary disabled';
-            //mealButton.classList.add("disabled");
             mealButton.removeAttribute('onclick');
             mealButton.className = 'btn btn-lg btn-secondary disabled';
         }
 
         if (on10minBreak) {
-            //shiftbutton.classList.add("disabled");
             shiftbutton.className = 'btn btn-lg btn-secondary disabled';
             shiftbutton.removeAttribute('onclick');
-            //mealButton.classList.add("disabled");
             mealButton.className = 'btn btn-lg btn-secondary disabled';
             mealButton.removeAttribute('onclick');
         }
 
         if (on30minBreak) {
-            //shiftbutton.classList.add("disabled");
             shiftbutton.className = 'btn btn-lg btn-secondary disabled';
             shiftbutton.removeAttribute('onclick');
-            //restButton.classList.add("disabled");
             restButton.className = 'btn btn-lg btn-secondary disabled';
             restButton.removeAttribute('onclick');
         }
 
         if (!on10minBreak && !on30minBreak) {
-            //shiftbutton.classList.remove("disabled");
             shiftbutton.className = 'btn btn-lg ' + shiftButtonStyle;
             shiftbutton.setAttribute('onclick', shiftButtonAttribute);
         }
@@ -261,7 +251,7 @@ function getEmployeeDetails(employeeId) {
             window.clearTimeout(backToMainTimer);
             backToMainTimer = window.setTimeout(function() {
                 window.location.href = "/";
-              }, 60000);
+              }, 120000);
         }
     });
 }
