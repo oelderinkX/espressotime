@@ -61,7 +61,7 @@ function getTasksForHour() {
             params += "'" + description + "'";
             task.setAttribute('onclick', 'showDescription(' + params + ');');
 
-            var tasktime = document.createElement("span");
+            /*var tasktime = document.createElement("span");
             tasktime.innerHTML = formatAMPM(tasks[t].starttime);
             tasktime.setAttribute('style', 'font-size: 1.0em;');
 
@@ -83,6 +83,7 @@ function getTasksForHour() {
             }
 
             task.appendChild(tasktime);
+            */
             tasksarea.appendChild(task);
         }
 
