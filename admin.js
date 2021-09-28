@@ -561,7 +561,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.post('/runreport', jsonParser, function(req, res) {
+	app.post('/runreport', urlencodedParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var report = req.body.report;
 
