@@ -111,5 +111,13 @@ function displayReport() {
     var button = document.createElement('input');
     button.setAttribute('type', 'button');
     button.setAttribute('value', 'Run Report');
+    button.setAttribute('onclick', 'runReport();');
     reportArea.appendChild(button);
+}
+
+function runReport() {
+    var reportselect = document.getElementById('reportselect');
+    var id = reportselect.value;
+    var report = getReport(id);
+    console.log(report.name);
 }
