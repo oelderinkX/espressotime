@@ -16,11 +16,14 @@ function clock() {
         h = h - 12;
     }
 
-    document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
-
-    t = setTimeout(function() {
-      clock()
-    }, 10000);
+    if (isMobileDevice()) {
+        document.getElementById('time').innerHTML = '';
+    } else {
+        document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
+        t = setTimeout(function() {
+            clock()
+          }, 10000);
+    }
   }
   
 function parseTelephone(ph) {
