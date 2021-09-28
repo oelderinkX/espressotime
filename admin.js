@@ -563,7 +563,7 @@ module.exports = function(app){
 
 	app.post('/runreport', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var report = req.body.request;
+		var report = req.body.report;
 
 		res.send('<html><body>You are running report: ' + report.id + '</body></html>');
 	});
