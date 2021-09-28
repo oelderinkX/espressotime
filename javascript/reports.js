@@ -119,5 +119,19 @@ function runReport() {
     var reportselect = document.getElementById('reportselect');
     var id = reportselect.value;
     var report = getReport(id);
-    console.log(report.name);
+
+    var request = {};
+    request.reportid = report.id;
+    for(var i = 0; i < report.parameters.length; i++) {
+        var type = report.parameters[i].type;
+        var id = report.parameters[i].id;
+
+        var element = document.getElementById(id);
+
+        if (type == 'date') {
+            request[id] = element.value;
+        }
+    }
+
+    console.log('will just work!');
 }
