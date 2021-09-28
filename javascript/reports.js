@@ -121,17 +121,35 @@ function runReport() {
     var report = getReport(id);
 
     var request = {};
-    request.reportid = report.id;
+    request.id = report.id;
     for(var i = 0; i < report.parameters.length; i++) {
-        var type = report.parameters[i].type;
-        var id = report.parameters[i].id;
+        var param_type = report.parameters[i].type;
+        var param_id = report.parameters[i].id;
 
-        var element = document.getElementById(id);
+        var element = document.getElementById(param_id);
 
-        if (type == 'date') {
-            request[id] = element.value;
+        if (param_type == 'date') {
+            request[param_id] = element.value;
         }
     }
 
-    console.log('will just work!');
+    let windowName = report.id + '_' + Date.now() + Math.floor(Math.random() * 100000).toString();
+    var windowSpecs = 'resizable=yes,height=600,width=800,location=0,menubar=0,scrollbars=1';
+
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/runreport");
+    form.setAttribute("target", windowName);
+    
+    var hiddenField = document.createElement("input"); 
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "message");
+    hiddenField.setAttribute("value", request);
+    form.appendChild(hiddenField);
+
+    document.body.appendChild(form);
+    window.open('', windowName, windowSpecs);
+    form.submit();
+
+    document.body.removeChild(form);
 }
