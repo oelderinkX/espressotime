@@ -3,6 +3,7 @@ var common = require('./script/common.js');
 var dateHelper = require('./script/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
+var reports = require('./reports.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
@@ -566,6 +567,10 @@ module.exports = function(app){
 		var request = req.body.request;
 		var report = JSON.parse(request);
 
-		res.send('<html><body>You are running report: ' + report.id + '</body></html>');
+		if (report.id == 'assetreport') {
+			reports.AssetReport(res, shopId, report.start, report.end)
+		} else {
+			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
+		}
 	});
 }
