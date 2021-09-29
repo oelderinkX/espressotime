@@ -143,7 +143,7 @@ function runReport() {
     
     var hiddenField = document.createElement("input"); 
     hiddenField.setAttribute("type", "hidden");
-    hiddenField.setAttribute("name", "report");
+    hiddenField.setAttribute("name", "request");
     hiddenField.setAttribute("value", JSON.stringify(request, null, 4));
     form.appendChild(hiddenField);
 

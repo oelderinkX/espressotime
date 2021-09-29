@@ -563,8 +563,8 @@ module.exports = function(app){
 
 	app.post('/runreport', urlencodedParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var report = req.body.report;
-		console.log(JSON.stringify(req.body, null, 4));
+		var request = req.body.request;
+		var report = JSON.parse(request);
 
 		res.send('<html><body>You are running report: ' + report.id + '</body></html>');
 	});
