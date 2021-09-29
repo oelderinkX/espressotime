@@ -12,3 +12,4 @@ function AssetReport(res, shopId, start, end) {
 
 	res.send(response);
 }
+module.exports.AssetReport = AssetReport;
