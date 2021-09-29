@@ -19,7 +19,7 @@ var reports = [
     {
         name: "Asset Report",
         id: "assetreport",
-        description: "monetary value of lost and damaged assets",
+        description: "List all assets",
         parameters: []
     }
 ];
