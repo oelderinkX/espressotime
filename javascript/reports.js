@@ -148,7 +148,7 @@ function runReport() {
     form.appendChild(hiddenField);
 
     document.body.appendChild(form);
-    window.open('', windowName, windowSpecs);
+    //window.open('', windowName, windowSpecs);
     form.submit();
 
     document.body.removeChild(form);
