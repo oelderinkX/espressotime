@@ -20,18 +20,7 @@ var reports = [
         name: "Asset Report",
         id: "assetreport",
         description: "monetary value of lost and damaged assets",
-        parameters: [
-            {
-                name: "Start",
-                id: "start",
-                type: "date"
-            },
-            {
-                name: "End",
-                id: "end",
-                type: "date"
-            }
-        ]
+        parameters: []
     }
 ];
 /*
