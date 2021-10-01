@@ -1,4 +1,5 @@
 var pg = require('pg');
+var fs = require("fs");
 var common = require('./script/common.js');
 
 var pool = new pg.Pool(common.postgresConfig());
