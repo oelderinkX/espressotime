@@ -76,7 +76,7 @@ function getEmployeeNameById(employees, id)
 
 function getStatusName(status)
 {
-	switch(expression) {
+	switch(status) {
 		case 0:
 			return 'Unassigned';
 		case 1:
