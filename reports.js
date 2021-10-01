@@ -43,13 +43,14 @@ function AssetReport(res, shopId) {
 							rows += '<tr>\n';
 							rows += '<td>' + result.rows[i].name + '</td>\n';
 							rows += '<td>' + result.rows[i].cost + '</td>\n';
-							rows += '<td>' +  result.rows[i].status + '</td>\n';
+							rows += '<td>' + getStatusName(result.rows[i].status) + '</td>\n';
 							rows += '<td>' + getEmployeeNameById(employees, result.rows[i].employeeid) + '</td>\n';
 							rows += '<td>' + result.rows[i].notes + '</td>\n';
 							rows += ' </tr>\n';
 						}
 					}
-
+					
+					response = common.replaceAll(response, '!%REPORTNAME%!', 'Asset Report');
 					response = common.replaceAll(response, '!%HEADINGS%!', headings);
 					response = common.replaceAll(response, '!%ROWS%!', rows);
 
@@ -71,4 +72,22 @@ function getEmployeeNameById(employees, id)
 		}
 	}
 	return '';
+}
+
+function getStatusName(status)
+{
+	switch(expression) {
+		case 0:
+			return 'Unassigned';
+		case 1:
+			return 'Assigned';
+		case 2:
+			return 'Lost';
+		case 3:
+			return 'Damaged';
+		case 4:
+			return 'Cost-recouped';
+		default:
+			return 'Unknown'
+	}
 }
