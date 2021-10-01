@@ -3,8 +3,10 @@ var common = require('./script/common.js');
 
 var pool = new pg.Pool(common.postgresConfig());
 
+var table = fs.readFileSync(__dirname + "/webpage/table.html", "utf8");
+
 function AssetReport(res, shopId) {
-	var response = '<html><body>';
+	var response = table;
 
 	var employeesql = "select id, name from espresso.employee where shopid = $1";
 	var sql = "select name, cost, status, employeeid, notes from espresso.asset where shopid = $1";
@@ -27,19 +29,28 @@ function AssetReport(res, shopId) {
 				connection.query(sql, [shopId], function(err, result) {
 					done();
 
-					response += 'name,cost,status,employee,notes<br/>';
+					var headings = '<th scope="col">name</th>\n';
+					headings += '<th scope="col">cost</th>\n';
+					headings += '<th scope="col">status</th>\n';
+					headings += '<th scope="col">employee</th>\n';
+					headings += '<th scope="col">notes</th>\n';
+
+					var rows = '';
 
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
-							//name, cost, status, employeeid, notes
-
-							response += '"' + result.rows[i].name + '",';
-							response += result.rows[i].cost + ',';
-							response += '"' + result.rows[i].status + '",';
-							response += '"' + getEmployeeNameById(employees, result.rows[i].employeeid) + '",';
-							response += '"' + result.rows[i].notes + '"<br/>';
+							rows += '<tr>\n';
+							rows += '<td>' + result.rows[i].name + '</td>\n';
+							rows += '<td>' + result.rows[i].cost + '</td>\n';
+							rows += '<td>' +  result.rows[i].status + '</td>\n';
+							rows += '<td>' + getEmployeeNameById(employees, result.rows[i].employeeid) + '</td>\n';
+							rows += '<td>' + result.rows[i].notes + '</td>\n';
+							rows += ' </tr>\n';
 						}
 					}
+
+					response = common.replaceAll(response, '!%HEADINGS%!', headings);
+					response = common.replaceAll(response, '!%ROWS%!', rows);
 
 					res.send(response);
 				});
