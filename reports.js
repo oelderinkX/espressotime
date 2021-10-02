@@ -148,7 +148,7 @@ function DailyTasks(res, shopId, start, end) {
 								for(var i = 0; i < result.rowCount; i++) {
 									rows += '<tr>\n';
 									rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
-									rows += '<td>' + dateHelper.formatTime(result.rows[i].timestamp) + '</td>\n';
+									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
 									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
 									rows += '<td>' + result.rows[i].input + '</td>\n';
 									rows += '<td>' + result.rows[i].notes + '</td>\n';
