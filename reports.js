@@ -30,11 +30,11 @@ function AssetReport(res, shopId) {
 				connection.query(sql, [shopId], function(err, result) {
 					done();
 
-					var headings = '<th scope="col">name</th>\n';
-					headings += '<th scope="col">cost</th>\n';
-					headings += '<th scope="col">status</th>\n';
-					headings += '<th scope="col">employee</th>\n';
-					headings += '<th scope="col">notes</th>\n';
+					var headings = '<th scope="col">Name</th>\n';
+					headings += '<th scope="col">Cost</th>\n';
+					headings += '<th scope="col">Status</th>\n';
+					headings += '<th scope="col">Employee</th>\n';
+					headings += '<th scope="col">Notes</th>\n';
 
 					var rows = '';
 
@@ -76,18 +76,100 @@ function getEmployeeNameById(employees, id)
 
 function getStatusName(status)
 {
-	switch(status) {
-		case 0:
-			return 'Unassigned';
-		case 1:
-			return 'Assigned';
-		case 2:
-			return 'Lost';
-		case 3:
-			return 'Damaged';
-		case 4:
-			return 'Cost-recouped';
-		default:
-			return 'Unknown'
+	if (status == 0) {
+		return 'Unassigned';
+	} else if (status == 1) {
+		return 'Assigned';
+	} else if (status == 2) {
+		return 'Lost';
+	} else if (status == 3) {
+		return 'Damaged';
+	} else if (status == 4) {
+		return 'Cost-recouped';
+	} else {
+		return 'Unknown'
 	}
 }
+
+function DailyTasks(res, shopId, start, end) {
+	var response = table;
+	var starttime = start + ' 00:00:00'
+	var endtime = end + ' 23:59:59'
+
+	var employeesql = "select id, name from espresso.employee where shopid = $1";
+	var tasksql = "select id, name, starttime, inputtype from espresso.task where shopid = $1 and starttime <> '00:00:00'";
+	var completedtasksql = "select taskid, timestamp, by, input, notes from espresso.task_complete where shopid = $1";
+	completedtasksql += " and timestamp >= $2 and timestamp <= $3 order by timestamp";
+
+	pool.connect(function(err, connection, done) {
+		connection.query(employeesql, [shopId], function(err, result) {
+			done();
+
+			var employees = [];
+
+			if (result && result.rowCount > 0) {
+				for(var i = 0; i < result.rowCount; i++) {
+					employees.push({	id: result.rows[i].id,
+										name: result.rows[i].name
+									});
+				}
+			}
+
+			pool.connect(function(err, connection, done) {
+				connection.query(tasksql, [shopId], function(err, result) {
+					done();
+
+					var tasks = [];
+
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							tasks.push({	id: result.rows[i].id,
+											name: result.rows[i].name,
+											starttime: result.rows[i].starttime,
+											inputtype: result.rows[i].inputtype
+										});
+						}
+					}
+
+					pool.connect(function(err, connection, done) {
+						connection.query(tasksql, [shopId], function(err, result) {
+							done();
+
+							//id, name, starttime, inputtype
+							//taskid, timestamp, by, input, notes
+
+							var headings = '<th scope="col">Name</th>\n';
+							headings += '<th scope="col">Done at</th>\n';
+							headings += '<th scope="col">Done by</th>\n';
+							headings += '<th scope="col">Value</th>\n';
+							headings += '<th scope="col">Notes</th>\n';
+
+							var rows = '';
+
+							if (result && result.rowCount > 0) {
+								for(var i = 0; i < result.rowCount; i++) {
+									rows += '<tr>\n';
+									rows += '<td>' + result.rows[i].name + '</td>\n';
+									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
+									rows += '<td>' + getEmployeeNameById(result.rows[i].by) + '</td>\n';
+									rows += '<td>' + result.rows[i].input + '</td>\n';
+									rows += '<td>' + result.rows[i].notes + '</td>\n';
+									rows += ' </tr>\n';
+								}
+							}
+							
+							response = common.replaceAll(response, '!%REPORTNAME%!', 'Asset Report');
+							response = common.replaceAll(response, '!%HEADINGS%!', headings);
+							response = common.replaceAll(response, '!%ROWS%!', rows);
+
+							res.send(response);
+						});
+					});
+				});
+			});
+		});
+	});
+
+	
+}
+module.exports.DailyTasks = DailyTasks;

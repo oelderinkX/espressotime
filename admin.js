@@ -568,7 +568,9 @@ module.exports = function(app){
 		var report = JSON.parse(request);
 
 		if (report.id == 'assetreport') {
-			reports.AssetReport(res, shopId, report.start, report.end)
+			reports.AssetReport(res, shopId)
+		} else if (report.id == 'dailytasks') {
+			reports.DailyTasks(res, shopId, report.start, report.end)
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}
