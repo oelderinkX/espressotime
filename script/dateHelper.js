@@ -21,18 +21,18 @@ function removeZuluTime(d)
 }
 module.exports.removeZuluTime = removeZuluTime;
 
-  function formatDate(d) {
-    if (d) {
-      if (isString(d)) {
-        d = new Date(d);
-      }
-  
-      return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
-    } else {
-      return '-';
+function formatDate(d) {
+  if (d) {
+    if (isString(d)) {
+      d = new Date(d);
     }
+  
+    return pad(d.getFullYear()) + '-' + pad(d.getMonth()) + '-' + pad(d.getDate());
+  } else {
+    return '-';
   }
-  module.exports.formatDate = formatDate;
+}
+module.exports.formatDate = formatDate;
   
 function getDbFormat() {
   var d = new Date();
@@ -42,26 +42,26 @@ function getDbFormat() {
 module.exports.getDbFormat = getDbFormat;
 
 
-  function getDate() {
-    var d = new Date();
-    return formatDate(d);
-  }
-  module.exports.getDate = getDate;
+function getDate() {
+  var d = new Date();
+  return formatDate(d);
+}
+module.exports.getDate = getDate;
   
-  function formatTime(d) {
-    if (d) {
-      if (isString(d)) {
-        d = new Date(removeZuluTime(d));
-      }
-      return pad(d.getHours()) + ':' + pad(d.getMinutes());
-    } else {
-      return '-';
+function formatTime(d) {
+  if (d) {
+    if (isString(d)) {
+      d = new Date(removeZuluTime(d));
     }
+    return pad(d.getHours()) + ':' + pad(d.getMinutes());
+  } else {
+    return '-';
   }
-  module.exports.formatTime = formatTime;
+}
+module.exports.formatTime = formatTime;
   
-  function getTime() {
-    var d = new Date();
-    return formatTime(d);
-  }
-  module.exports.getTime = getTime;
+function getTime() {
+  var d = new Date();
+  return formatTime(d);
+}
+module.exports.getTime = getTime;

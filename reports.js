@@ -1,6 +1,7 @@
 var pg = require('pg');
 var fs = require("fs");
 var common = require('./script/common.js');
+var dateHelper = require('./script/dateHelper.js');
 
 var pool = new pg.Pool(common.postgresConfig());
 
@@ -147,7 +148,7 @@ function DailyTasks(res, shopId, start, end) {
 								for(var i = 0; i < result.rowCount; i++) {
 									rows += '<tr>\n';
 									rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
-									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
+									rows += '<td>' + dateHelper.formatTime(result.rows[i].timestamp) + '</td>\n';
 									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
 									rows += '<td>' + result.rows[i].input + '</td>\n';
 									rows += '<td>' + result.rows[i].notes + '</td>\n';
@@ -155,7 +156,7 @@ function DailyTasks(res, shopId, start, end) {
 								}
 							}
 							
-							response = common.replaceAll(response, '!%REPORTNAME%!', 'Asset Report');
+							response = common.replaceAll(response, '!%REPORTNAME%!', 'Daily Tasks');
 							response = common.replaceAll(response, '!%HEADINGS%!', headings);
 							response = common.replaceAll(response, '!%ROWS%!', rows);
 
