@@ -146,7 +146,7 @@ function DailyTasks(res, shopId, start, end) {
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									rows += '<tr>\n';
-									rows += '<td>' + result.rows[i].name + '</td>\n';
+									rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
 									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
 									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
 									rows += '<td>' + result.rows[i].input + '</td>\n';
@@ -170,3 +170,13 @@ function DailyTasks(res, shopId, start, end) {
 	
 }
 module.exports.DailyTasks = DailyTasks;
+
+function getTaskNameById(tasks, id)
+{
+	for(var i = 0; i < tasks.length; i++) {
+		if (tasks[i].id == id) {
+			return tasks[i].name;
+		}
+	}
+	return '';
+}
