@@ -136,7 +136,8 @@ function DailyTasks(res, shopId, start, end) {
 						connection.query(completedtasksql, [shopId, starttime, endtime], function(err, result) {
 							done();
 
-							var headings = '<th scope="col">Name</th>\n';
+							var headings = '<th scope="col">Date</th>\n';
+							headings += '<th scope="col"Name</th>\n';
 							headings += '<th scope="col">Done at</th>\n';
 							headings += '<th scope="col">Done by</th>\n';
 							headings += '<th scope="col">Value</th>\n';
@@ -144,11 +145,22 @@ function DailyTasks(res, shopId, start, end) {
 
 							var rows = '';
 
+							var currentDate = '';
+
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									rows += '<tr>\n';
+
+									var rowDate = dateHelper.formatDate(result.rows[i].timestamp);
+									if (currentDate == rowDate) {
+										rows += '<td></td>\n';
+									} else {
+										currentDate = rowDate;
+										rows += '<td>' + currentDate + '</td>\n';
+									}
+									
 									rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
-									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
+									rows += '<td>' + dateHelper.formatTime(result.rows[i].timestamp) + '</td>\n';
 									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
 									rows += '<td>' + result.rows[i].input + '</td>\n';
 									rows += '<td>' + result.rows[i].notes + '</td>\n';
