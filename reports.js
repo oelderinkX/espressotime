@@ -132,11 +132,8 @@ function DailyTasks(res, shopId, start, end) {
 					}
 
 					pool.connect(function(err, connection, done) {
-						connection.query(tasksql, [shopId], function(err, result) {
+						connection.query(completedtasksql, [shopId, starttime, endtime], function(err, result) {
 							done();
-
-							//id, name, starttime, inputtype
-							//taskid, timestamp, by, input, notes
 
 							var headings = '<th scope="col">Name</th>\n';
 							headings += '<th scope="col">Done at</th>\n';
@@ -151,7 +148,7 @@ function DailyTasks(res, shopId, start, end) {
 									rows += '<tr>\n';
 									rows += '<td>' + result.rows[i].name + '</td>\n';
 									rows += '<td>' + result.rows[i].timestamp + '</td>\n';
-									rows += '<td>' + getEmployeeNameById(result.rows[i].by) + '</td>\n';
+									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
 									rows += '<td>' + result.rows[i].input + '</td>\n';
 									rows += '<td>' + result.rows[i].notes + '</td>\n';
 									rows += ' </tr>\n';
