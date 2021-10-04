@@ -38,32 +38,34 @@ var table = document.getElementById('feedbacktable');
 
 for(var i = 0; i < feedbackitems.length; i++) {
   var tr = document.createElement('tr');
-
   var tddescription = document.createElement('td');
   tddescription.innerHTML = feedbackitems[i].description;
+  tddescription.setAttribute('colspan', 5);
   tr.appendChild(tddescription);
+  table.appendChild(tr);
 
+  var tr1 = document.createElement('tr');
   var tdlove = document.createElement('td');
   tdlove.innerHTML = '<p>&#128525;</p>';
-  tr.appendChild(tdlove);
+  tr1.appendChild(tdlove);
 
   var tdhappy = document.createElement('td');
   tdhappy.innerHTML = '<p>&#128522;</p>';
-  tr.appendChild(tdhappy);
+  tr1.appendChild(tdhappy);
 
   var tdneutral = document.createElement('td');
   tdneutral.innerHTML = '<p>&#128528;</p>';
-  tr.appendChild(tdneutral);
+  tr1.appendChild(tdneutral);
 
   var tdsad = document.createElement('td');
   tdsad.innerHTML = '<p>&#128542;</p>';
-  tr.appendChild(tdsad);
+  tr1.appendChild(tdsad);
 
   var tdangry = document.createElement('td');
   tdangry.innerHTML = '<p>&#128544;</p>';
-  tr.appendChild(tdangry);
+  tr1.appendChild(tdangry);
 
-  table.appendChild(tr);
+  table.appendChild(tr1);
 }
 
 
