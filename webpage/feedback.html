@@ -23,7 +23,7 @@
 <html>
 <body>
   <h1>Feedback</h1>
-  <table id="feedbacktable">
+  <table id="feedbacktable" style="margin-left: auto; margin-right: auto;">
   </table>
 </body>
 <script>
@@ -47,27 +47,27 @@ for(var i = 0; i < feedbackitems.length; i++) {
 
   var tr1 = document.createElement('tr');
   var tdlove = document.createElement('td');
-  tdlove.innerHTML = '<p style="font-size:10px">&#128525;</p>';
+  tdlove.innerHTML = '<p style="font-size:30px">&#128525;</p>';
   tdlove.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdlove);
 
   var tdhappy = document.createElement('td');
-  tdhappy.innerHTML = '<p style="font-size:10px">&#128522;</p>';
+  tdhappy.innerHTML = '<p style="font-size:30px">&#128522;</p>';
   tdhappy.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdhappy);
 
   var tdneutral = document.createElement('td');
-  tdneutral.innerHTML = '<p style="font-size:10px">&#128528;</p>';
+  tdneutral.innerHTML = '<p style="font-size:30px">&#128528;</p>';
   tdneutral.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdneutral);
 
   var tdsad = document.createElement('td');
-  tdsad.innerHTML = '<p style="font-size:10px">&#128542;</p>';
+  tdsad.innerHTML = '<p style="font-size:30px">&#128542;</p>';
   tdsad.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdsad);
 
   var tdangry = document.createElement('td');
-  tdangry.innerHTML = '<p style="font-size:10px">&#128544;</p>';
+  tdangry.innerHTML = '<p style="font-size:30px">&#128544;</p>';
   tdangry.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdangry);
 
