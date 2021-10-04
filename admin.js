@@ -16,9 +16,10 @@ var employeeListEditPage = fs.readFileSync(__dirname + "/webpage/employeelistedi
 var timesheetPage = fs.readFileSync(__dirname + "/webpage/timesheet.html", "utf8");
 var shopPage = fs.readFileSync(__dirname + "/webpage/shop.html", "utf8");
 var editTimesPage = fs.readFileSync(__dirname + "/webpage/edittimes.html", "utf8");
-var taskEditPage= fs.readFileSync(__dirname + "/webpage/taskedit.html", "utf8");
-var assetsPage= fs.readFileSync(__dirname + "/webpage/assets.html", "utf8");
-var reportsPage= fs.readFileSync(__dirname + "/webpage/reports.html", "utf8");
+var taskEditPage = fs.readFileSync(__dirname + "/webpage/taskedit.html", "utf8");
+var assetsPage = fs.readFileSync(__dirname + "/webpage/assets.html", "utf8");
+var reportsPage = fs.readFileSync(__dirname + "/webpage/reports.html", "utf8");
+var feedbackPage = fs.readFileSync(__dirname + "/webpage/feedback.html", "utf8");
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
@@ -130,6 +131,14 @@ module.exports = function(app){
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/reports');
 		}
+
+		res.send(webpage);
+	});	
+
+	app.get('/feedback', urlencodedParser, function(req, res) {
+		var webpage = feedbackPage;
+	
+		//get shop info from para!
 
 		res.send(webpage);
 	});	
