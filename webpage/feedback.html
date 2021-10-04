@@ -23,6 +23,7 @@
 <html>
 <body>
   <h1>Feedback</h1>
+  <br/>
   <table id="feedbacktable" style="margin-left: auto; margin-right: auto;">
   </table>
 </body>
@@ -73,5 +74,14 @@ for(var i = 0; i < feedbackitems.length; i++) {
 
   table.appendChild(tr1);
 }
+
+var tradd = document.createElement('tr');
+var tdadd = document.createElement('td');
+tdadd.innerHTML = 'Tell us more<br/><textarea id="additional"></textarea>';
+tdadd.setAttribute('colspan', 5);
+tdadd.setAttribute('style', 'text-align: center;');
+tradd.appendChild(tdadd);
+table.appendChild(tradd);
+
 </script>
 </html>
