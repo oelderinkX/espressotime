@@ -23,16 +23,49 @@
 <html>
 <body>
   <h1>Feedback</h1>
-
-  <table>
-    <tr>
-      <td>Atmosphere</td>
-      <td><p style="font-size:100px">&#128525;</p></td><td><p style="font-size:100px">&#128522;</p></td><td><p style="font-size:100px">&#128528;</p></td><td><p style="font-size:100px">&#128542;</p></td><td><p style="font-size:100px">&#128544;</p></td>  
-    </tr>
+  <table id="feedbacktable">
   </table>
-
 </body>
 <script>
+
+var feedbackitems = [];
+feedbackitems.push({ id: 0, description: 'Hows the coffee today ?'});
+feedbackitems.push({ id: 1, description: 'Hows the food ?'});
+feedbackitems.push({ id: 2, description: 'Hows how customer service ?'});
+feedbackitems.push({ id: 3, description: 'Hows our speed ?'});
+
+var table = document.getElementById('feedbacktable');
+
+for(var i = 0; i < feedbackitems.length; i++) {
+  var tr = document.createElement('tr');
+
+  var tddescription = document.createElement('td');
+  tddescription.innerHTML = feedbackitems[i].description;
+  tr.appendChild(tddescription);
+
+  var tdlove = document.createElement('td');
+  tdlove.innerHTML = '<p style="font-size:100px">&#128525;</p>';
+  tr.appendChild(tdlove);
+
+  var tdhappy = document.createElement('td');
+  tdhappy.innerHTML = '<p style="font-size:100px">&#128522;</p>';
+  tr.appendChild(tdhappy);
+
+  var tdneutral = document.createElement('td');
+  tdneutral.innerHTML = '<p style="font-size:100px">&#128528;</p>';
+  tr.appendChild(tdneutral);
+
+  var tdsad = document.createElement('td');
+  tdsad.innerHTML = '<p style="font-size:100px">&#128542;</p>';
+  tr.appendChild(tdsad);
+
+  var tdangry = document.createElement('td');
+  tdangry.innerHTML = '<p style="font-size:100px">&#128544;</p>';
+  tr.appendChild(tdangry);
+
+  table.appendChild(tr);
+}
+
 
 </script>
 </html>
