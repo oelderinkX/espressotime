@@ -41,34 +41,37 @@ for(var i = 0; i < feedbackitems.length; i++) {
   var tddescription = document.createElement('td');
   tddescription.innerHTML = feedbackitems[i].description;
   tddescription.setAttribute('colspan', 5);
+  tddescription.setAttribute('style', 'text-align: center;');
   tr.appendChild(tddescription);
   table.appendChild(tr);
 
   var tr1 = document.createElement('tr');
   var tdlove = document.createElement('td');
-  tdlove.innerHTML = '<p>&#128525;</p>';
+  tdlove.innerHTML = '<p style="font-size:10px">&#128525;</p>';
+  tdlove.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdlove);
 
   var tdhappy = document.createElement('td');
-  tdhappy.innerHTML = '<p>&#128522;</p>';
+  tdhappy.innerHTML = '<p style="font-size:10px">&#128522;</p>';
+  tdhappy.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdhappy);
 
   var tdneutral = document.createElement('td');
-  tdneutral.innerHTML = '<p>&#128528;</p>';
+  tdneutral.innerHTML = '<p style="font-size:10px">&#128528;</p>';
+  tdneutral.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdneutral);
 
   var tdsad = document.createElement('td');
-  tdsad.innerHTML = '<p>&#128542;</p>';
+  tdsad.innerHTML = '<p style="font-size:10px">&#128542;</p>';
+  tdsad.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdsad);
 
   var tdangry = document.createElement('td');
-  tdangry.innerHTML = '<p>&#128544;</p>';
+  tdangry.innerHTML = '<p style="font-size:10px">&#128544;</p>';
+  tdangry.setAttribute('style', 'text-align: center;');
   tr1.appendChild(tdangry);
 
   table.appendChild(tr1);
 }
-
-
 </script>
 </html>
-
