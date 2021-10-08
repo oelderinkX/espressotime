@@ -138,7 +138,9 @@ module.exports = function(app){
 	app.get('/feedback', urlencodedParser, function(req, res) {
 		var webpage = feedbackPage;
 	
-		//get shop info from para!
+		var shopid = req.query.shopId;
+
+		webpage = common.replaceAll(webpage, 'var shopId = 0;', 'var shopId = ' + shopid + ';');
 
 		res.send(webpage);
 	});	

@@ -34,16 +34,23 @@
 
 function submit()
 {
-  alert(feedbackitems);
+  var shopId = 1;
   var table = document.getElementById('feedbacktable');
+  var additional = document.getElementById('additional');
+
   table.innerHTML = '<tr><td><h1>Thank you for your feedback</h1></td></tr>';
+  var timestamp = getDbFormat() + ' ' + getTime() + ":00";
+  var json = { shopId: shopId, feedbackitems: feedbackitems, additional: additional.value, timestamp: timestamp };
+  sendPost("/givefeedback", JSON.stringify(json), function(response) {
+
+  });
 }
 
 function selectRating(feedbackIndex, rating) {
   for(var i = 1; i <= 5; i++) {
     var ratElement = document.getElementById('rate'+ feedbackIndex + '_' + i);
 
-    feedbackitems[feedbackIndex] = rating;
+    feedbackitems[feedbackIndex].rating = rating;
 
     if (rating == i) {
       ratElement.setAttribute('style', 'font-size:30px');
