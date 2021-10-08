@@ -29,11 +29,25 @@
 </body>
 <script>
 
+function selectRating(feedbackIndex, rating) {
+  for(var i = 1; i <= 5; i++) {
+    var ratElement = document.getElementById('rate'+ feedbackIndex + '_' + i);
+
+    feedbackitems[feedbackIndex] = rating;
+
+    if (rating == i) {
+      ratElement.setAttribute('style', 'font-size:35px');
+    } else {
+      ratElement.setAttribute('style', 'font-size:25px;opacity: 0.1;');
+    }
+  }
+}
+
 var feedbackitems = [];
-feedbackitems.push({ id: 0, description: 'Hows our coffee today ?'});
-feedbackitems.push({ id: 1, description: 'Hows our food ?'});
-feedbackitems.push({ id: 2, description: 'Hows our customer service ?'});
-feedbackitems.push({ id: 3, description: 'Hows our speed ?'});
+feedbackitems.push({ id: 0, rating: 0, description: 'Hows our coffee today ?'});
+feedbackitems.push({ id: 1, rating: 0, description: 'Hows our food ?'});
+feedbackitems.push({ id: 2, rating: 0, description: 'Hows our customer service ?'});
+feedbackitems.push({ id: 3, rating: 0, description: 'Hows our speed ?'});
 
 var table = document.getElementById('feedbacktable');
 
@@ -47,29 +61,55 @@ for(var i = 0; i < feedbackitems.length; i++) {
   table.appendChild(tr);
 
   var tr1 = document.createElement('tr');
+
   var tdlove = document.createElement('td');
-  tdlove.innerHTML = '<p style="font-size:30px">&#128525;</p>';
   tdlove.setAttribute('style', 'text-align: center;');
+  var plove = document.createElement('p');
+  plove.setAttribute('style', 'font-size:30px');
+  plove.innerHTML = '&#128525;';
+  plove.setAttribute('onclick', 'selectRating(' + i + ', ' + 5 + ');')
+  plove.setAttribute('id', 'rate' + i + '_' + 5);
+  tdlove.appendChild(plove);
   tr1.appendChild(tdlove);
 
   var tdhappy = document.createElement('td');
-  tdhappy.innerHTML = '<p style="font-size:30px">&#128522;</p>';
   tdhappy.setAttribute('style', 'text-align: center;');
+  var phappy = document.createElement('p');
+  phappy.setAttribute('style', 'font-size:30px');
+  phappy.innerHTML = '&#128522;';
+  phappy.setAttribute('onclick', 'selectRating(' + i + ', ' + 4 + ');')
+  phappy.setAttribute('id', 'rate' + i + '_' + 4);
+  tdhappy.appendChild(phappy);
   tr1.appendChild(tdhappy);
 
   var tdneutral = document.createElement('td');
-  tdneutral.innerHTML = '<p style="font-size:30px">&#128528;</p>';
   tdneutral.setAttribute('style', 'text-align: center;');
+  var pneutral = document.createElement('p');
+  pneutral.setAttribute('style', 'font-size:30px');
+  pneutral.innerHTML = '&#128528;';
+  pneutral.setAttribute('onclick', 'selectRating(' + i + ', ' + 3 + ');')
+  pneutral.setAttribute('id', 'rate' + i + '_' + 3);
+  tdneutral.appendChild(pneutral);
   tr1.appendChild(tdneutral);
 
   var tdsad = document.createElement('td');
-  tdsad.innerHTML = '<p style="font-size:30px">&#128542;</p>';
   tdsad.setAttribute('style', 'text-align: center;');
+  var psad = document.createElement('p');
+  psad.setAttribute('style', 'font-size:30px');
+  psad.innerHTML = '&#128542;';
+  psad.setAttribute('onclick', 'selectRating(' + i + ', ' + 2 + ');')
+  psad.setAttribute('id', 'rate' + i + '_' + 2);
+  tdsad.appendChild(psad);
   tr1.appendChild(tdsad);
 
   var tdangry = document.createElement('td');
-  tdangry.innerHTML = '<p style="font-size:30px">&#128544;</p>';
   tdangry.setAttribute('style', 'text-align: center;');
+  var pangry = document.createElement('p');
+  pangry.setAttribute('style', 'font-size:30px');
+  pangry.innerHTML = '&#128544;';
+  pangry.setAttribute('onclick', 'selectRating(' + i + ', ' + 1 + ');')
+  pangry.setAttribute('id', 'rate' + i + '_' + 1);
+  tdangry.appendChild(pangry);
   tr1.appendChild(tdangry);
 
   table.appendChild(tr1);
