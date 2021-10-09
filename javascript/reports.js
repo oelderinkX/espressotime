@@ -17,6 +17,23 @@ var reports = [
         ]
     },
     {
+        name: "Feedback",
+        id: "feedback",
+        description: "All the feedback given over time",
+        parameters: [
+            {
+                name: "Start",
+                id: "start",
+                type: "date"
+            },
+            {
+                name: "End",
+                id: "end",
+                type: "date"
+            }
+        ]
+    },
+    {
         name: "Asset Report",
         id: "assetreport",
         description: "List all assets",

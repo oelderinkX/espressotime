@@ -603,6 +603,8 @@ module.exports = function(app){
 			reports.AssetReport(res, shopId)
 		} else if (report.id == 'dailytasks') {
 			reports.DailyTasks(res, shopId, report.start, report.end)
+		} else if (report.id == 'feedback') {
+			reports.FeedbackReport(res, shopId, report.start, report.end)
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}

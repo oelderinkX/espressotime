@@ -137,7 +137,7 @@ function DailyTasks(res, shopId, start, end) {
 							done();
 
 							var headings = '<th scope="col">Date</th>\n';
-							headings += '<th scope="col"Name</th>\n';
+							headings += '<th scope="col">Name</th>\n';
 							headings += '<th scope="col">Done at</th>\n';
 							headings += '<th scope="col">Done by</th>\n';
 							headings += '<th scope="col">Value</th>\n';
@@ -193,3 +193,57 @@ function getTaskNameById(tasks, id)
 	}
 	return '';
 }
+
+function FeedbackReport(res, shopId, start, end) {
+	var response = table;
+	var starttime = start + ' 00:00:00'
+	var endtime = end + ' 23:59:59'
+
+	var sql = "select description0, rating0, description1, rating1, description2, rating2, description3, rating3, additional, timestamp from espresso.feedback where shopid = $1";
+
+	pool.connect(function(err, connection, done) {
+		connection.query(sql, [shopId], function(err, result) {
+			done();
+
+			if (result && result.rowCount > 0) {
+				var headings = '<th scope="col">' + result.rows[0].description0 + '</th>\n';
+				headings += '<th scope="col">' + result.rows[0].description1 + '</th>\n';
+				headings += '<th scope="col">' + result.rows[0].description2 + '</th>\n';
+				headings += '<th scope="col">' + result.rows[0].description3 + '</th>\n';
+				headings += '<th scope="col">Additional Notes</th>\n';
+				headings += '<th scope="col">Timestamp</th>\n';
+
+				var rows = '';
+
+				var currentDate = '';
+
+				for(var i = 0; i < result.rowCount; i++) {
+					rows += '<tr>\n';
+
+					var rowDate = dateHelper.formatDate(result.rows[i].timestamp);
+					if (currentDate == rowDate) {
+						rows += '<td></td>\n';
+					} else {
+						currentDate = rowDate;
+						rows += '<td>' + currentDate + '</td>\n';
+					}
+					
+					rows += '<td>' + result.rows[i].rating0 + '</td>\n';
+					rows += '<td>' + result.rows[i].rating1 + '</td>\n';
+					rows += '<td>' + result.rows[i].rating2 + '</td>\n';
+					rows += '<td>' + result.rows[i].rating3 + '</td>\n';
+					rows += '<td>' + result.rows[i].additional + '</td>\n';
+					rows += '<td>' + result.rows[i].timestamp + '</td>\n';
+					rows += ' </tr>\n';
+				}
+			}
+			
+			response = common.replaceAll(response, '!%REPORTNAME%!', 'Feedback');
+			response = common.replaceAll(response, '!%HEADINGS%!', headings);
+			response = common.replaceAll(response, '!%ROWS%!', rows);
+
+			res.send(response);
+		});
+	});
+}
+module.exports.FeedbackReport = FeedbackReport;
