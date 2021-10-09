@@ -215,19 +215,10 @@ function FeedbackReport(res, shopId, start, end) {
 
 				var rows = '';
 
-				var currentDate = '';
 
 				for(var i = 0; i < result.rowCount; i++) {
 					rows += '<tr>\n';
-
-					var rowDate = dateHelper.formatDate(result.rows[i].timestamp);
-					if (currentDate == rowDate) {
-						rows += '<td></td>\n';
-					} else {
-						currentDate = rowDate;
-						rows += '<td>' + currentDate + '</td>\n';
-					}
-					
+				
 					rows += '<td>' + result.rows[i].rating0 + '</td>\n';
 					rows += '<td>' + result.rows[i].rating1 + '</td>\n';
 					rows += '<td>' + result.rows[i].rating2 + '</td>\n';
