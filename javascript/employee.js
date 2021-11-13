@@ -259,8 +259,32 @@ function getEmployeeDetails(employeeId) {
                 window.location.href = "/";
               }, 120000);
         } else {
-            //load details!!!
-            allemployeestatus.innerHTML = 'Show all the amazing details!';
+            sendPost("/allemployeestatus", '{ "starttime": "' + date + ' 00:00:00' + '" }', function(response) {
+                var working = JSON.parse(response);
+                var update = '<h1>Working</h1>';
+                for(var i = 0; i < working.length; i++) {
+                    if (working[i].status == 'W') {
+                        update += working[i].name + '<br/>';
+                    }
+                }
+
+                var update = '<h1>Break</h1>';
+                for(var i = 0; i < working.length; i++) {
+                    if (working[i].status == '10' || working[i].status == '30') {
+                        update += working[i].name + '<br/>';
+                    }
+                }
+
+                var update = '<h1>Finished</h1>';
+                for(var i = 0; i < working.length; i++) {
+                    if (working[i].status == 'F') {
+                        update += working[i].name + '<br/>';
+                    }
+                }
+
+                allemployeestatus.innerHTML = 'Show all the amazing details!';
+            });
+            
         }
     });
 }
