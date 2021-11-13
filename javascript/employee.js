@@ -89,6 +89,7 @@ function getEmployeeDetails(employeeId) {
     var restButton = document.getElementById('restbutton');
     var mealButton = document.getElementById('mealbutton');
     var shiftbutton = document.getElementById("shiftbutton");
+    var allemployeestatus = document.getElementById("allemployeestatus");
 
     contact.classList.add("invisible");
     starttime.classList.add("invisible");
@@ -97,6 +98,8 @@ function getEmployeeDetails(employeeId) {
     shiftbutton.classList.add("invisible");
     restButton.classList.add("invisible");
     mealButton.classList.add("invisible");
+
+    allemployeestatus.innerHTML = '';
 
     employeename.innerHTML = '';
     clearTimeout(slowConnectTimer);
@@ -255,6 +258,9 @@ function getEmployeeDetails(employeeId) {
             backToMainTimer = window.setTimeout(function() {
                 window.location.href = "/";
               }, 120000);
+        } else {
+            //load details!!!
+            allemployeestatus.innerHTML = 'Show all the amazing details!';
         }
     });
 }
