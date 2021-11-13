@@ -261,7 +261,7 @@ function getEmployeeDetails(employeeId) {
         } else {
             sendPost("/allemployeestatus", '{ "starttime": "' + date + ' 00:00:00' + '" }', function(response) {
                 var working = JSON.parse(response);
-                var update = '<h1>Working</h1><ul>';
+                var update = '<h1>On the floor</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == 'W') {
                         update += '<li>' + working[i].name + '</li>';
@@ -270,7 +270,7 @@ function getEmployeeDetails(employeeId) {
                 update += '</ul><br/>';
                 update += '<br/>';
 
-                update += '<h1>Break</h1><ul>';
+                update += '<h1>On a Break</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == '10' || working[i].status == '30') {
                         update += '<li>' + working[i].name + '</li>';
@@ -279,7 +279,7 @@ function getEmployeeDetails(employeeId) {
                 update += '</ul><br/>';
                 update += '<br/>';
 
-                update += '<h1>Finished</h1><ul>';
+                update += '<h1>Finished Shift</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == 'F') {
                         update += '<li>' + working[i].name + '</li>';
