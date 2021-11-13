@@ -261,26 +261,32 @@ function getEmployeeDetails(employeeId) {
         } else {
             sendPost("/allemployeestatus", '{ "starttime": "' + date + ' 00:00:00' + '" }', function(response) {
                 var working = JSON.parse(response);
-                var update = '<h1>Working</h1>';
+                var update = '<h1>Working</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == 'W') {
-                        update += working[i].name + '<br/>';
+                        update += '<li>' + working[i].name + '</li>';
                     }
                 }
+                update += '</ul><br/>';
+                update += '<br/>';
 
-                update += '<h1>Break</h1>';
+                update += '<h1>Break</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == '10' || working[i].status == '30') {
-                        update += working[i].name + '<br/>';
+                        update += '<li>' + working[i].name + '</li>';
                     }
                 }
+                update += '</ul><br/>';
+                update += '<br/>';
 
-                update += '<h1>Finished</h1>';
+                update += '<h1>Finished</h1><ul>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == 'F') {
-                        update += working[i].name + '<br/>';
+                        update += '<li>' + working[i].name + '</li>';
                     }
                 }
+                update += '</ul><br/>';
+                update += '<br/>';
 
                 allemployeestatus.innerHTML = update;
             });
