@@ -268,14 +268,14 @@ function getEmployeeDetails(employeeId) {
                     }
                 }
 
-                var update = '<h1>Break</h1>';
+                update += '<h1>Break</h1>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == '10' || working[i].status == '30') {
                         update += working[i].name + '<br/>';
                     }
                 }
 
-                var update = '<h1>Finished</h1>';
+                update += '<h1>Finished</h1>';
                 for(var i = 0; i < working.length; i++) {
                     if (working[i].status == 'F') {
                         update += working[i].name + '<br/>';
