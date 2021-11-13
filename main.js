@@ -302,7 +302,7 @@ module.exports = function(app){
 
 					if (ids.length > 0) {
 						var breaksql = 'select employeeid, starttime, breaktype, finishtime from espresso.break';
-						breaksql += ' where employeeid in (' + ids.split(',') + ') and espresso.break.starttime >= $1';
+						breaksql += ' where employeeid in (' + ids.join(',') + ') and espresso.break.starttime >= $1';
 						pool.connect(function(err, connection, done) {
 							connection.query(breaksql, [starttime], function(err, result) {
 								done();
