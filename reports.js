@@ -215,7 +215,6 @@ function FeedbackReport(res, shopId, start, end) {
 
 				var rows = '';
 
-
 				for(var i = 0; i < result.rowCount; i++) {
 					rows += '<tr>\n';
 				

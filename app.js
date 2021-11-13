@@ -25,3 +25,4 @@ app.listen(port, function () {
 require('./main.js')(app);
 require('./admin.js')(app);
 require('./tasks.js')(app);
+require('./tools.js')(app);

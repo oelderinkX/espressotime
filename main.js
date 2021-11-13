@@ -187,7 +187,6 @@ module.exports = function(app){
 		var dateFrom = date + ' 00:00:00' ;
 		var dateTo = date + ' 23:59:59';
 
-
 		var sql = "UPDATE espresso.start_finish SET finishtime = '" + finishTime + "' WHERE id =";
 		sql += " (SELECT id FROM espresso.start_finish WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "'";
 		sql += " and finishtime is null ORDER BY starttime DESC LIMIT 1);"
@@ -253,6 +252,79 @@ module.exports = function(app){
 					var result = { "result": "fail", "error": err };
 				} else {
 					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
+
+	app.post('/allemployeestatus', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var starttime = req.body.starttime;
+
+		var working = [];
+
+		var sql = 'select espresso.employee.id as id, espresso.employee.name as name, espresso.start_finish.starttime as starttime,';
+		sql += ' espresso.start_finish.finishtime as finishtime from espresso.start_finish';
+		sql += ' left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid';
+		sql += ' where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name';
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, starttime], function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var ids = [];
+
+					for(var i = 0; i < result.rowCount; i++) {
+						var finishtime = result.rows[i].finishtime;
+						var id = result.rows[i].id;
+						var name = result.rows[i].name;
+
+						ids.push(id);
+
+						var workingstatus = {
+							id: id,
+							name: name,
+							finishtime: finishtime,
+							status: 'W'
+						};
+						if (finishtime) {
+							workingstatus.status = 'F';
+						}
+
+						working.push(workingstatus);
+					}
+
+					if (ids.length > 0) {
+						var breaksql = 'select employeeid, starttime, breaktype, finishtime from espresso.break';
+						breaksql += ' where employeeid in (' + ids.split(',') + ') and espresso.break.starttime >= $1';
+						pool.connect(function(err, connection, done) {
+							connection.query(breaksql, [starttime], function(err, result) {
+								done();
+
+								for(var i = 0; i < result.rowCount; i++) {
+									var id = result.rows[i].employeeid;
+									var finishtime = result.rows[i].finishtime;
+			
+									for(var x = 0; x < working.length; x++) {
+										if (id == working[x].id) {
+											if (!finishtime) {
+												working[x].status = result.rows[i].breaktype;
+											}
+										}
+									}
+								}
+
+								result = working;
+								res.send(result);
+							});
+						});
+					}
 				}
 
 				res.send(result);
