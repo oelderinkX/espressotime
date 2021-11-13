@@ -282,7 +282,7 @@ function getEmployeeDetails(employeeId) {
                     }
                 }
 
-                allemployeestatus.innerHTML = 'Show all the amazing details!';
+                allemployeestatus.innerHTML = update;
             });
             
         }
