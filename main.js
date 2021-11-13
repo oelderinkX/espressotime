@@ -320,14 +320,13 @@ module.exports = function(app){
 									}
 								}
 
-								result = working;
-								res.send(result);
+								res.send(working);
 							});
 						});
+					} else {
+						res.send(working);
 					}
 				}
-
-				res.send(result);
 			});
 		});
 	});
