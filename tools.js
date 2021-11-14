@@ -44,21 +44,32 @@ module.exports = function(app){
 
 	app.post('/getproducts', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		//var json = { shopId: shopId, feedbackitems: feedbackitems, additional: additional.value, timestamp: timestamp };
 
-		var feedbackitems = req.body.feedbackitems;
-		var additional = req.body.additional;
-		var timestamp = req.body.timestamp;
-
-		var sql = 'insert into espresso.feedback ';
-		sql += '(shopid, description0, rating0, description1, rating1, description2, rating2, description3, rating3, additional, timestamp)';
-		sql += 'values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
+		var sql = 'select author, costperyield, id, ingredients, name, recipe, totalcost, yield, recommendedprice from espresso.product where shopid = $1';
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, feedbackitems[0].description, feedbackitems[0].rating, feedbackitems[1].description, feedbackitems[1].rating, feedbackitems[2].description, feedbackitems[2].rating, feedbackitems[3].description, feedbackitems[3].rating, additional, timestamp], function(err, result) {
+			connection.query(sql, [shopId], function(err, result) {
 				done();
-				var result = { "result": "success" };
-				res.send(result);
+
+				var products = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						products.push({
+							author: result.rows[i].author,
+							costperyield: result.rows[i].costperyield,
+							id: result.rows[i].id,
+							ingredients: result.rows[i].ingredients,
+							name: result.rows[i].name,
+							recipe: result.rows[i].recipe,
+							totalcost: result.rows[i].totalcost,
+							yield: result.rows[i].yield,
+							recommendedprice: result.rows[i].recommendedprice
+						});
+					}
+				}
+
+				res.send(products);
 			});
 		});
 	});

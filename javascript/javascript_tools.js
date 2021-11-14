@@ -1,41 +1,15 @@
 var productcostings = [];
-productcostings.push({
-        id: 0,
-        name: '(New Item)',
-        author: '',
-        ingredients: [{
-            id: 0,
-            name: '',
-            retailquantity: 0,
-            measureunit: '',
-            retailcost: 0.00,
-            quantityneeded: 0,
-            cost: 0.00
-        }],
-        totalcost: 0.00,
-        yield: 0,
-        costperyield: 0.00,
-        recommendedprice: 0.00
-});
+function loadAllProducts() {
+    var request = {};
+    sendPost("/getproducts", JSON.stringify(request), function(response) {
 
-productcostings.push({
-        id: 1,
-        name: 'Apple Slice X',
-        author: 'Jared',
-        ingredients: [{
-            id: 0,
-            name: 'boo',
-            retailquantity: 1,
-            measureunit: 'mls',
-            retailcost: 1.00,
-            quantityneeded: 1,
-            cost: 1.00
-        }],
-        totalcost: 1.00,
-        yield: 1,
-        costperyield: 1.00,
-        recommendedprice: 3.00
-});
+        productcostings  = JSON.parse(response);
+
+        getProductionCostings();
+    });
+
+    
+}
 
 function getProductionCostings() {
     var selectproductcosting = document.getElementById('productcostings');
