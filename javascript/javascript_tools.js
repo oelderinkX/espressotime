@@ -3,7 +3,32 @@ function loadAllProducts() {
     var request = {};
     sendPost("/getproducts", JSON.stringify(request), function(response) {
 
-        productcostings  = JSON.parse(response);
+        var allproducts  = JSON.parse(response);
+
+        productcostings.push({
+            id: 0,
+            name: 'New Product',
+            author: '',
+            ingredients: [{
+                id: 0,
+                name: '',
+                retailquantity: 0,
+                measureunt: '',
+                retailcost: 0.00,
+                quantityneeded: 0,
+                cost: 0.00
+            }],
+            totalcost: 0.00,
+            yield: 0,
+            costperyield: 0.00,
+            recommendedprice: 0.00,
+            recipe: ''
+        });
+
+        for(var i = 0; i < allproducts.length; i++)
+        {
+            productcostings.push(allproducts[i]);
+        }
 
         getProductionCostings();
     });
@@ -123,6 +148,9 @@ function displayProductCosting()
 
     var author = document.getElementById('author');
     author.value = productcosting.author;
+
+    var recipe = document.getElementById('recipe');
+    recipe.value = productcosting.recipe;
 
     var ingredientsTable = document.getElementById('ingredients');
     ingredientsTable.innerHTML = '';
