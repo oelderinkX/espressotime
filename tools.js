@@ -11,6 +11,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var toolsPage = fs.readFileSync(__dirname + "/webpage/tools.html", "utf8");
+var toolsPage = fs.readFileSync(__dirname + "/webpage/products.html", "utf8");
 
 module.exports = function(app){
 	app.get('/tools', urlencodedParser, function(req, res) {
@@ -27,7 +28,21 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 
-	app.post('/toolthing', jsonParser, function(req, res) {
+	app.get('/products', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = productsPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/products');
+		}
+
+		res.send(webpage);
+	});	
+
+	app.post('/getproducts', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		//var json = { shopId: shopId, feedbackitems: feedbackitems, additional: additional.value, timestamp: timestamp };
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Tools</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="javascript/common.js"></script>
+    <script src="javascript/javascript_tools.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<html>
+<body>
+    <h1>Product Costing</h1>
+    <table width="100%" border=1>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="1px">
+                <select id="productcostings" class="custom-select" size="15" onchange="displayProductCosting();">
+                </select>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id">
+                <label for="name">Product Name:</label>
+                <input type="text" class="form-control" id="name"/>
+                <label for="author">Costing Author:</label>
+                <input type="text" class="form-control" id="author"/>
+                <h3>Recipe</h3>
+                <textarea rows="10" style="width:100%;" id="recipe"></textarea>
+                <h3>Ingredients</h3>
+                <input type="hidden" id="ingredientcount">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Retail Name</th>
+                    <th scope="col">Retail Quantity</th>
+                    <th scope="col">Measure Unit</th>
+                    <th scope="col">Retail Cost</th>
+                    <th scope="col">Quantity Needed</th>
+                    <th scope="col">Cost (Calculated)</th>
+                    </tr>
+                </thead>
+                <tbody id="ingredients">
+                </tbody>
+                </table>
+                <button type="button" style="float:right;" class="btn btn-success" onclick="addIngredient();"><span class="glyphicon glyphicon-plus"></span> Add Ingredient</button>
+                <br/>
+                <h3>Costing</h3>
+                <label for="totalcost">Total Cost of Ingedients:</label>
+                <input type="text" class="form-control" id="totalcost" value="12.99" readonly/>
+                <label for="yield">Yield / Portions:</label>
+                <input type="text" onkeyup='calculateCostPerYield();' class="form-control" id="yield" value="4"/>
+                <label for="costperyield">Cost per Yield / Portion:</label>
+                <input type="text" class="form-control" id="costperyield" value="4.44" readonly/>
+                <label for="rrp">Recommended Retail Price (33%):</label>
+                <input type="text" class="form-control" id="rrp" value="12.44" readonly/>
+                <br/>
+                <br/>
+                <button type="button" class="btn btn-success" onclick="saveProductCosting();">Save</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    getProductionCostings();
+</script>
+</html>
