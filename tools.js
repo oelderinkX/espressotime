@@ -11,7 +11,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var toolsPage = fs.readFileSync(__dirname + "/webpage/tools.html", "utf8");
-var toolsPage = fs.readFileSync(__dirname + "/webpage/products.html", "utf8");
+var productsPage = fs.readFileSync(__dirname + "/webpage/products.html", "utf8");
 
 module.exports = function(app){
 	app.get('/tools', urlencodedParser, function(req, res) {
