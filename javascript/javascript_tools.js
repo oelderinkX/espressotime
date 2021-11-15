@@ -134,7 +134,7 @@ function addIngredient()
 
     ingredientsTable.appendChild(tr);
 
-    ingredientcount.value = ingredientcount.value + 1;
+    ingredientcount.value = parseInt(ingredientcount.value) + 1;
 }
 
 function displayProductCosting()
