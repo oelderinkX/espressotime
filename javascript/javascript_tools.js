@@ -68,6 +68,7 @@ function addIngredient()
 
     var td1 = document.createElement('td');
     var inputrname = document.createElement('input');
+    inputrname.setAttribute('id', 'retailname' + ingredientcount.value);
     inputrname.setAttribute('type', 'text');
     inputrname.classList.add('form-control');
     inputrname.value = '';
@@ -86,6 +87,7 @@ function addIngredient()
 
     var td3 = document.createElement('td');
     var selectmeasureunit = document.createElement('select');
+    selectmeasureunit.setAttribute('id', 'measureunit' + ingredientcount.value);
     selectmeasureunit.classList.add('input-large');
     selectmeasureunit.classList.add('form-control');
 
@@ -164,6 +166,7 @@ function displayProductCosting()
 
         var td1 = document.createElement('td');
         var inputrname = document.createElement('input');
+        inputrname.setAttribute('id', 'retailname' + ingredientcount.value);
         inputrname.setAttribute('type', 'text');
         inputrname.classList.add('form-control');
         inputrname.value = ingredient.name;
@@ -182,6 +185,7 @@ function displayProductCosting()
 
         var td3 = document.createElement('td');
         var selectmeasureunit = document.createElement('select');
+        selectmeasureunit.setAttribute('id', 'measureunit' + ingredientcount.value);
         selectmeasureunit.classList.add('input-large');
         selectmeasureunit.classList.add('form-control');
 
@@ -299,4 +303,19 @@ function saveProductCosting() {
     var id = document.getElementById('id');
     var author = document.getElementById('author');
     var recipe = document.getElementById('recipe');
+
+    var totalcost = document.getElementById('totalcost');
+    var yield = document.getElementById('yield');
+    var costperyield = document.getElementById('costperyield');
+    var rrp = document.getElementById('rrp');
+
+    var ingredientcount = document.getElementById('ingredientcount');
+
+    for(var i=0; i < ingredientcount.value; i++) {
+        var retailname = document.getElementById('retailname' + i);
+        var inputrquality = document.getElementById('inputrquality' + i);
+        var measureunit = document.getElementById('measureunit' + i);
+        var retailcost = document.getElementById('retailcost' + i);
+        var quantityneeded = document.getElementById('quantityneeded' + i);
+    }
 }
