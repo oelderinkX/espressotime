@@ -294,3 +294,9 @@ function calculateRRP() {
 
     rrpElement.value = (costperyield * 3.5).toFixed(2);
 }
+
+function saveProductCosting() {
+    var id = document.getElementById('id');
+    var author = document.getElementById('author');
+    var recipe = document.getElementById('recipe');
+}
