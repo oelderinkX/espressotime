@@ -166,7 +166,7 @@ function displayProductCosting()
 
         var td1 = document.createElement('td');
         var inputrname = document.createElement('input');
-        inputrname.setAttribute('id', 'retailname' + ingredientcount.value);
+        inputrname.setAttribute('id', 'retailname' + i);
         inputrname.setAttribute('type', 'text');
         inputrname.classList.add('form-control');
         inputrname.value = ingredient.name;
@@ -185,7 +185,7 @@ function displayProductCosting()
 
         var td3 = document.createElement('td');
         var selectmeasureunit = document.createElement('select');
-        selectmeasureunit.setAttribute('id', 'measureunit' + ingredientcount.value);
+        selectmeasureunit.setAttribute('id', 'measureunit' + i);
         selectmeasureunit.classList.add('input-large');
         selectmeasureunit.classList.add('form-control');
 
