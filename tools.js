@@ -87,16 +87,22 @@ module.exports = function(app){
 		var recipe = req.body.recipe;
 
 		var sql = '';
-		var updateresult = {};
 
-		console.log('jared jared jared: ' + id);
+		console.log('updatepro id: ' + id);
+		console.log('updatepro name: ' + name);
+		console.log('updatepro author: ' + author);
+		console.log('updatepro ingredients: ' + ingredients);
+		console.log('updatepro totalcost: ' + totalcost);
+		console.log('updatepro yield: ' + yield);
+		console.log('updatepro costperyield: ' + costperyield);
+		console.log('updatepro recommendedprice: ' + recommendedprice);
+		console.log('updatepro recipe: ' + recipe);
+
 		if (id == 0) {
 			//insert
-			updateresult = { "result": "insert" };
 			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid)';
 			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
 		} else {
-			updateresult = { "result": "update" };
 			sql = 'update espresso.product set author=$1, costperyield=$2, ingredients=$3, name=$4, recipe=$5, totalcost=$6, yield=$7,';
 			sql += ' recommendedprice=$8 where id = $9;';
 		}
@@ -106,7 +112,7 @@ module.exports = function(app){
 			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId, id], function(err, result) {
 				done();
 
-				res.send(updateresult);
+				res.send(result);
 			});
 		});
 	});
