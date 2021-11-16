@@ -2,7 +2,7 @@ var productcostings = [];
 function loadAllProducts() {
     var request = {};
     sendPost("/getproducts", JSON.stringify(request), function(response) {
-
+        productcostings = [];
         var allproducts  = JSON.parse(response);
 
         productcostings.push({
