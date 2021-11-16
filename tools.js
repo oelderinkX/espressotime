@@ -88,6 +88,7 @@ module.exports = function(app){
 
 		var sql = '';
 
+		console.log('jared jared jared: ' + id);
 		if (id == 0) {
 			//insert
 			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid)';
