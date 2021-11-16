@@ -112,6 +112,10 @@ module.exports = function(app){
 			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId, id], function(err, result) {
 				done();
 
+				if(err) {
+					console.log(err);
+				}
+
 				res.send(result);
 			});
 		});
