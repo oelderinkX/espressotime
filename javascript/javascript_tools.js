@@ -302,6 +302,7 @@ function calculateRRP() {
 
 function saveProductCosting() {
     var id = document.getElementById('id');
+    var name = document.getElementById('name');
     var author = document.getElementById('author');
     var recipe = document.getElementById('recipe');
 
@@ -335,7 +336,7 @@ function saveProductCosting() {
 
     var product = {
         id: id.value,
-        name: 'New Product',
+        name: name.value,
         author: author.value,
         ingredients: ingredients,
         totalcost: totalcost.value,
