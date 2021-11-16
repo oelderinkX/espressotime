@@ -59,7 +59,7 @@ module.exports = function(app){
 							author: result.rows[i].author,
 							costperyield: result.rows[i].costperyield,
 							id: result.rows[i].id,
-							ingredients: result.rows[i].ingredients,
+							ingredients: JSON.parse(result.rows[i].ingredients),
 							name: result.rows[i].name,
 							recipe: result.rows[i].recipe,
 							totalcost: result.rows[i].totalcost,
