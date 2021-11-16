@@ -235,6 +235,8 @@ function displayProductCosting()
         tr.appendChild(td6);
 
         ingredientsTable.appendChild(tr);
+
+        calculateCost(i);
     }
 
     var totalcost = document.getElementById('totalcost');
