@@ -98,18 +98,21 @@ module.exports = function(app){
 		console.log('updatepro recommendedprice: ' + recommendedprice);
 		console.log('updatepro recipe: ' + recipe);
 
+		var parameters = [];
 		if (id == 0) {
 			//insert
 			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid)';
 			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId];
+
 		} else {
 			sql = 'update espresso.product set author=$1, costperyield=$2, ingredients=$3, name=$4, recipe=$5, totalcost=$6, yield=$7,';
 			sql += ' recommendedprice=$8 where id = $9;';
+			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, id];
 		}
 	
-
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId, id], function(err, result) {
+			connection.query(sql, parameters, function(err, result) {
 				done();
 
 				if(err) {
