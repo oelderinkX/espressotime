@@ -99,7 +99,7 @@ module.exports = function(app){
 		}
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid, id], function(err, result) {
+			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId, id], function(err, result) {
 				done();
 
 				var products = [];
