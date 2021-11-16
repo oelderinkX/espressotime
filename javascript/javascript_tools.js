@@ -38,6 +38,7 @@ function loadAllProducts() {
 
 function getProductionCostings() {
     var selectproductcosting = document.getElementById('productcostings');
+    selectproductcosting.innerHTML = '';
 
     for(var i = 0; i < productcostings.length; i++) {
         var productcosting = productcostings[i];
@@ -311,11 +312,40 @@ function saveProductCosting() {
 
     var ingredientcount = document.getElementById('ingredientcount');
 
+    var ingredients = [];
+
     for(var i=0; i < ingredientcount.value; i++) {
         var retailname = document.getElementById('retailname' + i);
         var inputrquality = document.getElementById('inputrquality' + i);
         var measureunit = document.getElementById('measureunit' + i);
         var retailcost = document.getElementById('retailcost' + i);
         var quantityneeded = document.getElementById('quantityneeded' + i);
+        var calcost = document.getElementById('calcost' + i);
+
+        ingredients.push({
+            id: i,
+            name: retailname.value,
+            retailquantity: inputrquality.value,
+            measureunt: measureunit.value,
+            retailcost: retailcost.value,
+            quantityneeded: quantityneeded.value,
+            cost: calcost.value
+        });
     }
+
+    var product = {
+        id: id.value,
+        name: 'New Product',
+        author: author.value,
+        ingredients: ingredients,
+        totalcost: totalcost.value,
+        yield: yield.value,
+        costperyield: costperyield.value,
+        recommendedprice: rrp.value,
+        recipe: recipe.value
+    };
+
+    sendPost("/updateproducts", JSON.stringify(product), function(response) {
+        loadAllProducts();
+    });
 }

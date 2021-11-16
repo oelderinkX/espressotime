@@ -73,4 +73,55 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/updateproducts', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+		var name = req.body.name;
+		var author = req.body.author;
+		var ingredients = JSON.stringify(req.body.ingredients);
+		var totalcost = req.body.totalcost;
+		var yield = req.body.yield;
+		var costperyield = req.body.costperyield;
+		var recommendedprice = req.body.recommendedprice;
+		var recipe = req.body.recipe;
+
+		var sql = '';
+
+		if (id == 0) {
+			//insert
+			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid)';
+			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+		} else {
+			//update
+			sql = 'update espresso.product set author=$1, costperyield=$2, ingredients=$3, name=$4, recipe=$5, totalcost=$6, yield=$7,';
+			sql += ' recommendedprice=$8 where id = $9;';
+		}
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid, id], function(err, result) {
+				done();
+
+				var products = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						products.push({
+							author: result.rows[i].author,
+							costperyield: result.rows[i].costperyield,
+							id: result.rows[i].id,
+							ingredients: result.rows[i].ingredients,
+							name: result.rows[i].name,
+							recipe: result.rows[i].recipe,
+							totalcost: result.rows[i].totalcost,
+							yield: result.rows[i].yield,
+							recommendedprice: result.rows[i].recommendedprice
+						});
+					}
+				}
+
+				res.send(products);
+			});
+		});
+	});
 }
