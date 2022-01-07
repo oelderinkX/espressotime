@@ -202,7 +202,7 @@ function displayProductCosting()
         option3.innerHTML = 'mls';
         selectmeasureunit.appendChild(option3);
 
-        selectmeasureunit.value = ingredient.measureunit;
+        selectmeasureunit.value = ingredient.measureunt;
 
         td3.appendChild(selectmeasureunit);
         tr.appendChild(td3);
