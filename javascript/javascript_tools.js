@@ -299,7 +299,7 @@ function calculateRRP() {
     var costperyield = document.getElementById('costperyield').value;
     var rrpElement = document.getElementById('rrp');
 
-    rrpElement.value = (costperyield * 3.5).toFixed(2);
+    rrpElement.value = (costperyield / 0.33).toFixed(2);
 }
 
 function saveProductCosting() {
