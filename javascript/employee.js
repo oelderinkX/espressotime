@@ -1,4 +1,5 @@
 var backToMainTimer;
+var refreshMainTimer;
 var slowConnectTimer;
 
 function clock() {
@@ -290,7 +291,10 @@ function getEmployeeDetails(employeeId) {
 
                 allemployeestatus.innerHTML = update;
             });
-            
+            window.clearTimeout(refreshMainTimer);
+            refreshMainTimer = window.setTimeout(function() {
+                window.location.href = "/?refresh=" + Math.floor(Math.random() * 9007199254740990) + 1;
+              }, 240000);
         }
     });
 }
