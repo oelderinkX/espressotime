@@ -90,6 +90,8 @@ function getEmployeeDetails(employeeId) {
     var restButton = document.getElementById('restbutton');
     var mealButton = document.getElementById('mealbutton');
     var shiftbutton = document.getElementById("shiftbutton");
+    var shiftnotes = document.getElementById("shiftnotes");
+    var shiftnotesbutton = document.getElementById("shiftnotesbutton");
     var allemployeestatus = document.getElementById("allemployeestatus");
 
     contact.classList.add("invisible");
@@ -230,6 +232,8 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.setAttribute('onclick', shiftButtonAttribute);
         }
 
+        shiftnotes.value = employee.notes;
+
         if (employee.name) {
             employeename.classList.remove("invisible");
             contact.classList.remove("invisible");
@@ -244,7 +248,6 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
             mealButton.classList.add("invisible");
-
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
