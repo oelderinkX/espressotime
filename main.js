@@ -94,7 +94,7 @@ module.exports = function(app){
 		
 		var sqlBreaks = "select id, starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
-		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopdid = $1, employeeid = $2, date = $3";
+		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopdid = $1 AND employeeid = $2 AND date = $3";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
