@@ -94,6 +94,8 @@ module.exports = function(app){
 		
 		var sqlBreaks = "select id, starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
+		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopdid $1, employeeid = $2, date = $3";
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
 				done();
@@ -109,7 +111,8 @@ module.exports = function(app){
 						finishtime: '',
 						starttimes: [],
 						finishtimes: [],
-						breaks: []
+						breaks: [],
+						notes: ''
 					};
 				}
 
@@ -138,7 +141,17 @@ module.exports = function(app){
 									}
 								}
 
-								res.send(employee);
+								pool.connect(function(err, connection, done) {
+									connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
+										done();
+
+										if (notesResult.rowCount > 0) {
+											employee.notes = notesResult.rows[0].notes;
+										}
+
+										res.send(employee);
+									});
+								});
 							});
 						});
 					});
