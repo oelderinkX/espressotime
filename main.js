@@ -352,23 +352,38 @@ module.exports = function(app){
 		var date = req.body.date;
 		var notes = req.body.notes;
 
-		var sql = "UPDATE espresso.shift_notes SET notes=$4 WHERE shopid=$1 AND employeeid=$2 AND date=$3;";
-		sql += "INSERT INTO espresso.shift_notes (shopid, employeeid, date, notes)";
-		sql += " SELECT $1, $2, $3, $4";
-		sql += " WHERE NOT EXISTS (SELECT 1 FROM espresso.shift_notes WHERE shopid=$1 AND employeeid=$2 AND date=$3);";
+		var updateSql = "UPDATE espresso.shift_notes SET notes=$4 WHERE shopid=$1 AND employeeid=$2 AND date=$3;";
+		var insertSql = "INSERT INTO espresso.shift_notes (shopid, employeeid, date, notes)";
+		insertSql += " SELECT $1, $2, $3, $4";
+		insertSql += " WHERE NOT EXISTS (SELECT 1 FROM espresso.shift_notes WHERE shopid=$1 AND employeeid=$2 AND date=$3);";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, employeeId, date, notes], function(err, result) {
+			connection.query(updateSql, [shopId, employeeId, date, notes], function(err, result) {
 				done();
+
+				var results = [];
 
 				if (err) {
 					console.error(err);
-					var result = { "result": "fail", "error": err };
+					results.push({ "result": "fail", "error": err });
 				} else {
-					var result = { "result": "success" };
+					results.push({ "result": "success" });
 				}
 
-				res.send(result);
+				pool.connect(function(err, connection, done) {
+					connection.query(insertSql, [shopId, employeeId, date, notes], function(err, result) {
+						done();
+
+						if (err) {
+							console.error(err);
+							results.push({ "result": "fail", "error": err });
+						} else {
+							results.push({ "result": "success" });
+						}
+
+						res.send({ "results": results });
+					});
+				});
 			});
 		});
 	});
