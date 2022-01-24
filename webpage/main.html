@@ -57,6 +57,17 @@
           display: inline;
           font-size: 24px;
         }
+
+        textarea{
+          border:1px solid #999999;
+          width:100%;
+          margin:5px 0;
+          padding:3px;
+        }
+
+        .textareacontainer{
+          padding-right: 8px; /* 1 + 3 + 3 + 1 */
+        }
     </style>
 </head>
 <body>
@@ -105,6 +116,12 @@
             <h3 id="finishtime">Finish Time:</h3>
             <br/>
             <h3 id="breaks">Breaks:</h3>
+            <br/>
+            <h3 id="shiftnotesarea">Shift Notes:</h3>
+            <div class="textareacontainer" id="shiftnotes">
+              <textarea></textarea>
+              <button id="shiftnotesbutton" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-ok"></span> Save</button>  
+            </div>
             <br/>
             <br/>
             <br/>
