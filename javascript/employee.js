@@ -101,6 +101,8 @@ function getEmployeeDetails(employeeId) {
     shiftbutton.classList.add("invisible");
     restButton.classList.add("invisible");
     mealButton.classList.add("invisible");
+    shiftnotes.classList.add("invisible");
+    shiftnotesbutton.classList.add("invisible");
 
     allemployeestatus.innerHTML = '';
 
@@ -243,11 +245,15 @@ function getEmployeeDetails(employeeId) {
             shiftbutton.classList.remove("invisible");
             restButton.classList.remove("invisible");
             mealButton.classList.remove("invisible");
+            shiftnotes.classList.remove("invisible");
+            shiftnotesbutton.classList.remove("invisible");
         } else {
             employeename.classList.add("invisible");
             shiftbutton.classList.add("invisible");
             restButton.classList.add("invisible");
             mealButton.classList.add("invisible");
+            shiftnotes.classList.add("invisible");
+            shiftnotesbutton.classList.add("invisible");
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
