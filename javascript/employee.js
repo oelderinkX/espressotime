@@ -317,13 +317,11 @@ function saveNotes(employeeId) {
     var date = getDbFormat();
     var notes = document.getElementById("shiftnotes").value;
 
-    if (notes && notes.trim().length > 0) {
-        var json = { "employeeId": employeeId, "date": date, "notes": notes };
+    var json = { "employeeId": employeeId, "date": date, "notes": notes };
 
-        sendPost("/savenotes", JSON.stringify(json), function(response) {
-            getEmployeeDetails(employeeId);
-        });
-    }
+    sendPost("/savenotes", JSON.stringify(json), function(response) {
+        getEmployeeDetails(employeeId);
+    });
 }
 
 function employeeStart(employeeId) {
