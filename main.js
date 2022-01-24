@@ -145,7 +145,7 @@ module.exports = function(app){
 									connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
 										done();
 
-										if (notesResult.rowCount > 0) {
+										if (notesResult && notesResult.rowCount > 0) {
 											employee.notes = notesResult.rows[0].notes;
 										}
 
