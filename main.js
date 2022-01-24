@@ -147,6 +147,8 @@ module.exports = function(app){
 
 										if (notesResult && notesResult.rowCount > 0) {
 											employee.notes = notesResult.rows[0].notes;
+										} else {
+											console.log('jared: ' + err);
 										}
 
 										res.send(employee);
