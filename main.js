@@ -345,4 +345,31 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/savenotes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var employeeId = req.body.employeeId;
+		var date = req.body.date;
+		var notes = req.body.notes;
+
+		var sql = "UPDATE espresso.shift_notes SET notes=$4, WHERE shopid=$1 AND employeeid=$2 AND date=$3";
+		sql += "INSERT INTO espresso.shift_notes (shopid, employeeid, date, notes)";
+		sql += "SELECT $1, $2, $3, $4";
+		sql += "WHERE NOT EXISTS (SELECT 1 FROM espresso.shift_notes WHERE shopid=$1 AND employeeid=$2 AND date=$3);";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, employeeId, date, notes], function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
 }

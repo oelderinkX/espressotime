@@ -92,6 +92,7 @@ function getEmployeeDetails(employeeId) {
     var shiftbutton = document.getElementById("shiftbutton");
     var shiftnotes = document.getElementById("shiftnotes");
     var shiftnotesbutton = document.getElementById("shiftnotesbutton");
+    var shiftnotesarea = document.getElementById("shiftnotesarea");
     var allemployeestatus = document.getElementById("allemployeestatus");
 
     contact.classList.add("invisible");
@@ -103,6 +104,7 @@ function getEmployeeDetails(employeeId) {
     mealButton.classList.add("invisible");
     shiftnotes.classList.add("invisible");
     shiftnotesbutton.classList.add("invisible");
+    shiftnotesarea.classList.add("invisible");
 
     allemployeestatus.innerHTML = '';
 
@@ -235,6 +237,7 @@ function getEmployeeDetails(employeeId) {
         }
 
         shiftnotes.value = employee.notes;
+        shiftnotesbutton.setAttribute('onclick', "saveNotes(" + employeeId + ");");
 
         if (employee.name) {
             employeename.classList.remove("invisible");
@@ -247,6 +250,7 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.remove("invisible");
             shiftnotes.classList.remove("invisible");
             shiftnotesbutton.classList.remove("invisible");
+            shiftnotesarea.classList.remove("invisible");
         } else {
             employeename.classList.add("invisible");
             shiftbutton.classList.add("invisible");
@@ -254,6 +258,7 @@ function getEmployeeDetails(employeeId) {
             mealButton.classList.add("invisible");
             shiftnotes.classList.add("invisible");
             shiftnotesbutton.classList.add("invisible");
+            shiftnotesarea.classList.add("invisible");
         }
 
         var mobilenavbar = document.getElementById("mobilenavbar");
@@ -306,6 +311,19 @@ function getEmployeeDetails(employeeId) {
               }, 240000);
         }
     });
+}
+
+function saveNotes(employeeId) {
+    var date = getDbFormat();
+    var notes = document.getElementById("shiftnotes").value;
+
+    if (notes && notes.trim().length > 0) {
+        var json = { "employeeId": employeeId, "date": date, "notes": notes };
+
+        sendPost("/savenotes", JSON.stringify(json), function(response) {
+            getEmployeeDetails(employeeId);
+        });
+    }
 }
 
 function employeeStart(employeeId) {
