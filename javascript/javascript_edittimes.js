@@ -184,7 +184,10 @@ function updateTimes() {
     var starttime_rowid = starttime.getAttribute('rowid');
     var starttime_employeeid = starttime.getAttribute('employeeid');
 
-    var new_finishtime = date + ' ' + finishtime.value + ':00';
+    var new_finishtime;
+    if (finishtime.value.length > 0) {
+        new_finishtime = date + ' ' + finishtime.value + ':00';
+    }
     var finishtime_rowid = finishtime.getAttribute('rowid');
     var finishtime_employeeid = finishtime.getAttribute('employeeid');
 
