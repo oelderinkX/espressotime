@@ -68,7 +68,11 @@ function getStartFinishBreaks() {
 
         for(var i = 0; i < startFinishAndBreaks.starttimes.length; i++) {
             var starttime = getTime(startFinishAndBreaks.starttimes[i].time);
-            var finishtime = getTime(startFinishAndBreaks.finishtimes[i].time);
+            var finishtime;
+            
+            if (startFinishAndBreaks.finishtimes[i].time) {
+                finishtime = getTime(startFinishAndBreaks.finishtimes[i].time);
+            }
 
             var inputGroup = document.createElement("div");
             inputGroup.classList.add('input-group');
