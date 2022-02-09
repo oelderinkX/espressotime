@@ -488,7 +488,7 @@ module.exports = function(app){
 	app.post('/getemployeesforassets', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		
-		var sql = 'select id,name from espresso.employee where shopid = $1 and ex=false or id in (select employeeid from espresso.asset) order by id'
+		var sql = 'select id,name from espresso.employee where shopid = $1 and ex=false or id in (select employeeid from espresso.asset where shopid = $1) order by id'
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
