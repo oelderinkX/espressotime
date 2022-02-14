@@ -288,16 +288,18 @@ module.exports = function(app){
 											var notes = result.rows[i].notes;
 											var date = result.rows[i].date;
 											console.log('notes id:' + notes_employee_id + ' date: ' + date + ' notes: ' + notes);
-											console.log('old date:' + date + 'new date: ' + date);
 
 											for(var x = 0; x < schedule.length; x++) {
 												if (notes_employee_id == schedule[x].id) {
 													var startTime = new Date(schedule[x].starttime);
 													var newDate = new Date(schedule[x].starttime);
 													newDate.setHours(0,0,0,0);
-													console.log('old date:' + startTime + 'new date: ' + newDate);
+													console.log('startTime:' + startTime + 'newDate: ' + newDate);
+													console.log('newDate: ' + newDate);
+													console.log('note date:' + date);
+													console.log('');
 
-													if (startTime == newDate) {
+													if (date == newDate) {
 														schedule[x].notes = notes;
 													}
 												}
