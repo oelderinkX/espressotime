@@ -280,12 +280,13 @@ module.exports = function(app){
 								done();
 
 								if (err) {
-									console.log('notes: ERROROROROROR');
 									schedule.push({error: err});
 								} else {
 									console.log('notes rows:' + result.rowCount);
 									if (result && result.rowCount > 0) {
+										console.log('notes result && result.rowCount > 0');
 										for(var i = 0; i < result.rowCount.length; i++) {
+											console.log('notes for:' + i);
 											var notes_employee_id = result.rows[i].employeeid;
 											var notes = result.rows[i].notes;
 											console.log('notes id:' + notes_employee_id + 'notes: ' + notes);
