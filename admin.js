@@ -225,7 +225,8 @@ module.exports = function(app){
 												id: result.rows[i].id,
 												starttime: result.rows[i].starttime,
 												finishtime: result.rows[i].finishtime,
-												breaks: []
+												breaks: [],
+												notes: ''
 											});
 						}
 					}
@@ -272,7 +273,32 @@ module.exports = function(app){
 							}
 						}
 
-						res.send(schedule);
+						var sql3 = 'select employeeid, notes from espresso.shift_notes where shopId = $1 and date > $2 and date < $3';
+
+						pool.connect(function(err, connection, done) {
+							connection.query(sql3, [shopId, dateFrom, dateTo], function(err, result) {
+								done();
+
+								if (err) {
+									schedule.push({error: err});
+								} else {
+									if (result && result.rowCount > 0) {
+										for(var i = 0; i < result.rowCount.length; i++) {
+											var notes_employee_id = result.rows[i].employeeid;
+											var notes = result.rows[i].notes;
+
+											for(var x = 0; x < schedule.length; x++) {
+												if (notes_employee_id == schedule[x].id) {
+													schedule[x].notes = notes;
+												}
+											}
+										}
+									}
+								}
+
+								res.send(schedule);
+							});
+						});
 					});
 				});
 			});
