@@ -280,12 +280,16 @@ module.exports = function(app){
 								done();
 
 								if (err) {
+									console.log('notes: ERROROROROROR');
 									schedule.push({error: err});
 								} else {
+									console.log('notes rows:' + result.rowCount);
 									if (result && result.rowCount > 0) {
 										for(var i = 0; i < result.rowCount.length; i++) {
 											var notes_employee_id = result.rows[i].employeeid;
 											var notes = result.rows[i].notes;
+											console.log('notes id:' + notes_employee_id + 'notes: ' + notes);
+											//need to match the date!!!!!
 
 											for(var x = 0; x < schedule.length; x++) {
 												if (notes_employee_id == schedule[x].id) {
