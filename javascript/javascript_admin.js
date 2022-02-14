@@ -179,13 +179,13 @@ function getSchedule() {
             {
                 scheduleDays[schedule[i].id] = { 
                     name: schedule[i].name,
-                    monday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [] },
-                    tuesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
-                    wednesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
-                    thursday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
-                    friday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
-                    saturday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  },
-                    sunday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: []  }
+                    monday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: '' },
+                    tuesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  },
+                    wednesday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  },
+                    thursday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  },
+                    friday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  },
+                    saturday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  },
+                    sunday: { workMinutes: 0, restMinutes: 0, mealMinutes: 0, starttime: '', finishtime: '', starttimes: [], finishtimes: [], notes: ''  }
                 };
             }
 
@@ -211,6 +211,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].sunday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].sunday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].sunday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].sunday.notes = schedule[i].notes;
             } else if (day == 1) { //monday
                 scheduleDays[schedule[i].id].monday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].monday.restMinutes += restMinutes;
@@ -219,6 +220,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].monday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].monday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].monday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].monday.notes = schedule[i].notes;
             } else if (day == 2) { 
                 scheduleDays[schedule[i].id].tuesday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].tuesday.restMinutes += restMinutes;
@@ -227,6 +229,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].tuesday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].tuesday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].tuesday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].tuesday.notes = schedule[i].notes;
             } else if (day == 3) { 
                 scheduleDays[schedule[i].id].wednesday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].wednesday.restMinutes += restMinutes;
@@ -235,6 +238,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].wednesday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].wednesday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].wednesday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].wednesday.notes = schedule[i].notes;
             } else if (day == 4) { 
                 scheduleDays[schedule[i].id].thursday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].thursday.restMinutes += restMinutes;
@@ -243,6 +247,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].thursday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].thursday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].thursday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].thursday.notes = schedule[i].notes;
             } else if (day == 5) { 
                 scheduleDays[schedule[i].id].friday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].friday.restMinutes += restMinutes;
@@ -251,6 +256,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].friday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].friday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].friday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].friday.notes = schedule[i].notes;
             } else if (day == 6) { //saturday
                 scheduleDays[schedule[i].id].saturday.workMinutes += workMinutes;
                 scheduleDays[schedule[i].id].saturday.restMinutes += restMinutes;
@@ -259,6 +265,7 @@ function getSchedule() {
                 scheduleDays[schedule[i].id].saturday.finishtime = formatTime(schedule[i].finishtime);
                 scheduleDays[schedule[i].id].saturday.starttimes.push(formatTime(schedule[i].starttime));
                 scheduleDays[schedule[i].id].saturday.finishtimes.push(formatTime(schedule[i].finishtime));
+                scheduleDays[schedule[i].id].saturday.notes = schedule[i].notes;
             }
         }
 
@@ -285,6 +292,9 @@ function getSchedule() {
                 time += scheduleDays[i].monday.starttimes[x] + ' - ' + scheduleDays[i].monday.finishtimes[x] + '\n';
             }
             monday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].monday.notes.length > 0) {
+                monday.title += '\nNotes: ' + scheduleDays[i].monday.notes;
+            }
             monday.innerHTML = calculateHours(paidMinutes);
             totalMonday += paidMinutes;
 
@@ -299,6 +309,9 @@ function getSchedule() {
                 time += scheduleDays[i].tuesday.starttimes[x] + ' - ' + scheduleDays[i].tuesday.finishtimes[x] + '\n';
             }
             tuesday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].tuesday.notes.length > 0) {
+                tuesday.title += '\nNotes: ' + scheduleDays[i].tuesday.notes;
+            }
             tuesday.innerHTML = calculateHours(paidMinutes);
             totalTuesday += paidMinutes;
 
@@ -313,6 +326,9 @@ function getSchedule() {
                 time += scheduleDays[i].wednesday.starttimes[x] + ' - ' + scheduleDays[i].wednesday.finishtimes[x] + '\n';
             }
             wednesday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].wednesday.notes.length > 0) {
+                wednesday.title += '\nNotes: ' + scheduleDays[i].wednesday.notes;
+            }
             wednesday.innerHTML = calculateHours(paidMinutes);
             totalWednesday += paidMinutes;
 
@@ -327,6 +343,9 @@ function getSchedule() {
                 time += scheduleDays[i].thursday.starttimes[x] + ' - ' + scheduleDays[i].thursday.finishtimes[x] + '\n';
             }
             thursday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].thursday.notes.length > 0) {
+                thursday.title += '\nNotes: ' + scheduleDays[i].thursday.notes;
+            }
             thursday.innerHTML = calculateHours(paidMinutes);
             totalThursday += paidMinutes;
 
@@ -341,6 +360,9 @@ function getSchedule() {
                 time += scheduleDays[i].friday.starttimes[x] + ' - ' + scheduleDays[i].friday.finishtimes[x] + '\n';
             }
             friday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].friday.notes.length > 0) {
+                friday.title += '\nNotes: ' + scheduleDays[i].friday.notes;
+            }
             friday.innerHTML = calculateHours(paidMinutes);
             totalFriday += paidMinutes;
 
@@ -355,6 +377,9 @@ function getSchedule() {
                 time += scheduleDays[i].saturday.starttimes[x] + ' - ' + scheduleDays[i].saturday.finishtimes[x] + '\n';
             }
             saturday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].saturday.notes.length > 0) {
+                saturday.title += '\nNotes: ' + scheduleDays[i].saturday.notes;
+            }
             saturday.innerHTML = calculateHours(paidMinutes);
             totalSaturday += paidMinutes;
 
@@ -369,6 +394,9 @@ function getSchedule() {
                 time += scheduleDays[i].sunday.starttimes[x] + ' - ' + scheduleDays[i].sunday.finishtimes[x] + '\n';
             }
             sunday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
+            if (scheduleDays[i].sunday.notes.length > 0) {
+                sunday.title += '\nNotes: ' + scheduleDays[i].sunday.notes;
+            }
             sunday.innerHTML = calculateHours(paidMinutes);
             totalSunday += paidMinutes;
 

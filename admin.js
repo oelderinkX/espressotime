@@ -287,23 +287,16 @@ module.exports = function(app){
 											var notes_employee_id = result.rows[i].employeeid;
 											var notes = result.rows[i].notes;
 											var date = result.rows[i].date;
-											console.log('notes id:' + notes_employee_id + ' date: ' + date + ' notes: ' + notes);
 
 											for(var x = 0; x < schedule.length; x++) {
 												if (notes_employee_id == schedule[x].id) {
 													var startTime = new Date(schedule[x].starttime);
 													var newDate = new Date(schedule[x].starttime);
 													newDate.setHours(0,0,0,0);
-													console.log('startTime:' + startTime + 'newDate: ' + newDate);
-													console.log('newDate: ' + newDate);
-													console.log('note date:' + date);
-													console.log('');
 
 													if (date.toString() == newDate.toString()) {
-														console.log('AMTCH');
 														schedule[x].notes = notes;
 													}
-													console.log('');
 												}
 											}
 										}
