@@ -299,9 +299,11 @@ module.exports = function(app){
 													console.log('note date:' + date);
 													console.log('');
 
-													if (date == newDate) {
+													if (date.toString() == newDate.toString()) {
+														console.log('AMTCH');
 														schedule[x].notes = notes;
 													}
+													console.log('');
 												}
 											}
 										}
