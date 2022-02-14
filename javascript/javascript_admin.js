@@ -294,7 +294,7 @@ function getSchedule() {
             monday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].monday.notes.length > 0) {
                 monday.title += '\nNotes: ' + scheduleDays[i].monday.notes;
-                monday.style.cssText += 'text-decoration: underline;';
+                monday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             monday.innerHTML = calculateHours(paidMinutes);
             totalMonday += paidMinutes;
@@ -312,7 +312,7 @@ function getSchedule() {
             tuesday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].tuesday.notes.length > 0) {
                 tuesday.title += '\nNotes: ' + scheduleDays[i].tuesday.notes;
-                tuesday.style.cssText += 'text-decoration: underline;';
+                tuesday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             tuesday.innerHTML = calculateHours(paidMinutes);
             totalTuesday += paidMinutes;
@@ -330,7 +330,7 @@ function getSchedule() {
             wednesday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].wednesday.notes.length > 0) {
                 wednesday.title += '\nNotes: ' + scheduleDays[i].wednesday.notes;
-                wednesday.style.cssText += 'text-decoration: underline;';
+                wednesday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             wednesday.innerHTML = calculateHours(paidMinutes);
             totalWednesday += paidMinutes;
@@ -348,7 +348,7 @@ function getSchedule() {
             thursday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].thursday.notes.length > 0) {
                 thursday.title += '\nNotes: ' + scheduleDays[i].thursday.notes;
-                thursday.style.cssText += 'text-decoration: underline;';
+                thursday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             thursday.innerHTML = calculateHours(paidMinutes);
             totalThursday += paidMinutes;
@@ -366,7 +366,7 @@ function getSchedule() {
             friday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].friday.notes.length > 0) {
                 friday.title += '\nNotes: ' + scheduleDays[i].friday.notes;
-                friday.style.cssText += 'text-decoration: underline;';
+                friday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             friday.innerHTML = calculateHours(paidMinutes);
             totalFriday += paidMinutes;
@@ -384,7 +384,7 @@ function getSchedule() {
             saturday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].saturday.notes.length > 0) {
                 saturday.title += '\nNotes: ' + scheduleDays[i].saturday.notes;
-                saturday.style.cssText += 'text-decoration: underline;';
+                saturday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             saturday.innerHTML = calculateHours(paidMinutes);
             totalSaturday += paidMinutes;
@@ -402,7 +402,7 @@ function getSchedule() {
             sunday.title = 'Time: ' + time +  'Work Hours: ' + calculateHours(workMinutes) + 'hrs \nRest Minutes: ' + restMinutes + 'mins \nMeal Minutes: ' + mealMinutes + 'mins';
             if (scheduleDays[i].sunday.notes.length > 0) {
                 sunday.title += '\nNotes: ' + scheduleDays[i].sunday.notes;
-                sunday.style.cssText += 'text-decoration: underline;';
+                sunday.style.cssText += 'text-decoration: underline overline dotted red;';
             }
             sunday.innerHTML = calculateHours(paidMinutes);
             totalSunday += paidMinutes;
