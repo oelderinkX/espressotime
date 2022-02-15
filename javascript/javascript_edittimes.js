@@ -25,10 +25,10 @@ function setDatesCombo() {
     if (day == 0) {
         optionDate.setDate( optionDate.getDate() - 6 );
     } else {
-        optionDate.setDate( optionDate.getDate() - (day - 1) - 7 ); // remove 7
+        optionDate.setDate( optionDate.getDate() - (day - 1) ); // remove 7
     }
 
-    for(var i = 1; i < 15; i++) {
+    for(var i = 1; i < 8; i++) {
         var value = getDbFormat(optionDate);
         var display = displayDate(optionDate) + ' (' + dayNames[optionDate.getDay()] + ')';
         var option = document.createElement("option");
