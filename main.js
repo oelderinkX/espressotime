@@ -31,7 +31,7 @@ module.exports = function(app){
 		var name = req.body.name;
 		var pass = req.body.password;
 		
-		var sql = "SELECT id, name from espresso.shop where name = $1 and password = $2"
+		var sql = "SELECT id, shopid, name, username, permissions from espresso.user where username = $1 and password = $2"
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [name, pass], function(err, result) {
@@ -40,10 +40,17 @@ module.exports = function(app){
 				var login = { success: false, reason: "unknown error" };
 
 				if (result && result.rowCount == 1) {
-					var encode = Buffer.from(result.rows[0].name + ';12121976;' + result.rows[0].id).toString('base64');
+					var encoded_identifier = result.rows[0].id;
+					encoded_identifier += ';12121976;';
+					encoded_identifier += result.rows[0].shopid;
+					encoded_identifier += ';12121976;';
+					encoded_identifier += result.rows[0].username;
+					encoded_identifier += ';12121976;';
+
+					var encode = Buffer.from(encoded_identifier).toString('base64');
 					login = { success: true, identifier: encode };
 				} else if (result && result.rowCount > 1 ) {
-					login = { success: false, reason: "multiple shops found, call administrator" };
+					login = { success: false, reason: "multiple users found, call administrator" };
 				} else {
 					login = { success: false, reason: "shop name or password incorrect" };
 				}
