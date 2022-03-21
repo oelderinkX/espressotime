@@ -65,6 +65,20 @@ function loadProductDetailsCombo() {
     }
 }
 
+function displayProductDetails() {
+    var select = document.getElementById('productdetailslist');
+    var productdetails = getProductDetails(select.value);
+    
+    var id = document.getElementById('id');
+    id.value = productdetails.id;
+
+    var product_id = document.getElementById('product_id');
+    product_id.value = productdetails.product_id;
+
+    var vegetarian = document.getElementById('vegetarian');
+    vegetarian.value = productdetails.vegetarian;
+}
+
 function getProductionCostings() {
     var selectproductcosting = document.getElementById('productcostings');
     selectproductcosting.innerHTML = '';
@@ -85,6 +99,14 @@ function getProductCosting(id) {
     for(var i = 0; i < productcostings.length; i++) {
         if (productcostings[i].id == id) {
             return productcostings[i];
+        }
+    } 
+}
+
+function getProductDetails(id) {
+    for(var i = 0; i < productdetails.length; i++) {
+        if (productdetails[i].id == id) {
+            return productdetails[i];
         }
     } 
 }
