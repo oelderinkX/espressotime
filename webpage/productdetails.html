@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Tools</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="javascript/common.js"></script>
+    <script src="javascript/javascript_tools.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<html>
+<body>
+    <h1>Product Details</h1>
+    <table width="100%" border=1>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="1px">
+                <select id="products" class="custom-select" size="15" onchange="displayProductDetails();">
+                </select>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id">
+                <label for="name">Description:</label>
+                <input type="text" class="form-control" id="name"/>
+                <h3>Prep</h3>
+                <br/>
+                <label for="oven">Ovenjet:</label>
+                <input type="text" class="form-control" id="oven" value="1"/>
+                <label for="microwave">Microwave:</label>
+                <input type="text" class="form-control" id="microwave" value="1"/>
+                <label for="panini">Panini Press:</label>
+                <input type="text" class="form-control" id="panini" value="1"/>
+                <br/>
+                <button type="button" class="btn btn-success" onclick="saveProductDetails();">Save</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    //loadAllProducts();
+</script>
+</html>
