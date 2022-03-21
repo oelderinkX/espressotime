@@ -181,8 +181,9 @@ module.exports = function(app){
 					connection.query(sql_details, [shopId, productIds], function(err, result) {
 						done();
 
+						console.log('jdetails: rows ' + result.rowCount);
+
 						if (result && result.rowCount > 0) {
-							console.log('jdetails: rows ' + result.rowCount);
 							for(var i = 0; i < result.rowCount; i++) {
 								console.log('jdetails: pd.length ' + productsdetails.length);
 								for(var x = 0; x < productsdetails.length; x++) {
