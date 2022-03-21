@@ -182,8 +182,11 @@ module.exports = function(app){
 						done();
 
 						if (result && result.rowCount > 0) {
+							console.log('jdetails: rows ' + result.rowCount);
 							for(var i = 0; i < result.rowCount; i++) {
+								console.log('jdetails: pd.length ' + productsdetails.length);
 								for(var x = 0; x < productsdetails.length; x++) {
+									console.log('jdetails: match');
 									if (productdetails[x].product_id == result.rows[i].product_id) {
 										productdetails[x].id = result.rows[i].id;
 										productdetails[x].vegetarian = result.rows[i].vegetarian;
