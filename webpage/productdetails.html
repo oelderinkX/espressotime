@@ -27,17 +27,33 @@
                 </select>
             </td>
             <td style="vertical-align:top;padding: 15px">
-                <input type="hidden" id="id">
+                <input type="hidden" id="id" value="0"/>
+                <input type="hidden" id="product_id" value="0"/>
                 <h3>Description</h3>
                 <textarea rows="10" style="width:100%;" id="description"></textarea>
                 <h3>Prep</h3>
                 <br/>
                 <label for="oven">Ovenjet:</label>
-                <input type="text" class="form-control" id="oven" value="1"/>
+                <input type="text" class="form-control" id="oven" value=""/>
                 <label for="microwave">Microwave:</label>
-                <input type="text" class="form-control" id="microwave" value="1"/>
+                <input type="text" class="form-control" id="microwave" value=""/>
                 <label for="panini">Panini Press:</label>
-                <input type="text" class="form-control" id="panini" value="1"/>
+                <input type="text" class="form-control" id="panini" value=""/>
+
+                <label for="vegetarian">Vegetarian:</label>
+                <input type="checkbox" class="form-control" id="vegetarian"/>
+                <label for="vegan">Vegan:</label>
+                <input type="checkbox" class="form-control" id="vegan"/>
+                <label for="glutenfree">Gluten free:</label>
+                <input type="checkbox" class="form-control" id="glutenfree"/>
+                <label for="dairyfree">Dairy free:</label>
+                <input type="checkbox" class="form-control" id="dairyfree"/>
+                <label for="kosher">Kosher:</label>
+                <input type="checkbox" class="form-control" id="kosher"/>
+                <label for="keto">Keto:</label>
+                <input type="checkbox" class="form-control" id="keto"/>
+                <label for="halal">Halal:</label>
+                <input type="checkbox" class="form-control" id="halal"/>
                 <br/>
                 <button type="button" class="btn btn-success" onclick="saveProductDetails();">Save</button>
             </td>

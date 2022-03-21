@@ -175,7 +175,12 @@ module.exports = function(app){
 				}
 
 				var sql_details = 'select id, product_id, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, overjet, microwave, panini, description, prep from espresso.product_detail';
-				sql_details += ' where shopid = $1 and product_id in (' + productIds.join(",") + ')';
+				sql_details += ' where shopid = $1';
+
+				if (productIds && productIds.length > 0)
+				{
+					sql_details += ' and product_id in (' + productIds.join(",") + ')';
+				}
 
 				pool.connect(function(err, connection, done) {
 					connection.query(sql_details, [shopId], function(err, result) {
@@ -183,9 +188,7 @@ module.exports = function(app){
 
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
-								console.log('jdetails: pd.length ' + productdetails.length);
 								for(var x = 0; x < productdetails.length; x++) {
-									console.log('jdetails: match');
 									if (productdetails[x].product_id == result.rows[i].product_id) {
 										productdetails[x].id = result.rows[i].id;
 										productdetails[x].vegetarian = result.rows[i].vegetarian;
@@ -200,7 +203,6 @@ module.exports = function(app){
 										productdetails[x].panini = result.rows[i].panini;
 										productdetails[x].description = result.rows[i].description;
 										productdetails[x].prep = result.rows[i].prep;
-
 									}
 								}
 							}
