@@ -184,7 +184,7 @@ module.exports = function(app){
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
 								for(var x = 0; x < productsdetails.length; x++) {
-									if (productdetails[x] == result.rows[i].product_id) {
+									if (productdetails[x].product_id == result.rows[i].product_id) {
 										productdetails[x].id = result.rows[i].id;
 										productdetails[x].vegetarian = result.rows[i].vegetarian;
 										productdetails[x].vegan = result.rows[i].vegan;
