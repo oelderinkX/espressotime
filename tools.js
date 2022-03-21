@@ -174,8 +174,8 @@ module.exports = function(app){
 					}
 				}
 
-				var sql_details = 'select id, product_id, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, overjet, microwave, panini, description, prep from espresso.product_detail
-				sql_details += 'where shopid = $1 and product_id in $2';
+				var sql_details = 'select id, product_id, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, overjet, microwave, panini, description, prep from espresso.product_detail';
+				sql_details += ' where shopid = $1 and product_id in $2';
 
 				pool.connect(function(err, connection, done) {
 					connection.query(sql_details, [shopId, productIds], function(err, result) {
