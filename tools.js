@@ -149,17 +149,64 @@ module.exports = function(app){
 				done();
 
 				var productsdetails = [];
+				var productIds = [];
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
 						productsdetails.push({
-							id: result.rows[i].id,
+							id: 0,
+							product_id: result.rows[i].id,
 							name: result.rows[i].name,
+							vegetarian: false,
+							vegan: false,
+							glutenfree: false,
+							dairyfree: false,
+							kosher: false,
+							keto: false,
+							halal: false,
+							overjet: 0,
+							microwave: 0,
+							panini: 0,
+							description: '',
+							prep: '',
 						});
+						productIds.push(result.rows[i].id);
 					}
 				}
 
-				res.send(productsdetails);
+				var sql_details = 'select id, product_id, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, overjet, microwave, panini, description, prep from espresso.product_detail
+				sql_details += 'where shopid = $1 and product_id in $2';
+
+				pool.connect(function(err, connection, done) {
+					connection.query(sql_details, [shopId, productIds], function(err, result) {
+						done();
+
+						if (result && result.rowCount > 0) {
+							for(var i = 0; i < result.rowCount; i++) {
+								for(var x = 0; x < productsdetails.length; x++) {
+									if (productdetails[x] == result.rows[i].product_id) {
+										productdetails[x].id = result.rows[i].id;
+										productdetails[x].vegetarian = result.rows[i].vegetarian;
+										productdetails[x].vegan = result.rows[i].vegan;
+										productdetails[x].glutenfree = result.rows[i].glutenfree;
+										productdetails[x].dairyfree = result.rows[i].dairyfree;
+										productdetails[x].kosher = result.rows[i].kosher;
+										productdetails[x].keto = result.rows[i].keto;
+										productdetails[x].halal = result.rows[i].halal;
+										productdetails[x].overjet = result.rows[i].overjet;
+										productdetails[x].microwave = result.rows[i].microwave;
+										productdetails[x].panini = result.rows[i].panini;
+										productdetails[x].description = result.rows[i].description;
+										productdetails[x].prep = result.rows[i].prep;
+
+									}
+								}
+							}
+						}
+
+						res.send(productsdetails);
+					});
+				});
 			});
 		});
 	});
