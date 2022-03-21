@@ -138,4 +138,29 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/getproductdetails', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var sql = 'select id, name from espresso.product where shopid = $1';
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var productsdetails = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						productsdetails.push({
+							id: result.rows[i].id,
+							name: result.rows[i].name,
+						});
+					}
+				}
+
+				res.send(productsdetails);
+			});
+		});
+	});
 }

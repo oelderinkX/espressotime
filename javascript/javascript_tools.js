@@ -1,4 +1,6 @@
 var productcostings = [];
+var productdetails = [];
+
 function loadAllProducts() {
     var request = {};
     sendPost("/getproducts", JSON.stringify(request), function(response) {
@@ -32,8 +34,37 @@ function loadAllProducts() {
 
         getProductionCostings();
     });
+}
 
-    
+function loadAllProductDetails() {
+    var request = {};
+    sendPost("/getproductdetails", JSON.stringify(request), function(response) {
+        productdetails = [];
+        var allproducts  = JSON.parse(response);
+
+        for(var i = 0; i < allproducts.length; i++)
+        {
+            productdetails.push(allproducts[i]);
+        }
+
+        loadProductDetailsCombo();
+    });
+}
+
+function loadProductDetailsCombo() {
+    var productdetailslist = document.getElementById('productdetailslist');
+
+    productdetailslist.innerHTML = '';
+
+    for(var i = 0; i < productcostings.length; i++) {
+        var productdetail = productdetails[i];
+        var option = document.createElement('option');
+        option.setAttribute('value', productdetail.id);
+        option.innerHTML = productdetail.name;
+        productdetailslist.appendChild(option);
+    }
+
+    selectproductcosting.selectedIndex = 0;
 }
 
 function getProductionCostings() {
