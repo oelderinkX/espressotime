@@ -76,7 +76,7 @@ function displayProductDetails() {
     product_id.value = productdetails.product_id;
 
     var vegetarian = document.getElementById('vegetarian');
-    vegetarian.value = productdetails.vegetarian;
+    vegetarian.checked = productdetails.vegetarian;
 }
 
 function getProductionCostings() {
