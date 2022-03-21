@@ -56,7 +56,7 @@ function loadProductDetailsCombo() {
 
     productdetailslist.innerHTML = '';
 
-    for(var i = 0; i < productcostings.length; i++) {
+    for(var i = 0; i < productdetails.length; i++) {
         var productdetail = productdetails[i];
         var option = document.createElement('option');
         option.setAttribute('value', productdetail.id);
