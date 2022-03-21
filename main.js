@@ -235,6 +235,8 @@ module.exports = function(app){
 		var startTime = req.body.startTime;
 		var breakType = req.body.breakType;
 		
+		//should I double check and see if a break time has been inserted with the same
+		//start time!!! to avoid double ups
 		var sql = "INSERT INTO espresso.break (employeeid, starttime, breakType)";
 		sql += " SELECT '" + employeeId + "', '" + startTime + "', " + "'" + breakType + "'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "');"
