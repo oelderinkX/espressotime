@@ -148,12 +148,12 @@ module.exports = function(app){
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
-				var productsdetails = [];
+				var productdetails = [];
 				var productIds = [];
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						productsdetails.push({
+						productdetails.push({
 							id: 0,
 							product_id: result.rows[i].id,
 							name: result.rows[i].name,
@@ -183,8 +183,8 @@ module.exports = function(app){
 
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
-								console.log('jdetails: pd.length ' + productsdetails.length);
-								for(var x = 0; x < productsdetails.length; x++) {
+								console.log('jdetails: pd.length ' + productdetails.length);
+								for(var x = 0; x < productdetails.length; x++) {
 									console.log('jdetails: match');
 									if (productdetails[x].product_id == result.rows[i].product_id) {
 										productdetails[x].id = result.rows[i].id;
