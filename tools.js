@@ -206,7 +206,7 @@ module.exports = function(app){
 							}
 						}
 
-						res.send(productsdetails);
+						res.send(productdetails);
 					});
 				});
 			});
