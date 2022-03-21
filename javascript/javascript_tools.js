@@ -63,8 +63,6 @@ function loadProductDetailsCombo() {
         option.innerHTML = productdetail.name;
         productdetailslist.appendChild(option);
     }
-
-    selectproductcosting.selectedIndex = 0;
 }
 
 function getProductionCostings() {
