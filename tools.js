@@ -103,16 +103,6 @@ module.exports = function(app){
 
 		var sql = '';
 
-		console.log('updatepro id: ' + id);
-		console.log('updatepro name: ' + name);
-		console.log('updatepro author: ' + author);
-		console.log('updatepro ingredients: ' + ingredients);
-		console.log('updatepro totalcost: ' + totalcost);
-		console.log('updatepro yield: ' + yield);
-		console.log('updatepro costperyield: ' + costperyield);
-		console.log('updatepro recommendedprice: ' + recommendedprice);
-		console.log('updatepro recipe: ' + recipe);
-
 		var parameters = [];
 		if (id == 0) {
 			//insert
@@ -211,6 +201,51 @@ module.exports = function(app){
 						res.send(productdetails);
 					});
 				});
+			});
+		});
+	});
+
+	app.post('/updateproductdetails', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+        var product_id = req.body.product_id;
+        var description = req.body.description;
+        var prep = req.body.prep;
+        var oven = req.body.oven;
+        var microwave = req.body.microwave;
+        var panini = req.body.panini;
+        var vegetarian = req.body.vegetarian;
+        var vegan = req.body.vegan;
+        var glutenfree = req.body.glutenfree;
+        var dairyfree = req.body.dairyfree;
+        var kosher = req.body.kosher;
+        var keto = req.body.keto;
+        var halal = req.body.halal;
+
+		var sql = '';
+
+		var parameters = [];
+		if (id == 0) {
+			//insert
+			sql = 'INSERT INTO espresso.product_detail (product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, shopid)';
+			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);';
+			parameters = [product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, shopId];
+
+		} else {
+			sql = 'update espresso.product_detail set product_id=$1, description=$2, prep=$3, oven=$4, microwave=$5, panini=$6, vegetarian=$7, vegan=$8,';
+			sql += ' glutenfree=$9, dairyfree=$10, kosher=$11, keto=$12, halal=$13 where id = $14;';
+			parameters = [product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, id];
+		}
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, parameters, function(err, result) {
+				done();
+
+				if(err) {
+					console.log(err);
+				}
+
+				res.send(result);
 			});
 		});
 	});

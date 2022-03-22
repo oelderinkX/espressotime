@@ -75,8 +75,41 @@ function displayProductDetails() {
     var product_id = document.getElementById('product_id');
     product_id.value = productdetails.product_id;
 
+    var description = document.getElementById('description');
+    description.value = productdetails.description;
+
+    var prep = document.getElementById('prep');
+    prep.value = productdetails.prep;
+
+    var oven = document.getElementById('oven');
+    oven.value = productdetails.oven;
+
+    var microwave = document.getElementById('microwave');
+    microwave.value = productdetails.microwave;
+
+    var panini = document.getElementById('panini');
+    panini.value = productdetails.panini;
+
     var vegetarian = document.getElementById('vegetarian');
     vegetarian.checked = productdetails.vegetarian;
+
+    var vegan = document.getElementById('vegan');
+    vegan.checked = productdetails.vegan;
+
+    var glutenfree = document.getElementById('glutenfree');
+    glutenfree.checked = productdetails.glutenfree;
+
+    var dairyfree = document.getElementById('dairyfree');
+    dairyfree.checked = productdetails.dairyfree;
+
+    var kosher = document.getElementById('kosher');
+    kosher.checked = productdetails.kosher;
+
+    var keto = document.getElementById('keto');
+    keto.checked = productdetails.keto;
+
+    var halal = document.getElementById('halal');
+    halal.checked = productdetails.halal;
 }
 
 function getProductionCostings() {
