@@ -59,7 +59,7 @@ function loadProductDetailsCombo() {
     for(var i = 0; i < productdetails.length; i++) {
         var productdetail = productdetails[i];
         var option = document.createElement('option');
-        option.setAttribute('value', productdetail.id);
+        option.setAttribute('value', productdetail.product_id);
         option.innerHTML = productdetail.name;
         productdetailslist.appendChild(option);
     }
@@ -67,7 +67,7 @@ function loadProductDetailsCombo() {
 
 function displayProductDetails() {
     var select = document.getElementById('productdetailslist');
-    var productdetails = getProductDetails(select.value);
+    var productdetails = getProductDetailsByProductId(select.value);
     
     var id = document.getElementById('id');
     id.value = productdetails.id;
@@ -103,9 +103,9 @@ function getProductCosting(id) {
     } 
 }
 
-function getProductDetails(id) {
+function getProductDetailsByProductId(product_id) {
     for(var i = 0; i < productdetails.length; i++) {
-        if (productdetails[i].id == id) {
+        if (productdetails[i].product_id == product_id) {
             return productdetails[i];
         }
     } 
@@ -401,5 +401,44 @@ function saveProductCosting() {
 
     sendPost("/updateproducts", JSON.stringify(product), function(response) {
         loadAllProducts();
+    });
+}
+
+function saveProductDetails() {
+    var id = document.getElementById('id');
+    var product_id = document.getElementById('product_id');
+
+    var description = document.getElementById('description');
+    var prep = document.getElementById('prep');
+    var oven = document.getElementById('oven');
+    var microwave = document.getElementById('microwave');
+    var panini = document.getElementById('panini');
+    var vegetarian = document.getElementById('vegetarian');
+    var vegan = document.getElementById('vegan');
+    var glutenfree = document.getElementById('glutenfree');
+    var dairyfree = document.getElementById('dairyfree');
+    var kosher = document.getElementById('kosher');
+    var keto = document.getElementById('keto');
+    var halal = document.getElementById('halal');
+
+    var productdetail = {
+        id: id.value,
+        product_id: product_id.value,
+        description: description.value,
+        prep: prep.value,
+        oven: oven.value,
+        microwave: microwave.value,
+        panini: panini.value,
+        vegetarian: vegetarian.checked,
+        vegan: vegan.checked,
+        glutenfree: glutenfree.checked,
+        dairyfree: dairyfree.checked,
+        kosher: kosher.checked,
+        keto: keto.checked,
+        halal: halal.checked
+    };
+
+    sendPost("/updateproductdetails", JSON.stringify(productdetail), function(response) {
+        loadAllProductDetails();
     });
 }
