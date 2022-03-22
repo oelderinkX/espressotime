@@ -225,14 +225,14 @@ module.exports = function(app){
 		var sql = '';
 
 		var parameters = [];
-		if (id == 0) {
+		if (id == "0") {
 			//insert
-			sql = 'INSERT INTO espresso.product_detail (product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, shopid)';
+			sql = 'INSERT INTO espresso.product_detail (product_id, description, prep, ovenjet, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, shopid)';
 			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);';
 			parameters = [product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, shopId];
 
 		} else {
-			sql = 'update espresso.product_detail set product_id=$1, description=$2, prep=$3, oven=$4, microwave=$5, panini=$6, vegetarian=$7, vegan=$8,';
+			sql = 'update espresso.product_detail set product_id=$1, description=$2, prep=$3, ovenjet=$4, microwave=$5, panini=$6, vegetarian=$7, vegan=$8,';
 			sql += ' glutenfree=$9, dairyfree=$10, kosher=$11, keto=$12, halal=$13 where id = $14;';
 			parameters = [product_id, description, prep, oven, microwave, panini, vegetarian, vegan, glutenfree, dairyfree, kosher, keto, halal, id];
 		}
