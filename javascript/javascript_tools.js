@@ -438,6 +438,9 @@ function saveProductCosting() {
 }
 
 function saveProductDetails() {
+    var productdetailslist = document.getElementById('productdetailslist');
+    var selectedIndex = productdetailslist.selectedIndex;
+
     var id = document.getElementById('id');
     var product_id = document.getElementById('product_id');
 
@@ -473,5 +476,6 @@ function saveProductDetails() {
 
     sendPost("/updateproductdetails", JSON.stringify(productdetail), function(response) {
         loadAllProductDetails();
+        productdetailslist.selectedIndex = selectedIndex;
     });
 }
