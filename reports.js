@@ -19,7 +19,7 @@ function LabelsReport(res, shopId) {
 	var labels = [];
 
 	pool.connect(function(err, connection, done) {
-		connection.query(employeesql, [shopId], function(err, result) {
+		connection.query(sql, [shopId], function(err, result) {
 			done();
 			if (result && result.rowCount > 0) {
 				for(var i = 0; i < result.rowCount; i++) {
