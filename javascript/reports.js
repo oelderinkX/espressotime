@@ -166,10 +166,7 @@ function runReport() {
         var param_id = report.parameters[i].id;
 
         var element = document.getElementById(param_id);
-
-        if (param_type == 'date') {
-            request[param_id] = element.value;
-        }
+        request[param_id] = element.value; // if this is a checkbox might need to get .checked!
     }
 
     let windowName = report.id + '_' + Date.now() + Math.floor(Math.random() * 100000).toString();
