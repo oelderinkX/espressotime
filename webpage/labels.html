@@ -1,0 +1,200 @@
+<html>
+<style>
+table  {
+	padding: 1px 1px 10px 10px;
+}
+
+td  {
+	padding: 2px 10px 2px 10px;
+}
+
+
+.labeltable {
+	border: 1px solid black;
+	border-collapse: collapse;
+	width:200;
+	height: 300;
+}
+
+.labeltd {
+	text-align:center;
+	border-collapse: collapse;
+	padding: 3px 7px 3px 7px;
+}
+
+.labeldescriptiontd {
+	text-align:center;
+	border-collapse: collapse;
+	padding: 2px 7px 2px 7px;
+}
+
+.labelpricetd {
+	text-align:right;
+	border-collapse: collapse;
+	padding: 3px 7px 3px 7px;
+}
+
+th {
+  border-collapse: collapse;
+  padding: 3px 7px 3px 7px;
+}
+
+.hr {
+    display: block;
+    height: 7px;
+    background: transparent;
+    width: 100%;
+    border: none;
+    border-top: solid 7px #000;
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+</style>
+<script>
+	var labels = []; // set
+</script>
+<script>
+function updateLabel(index) {
+	// probably delete!!!!!
+	
+	var special = '';
+	if (gf.checked) {
+		special += 'GF * ';
+	}
+	if (df.checked) {
+		special += 'DF * ';
+	}
+	if (v.checked) {
+		special += 'V * ';
+	}
+	if (k.checked) {
+		special += 'K * ';
+	}
+	if (special.length > 0) {
+		special = special.slice(0, -3);
+	}
+
+	labelSpecials.innerHTML = special;
+}
+
+function createLabel(name, description, price, specials) {
+	var maintd1 = document.createElement('td');
+
+	var inputtable = document.createElement('table');
+    inputtable.classList.add('no-print');
+
+	maintd1.appendChild(inputtable);
+	maintd1.appendChild(document.createElement('br'));
+	maintd1.appendChild(document.createElement('br'));
+	maintd1.appendChild(inputtable);
+
+	var labeltable = document.createElement('table');
+	labeltable.classList.add('labeltable');
+	labeltable.setAttribute('style', 'margin-left: auto; margin-right: auto;');
+
+	var labeltr1 = document.createElement('tr');
+	var labelth = document.createElement('th');
+	labelth.classList.add('labeltd');
+	var h1 = document.createElement('h1');
+	h1.innerHTML = name;
+	var hr = document.createElement('hr');
+	hr.classList.add('hr');
+	labelth.appendChild(h1);
+	labelth.appendChild(hr);
+	labeltr1.appendChild(labelth);
+	labeltable.appendChild(labeltr1);
+
+	var labeltr2 = document.createElement('tr');
+	var labeltd2 = document.createElement('td');
+	labeltd2.classList.add('labeldescriptiontd');
+	var h3 = document.createElement('h3');
+	h3.innerHTML = description;
+	labeltd2.appendChild(h3);
+	labeltr2.appendChild(labeltd2);
+	labeltable.appendChild(labeltr2);
+
+	var labeltr3 = document.createElement('tr');
+	var labeltd3 = document.createElement('td');
+	labeltd3.classList.add('labelpricetd');
+	var h2 = document.createElement('h2');
+	h2.innerHTML = '$' + price;
+	labeltd3.appendChild(h2);
+	labeltr3.appendChild(labeltd3);
+	labeltable.appendChild(labeltr3);
+
+	var labeltr4 = document.createElement('tr');
+	var labeltd4 = document.createElement('td');
+	labeltd4.classList.add('labeltd');
+	var h4s = document.createElement('h4');
+	h4s.innerHTML = specials;
+	labeltd4.appendChild(h4s);
+	labeltr4.appendChild(labeltd4);
+	labeltable.appendChild(labeltr4);
+
+	maintd1.appendChild(labeltable);
+
+	return maintd1;
+}
+
+function createSpacing() {
+	var trline1 = document.createElement('tr');
+	var tdline1 = document.createElement('td');
+	tdline1.setAttribute('colspan', '3');
+	var br1 = document.createElement('br');
+	br1.classList.add('no-print');
+	var br1x = document.createElement('br');
+	br1x.classList.add('no-print');
+	var hr1 = document.createElement('hr');
+	hr1.classList.add('no-print');
+	tdline1.appendChild(br1);
+	tdline1.appendChild(br1x);
+	tdline1.appendChild(hr1);
+	trline1.appendChild(tdline1);
+
+	return trline1;
+}
+
+function createAllLabels() {
+	var maintable = document.createElement('table');
+	maintable.setAttribute('id', 'maintable');
+    maintable.setAttribute('border', '0');
+
+	var tr1 = document.createElement('tr');
+	for(var i = 0; i < labels.length; i++)
+	{
+		if (i > 0 && i % 3 == 0) {
+			tr1 = document.createElement('tr');
+		}
+
+		tr1.appendChild(createLabel(labels[i].name, labels[i].description, labels[i].price, labels[i].specials));
+
+		maintable.appendChild(tr1);
+
+		if (i > 0 && i % 3 == 0) {
+			var spacing1 = createSpacing();
+			maintable.appendChild(spacing1);
+		}
+	}
+
+	var p = document.getElementById('alltables');
+	p.appendChild(maintable);
+}
+
+</script>
+<body>
+<p id="alltables"></p>
+<br/>
+<br/>
+<br/>
+<button type="button" onclick="window.print()" class='no-print'>Print Labels</button>
+</body>
+<script>
+	createAllLabels();
+</script>
+<html>
