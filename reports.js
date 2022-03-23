@@ -7,6 +7,11 @@ var pool = new pg.Pool(common.postgresConfig());
 
 var table = fs.readFileSync(__dirname + "/webpage/table.html", "utf8");
 
+function LabelsReport(res, shopId) {
+	var response = '<html><body>All the labels!</body></html>';
+}
+module.exports.LabelsReport = LabelsReport;
+
 function AssetReport(res, shopId) {
 	var response = table;
 

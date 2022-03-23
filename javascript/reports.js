@@ -38,6 +38,12 @@ var reports = [
         id: "assetreport",
         description: "List all assets",
         parameters: []
+    },
+    {
+        name: "Labels",
+        id: "labels",
+        description: "List all labels for products",
+        parameters: []
     }
 ];
 /*

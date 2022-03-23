@@ -638,6 +638,8 @@ module.exports = function(app){
 			reports.DailyTasks(res, shopId, report.start, report.end)
 		} else if (report.id == 'feedback') {
 			reports.FeedbackReport(res, shopId, report.start, report.end)
+		} else if (report.id == 'labels') {
+			reports.LabelsReport(res, shopId)
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}
