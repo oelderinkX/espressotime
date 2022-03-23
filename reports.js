@@ -25,7 +25,7 @@ function LabelsReport(res, shopId) {
 				for(var i = 0; i < result.rowCount; i++) {
 					labels.push({
 						name: result.rows[i].pname,
-						description: ddesc,
+						description: result.rows[i].ddesc,
 						price: 1.99,
 						specials: 'no specials'
 					});
