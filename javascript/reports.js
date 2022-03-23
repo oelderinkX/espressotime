@@ -44,6 +44,33 @@ var reports = [
         id: "labels",
         description: "List all labels for products",
         parameters: []
+    },
+    {
+        name: "Custom Label",
+        id: "customlabel",
+        description: "Create 1 off label",
+        parameters: [
+            {
+                name: "Name",
+                id: "name",
+                type: "text"
+            },
+            {
+                name: "Description",
+                id: "description",
+                type: "text"
+            },
+            {
+                name: "Price",
+                id: "price",
+                type: "number"
+            },
+            {
+                name: "Specials",
+                id: "special",
+                type: "text"
+            }
+        ]
     }
 ];
 /*
@@ -101,21 +128,19 @@ function displayReport() {
         var type = report.parameters[i].type;
         var id = report.parameters[i].id;
 
-        if (type == 'date') {
-            var label = document.createElement('label');
-            label.setAttribute('for',id);
-            label.innerHTML = name + ':';
-            reportArea.appendChild(label);
+        var label = document.createElement('label');
+        label.setAttribute('for',id);
+        label.innerHTML = name + ':';
+        reportArea.appendChild(label);
 
-            var input = document.createElement('input');
-            input.setAttribute('type', type);
-            input.classList.add('form-control');
-            input.setAttribute('id', id);
-            reportArea.appendChild(input);
+        var input = document.createElement('input');
+        input.setAttribute('type', type);
+        input.classList.add('form-control');
+        input.setAttribute('id', id);
+        reportArea.appendChild(input);
 
-            var br = document.createElement('br');
-            reportArea.appendChild(br);
-        }
+        var br = document.createElement('br');
+        reportArea.appendChild(br);
     }
 
     var br3 = document.createElement('br');
