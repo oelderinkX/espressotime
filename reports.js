@@ -2,13 +2,41 @@ var pg = require('pg');
 var fs = require("fs");
 var common = require('./script/common.js');
 var dateHelper = require('./script/dateHelper.js');
+const { stringify } = require('querystring');
 
 var pool = new pg.Pool(common.postgresConfig());
 
 var table = fs.readFileSync(__dirname + "/webpage/table.html", "utf8");
+var labelsPage = fs.readFileSync(__dirname + "/webpage/labels.html", "utf8");
 
 function LabelsReport(res, shopId) {
-	var response = '<html><body>All the labels!</body></html>';
+	var response = labelsPage;
+
+	var sql = 'select espresso.product.id as pid, espresso.product.name as pname, espresso.product_detail.description as ddesc from espresso.product';
+	sql += ' inner join espresso.product_detail on espresso.product.id = espresso.product_detail.product_id';
+	sql += ' where espresso.product.shopid = $1';
+
+	var labels = [];
+
+	pool.connect(function(err, connection, done) {
+		connection.query(employeesql, [shopId], function(err, result) {
+			done();
+			if (result && result.rowCount > 0) {
+				for(var i = 0; i < result.rowCount; i++) {
+					labels.push({
+						name: result.rows[i].pname,
+						description: ddesc,
+						price: 1.99,
+						specials: 'no specials'
+					});
+				}
+			}
+
+			response = common.replaceAll(response, 'var labels = []; // set', 'var labels = ' + JSON.stringify(labels) + ';');
+
+			res.send(response);
+		});
+	});
 }
 module.exports.LabelsReport = LabelsReport;
 
