@@ -9,6 +9,24 @@ var pool = new pg.Pool(common.postgresConfig());
 var table = fs.readFileSync(__dirname + "/webpage/table.html", "utf8");
 var labelsPage = fs.readFileSync(__dirname + "/webpage/labels.html", "utf8");
 
+function CustomLabelsReport(res, name, description, price, specials) {
+	var response = labelsPage;
+
+	var labels = [];
+
+	labels.push({
+		name: name,
+		description: description,
+		price: price,
+		specials: specials
+	});
+
+	response = common.replaceAll(response, 'var labels = []; // set', 'var labels = ' + JSON.stringify(labels) + ';');
+
+	res.send(response);
+}
+module.exports.CustomLabelsReport = CustomLabelsReport;
+
 function LabelsReport(res, shopId) {
 	var response = labelsPage;
 

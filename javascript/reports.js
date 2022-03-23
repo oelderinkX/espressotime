@@ -48,7 +48,7 @@ var reports = [
     {
         name: "Custom Label",
         id: "customlabel",
-        description: "Create 1 off label",
+        description: "Create a one-off label",
         parameters: [
             {
                 name: "Name",
@@ -67,7 +67,7 @@ var reports = [
             },
             {
                 name: "Specials",
-                id: "special",
+                id: "specials",
                 type: "text"
             }
         ]
@@ -122,6 +122,8 @@ function displayReport() {
     var h5 = document.createElement('h5');
     h5.innerHTML = report.description;
     reportArea.appendChild(h5);
+    var br = document.createElement('br');
+    reportArea.appendChild(br);
 
     for(var i = 0; i < report.parameters.length; i++) {
         var name = report.parameters[i].name;

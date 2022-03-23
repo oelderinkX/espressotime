@@ -640,8 +640,12 @@ module.exports = function(app){
 			reports.FeedbackReport(res, shopId, report.start, report.end)
 		} else if (report.id == 'labels') {
 			reports.LabelsReport(res, shopId)
+		} else if (report.id == 'customlabel') {
+			reports.CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}
 	});
 }
+
+//customlabel
