@@ -28,14 +28,22 @@ function loadAllProducts() {
             saleprice: 0.00
         });
 
+        allproducts = allproducts.sort((a, b) => {
+            var n1 = a;
+            var n2 = b;
+            if (n1 > n2) {
+                return 1;
+            } else if (n1 < n2) {
+                return - 1;
+            } else {
+                return 0;
+            }
+        });
+
         for(var i = 0; i < allproducts.length; i++)
         {
             productcostings.push(allproducts[i]);
         }
-
-        productcostings = productcostings.sort((a, b) => {
-            return a.name - b.name;
-        });
 
         getProductionCostings();
     });
@@ -47,14 +55,22 @@ function loadAllProductDetails() {
         productdetails = [];
         var allproducts  = JSON.parse(response);
 
+        allproducts = allproducts.sort((a, b) => {
+            var n1 = a;
+            var n2 = b;
+            if (n1 > n2) {
+                return 1;
+            } else if (n1 < n2) {
+                return - 1;
+            } else {
+                return 0;
+            }
+        });
+
         for(var i = 0; i < allproducts.length; i++)
         {
             productdetails.push(allproducts[i]);
         }
-
-        productdetails =  productdetails.sort((a, b) => {
-            return a.name - b.name;
-        });
 
         loadProductDetailsCombo();
     });
