@@ -33,14 +33,12 @@ function LabelsReport(res, shopId) {
 	var sql = 'select espresso.product.id as pid';
 	sql += ', espresso.product.name as pname';
 	sql += ', coalesce(espresso.product_detail.description, \'\') as ddesc';
-	sql += ', espresso.product.price as pprice';
+	sql += ', espresso.product.saleprice as pprice';
 	//sql += ', espresso.product.name as pname';  //specials
 	sql += '  from espresso.product';
 	sql += ' full join espresso.product_detail on espresso.product.id = espresso.product_detail.product_id';
 	sql += ' where espresso.product.shopid = $1';
 	sql += ' order by pname';
-
-	console.log(sql);
 
 	var labels = [];
 
