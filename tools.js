@@ -109,7 +109,7 @@ module.exports = function(app){
 		if (id == 0) {
 			//insert
 			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice, shopid)';
-			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);';
 			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice, shopId];
 
 		} else {
