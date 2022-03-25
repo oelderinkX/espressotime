@@ -24,7 +24,8 @@
         <tr>
             <td style="vertical-align:top;padding: 15px" width="1px">
                 <label for="filter">Filter:</label>
-                <input type="text" class="form-control" id="filter" onchange="filter = this.value.toUpperCase()"/>
+                <input type="text" class="form-control" id="filter" onchange="filter = this.value.toUpperCase();  getProductionCostings();"/>
+                <br/>
                 <select id="productcostings" class="custom-select" size="30" onchange="displayProductCosting();">
                 </select>
             </td>
