@@ -23,6 +23,8 @@
     <table width="100%" border=1>
         <tr>
             <td style="vertical-align:top;padding: 15px" width="1px">
+                <label for="filter">Filter:</label>
+                <input type="text" class="form-control" id="filter" onchange="filter = this.value.toUpperCase()"/>
                 <select id="productcostings" class="custom-select" size="30" onchange="displayProductCosting();">
                 </select>
             </td>

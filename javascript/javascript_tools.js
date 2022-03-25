@@ -1,5 +1,6 @@
 var productcostings = [];
 var productdetails = [];
+var filter = '';
 
 function loadAllProducts() {
     var request = {};
@@ -82,11 +83,13 @@ function loadProductDetailsCombo() {
     productdetailslist.innerHTML = '';
 
     for(var i = 0; i < productdetails.length; i++) {
-        var productdetail = productdetails[i];
-        var option = document.createElement('option');
-        option.setAttribute('value', productdetail.product_id);
-        option.innerHTML = productdetail.name;
-        productdetailslist.appendChild(option);
+        if (filter == '' || productdetails[i].name.toUpperCase().includes(filter)) {
+            var productdetail = productdetails[i];
+            var option = document.createElement('option');
+            option.setAttribute('value', productdetail.product_id);
+            option.innerHTML = productdetail.name;
+            productdetailslist.appendChild(option);
+        }
     }
 }
 
@@ -142,11 +145,13 @@ function getProductionCostings() {
     selectproductcosting.innerHTML = '';
 
     for(var i = 0; i < productcostings.length; i++) {
-        var productcosting = productcostings[i];
-        var option = document.createElement('option');
-        option.setAttribute('value', productcosting.id);
-        option.innerHTML = productcosting.name;
-        selectproductcosting.appendChild(option);
+        if (filter == '' || productcostings[i].name.toUpperCase().includes(filter)) {
+            var productcosting = productcostings[i];
+            var option = document.createElement('option');
+            option.setAttribute('value', productcosting.id);
+            option.innerHTML = productcosting.name;
+            selectproductcosting.appendChild(option);
+        }
     }
 
     selectproductcosting.selectedIndex = 0;
