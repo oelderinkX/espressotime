@@ -22,11 +22,11 @@
     <h1>Products</h1>
     <table width="100%" border=1>
         <tr>
-            <td style="vertical-align:top;padding: 15px" width="1px">
+            <td style="vertical-align:top;padding: 15px" width="200px">
                 <label for="filter">Filter:</label>
                 <input type="text" class="form-control" id="filter" onkeyup="filter = this.value.toUpperCase();  getProductionCostings();"/>
                 <br/>
-                <select id="productcostings" class="custom-select" size="30" onchange="displayProductCosting();">
+                <select id="productcostings" class="custom-select" size="30" style="width: 200px;" onchange="displayProductCosting();">
                 </select>
             </td>
             <td style="vertical-align:top;padding: 15px">
