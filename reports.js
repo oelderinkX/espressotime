@@ -32,8 +32,15 @@ function LabelsReport(res, shopId) {
 
 	var sql = 'select espresso.product.id as pid';
 	sql += ', espresso.product.name as pname';
-	sql += ', coalesce(espresso.product_detail.description, \'\') as ddesc';
 	sql += ', espresso.product.saleprice as pprice';
+	sql += ', coalesce(espresso.product_detail.description, \'\') as ddesc';
+	sql += ', espresso.product_detail.vegetarian as pdvegetarian';
+	sql += ', espresso.product_detail.vegan as pdvegan';
+	sql += ', espresso.product_detail.glutenfree as pdglutenfree';
+	sql += ', espresso.product_detail.dairyfree as pddairyfree';
+	sql += ', espresso.product_detail.keto as pdketo';
+	sql += ', espresso.product_detail.kosher as pdkosher';
+	sql += ', espresso.product_detail.halal as pdhalal';
 	//sql += ', espresso.product.name as pname';  //specials
 	sql += '  from espresso.product';
 	sql += ' full join espresso.product_detail on espresso.product.id = espresso.product_detail.product_id';
@@ -47,11 +54,41 @@ function LabelsReport(res, shopId) {
 			done();
 			if (result && result.rowCount > 0) {
 				for(var i = 0; i < result.rowCount; i++) {
+					var specials = [];
+
+					if (result.rows[i].pdvegetarian) {
+						specials.push('V');
+					}
+
+					if (result.rows[i].pdvegan) {
+						specials.push('VG');
+					}
+
+					if (result.rows[i].pdglutenfree) {
+						specials.push('GF');
+					}
+
+					if (result.rows[i].pddairyfree) {
+						specials.push('DF');
+					}
+
+					if (result.rows[i].pdkosher) {
+						specials.push('KO');
+					}
+
+					if (result.rows[i].pdketo) {
+						specials.push('K');
+					}
+
+					if (result.rows[i].pdhalal) {
+						specials.push('H');
+					}
+
 					labels.push({
 						name: result.rows[i].pname,
 						description: result.rows[i].ddesc,
 						price: result.rows[i].pprice,
-						specials: 'working on it!'
+						specials: specials.join(' * ')
 					});
 				}
 			}

@@ -60,29 +60,6 @@ th {
 	var labels = []; // set
 </script>
 <script>
-function updateLabel(index) {
-	// probably delete!!!!!
-	
-	var special = '';
-	if (gf.checked) {
-		special += 'GF * ';
-	}
-	if (df.checked) {
-		special += 'DF * ';
-	}
-	if (v.checked) {
-		special += 'V * ';
-	}
-	if (k.checked) {
-		special += 'K * ';
-	}
-	if (special.length > 0) {
-		special = special.slice(0, -3);
-	}
-
-	labelSpecials.innerHTML = special;
-}
-
 function createLabel(name, description, price, specials) {
 	var maintd1 = document.createElement('td');
 
