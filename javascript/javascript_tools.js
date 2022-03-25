@@ -33,6 +33,10 @@ function loadAllProducts() {
             productcostings.push(allproducts[i]);
         }
 
+        productcostings.sort((a, b) => {
+            return a.name - b.name;
+        });
+
         getProductionCostings();
     });
 }
@@ -47,6 +51,10 @@ function loadAllProductDetails() {
         {
             productdetails.push(allproducts[i]);
         }
+
+        productdetails.sort((a, b) => {
+            return a.name - b.name;
+        });
 
         loadProductDetailsCombo();
     });
@@ -83,7 +91,7 @@ function displayProductDetails() {
     prep.value = productdetails.prep;
 
     var oven = document.getElementById('oven');
-    oven.value = productdetails.oven;
+    oven.value = productdetails.ovenjet;
 
     var microwave = document.getElementById('microwave');
     microwave.value = productdetails.microwave;
@@ -468,7 +476,7 @@ function saveProductDetails() {
         product_id: product_id.value,
         description: description.value,
         prep: prep.value,
-        oven: oven.value,
+        ovenjet: oven.value,
         microwave: microwave.value,
         panini: panini.value,
         vegetarian: vegetarian.checked,

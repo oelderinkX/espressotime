@@ -123,7 +123,7 @@ function createLabel(name, description, price, specials) {
 	var labeltd3 = document.createElement('td');
 	labeltd3.classList.add('labelpricetd');
 	var h2 = document.createElement('h2');
-	h2.innerHTML = '$' + price;
+	h2.innerHTML = price;
 	labeltd3.appendChild(h2);
 	labeltr3.appendChild(labeltd3);
 	labeltable.appendChild(labeltr3);
