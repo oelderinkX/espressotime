@@ -24,7 +24,8 @@ function loadAllProducts() {
             yield: 0,
             costperyield: 0.00,
             recommendedprice: 0.00,
-            recipe: ''
+            recipe: '',
+            saleprice: 0.00
         });
 
         for(var i = 0; i < allproducts.length; i++)
@@ -334,6 +335,9 @@ function displayProductCosting()
 
     var rrp = document.getElementById('rrp');
     rrp.value = productcosting.recommendedprice;
+
+    var saleprice = document.getElementById('saleprice');
+    saleprice.value = productcosting.saleprice;
 }
 
 function calculateCost(id) {
@@ -396,6 +400,7 @@ function saveProductCosting() {
     var yield = document.getElementById('yield');
     var costperyield = document.getElementById('costperyield');
     var rrp = document.getElementById('rrp');
+    var saleprice = document.getElementById('saleprice');
 
     var ingredientcount = document.getElementById('ingredientcount');
 
@@ -429,7 +434,8 @@ function saveProductCosting() {
         yield: yield.value,
         costperyield: costperyield.value,
         recommendedprice: rrp.value,
-        recipe: recipe.value
+        recipe: recipe.value,
+        saleprice: saleprice.value
     };
 
     sendPost("/updateproducts", JSON.stringify(product), function(response) {

@@ -60,7 +60,7 @@ module.exports = function(app){
 	app.post('/getproducts', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 
-		var sql = 'select author, costperyield, id, ingredients, name, recipe, totalcost, yield, recommendedprice from espresso.product where shopid = $1';
+		var sql = 'select author, costperyield, id, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice from espresso.product where shopid = $1';
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -79,7 +79,8 @@ module.exports = function(app){
 							recipe: result.rows[i].recipe,
 							totalcost: result.rows[i].totalcost,
 							yield: result.rows[i].yield,
-							recommendedprice: result.rows[i].recommendedprice
+							recommendedprice: result.rows[i].recommendedprice,
+							saleprice: result.rows[i].saleprice
 						});
 					}
 				}
@@ -100,20 +101,21 @@ module.exports = function(app){
 		var costperyield = req.body.costperyield;
 		var recommendedprice = req.body.recommendedprice;
 		var recipe = req.body.recipe;
+		var saleprice = req.body.saleprice;
 
 		var sql = '';
 
 		var parameters = [];
 		if (id == 0) {
 			//insert
-			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopid)';
+			sql = 'INSERT INTO espresso.product (author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice, shopid)';
 			sql += 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
-			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, shopId];
+			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice, shopId];
 
 		} else {
 			sql = 'update espresso.product set author=$1, costperyield=$2, ingredients=$3, name=$4, recipe=$5, totalcost=$6, yield=$7,';
-			sql += ' recommendedprice=$8 where id = $9;';
-			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, id];
+			sql += ' recommendedprice=$8, saleprice=$9 where id = $10;';
+			parameters = [author, costperyield, ingredients, name, recipe, totalcost, yield, recommendedprice, saleprice, id];
 		}
 	
 		pool.connect(function(err, connection, done) {
