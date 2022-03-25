@@ -33,7 +33,7 @@ function loadAllProducts() {
             productcostings.push(allproducts[i]);
         }
 
-        productcostings.sort((a, b) => {
+        productcostings = productcostings.sort((a, b) => {
             return a.name - b.name;
         });
 
@@ -52,7 +52,7 @@ function loadAllProductDetails() {
             productdetails.push(allproducts[i]);
         }
 
-        productdetails.sort((a, b) => {
+        productdetails =  productdetails.sort((a, b) => {
             return a.name - b.name;
         });
 
