@@ -91,7 +91,7 @@ function displayProductDetails() {
     prep.value = productdetails.prep;
 
     var oven = document.getElementById('oven');
-    oven.value = productdetails.ovenjet;
+    oven.value = productdetails.overjet;
 
     var microwave = document.getElementById('microwave');
     microwave.value = productdetails.microwave;
@@ -476,7 +476,7 @@ function saveProductDetails() {
         product_id: product_id.value,
         description: description.value,
         prep: prep.value,
-        ovenjet: oven.value,
+        overjet: oven.value,
         microwave: microwave.value,
         panini: panini.value,
         vegetarian: vegetarian.checked,
