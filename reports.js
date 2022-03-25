@@ -40,6 +40,8 @@ function LabelsReport(res, shopId) {
 	sql += ' where espresso.product.shopid = $1';
 	sql += ' order by pname';
 
+	console.log(sql);
+
 	var labels = [];
 
 	pool.connect(function(err, connection, done) {
