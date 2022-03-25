@@ -29,8 +29,8 @@ function loadAllProducts() {
         });
 
         allproducts = allproducts.sort((a, b) => {
-            var n1 = a;
-            var n2 = b;
+            var n1 = a.name.toUpperCase();
+            var n2 = b.name.toUpperCase();
             if (n1 > n2) {
                 return 1;
             } else if (n1 < n2) {
@@ -56,8 +56,8 @@ function loadAllProductDetails() {
         var allproducts  = JSON.parse(response);
 
         allproducts = allproducts.sort((a, b) => {
-            var n1 = a;
-            var n2 = b;
+            var n1 = a.name.toUpperCase();
+            var n2 = b.name.toUpperCase();
             if (n1 > n2) {
                 return 1;
             } else if (n1 < n2) {
