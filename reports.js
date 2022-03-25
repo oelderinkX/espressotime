@@ -30,9 +30,15 @@ module.exports.CustomLabelsReport = CustomLabelsReport;
 function LabelsReport(res, shopId) {
 	var response = labelsPage;
 
-	var sql = 'select espresso.product.id as pid, espresso.product.name as pname, espresso.product_detail.description as ddesc from espresso.product';
-	sql += ' inner join espresso.product_detail on espresso.product.id = espresso.product_detail.product_id';
+	var sql = 'select espresso.product.id as pid';
+	sql += ', espresso.product.name as pname';
+	sql += ', coalesce(espresso.product_detail.description, \'\') as ddesc';
+	sql += ', espresso.product.price as pprice';
+	//sql += ', espresso.product.name as pname';  //specials
+	sql += '  from espresso.product';
+	sql += ' full join espresso.product_detail on espresso.product.id = espresso.product_detail.product_id';
 	sql += ' where espresso.product.shopid = $1';
+	sql += ' order by pname';
 
 	var labels = [];
 
@@ -44,8 +50,8 @@ function LabelsReport(res, shopId) {
 					labels.push({
 						name: result.rows[i].pname,
 						description: result.rows[i].ddesc,
-						price: 1.99,
-						specials: 'no specials'
+						price: result.rows[i].pprice,
+						specials: 'working on it!'
 					});
 				}
 			}
