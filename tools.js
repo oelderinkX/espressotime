@@ -269,7 +269,7 @@ module.exports = function(app){
 
 	app.post('/getemployeetimes', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var date = req.body.id;
+		var date = req.body.date;
 		var employeestimes = [];
 
 		var sql = 'select id, name from espresso.employee where ex = false and shopid = $1';
