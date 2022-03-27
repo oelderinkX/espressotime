@@ -301,6 +301,7 @@ function drawTable() {
     employeestimes = [];
     var request = { date: rosterdates[0] };
     sendPost("/getemployeetimes", JSON.stringify(request), function(response) {
+        employeestimes = response;
         drawTable();
     });
   }
