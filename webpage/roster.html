@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Roster</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="javascript/common.js"></script>
+  <script src="javascript/javascript_roster.js"></script>
+<style>
+  body {
+    background-color: #ac9175;
+    color: #1f1f1f !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+</style>
+</head>
+
+<script>
+  var employeestimes = [];
+  var rosterdates = [];
+
+  /*rosterdates.push("2022-03-21");
+  rosterdates.push("2022-03-22");
+  rosterdates.push("2022-03-23");
+  rosterdates.push("2022-03-24");
+  rosterdates.push("2022-03-25");
+  rosterdates.push("2022-03-26");
+  rosterdates.push("2022-03-27");
+
+  employeestimes.push({
+    id: 1,
+    name: 'susan su',
+    times: [{
+      date: '2022-03-24',
+      start: '04:00',
+      end: '21:15',
+      role: 'manager'
+    },
+    {
+      date: '2022-03-26',
+      start: '06:00',
+      end: '18:15',
+      role: 'manager'
+    }]  
+  });
+
+  employeestimes.push({
+    id: 4,
+    name: 'Jared Oelderink-Wale',
+    times: [{
+      date: '2022-03-27',
+      start: '09:30',
+      end: '18:15',
+      role: 'manager'
+    }] 
+  });*/
+</script>
+
+<script>
+
+
+</script>
+
+<body>
+  <br/>
+  <input type="button" value="&lt;" id="back" onclick="rosterBack();"><span id="rosterDate"></span><input type="button" value="&gt;" id="forward" onclick="rosterForward();">
+  <br/>
+  <h1>Roster</h1>
+<div class="container">
+  <br/>
+  <div id="roster_weekview"></div>
+  <div id="modals"></div>
+</div>
+
+<script>
+  getRosterDates();
+  drawTable();
+</script>
+</body>
+</html>
+

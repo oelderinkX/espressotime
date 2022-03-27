@@ -13,6 +13,7 @@ var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var toolsPage = fs.readFileSync(__dirname + "/webpage/tools.html", "utf8");
 var productsPage = fs.readFileSync(__dirname + "/webpage/products.html", "utf8");
 var productDetailsPage = fs.readFileSync(__dirname + "/webpage/productdetails.html", "utf8");
+var rosterPage = fs.readFileSync(__dirname + "/webpage/roster.html", "utf8");
 
 module.exports = function(app){
 	app.get('/tools', urlencodedParser, function(req, res) {
@@ -52,6 +53,20 @@ module.exports = function(app){
 			webpage = productDetailsPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/productdetails');
+		}
+
+		res.send(webpage);
+	});	
+
+	app.get('/roster', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			webpage = rosterPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/roster');
 		}
 
 		res.send(webpage);
