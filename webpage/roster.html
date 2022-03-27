@@ -21,25 +21,7 @@
 <script>
   var employeestimes = [];
   var rosterdates = [];
-
   /*
-  employeestimes.push({
-    id: 1,
-    name: 'susan su',
-    times: [{
-      date: '2022-03-24',
-      start: '04:00',
-      end: '21:15',
-      role: 'manager'
-    },
-    {
-      date: '2022-03-26',
-      start: '06:00',
-      end: '18:15',
-      role: 'manager'
-    }]  
-  });
-
   employeestimes.push({
     id: 4,
     name: 'Jared Oelderink-Wale',
@@ -51,12 +33,6 @@
     }] 
   });*/
 </script>
-
-<script>
-
-
-</script>
-
 <body>
   <br/>
   <input type="button" value="&lt;" id="back" onclick="rosterBack();"><span id="rosterDate"></span><input type="button" value="&gt;" id="forward" onclick="rosterForward();">
@@ -67,7 +43,6 @@
   <div id="roster_weekview"></div>
   <div id="modals"></div>
 </div>
-
 <script>
   getRosterDates();
   getEmployeeTimes();
