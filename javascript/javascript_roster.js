@@ -65,10 +65,10 @@ function drawTable() {
       cell.appendChild(control);
   
       row.appendChild(cell);
-
-      var hourCell = createCell();
-      row.appendChild(hourCell);
     }
+
+    var hourCell = createCell();
+    row.appendChild(hourCell);
   
     return row;
   }
