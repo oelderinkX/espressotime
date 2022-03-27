@@ -21,7 +21,8 @@ function drawTable() {
   
     for(var i = 0; i < rosterdates.length; i++)
     {
-      row.appendChild(createHeader(rosterdates[i]));
+      var headerDate = new Date(rosterdates[i]);
+      row.appendChild(createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate()));
     }
   
     row.appendChild(createHeader('Hours'));
@@ -247,10 +248,6 @@ function drawTable() {
   }
   
   function save(id, date, modaltarget) {
-    //alert(id);
-    //alert(date);
-    //alert(modaltarget);
-    
     var controlQuery = "[data-target='#" + modaltarget + "']";
     var control = document.querySelector(controlQuery);
   
@@ -292,9 +289,18 @@ function drawTable() {
   
       rosterDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
 
+      rosterdates = [];
       for(var i = 0; i < 7; i++)
       {
         rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
         rosterStart.setDate(rosterStart.getDate() + 1);
       }
+  }
+
+  function getEmployeeTimes() {
+    employeestimes = [];
+    var request = { date: rosterdates[0] };
+    sendPost("/getemployeetimes", JSON.stringify(request), function(response) {
+        drawTable();
+    });
   }

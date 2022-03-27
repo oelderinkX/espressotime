@@ -266,4 +266,35 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/getemployeetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var date = req.body.id;
+		var employeestimes = [];
+
+		var sql = 'select id, name, from espresso.employee where ex = false and shopid = $1';
+		var parameters = [shopId];
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, parameters, function(err, result) {
+				done();
+
+				if (err) {
+					console.log(err);
+				} else {
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							employeestimes.push({
+								id: result.rows[i].id,
+								name: result.rows[i].name,
+								times: []			
+							});
+						}
+					}
+				}
+
+				res.send(employeestimes);
+			});
+		});
+	});
 }
