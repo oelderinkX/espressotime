@@ -282,8 +282,7 @@ function drawTable() {
       if (day == 0) {
         rosterStart.setDate( rosterStart.getDate() - 6 );
       } else {
-  
-        rosterStart.setDate( rosterStart.getDate() - (day - 1) );
+          rosterStart.setDate( rosterStart.getDate() - (day - 1) );
       }
       rosterEnd = new Date(rosterStart);
       rosterEnd.setDate(rosterEnd.getDate() + 6);
@@ -292,4 +291,10 @@ function drawTable() {
       var to = pad(rosterEnd.getDate()) + ' ' + monthNames[rosterEnd.getMonth()] + ' ' + rosterEnd.getFullYear();
   
       rosterDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
+
+      for(var i = 0; i < 7; i++)
+      {
+        rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
+        rosterStart.setDate(rosterStart.getDate() + 1);
+      }
   }
