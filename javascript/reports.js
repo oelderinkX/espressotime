@@ -61,9 +61,9 @@ var reports = [
                 type: "text"
             },
             {
-                name: "Price",
+                name: "Price (include description and $, multiple prices OK)",
                 id: "price",
-                type: "number"
+                type: "textarea"
             },
             {
                 name: "Specials",
@@ -135,11 +135,21 @@ function displayReport() {
         label.innerHTML = name + ':';
         reportArea.appendChild(label);
 
-        var input = document.createElement('input');
-        input.setAttribute('type', type);
-        input.classList.add('form-control');
-        input.setAttribute('id', id);
-        reportArea.appendChild(input);
+        if (type == 'textarea')
+        {
+            var textarea = document.createElement('textarea');
+            textarea.setAttribute('rows', 3);
+            textarea.setAttribute('cols', 30);
+            textarea.setAttribute('id', id);
+            textarea.classList.add('form-control');
+            reportArea.appendChild(textarea);
+        } else {
+            var input = document.createElement('input');
+            input.setAttribute('type', type);
+            input.classList.add('form-control');
+            input.setAttribute('id', id);
+            reportArea.appendChild(input);
+        }
 
         var br = document.createElement('br');
         reportArea.appendChild(br);

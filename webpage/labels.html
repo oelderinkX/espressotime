@@ -96,12 +96,18 @@ function createLabel(name, description, price, specials) {
 	labeltr2.appendChild(labeltd2);
 	labeltable.appendChild(labeltr2);
 
+	var priceHeaderSize = 'h2';
+	price = price.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	if (price.includes('<br/>')) {
+		priceHeaderSize = 'h3';
+	}
+
 	var labeltr3 = document.createElement('tr');
 	var labeltd3 = document.createElement('td');
 	labeltd3.classList.add('labelpricetd');
-	var h2 = document.createElement('h2');
-	h2.innerHTML = price;
-	labeltd3.appendChild(h2);
+	var priceHeader = document.createElement(priceHeaderSize);
+	priceHeader.innerHTML = price;
+	labeltd3.appendChild(priceHeader);
 	labeltr3.appendChild(labeltd3);
 	labeltable.appendChild(labeltr3);
 
