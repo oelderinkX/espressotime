@@ -396,4 +396,24 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/get_shop_options', urlencodedParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var sql = "SELECT options from espresso.shop where id = $1;"
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var options = {};
+
+				if (result && result.rowCount == 1) {
+					options = result.rows[0].options;
+				}
+					
+				res.send(options);
+			});
+		});
+	});
 }

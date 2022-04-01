@@ -373,11 +373,20 @@ function employeeStartBreak(employeeId, breakType) {
 
     sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
         getEmployeeDetails(employeeId);
+
+        if (option_allowSingleClickBreaks()) {
+            var futureTime = new Date();
+            futureTime.setMinutes(futureTime.getMinutes()+breakType);
+            var finishTime = getDbFormat() + ' ' + getTime();
+            json = { "employeeId": employeeId, "finishTime": futureTime, "breakType": breakType };
+            sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
+                // do nothing they need to refresh the page so NO DOUBLE TAP
+            });
+        }
     });
 }
 
 function employeeFinishBreak(employeeId, breakType) {
-    var date = getDbFormat();
     var finishTime = getDbFormat() + ' ' + getTime();
     var json = { "employeeId": employeeId, "finishTime": finishTime, "breakType": breakType };
 
