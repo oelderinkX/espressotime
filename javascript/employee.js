@@ -381,6 +381,7 @@ function employeeStartBreak(employeeId, breakType) {
             json = { "employeeId": employeeId, "finishTime": futureTime, "breakType": breakType };
             sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
                 // do nothing they need to refresh the page so NO DOUBLE TAP
+                getEmployeeDetails(employeeId);
             });
         }
     });

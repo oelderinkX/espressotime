@@ -63,10 +63,6 @@ module.exports = function(app){
 	app.post('/getemployees', urlencodedParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 
-		if (typeof shopId !== 'number') {
-			console.log('ERROR ERROR ERROR, shopId is invalid! ' + shopId)
-		  }
-
 		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false order by name;"
 
 		pool.connect(function(err, connection, done) {
@@ -155,7 +151,7 @@ module.exports = function(app){
 										if (notesResult && notesResult.rowCount > 0) {
 											employee.notes = notesResult.rows[0].notes;
 										} else {
-											console.log('jared: ' + err);
+											console.log('Error getting sql notes: ' + err);
 										}
 
 										res.send(employee);
