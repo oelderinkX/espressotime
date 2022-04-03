@@ -231,8 +231,6 @@ module.exports = function(app){
 		var startTime = req.body.startTime;
 		var breakType = req.body.breakType;
 		
-		//should I double check and see if a break time has been inserted with the same
-		//start time!!! to avoid double ups
 		var sql = "INSERT INTO espresso.break (employeeid, starttime, breakType)";
 		sql += " SELECT '" + employeeId + "', '" + startTime + "', " + "'" + breakType + "'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "');"
@@ -265,6 +263,32 @@ module.exports = function(app){
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+				} else {
+					var result = { "result": "success" };
+				}
+
+				res.send(result);
+			});
+		});
+	});
+
+	app.post('/employeehavebreak', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var employeeId = req.body.employeeId;
+		var startTime = req.body.startTime;
+		var finishTime = req.body.finishTime;
+		var breakType = req.body.breakType;
+
+		var sql = "INSERT INTO espresso.break (employeeid, starttime, finishtime, breakType)";
+		sql += " VALUES ($1,$2,$3,$4);";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [employeeId, startTime, finishTime, breakType], function(err, result) {
 				done();
 
 				if (err) {

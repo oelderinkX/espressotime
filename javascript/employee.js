@@ -371,20 +371,18 @@ function employeeStartBreak(employeeId, breakType) {
     restButton.removeAttribute('onclick');
     mealButton.removeAttribute('onclick');
 
-    sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
-        getEmployeeDetails(employeeId);
-
-        if (option_allowSingleClickBreaks()) {
-            var futureTime = new Date();
-            futureTime.setMinutes(futureTime.getMinutes()+breakType);
-            var finishTime = getDbFormat() + ' ' + getTime();
-            json = { "employeeId": employeeId, "finishTime": futureTime, "breakType": breakType };
-            sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
-                // do nothing they need to refresh the page so NO DOUBLE TAP
-                getEmployeeDetails(employeeId);
-            });
-        }
-    });
+    if (option_allowSingleClickBreaks()) {
+        var futureTime = new Date();
+        futureTime.setMinutes(futureTime.getMinutes()+breakType);
+        json = { "employeeId": employeeId, "startTime": startTime, "finishTime": futureTime, "breakType": breakType };
+        sendPost("/employeehavebreak", JSON.stringify(json), function(response) {
+            getEmployeeDetails(0);
+        });
+    } else {
+        sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
+            getEmployeeDetails(employeeId);
+        });
+    }
 }
 
 function employeeFinishBreak(employeeId, breakType) {
