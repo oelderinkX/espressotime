@@ -377,8 +377,7 @@ function employeeStartBreak(employeeId, breakType) {
         var finishTime =  getDbFormat() + ' ' + getTime(futureTime);
         json = { "employeeId": employeeId, "startTime": startTime, "finishTime": finishTime, "breakType": breakType };
         sendPost("/employeehavebreak", JSON.stringify(json), function(response) {
-            getEmployeeDetails(0);
-            getEmployeeDetails(employeeId); // flash a little so break looks correct
+            getEmployeeDetails(employeeId);
         });
     } else {
         sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
