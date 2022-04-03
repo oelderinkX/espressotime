@@ -374,9 +374,11 @@ function employeeStartBreak(employeeId, breakType) {
     if (option_allowSingleClickBreaks()) {
         var futureTime = new Date();
         futureTime.setMinutes(futureTime.getMinutes()+breakType);
-        json = { "employeeId": employeeId, "startTime": startTime, "finishTime": futureTime, "breakType": breakType };
+        var finishTime =  getDbFormat() + ' ' + getTime(futureTime);
+        json = { "employeeId": employeeId, "startTime": startTime, "finishTime": finishTime, "breakType": breakType };
         sendPost("/employeehavebreak", JSON.stringify(json), function(response) {
             getEmployeeDetails(0);
+            getEmployeeDetails(employeeId); // flash a little so break looks correct
         });
     } else {
         sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
