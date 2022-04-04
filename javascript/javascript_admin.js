@@ -723,7 +723,7 @@ function getShopDetails() {
         }
 
         name.value = shop.name;
-        password.value = shop.password;
+        allow_single_click_breaks.checked = allow_single_click_breaks;
     });
 }
 
