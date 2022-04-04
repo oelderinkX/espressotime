@@ -714,16 +714,14 @@ function getShopDetails() {
         var shop = JSON.parse(response);
 
         var name = document.getElementById('name');
-
+        name.value = shop.name;
+        
         var allow_single_click_breaks = document.getElementById('allow_single_click_breaks');
         if (shop.options && shop.options.allowSingleClickBreaks) {
             allow_single_click_breaks.checked = shop.options.allowSingleClickBreaks;
         } else {
             allow_single_click_breaks.checked = false;
         }
-
-        name.value = shop.name;
-        allow_single_click_breaks.checked = allow_single_click_breaks;
     });
 }
 
