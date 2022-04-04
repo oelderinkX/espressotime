@@ -604,7 +604,6 @@ module.exports = function(app){
 				var shop = {};
 
 				if (result && result.rowCount > 0) {
-					console.log('options: ' + result.rows[0].options);
 					shop = { name: result.rows[0].name, options: result.rows[0].options };
 				}
 
@@ -615,12 +614,12 @@ module.exports = function(app){
 
 	app.post('/saveshopdetails', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var password = req.body.password;
+		var options = req.body.options;
 
-		var sql = "update espresso.shop set password = $1 where id = $2";
+		var sql = "update espresso.shop set options = $1 where id = $2";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [password, shopId], function(err, result) {
+			connection.query(sql, [options, shopId], function(err, result) {
 				done();
 
 				res.send({success: true});
