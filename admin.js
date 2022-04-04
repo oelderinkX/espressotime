@@ -595,7 +595,7 @@ module.exports = function(app){
 	app.post('/getshopdetails', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']); // not used, so a bit dangerous
 
-		var sql = "select name, password from espresso.shop where id = $1";
+		var sql = "select name, options from espresso.shop where id = $1";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -604,7 +604,7 @@ module.exports = function(app){
 				var shop = {};
 
 				if (result && result.rowCount > 0) {
-					shop = { name: result.rows[0].name, password: result.rows[0].password };
+					shop = { name: result.rows[0].name, options: JSON.parse(result.rows[0].options) };
 				}
 
 				res.send(shop);
