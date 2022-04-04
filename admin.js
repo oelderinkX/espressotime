@@ -604,7 +604,8 @@ module.exports = function(app){
 				var shop = {};
 
 				if (result && result.rowCount > 0) {
-					shop = { name: result.rows[0].name, options: JSON.parse(result.rows[0].options) };
+					console.log('options: ' + result.rows[0].options);
+					shop = { name: result.rows[0].name, options: result.rows[0].options };
 				}
 
 				res.send(shop);
