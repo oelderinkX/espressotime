@@ -241,6 +241,7 @@ function DailyTasks(res, shopId, start, end) {
 
 							var currentDate = '';
 
+							var tasksDone = [];
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									rows += '<tr>\n';
@@ -249,10 +250,16 @@ function DailyTasks(res, shopId, start, end) {
 									if (currentDate == rowDate) {
 										rows += '<td></td>\n';
 									} else {
+										if (currentDate != '') {
+											// output all the not done things! after date switch!
+											// all tds and trs
+											tasksDone = [];
+										}
 										currentDate = rowDate;
 										rows += '<td>' + currentDate + '</td>\n';
 									}
 									
+									tasksDone.push(result.rows[i].taskid);
 									rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
 									rows += '<td>' + dateHelper.formatTime(result.rows[i].timestamp) + '</td>\n';
 									rows += '<td>' + getEmployeeNameById(employees, result.rows[i].by) + '</td>\n';
@@ -260,6 +267,20 @@ function DailyTasks(res, shopId, start, end) {
 									rows += '<td>' + result.rows[i].notes + '</td>\n';
 									rows += ' </tr>\n';
 								}
+								
+								// not DONE tasks
+								for(var i = 0; i < tasks.length; i++) {
+									if (!tasksDone.includes(tasks[i].id)) {
+										rows += '<tr>\n';
+										rows += '<td>' + getTaskNameById(tasks, result.rows[i].taskid) + '</td>\n';
+										rows += '<td> X </td>\n';
+										rows += '<td> X </td>\n';
+										rows += '<td> X </td>\n';
+										rows += '<td> X </td>\n';
+										rows += ' </tr>\n';
+									}
+								}
+
 							}
 							
 							response = common.replaceAll(response, '!%REPORTNAME%!', 'Daily Tasks');
