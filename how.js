@@ -78,7 +78,7 @@ module.exports = function(app) {
 
         if (id == 0) {
             console.log('insert');
-            var sql = "insert into espresso.how (shopid, id, name, description,)";
+            var sql = "insert into espresso.how (shopid, id, name, description)";
             sql += " values ($1, $2, $3, $4)";
         } else {
             console.log('update');
