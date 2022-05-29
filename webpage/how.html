@@ -26,8 +26,7 @@
         function loadHow() {
             var request = {};
             sendPost("/gethows", JSON.stringify(request), function(response) {
-                hows = [];
-                var hows  = JSON.parse(response);
+                hows  = JSON.parse(response);
                 
                 if (canSave == true) {
                     hows.push({ id: 0, name: '*** New How', description: 'Enter new description here and Save'})
@@ -81,7 +80,6 @@
 
             sendPost("/updatehow", JSON.stringify(how), function(response) {
                 loadHow();
-                loadHowCombo();
                 howlist.selectedIndex = selectedIndex;
             });
         }
@@ -132,6 +130,5 @@
     }
 
     loadHow();
-    loadHowCombo();
 </script>
 </html>
