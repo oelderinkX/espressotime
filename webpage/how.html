@@ -18,9 +18,6 @@
             var id = document.getElementById('id');
             id.value = how.id;
 
-            var how_id = document.getElementById('how_id');
-            how_id.value = how.how_id;
-
             var description = document.getElementById('description');
             description.value = how.description;
         }
@@ -30,6 +27,10 @@
             sendPost("/gethows", JSON.stringify(request), function(response) {
                 hows = [];
                 var hows  = JSON.parse(response);
+                
+                if (canSave == true) {
+                    hows.push({ id: 0, name: '*** New How', description: 'Enter new description here and Save'})
+                }
 
                 hows = hows.sort((a, b) => {
                     var n1 = a.name.toUpperCase();
@@ -56,7 +57,7 @@
                 if (filter == '' || hows[i].name.toUpperCase().includes(filter)) {
                     var how = hows[i];
                     var option = document.createElement('option');
-                    option.setAttribute('value', how.how_id);
+                    option.setAttribute('value', how.id);
                     option.innerHTML = how.name;
                     howlist.appendChild(option);
                 }
@@ -64,24 +65,23 @@
         }
 
         function saveHow() {
-            var productdetailslist = document.getElementById('productdetailslist');
-            var selectedIndex = productdetailslist.selectedIndex;
+            var howlist = document.getElementById('howlist');
+            var selectedIndex = howlist.selectedIndex;
 
             var id = document.getElementById('id');
-            var product_id = document.getElementById('product_id');
 
             var description = document.getElementById('description');
 
-            var productdetail = {
+            var how = {
                 id: id.value,
-                product_id: product_id.value,
+                name: name.value,
                 description: description.value,
             };
 
-            sendPost("/updatehow", JSON.stringify(productdetail), function(response) {
+            sendPost("/updatehow", JSON.stringify(how), function(response) {
                 loadHow();
                 loadHowCombo();
-                productdetailslist.selectedIndex = selectedIndex;
+                howlist.selectedIndex = selectedIndex;
             });
         }
     </script>
@@ -108,9 +108,10 @@
             </td>
             <td style="vertical-align:top;padding: 15px">
                 <input type="hidden" id="id" value="0"/>
-                <input type="hidden" id="how_id" value="0"/>
+                <label id="howlabel" for="name">How Name:</label>
+                <input id="howinput" type="text" class="form-control" id="name"/>
                 <h3>Description</h3>
-                <textarea rows="10" style="width:100%;" id="description"></textarea>
+                <textarea rows="30" style="width:100%;" id="description"></textarea>
                 <br/>
                 <button id="savebutton" type="button" class="btn btn-success" onclick="saveHow();">Save</button>
             </td>
@@ -121,7 +122,12 @@
     if (canSave == false)
     {
         var savebutton = document.getElementById("savebutton");
+        var howlabel = document.getElementById("howlabel");
+        var howinput = document.getElementById("howinput");
+
         savebutton.style.display = "none";
+        howlabel.style.display = "none";
+        howlabel.style.display = "none";
     }
 
     loadHow();
