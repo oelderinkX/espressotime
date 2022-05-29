@@ -18,7 +18,7 @@ module.exports = function(app) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = tasksPage;
+			webpage = howPage;
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/how');
 		}
@@ -32,7 +32,8 @@ module.exports = function(app) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = tasksPage;
+			webpage = howPage;
+            webpage = common.replaceAll(webpage, 'var canSave = false; // UPDATE CAN SAVE VIA how.jsp', 'var canSave = true; // UPDATE CAN SAVE VIA how.jsp');
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/howedit');
 		}

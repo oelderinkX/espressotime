@@ -9,6 +9,13 @@
     <script src="javascript/common.js"></script>
     <script>
         var hows = [];
+        var canSave = false; // UPDATE CAN SAVE VIA how.jsp
+
+        if (canSave == false)
+        {
+            var savebutton = document.getElementById("savebutton");
+            savebutton.style.display = "none";
+        }
 
         function displayHow() {
             var select = document.getElementById('howlist');
@@ -63,7 +70,6 @@
         }
 
         function saveHow() {
-            return;
             var productdetailslist = document.getElementById('productdetailslist');
             var selectedIndex = productdetailslist.selectedIndex;
 
@@ -112,7 +118,7 @@
                 <h3>Description</h3>
                 <textarea rows="10" style="width:100%;" id="description"></textarea>
                 <br/>
-                <button type="button" class="btn btn-success" onclick="saveHow();">Save</button>
+                <button id="savebutton" type="button" class="btn btn-success" onclick="saveHow();">Save</button>
             </td>
         </tr>
     </table>
