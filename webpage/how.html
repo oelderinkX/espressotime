@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - How</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="javascript/common.js"></script>
+    <script>
+        var hows = [];
+
+        function displayHow() {
+            var select = document.getElementById('howlist');
+            var how = getHowById(select.value);
+            
+            var id = document.getElementById('id');
+            id.value = how.id;
+
+            var how_id = document.getElementById('how_id');
+            how_id.value = how.how_id;
+
+            var description = document.getElementById('description');
+            description.value = how.description;
+        }
+
+        function loadHow() {
+            var request = {};
+            sendPost("/gethows", JSON.stringify(request), function(response) {
+                hows = [];
+                var hows  = JSON.parse(response);
+
+                hows = hows.sort((a, b) => {
+                    var n1 = a.name.toUpperCase();
+                    var n2 = b.name.toUpperCase();
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
+
+                loadHowCombo();
+            });
+        }
+
+        function loadHowCombo() {
+            var howlist = document.getElementById('howlist');
+
+            howlist.innerHTML = '';
+
+            for(var i = 0; i < hows.length; i++) {
+                if (filter == '' || hows[i].name.toUpperCase().includes(filter)) {
+                    var how = hows[i];
+                    var option = document.createElement('option');
+                    option.setAttribute('value', how.how_id);
+                    option.innerHTML = how.name;
+                    howlist.appendChild(option);
+                }
+            }
+        }
+
+        function saveHow() {
+            return;
+            var productdetailslist = document.getElementById('productdetailslist');
+            var selectedIndex = productdetailslist.selectedIndex;
+
+            var id = document.getElementById('id');
+            var product_id = document.getElementById('product_id');
+
+            var description = document.getElementById('description');
+
+            var productdetail = {
+                id: id.value,
+                product_id: product_id.value,
+                description: description.value,
+            };
+
+            sendPost("/updatehow", JSON.stringify(productdetail), function(response) {
+                loadHow();
+                loadHowCombo();
+                productdetailslist.selectedIndex = selectedIndex;
+            });
+        }
+    </script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<html>
+<body>
+    <h1>How</h1>
+    <table width="100%" border=1>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="200px">
+                <label for="filter">Filter:</label>
+                <input type="text" class="form-control" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();"/>
+                <br/>
+                <select id="howlist" class="custom-select" size="30" style="width: 200px;" onchange="displayHow();">
+                </select>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id" value="0"/>
+                <input type="hidden" id="how_id" value="0"/>
+                <h3>Description</h3>
+                <textarea rows="10" style="width:100%;" id="description"></textarea>
+                <br/>
+                <button type="button" class="btn btn-success" onclick="saveHow();">Save</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    loadHow();
+    loadHowCombo();
+</script>
+</html>

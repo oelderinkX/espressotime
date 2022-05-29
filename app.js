@@ -26,3 +26,4 @@ require('./main.js')(app);
 require('./admin.js')(app);
 require('./tasks.js')(app);
 require('./tools.js')(app);
+require('./how.js')(app);
