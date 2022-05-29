@@ -76,10 +76,12 @@ module.exports = function(app) {
         // this is so if insert is not valid then just run select statement and don't cause errors!
         var sql = 'select * from espresso.how where shopid = $1 and id = $2 and name = $3 and description = $4';
 
-        if (id == 0 && name && name != '*** New How') {
+        if (id == 0) {
+            console.log('insert');
             var sql = "insert into espresso.how (shopid, id, name, description,)";
             sql += " values ($1, $2, $3, $4)";
         } else {
+            console.log('update');
             var sql = "update espresso.how set name = $3, description = $4";
             sql += " where shopid = $1 and id = $2";
         }
