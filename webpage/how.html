@@ -11,12 +11,6 @@
         var hows = [];
         var canSave = false; // UPDATE CAN SAVE VIA how.jsp
 
-        if (canSave == false)
-        {
-            var savebutton = document.getElementById("savebutton");
-            savebutton.style.display = "none";
-        }
-
         function displayHow() {
             var select = document.getElementById('howlist');
             var how = getHowById(select.value);
@@ -124,6 +118,12 @@
     </table>
 </body>
 <script>
+    if (canSave == false)
+    {
+        var savebutton = document.getElementById("savebutton");
+        savebutton.style.display = "none";
+    }
+
     loadHow();
     loadHowCombo();
 </script>
