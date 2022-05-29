@@ -92,7 +92,7 @@ module.exports = function(app) {
 
 				}
 					
-				res.send(hows);
+				res.send({ result: 'success' });
 			});
 		});
 	});
