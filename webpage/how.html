@@ -15,7 +15,14 @@
     <script>
         function displayHow() {
             var select = document.getElementById('howlist');
-            var how = getHowById(select.value);
+
+            for(var i = 0; i < hows.length; i++) {
+                    if (hows[i].id == select.value) {
+                        how = hows[i];
+                        break;
+                    }
+                }
+            }
             
             var id = document.getElementById('id');
             id.value = how.id;
@@ -100,7 +107,7 @@
     <table width="100%" border=1>
         <tr>
             <td style="vertical-align:top;padding: 15px" width="200px">
-                <label for="filter">Filter:</label>
+                <label for="filter">Find:</label>
                 <input type="text" class="form-control" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();"/>
                 <br/>
                 <select id="howlist" class="custom-select" size="30" style="width: 200px;" onchange="displayHow();">
