@@ -66,4 +66,34 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/updatehow', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+		var name = req.body.name;
+        var description = req.body.description;
+
+        // this is so if insert is not valid then just run select statement and don't cause errors!
+        var sql = 'select * from espresso.how where shopid = $1 and id = $2 and name = $3 and description = $4';
+
+        if (id == 0 && name) {
+            var sql = "insert into espresso.how (shopid, id, name, description,)";
+            sql += " values ($1, $2, $3, $4)";
+        } else {
+            var sql = "update espresso.how set name = $3, description = $4";
+            sql += " where shopid = $1 and id = $2";
+        }
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, id, name, description], function(err, result) {
+				done();
+
+                if (result && result.rowCount > 0) {
+
+				}
+					
+				res.send(hows);
+			});
+		});
+	});
 }
