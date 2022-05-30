@@ -76,24 +76,24 @@ module.exports = function(app) {
         // this is so if insert is not valid then just run select statement and don't cause errors!
         var sql = 'select * from espresso.how where shopid = $1 and id = $2 and name = $3 and description = $4';
 
+        var values = [];
+
         if (id == 0) {
             console.log('insert');
-            var sql = "insert into espresso.how (shopid, id, name, description)";
-            sql += " values ($1, $2, $3, $4)";
+            sql = "insert into espresso.how (shopid, name, description)";
+            sql += " values ($1, $2, $3)";
+            values = [shopId, name, description];
         } else {
             console.log('update');
-            var sql = "update espresso.how set name = $3, description = $4";
+            sql = "update espresso.how set name = $3, description = $4";
             sql += " where shopid = $1 and id = $2";
+            values = [shopId, id, name, description];
         }
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, id, name, description], function(err, result) {
+			connection.query(sql, values, function(err, result) {
 				done();
-
-                if (result && result.rowCount > 0) {
-
-				}
-					
+			
 				res.send({ result: 'success' });
 			});
 		});
