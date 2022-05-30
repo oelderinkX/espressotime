@@ -137,12 +137,13 @@
         var savebutton = document.getElementById("savebutton");
         var howlabel = document.getElementById("howlabel");
         var howinput = document.getElementById("howinput");
-        var signinoutbutton = document.getElementById("signinoutbutton");
-        var tasksbutton = document.getElementById("tasksbutton");
 
         savebutton.style.display = "none";
         howlabel.style.display = "none";
         howinput.style.display = "none";
+    } else {
+        var signinoutbutton = document.getElementById("signinoutbutton");
+        var tasksbutton = document.getElementById("tasksbutton");
         signinoutbutton.style.display = "none";
         tasksbutton.style.display = "none";
     }
