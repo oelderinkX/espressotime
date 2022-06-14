@@ -13,11 +13,9 @@
         var canSave = false; // UPDATE CAN SAVE VIA how.jsp
     </script>
     <script>
-        function displayHow() {
-            var select = document.getElementById('howlist');
-
+        function displayHow(id) {
             for(var i = 0; i < hows.length; i++) {
-                if (hows[i].id == select.value) {
+                if (hows[i].id == id) {
                     how = hows[i];
                     break;
                 }
@@ -66,9 +64,13 @@
             for(var i = 0; i < hows.length; i++) {
                 if (filter == '' || hows[i].name.toUpperCase().includes(filter)) {
                     var how = hows[i];
-                    var option = document.createElement('option');
-                    option.setAttribute('value', how.id);
-                    option.innerHTML = how.name;
+
+                    var button = document.createElement('button');
+                    button.setAttribute('type', 'button');
+                    button.setAttribute('class', 'list-group-item list-group-item-action');
+                    button.setAttribute('onclick', 'displayHow(' + how.id + ');');
+                    button.innerText = how.name;
+
                     howlist.appendChild(option);
                 }
             }
@@ -113,11 +115,15 @@
     <table width="100%" border=0>
         <tr>
             <td style="vertical-align:top;padding: 15px" width="200px">
-                <label for="filter">Find:</label>
-                <input type="text" class="form-control" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();"/>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Search</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Filter" aria-label="Filter" aria-describedby="basic-addon1" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();">
+                </div>
                 <br/>
-                <select id="howlist" class="custom-select" size="30" style="width: 300px;" onchange="displayHow();">
-                </select>
+                <div class="list-group" id="howlist">
+                </div>
             </td>
             <td style="vertical-align:top;padding: 15px">
                 <input type="hidden" id="id" value="0"/>
