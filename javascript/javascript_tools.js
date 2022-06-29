@@ -541,14 +541,22 @@ function printProduct() {
         var unit = measureunits[i].value;
         var quantity = quantityneededs[i].value;
 
-        if (unit == 'units') {
-            html += '<li>';
-            html += quantity + ' ' + name + '(s)';
-            html += '</li>';
-        } else {
-            html += '<li>';
-            html += quantity + ' ' + unit + ' of ' + name;
-            html += '</li>';
+        if (name != '' && quantity != '0') {
+            if (unit == 'units') {
+                html += '<li>';
+
+                if (quantity == '1') {
+                    html += quantity + ' ' + name;
+                } else {
+                    html += quantity + ' ' + name.trim() + '(s)';
+                }
+
+                html += '</li>';
+            } else {
+                html += '<li>';
+                html += quantity + ' ' + unit.trim() + ' of ' + name;
+                html += '</li>';
+            }
         }
     }
 
