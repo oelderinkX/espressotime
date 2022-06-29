@@ -537,9 +537,9 @@ function printProduct() {
     var quantityneededs = document.querySelectorAll("[id^='quantityneeded']")
 
     for(var i = 0; i < retailnames.length; i++) {
-        var name = retailnames[i];
-        var unit = measureunits[i];
-        var quantity = quantityneededs[i];
+        var name = retailnames[i].value;
+        var unit = measureunits[i].value;
+        var quantity = quantityneededs[i].value;
 
         if (unit == 'units') {
             html += '<li>';
