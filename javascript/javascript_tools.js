@@ -514,3 +514,54 @@ function saveProductDetails() {
         productdetailslist.selectedIndex = selectedIndex;
     });
 }
+
+function printProduct() {
+    let windowName = 'printProduct' + '_' + Date.now() + Math.floor(Math.random() * 100000).toString();
+    var windowSpecs = 'fullscreen=yes,resizable=yes,height='+ screen.height +',width=' + screen.width + ',location=0,menubar=no,scrollbars=no,toolbar=no,status=no';
+	
+    var p = window.open('', windowName, windowSpecs);
+	
+	var html = '';
+	html += '<html><body>';
+	
+    var productName = document.getElementById('name').value;
+
+	html += '<h1>';
+    html += productName;
+    html += '</h1>';
+	
+	html += '<ul>';
+
+    var retailnames = document.querySelectorAll("[id^='retailname']")
+    var measureunits = document.querySelectorAll("[id^='measureunit']")
+    var quantityneededs = document.querySelectorAll("[id^='quantityneeded']")
+
+    for(var i = 0; i < retailnames.length; i++) {
+        var name = retailnames[i];
+        var unit = measureunits[i];
+        var quantity = quantityneededs[i];
+
+        if (unit == 'units') {
+            html += '<li>';
+            html += quantity + ' ' + name + '(s)';
+            html += '</li>';
+        } else {
+            html += '<li>';
+            html += quantity + ' ' + unit + ' of ' + name + '(s)';
+            html += '</li>';
+        }
+    }
+
+	html += '</ul>';
+	
+    var recipe = document.getElementById('recipe').value;
+	html += '<p>';
+	html += recipe;
+	html += '</p>';
+
+	html += '</body></html>';
+	
+	p.document.write(html);
+	p.print();
+	p.close();
+}
