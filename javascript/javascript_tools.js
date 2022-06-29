@@ -547,7 +547,7 @@ function printProduct() {
             html += '</li>';
         } else {
             html += '<li>';
-            html += quantity + ' ' + unit + ' of ' + name + '(s)';
+            html += quantity + ' ' + unit + ' of ' + name;
             html += '</li>';
         }
     }
@@ -555,7 +555,7 @@ function printProduct() {
 	html += '</ul>';
 	
     var recipe = document.getElementById('recipe').value;
-	html += '<p>';
+	html += '<p style="white-space: pre-wrap;">';
 	html += recipe;
 	html += '</p>';
 
