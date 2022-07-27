@@ -265,7 +265,7 @@ function drawTable() {
     var startTime = start.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     var finishTime = finish.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
-    control.innerHTML = startTime + '-' + finishTime;
+    control.innerHTML = startTime + ' - ' + finishTime;
 
     if (role.value.toLowerCase() == 'manager') {
       control.style.background = 'yellow';
