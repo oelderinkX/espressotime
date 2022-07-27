@@ -84,8 +84,9 @@ function drawTable() {
   }
   
   function createControl() {
-    var control = document.createElement('button');
-    control.setAttribute('type', 'button');
+    //var control = document.createElement('button');
+    var control = document.createElement('a');
+    //control.setAttribute('type', 'button');
     control.setAttribute('class', 'btn');
     control.setAttribute('style', 'display:inline-block; width: 160px; height: 50px;')
     control.setAttribute('width', '100%');
