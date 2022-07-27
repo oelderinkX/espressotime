@@ -266,7 +266,7 @@ function drawTable() {
 
     if (role.value.toLowerCase() == 'manager') {
       control.style.background = 'Green Onion';
-    } if (role.value.toLowerCase() == 'foh') {
+    } else if (role.value.toLowerCase() == 'foh') {
       control.style.background = 'Blue Gray';
     } else {
       control.style.background = 'White';
