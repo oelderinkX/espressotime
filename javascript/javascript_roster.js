@@ -264,9 +264,9 @@ function drawTable() {
 
     control.innerHTML = start.value + '-' + finish.value;
 
-    if (role.toLower() == 'manager') {
+    if (role.toLowerCase() == 'manager') {
       control.style.background = 'Green Onion';
-    } if (role.toLower() == 'foh') {
+    } if (role.toLowerCase() == 'foh') {
       control.style.background = 'Blue Gray';
     } else {
       control.style.background = 'White';
