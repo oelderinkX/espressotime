@@ -262,12 +262,15 @@ function drawTable() {
     var roleId = 'role_' + modaltarget;
     var role = document.getElementById(roleId);
 
-    control.innerHTML = start.value + '-' + finish.value;
+    var startTime = start.valueAsDate.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var finishTime = finish.valueAsDate.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+    control.innerHTML = startTime + '-' + finishTime;
 
     if (role.value.toLowerCase() == 'manager') {
-      control.style.background = 'Green Onion';
+      control.style.background = 'yellow';
     } else if (role.value.toLowerCase() == 'foh') {
-      control.style.background = 'Blue Gray';
+      control.style.background = 'aqua';
     } else {
       control.style.background = 'White';
     }
