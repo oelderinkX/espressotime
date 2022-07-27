@@ -2,7 +2,7 @@ function drawTable() {
     var roster_weekview = document.getElementById('roster_weekview');
   
     var table = document.createElement('table');
-    table.setAttribute('width', '100%');
+    table.setAttribute('width', '1440px');
     table.setAttribute('border', '1');
   
     table.appendChild(getHeaderRow());
