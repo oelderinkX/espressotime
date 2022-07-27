@@ -262,8 +262,8 @@ function drawTable() {
     var roleId = 'role_' + modaltarget;
     var role = document.getElementById(roleId);
 
-    var startTime = start.valueAsDate.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    var finishTime = finish.valueAsDate.time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var startTime = start.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var finishTime = finish.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
     control.innerHTML = startTime + '-' + finishTime;
 
