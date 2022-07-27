@@ -293,6 +293,8 @@ module.exports = function(app){
 					}
 				}
 
+				// NOW WE NEED TO COMBINE THE ROSTER TABLE TO EMPLOYEESTIMES!
+
 				res.send(employeestimes);
 			});
 		});

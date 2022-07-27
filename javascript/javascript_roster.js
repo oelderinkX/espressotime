@@ -84,9 +84,7 @@ function drawTable() {
   }
   
   function createControl() {
-    //var control = document.createElement('button');
     var control = document.createElement('a');
-    //control.setAttribute('type', 'button');
     control.setAttribute('class', 'btn');
     control.setAttribute('style', 'display:inline-block; width: 160px; height: 50px;')
     control.setAttribute('width', '100%');
@@ -261,8 +259,19 @@ function drawTable() {
     var finishId = 'finish_' + modaltarget;
     var finish = document.getElementById(finishId);
   
+    var roleId = 'role_' + modaltarget;
+    var role = document.getElementById(roleId);
+
     control.innerHTML = start.value + '-' + finish.value;
-    
+
+    if (role.toLower() == 'manager') {
+      control.style.background = 'Green Onion';
+    } if (role.toLower() == 'foh') {
+      control.style.background = 'Blue Gray';
+    } else {
+      control.style.background = 'White';
+    }
+
     updateStartTime(id, date, start.value);
     updateEndTime(id, date, finish.value);
   
