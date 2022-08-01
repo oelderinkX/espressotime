@@ -215,11 +215,20 @@ function drawTable() {
     var times = getTimes(employeeid, date);
   
     if (times) {
-      for(var i = 0; i < times.length; i++) {
-        if (times[i].date == date) {
-          times[i].start = start;
-          break;
+      if (times.length > 0) {
+        for(var i = 0; i < times.length; i++) {
+          if (times[i].date == date) {
+            times[i].start = start;
+            break;
+          }
         }
+      } else {
+        times.push({
+          date: date,
+          start: start,
+          end: start,
+          role: ''
+        });
       }
     }
   }
@@ -240,11 +249,20 @@ function drawTable() {
     var times = getTimes(employeeid, date);
   
     if (times) {
-      for(var i = 0; i < times.length; i++) {
-        if (times[i].date == date) {
-          times[i].end = end;
-          break;
+      if (times.length > 0) {
+        for(var i = 0; i < times.length; i++) {
+          if (times[i].date == date) {
+            times[i].end = end;
+            break;
+          }
         }
+      } else {
+        times.push({
+          date: date,
+          start: end,
+          end: end,
+          role: ''
+        });
       }
     }
   }
@@ -274,6 +292,20 @@ function drawTable() {
     } else {
       control.style.background = 'White';
     }
+
+  /*
+  employeestimes.push({
+    id: 4,
+    name: 'Jared Oelderink-Wale',
+    times: [{
+      date: '2022-03-27',
+      start: '09:30',
+      end: '18:15',
+      role: 'manager'
+    }] 
+  });*/
+
+    // role can be anything + annual leave
 
     updateStartTime(id, date, start.value);
     updateEndTime(id, date, finish.value);
