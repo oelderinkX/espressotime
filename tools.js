@@ -306,8 +306,8 @@ module.exports = function(app){
 
 		var employeeid = req.body.id;
 		var date = req.body.date;
-		var start = req.body.start;
-		var finish = req.body.finish;
+		var start = date + ' ' + req.body.start + ':00';
+		var finish = date + ' ' + req.body.finish + ':00';
 		var role = req.body.role;
 
 		var sql = 'INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ';
