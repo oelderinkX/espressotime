@@ -153,11 +153,43 @@ function drawTable() {
     rolelabel.innerHTML = 'Role:';
     p.appendChild(rolelabel);
   
-    var roleinput = document.createElement('input');
+    /*var roleinput = document.createElement('input');
     roleinput.setAttribute('type', 'text');
     roleinput.setAttribute('class', 'form-control');
     roleinput.setAttribute('id', 'role_' + modaltarget);
-    p.appendChild(roleinput);
+    p.appendChild(roleinput);*/
+    var roleselect = document.createElement('select');
+    roleselect.setAttribute('type', 'text');
+    roleselect.setAttribute('class', 'form-control');
+    roleselect.setAttribute('id', 'role_' + modaltarget);
+
+    var roleoption1 = document.createElement('option');
+    roleoption1.value = 'FOH';
+    roleoption1.innerHTML = 'FOH';
+
+    var roleoption2 = document.createElement('option');
+    roleoption2.value = 'Cook';
+    roleoption2.innerHTML = 'Cook';
+
+    var roleoption3 = document.createElement('option');
+    roleoption3.value = 'Open';
+    roleoption3.innerHTML = 'Open';
+
+    var roleoption4 = document.createElement('option');
+    roleoption4.value = 'Close';
+    roleoption4.innerHTML = 'Close';
+
+    var roleoption5 = document.createElement('option');
+    roleoption5.value = 'Manager';
+    roleoption5.innerHTML = 'Manager';
+
+    roleselect.appendChild(roleoption1);
+    roleselect.appendChild(roleoption2);
+    roleselect.appendChild(roleoption3);
+    roleselect.appendChild(roleoption4);
+    roleselect.appendChild(roleoption5);
+
+    p.appendChild(roleselect);
   
     modalbody.appendChild(p);
   
@@ -209,6 +241,8 @@ function drawTable() {
         }
       }
     }
+
+    return "9:00";
   }
 
   function getEndTime(employeeid, date) {
@@ -221,6 +255,8 @@ function drawTable() {
         }
       }
     }
+
+    return "18:15";
   }
 
 function updateTime(employeeid, date, start, finish, role) {
@@ -276,7 +312,7 @@ function updateTime(employeeid, date, start, finish, role) {
                              finish.valueAsDate.getUTCSeconds());
     var finishTime = finishUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
-    control.innerHTML = startTime + ' - ' + finishTime;
+    control.innerHTML = startTime + ' - ' + finishTime + ' ' +  role;
 
     if (role.value.toLowerCase() == 'manager') {
       control.style.background = 'yellow';
