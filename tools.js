@@ -319,6 +319,7 @@ module.exports = function(app){
 			connection.query(sql, [shopId, employeeid, date, start, finish, role], function(err, result) {
 				done();
 
+				console.log(sql);
 				console.log(result);
 				console.log(err);
 
