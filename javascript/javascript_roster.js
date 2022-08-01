@@ -335,7 +335,7 @@ function save(id, date, modaltarget) {
   };
   sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
-    drawTable();
+    getEmployeeTimes();
   });
 }
   

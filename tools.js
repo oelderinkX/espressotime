@@ -295,7 +295,39 @@ module.exports = function(app){
 
 				// NOW WE NEED TO COMBINE THE ROSTER TABLE TO EMPLOYEESTIMES!
 
-				res.send(employeestimes);
+				sql = "select employeeid, date, start, finish, role from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
+
+				pool.connect(function(err, connection, done) {
+					connection.query(sql, [shopId], function(err, result) {
+						done();
+
+						if (err) {
+							console.log(err);
+						} else {
+							if (result && result.rowCount > 0) {
+								for(var i = 0; i < result.rowCount; i++) {
+									for(var x = 0; x < employeestimes.length; x++) {
+										if (employeestimes[x].id == result.rows[i].employeeid) {
+
+											var date = result.rows[i].date;
+											var start = result.rows[i].start.replace(date, "");
+											var end = result.rows[i].end.replace(date, "");
+
+											employeestimes[x].times.push({
+												date: date,
+												start: start,
+												end: finish,
+												role: result.rows[i].date
+											});
+										}
+									}
+								}
+							}
+						}
+
+						res.send(employeestimes);
+					});
+				});
 			});
 		});
 	});
