@@ -260,9 +260,21 @@ function updateTime(employeeid, date, start, finish, role) {
     var roleId = 'role_' + modaltarget;
     var role = document.getElementById(roleId);
 
-    var startUtc = new Date(start.valueAsDate.getUTCFullYear(), start.valueAsDate.getUTCMonth(), start.valueAsDate.getUTCDate(), start.valueAsDate.getUTCHours(), start.valueAsDate.getUTCMinutes(), start.valueAsDate.getUTCSeconds());
+    var startUtc = new Date(start.valueAsDate.getUTCFullYear(),
+                            start.valueAsDate.getUTCMonth(),
+                            start.valueAsDate.getUTCDate(), 
+                            start.valueAsDate.getUTCHours(), 
+                            start.valueAsDate.getUTCMinutes(), 
+                            start.valueAsDate.getUTCSeconds());
     var startTime = startUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    var finishTime = finish.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+    var finishUtc = new Date(finish.valueAsDate.getUTCFullYear(),
+                             finish.valueAsDate.getUTCMonth(),
+                             finish.valueAsDate.getUTCDate(), 
+                             finish.valueAsDate.getUTCHours(), 
+                             finish.valueAsDate.getUTCMinutes(), 
+                             finish.valueAsDate.getUTCSeconds());
+    var finishTime = finishUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
     control.innerHTML = startTime + ' - ' + finishTime;
 
@@ -274,12 +286,9 @@ function updateTime(employeeid, date, start, finish, role) {
       control.style.background = 'White';
     }
 
-    // role can be anything + annual leave
-    //
     updateTime(id, date, start.value, finish.value, role);
   
-    //call post with json and don't care about the result
-   
+    //call post with json and don't care about the result  
   }
   
   function getRosterDates(newDate) {
