@@ -326,8 +326,17 @@ function save(id, date, modaltarget) {
 
   updateTime(id, date, start.value, finish.value, role.value);
 
-  //call post with json and don't care about the result  
-  getEmployeeTimes();
+  var request = { 
+    id: id,
+    date: date,
+    start: start.value,
+    finish: finish.value,
+    role: role.value
+  };
+  sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
+    employeestimes =  JSON.parse(response);
+    drawTable();
+  });
 }
   
 function getRosterDates(newDate) {

@@ -299,4 +299,31 @@ module.exports = function(app){
 			});
 		});
 	});
+
+
+	app.post('/saveemployeetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var employeeid = req.body.id;
+		var date = req.body.date;
+		var start = req.body.start;
+		var finish = req.body.finish;
+		var role = req.body.role;
+
+		var sql = 'INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ';
+		sql += 'VALUES ($1, $2, $3, $4, $5, $6) ';
+		sql += 'ON CONFLICT ($1, $2, $3) '
+		sql += 'DO UPDATE SET start = $4, finish = $5, role = $6';
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, employeeid, date, start, finish, role], function(err, result) {
+				done();
+
+				res.send('{success: true}');
+			});
+		});
+	});
+
+
+
 }
