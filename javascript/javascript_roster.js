@@ -210,29 +210,7 @@ function drawTable() {
       }
     }
   }
-  
-  function updateStartTime(employeeid, date, start) {
-    var times = getTimes(employeeid, date);
-  
-    if (times) {
-      if (times.length > 0) {
-        for(var i = 0; i < times.length; i++) {
-          if (times[i].date == date) {
-            times[i].start = start;
-            break;
-          }
-        }
-      } else {
-        times.push({
-          date: date,
-          start: start,
-          end: start,
-          role: ''
-        });
-      }
-    }
-  }
-  
+
   function getEndTime(employeeid, date) {
     var times = getTimes(employeeid, date);
   
@@ -244,28 +222,30 @@ function drawTable() {
       }
     }
   }
-  
-  function updateEndTime(employeeid, date, end) {
-    var times = getTimes(employeeid, date);
-  
-    if (times) {
-      if (times.length > 0) {
-        for(var i = 0; i < times.length; i++) {
-          if (times[i].date == date) {
-            times[i].end = end;
-            break;
-          }
+
+function updateTime(employeeid, date, start, finish, role) {
+  var times = getTimes(employeeid, date);
+
+  if (times) {
+    if (times.length > 0) {
+      for(var i = 0; i < times.length; i++) {
+        if (times[i].date == date) {
+          times[i].start = start;
+          times[i].end = finish;
+          times[i].role = role;
+          break;
         }
-      } else {
-        times.push({
-          date: date,
-          start: end,
-          end: end,
-          role: ''
-        });
       }
+    } else {
+      times.push({
+        date: date,
+        start: start,
+        end: finish,
+        role: role
+      });
     }
   }
+}
   
   function save(id, date, modaltarget) {
     var controlQuery = "[data-target='#" + modaltarget + "']";
@@ -306,9 +286,11 @@ function drawTable() {
   });*/
 
     // role can be anything + annual leave
-
+    //
+    updateTime(id, date, start.value, finish.value, role);
     updateStartTime(id, date, start.value);
     updateEndTime(id, date, finish.value);
+    setRole(id, date, role);
   
     //call post with json and don't care about the result
    
