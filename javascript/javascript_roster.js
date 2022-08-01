@@ -242,7 +242,7 @@ function drawTable() {
       }
     }
 
-    return "9:00";
+    return "09:00";
   }
 
   function getEndTime(employeeid, date) {
@@ -312,7 +312,7 @@ function updateTime(employeeid, date, start, finish, role) {
                              finish.valueAsDate.getUTCSeconds());
     var finishTime = finishUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
-    control.innerHTML = startTime + ' - ' + finishTime + ' ' +  role;
+    control.innerHTML = startTime + ' - ' + finishTime + ' ' +  role.value;
 
     if (role.value.toLowerCase() == 'manager') {
       control.style.background = 'yellow';
