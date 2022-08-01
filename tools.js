@@ -315,7 +315,7 @@ module.exports = function(app){
 											var start = new Date(result.rows[i].start);
 											var startStr = dateHelper.formatTime(start);
 
-											var end = new Date(result.rows[i].end);
+											var end = new Date(result.rows[i].finish);
 											var endStr = dateHelper.formatTime(end);
 
 											employeestimes[x].times.push({
