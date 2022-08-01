@@ -309,9 +309,9 @@ module.exports = function(app){
 									for(var x = 0; x < employeestimes.length; x++) {
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 
-											var date = result.rows[i].date;
-											var start = result.rows[i].start.replace(date, "");
-											var end = result.rows[i].end.replace(date, "");
+											var date = String(result.rows[i].date);
+											var start = String(result.rows[i].start).replace(date, "");
+											var end = String(result.rows[i].end).replace(date, "");
 
 											employeestimes[x].times.push({
 												date: date,
