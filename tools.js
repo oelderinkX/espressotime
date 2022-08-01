@@ -316,7 +316,7 @@ module.exports = function(app){
 											employeestimes[x].times.push({
 												date: date,
 												start: start,
-												end: finish,
+												end: end,
 												role: result.rows[i].date
 											});
 										}
