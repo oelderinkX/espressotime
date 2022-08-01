@@ -319,7 +319,10 @@ module.exports = function(app){
 			connection.query(sql, [shopId, employeeid, date, start, finish, role], function(err, result) {
 				done();
 
-				res.send('{success: true}');
+				console.log(result);
+				console.log(err);
+
+				res.send({ "result": "success" });
 			});
 		});
 	});
