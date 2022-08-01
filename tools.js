@@ -312,7 +312,7 @@ module.exports = function(app){
 
 		var sql = 'INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ';
 		sql += 'VALUES ($1, $2, $3, $4, $5, $6) ';
-		sql += 'ON CONFLICT ($1, $2, $3) '
+		sql += 'ON CONFLICT (shopid, employeeid, date) '
 		sql += 'DO UPDATE SET start = $4, finish = $5, role = $6';
 	
 		pool.connect(function(err, connection, done) {
