@@ -260,7 +260,8 @@ function updateTime(employeeid, date, start, finish, role) {
     var roleId = 'role_' + modaltarget;
     var role = document.getElementById(roleId);
 
-    var startTime = start.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    var startUtc = new Date(start.valueAsDate.getUTCFullYear(), start.valueAsDate.getUTCMonth(), start.valueAsDate.getUTCDate(), start.valueAsDate.getUTCHours(), start.valueAsDate.getUTCMinutes(), start.valueAsDate.getUTCSeconds());
+    var startTime = startUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
     var finishTime = finish.valueAsDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
     control.innerHTML = startTime + ' - ' + finishTime;
