@@ -309,15 +309,20 @@ module.exports = function(app){
 									for(var x = 0; x < employeestimes.length; x++) {
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 
-											var date = String(result.rows[i].date);
-											var start = String(result.rows[i].start).replace(date, "");
-											var end = String(result.rows[i].end).replace(date, "");
+											var date = new Date(result.rows[i].date);
+											var dateStr = dateHelper.formatDate(date);
+
+											var start = new Date(result.rows[i].start);
+											var startStr = dateHelper.formatTime(start);
+
+											var end = new Date(result.rows[i].end);
+											var endStr = dateHelper.formatTime(end);
 
 											employeestimes[x].times.push({
-												date: date,
-												start: start,
-												end: end,
-												role: result.rows[i].date
+												date: dateStr,
+												start: startStr,
+												end: endStr,
+												role: result.rows[i].role
 											});
 										}
 									}
