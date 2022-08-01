@@ -273,24 +273,9 @@ function updateTime(employeeid, date, start, finish, role) {
       control.style.background = 'White';
     }
 
-  /*
-  employeestimes.push({
-    id: 4,
-    name: 'Jared Oelderink-Wale',
-    times: [{
-      date: '2022-03-27',
-      start: '09:30',
-      end: '18:15',
-      role: 'manager'
-    }] 
-  });*/
-
     // role can be anything + annual leave
     //
     updateTime(id, date, start.value, finish.value, role);
-    updateStartTime(id, date, start.value);
-    updateEndTime(id, date, finish.value);
-    setRole(id, date, role);
   
     //call post with json and don't care about the result
    
