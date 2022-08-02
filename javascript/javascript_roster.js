@@ -48,15 +48,30 @@ function getEmployeeRow(employeetimes) {
 
   for(var i = 0; i < rosterdates.length; i++) {
     var time = '';
+    var role = '';
+    var backgroundColour = 'white';
+
     for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
-        time = employeetimes.times[x].start + '-' + employeetimes.times[x].end;
+        role = employeetimes.times[x].role;
+        time = employeetimes.times[x].start + ' - ' + employeetimes.times[x].end + ' ' + role;
+
+        if (role.toLowerCase() == 'manager') {
+          backgroundColour = 'yellow';
+        } else if (role.toLowerCase() == 'foh') {
+          backgroundColour = 'aqua';
+        } else {
+          backgroundColour = 'White';
+        }
       }
     }
     
     var cell = createCell();
     var control = createControl();
+
     control.innerHTML = time;
+    control.style.background = backgroundColour;
+
     control.setAttribute('employee_id', employeetimes.id);
 
     var modaltarget = i + '_' + employeetimes.id;
