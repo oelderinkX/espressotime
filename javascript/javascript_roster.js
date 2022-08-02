@@ -363,7 +363,21 @@ function save(id, date, modaltarget) {
     getEmployeeTimes();
   });
 }
-  
+
+function rosterBack() {
+  var d = new Date(rosterStart);
+  d.setDate( d.getDate() - 7 );
+  getRosterDates(d);
+  getEmployeeTimes();
+}
+
+function rosterForward() {
+  var d = new Date(rosterStart);
+  d.setDate( d.getDate() + 7 );
+  getRosterDates(d);
+  getEmployeeTimes();
+}
+
 function getRosterDates(newDate) {
     var rosterDate = document.getElementById("rosterDate");
 
