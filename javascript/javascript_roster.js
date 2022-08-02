@@ -411,10 +411,16 @@ function getRosterDates(newDate) {
 }
 
 function getEmployeeTimes() {
+  var loading = document.getElementById('loading');
+  loading.innerHTML = ' Loading...';
+
   employeestimes = [];
   var request = { date: rosterdates[0] };
   sendPost("/getemployeetimes", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
       drawTable();
+
+      var loading = document.getElementById('loading');
+      loading.innerHTML = '';
   });
 }
