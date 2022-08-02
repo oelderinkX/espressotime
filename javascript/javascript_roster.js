@@ -19,6 +19,8 @@ function clearTable() {
 }
 
 function drawTable() {
+  clearTable();
+  
   var roster_weekview = document.getElementById('roster_weekview');
   var modals = document.getElementById('modals');
 
@@ -432,8 +434,6 @@ function getRosterDates(newDate) {
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
   loading.innerHTML = ' Loading...';
-
-  clearTable();
 
   employeestimes = [];
   var request = { date: rosterdates[0] };
