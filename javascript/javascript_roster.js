@@ -1,3 +1,15 @@
+var roles = [
+  {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
+  {"name": "Open", "colour": "#43A047", "textcolour": "white"},
+  {"name": "Close", "colour": "#F4511E", "textcolour": "white"},
+  {"name": "Sandwich", "colour": "#FFE0B2", "textcolour": "black"},
+  {"name": "Cook", "colour": "white", "textcolour": "black"},
+  {"name": "Sandwich/Cook", "colour": "#D7CCC8", "textcolour": "black"},
+  {"name": "Dishwasher", "colour": "#4DD0E1", "textcolour": "black"},
+  {"name": "Manager", "colour": "#2196F3", "textcolour": "white"},
+  {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
+  {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"}];
+
 function drawTable() {
   var roster_weekview = document.getElementById('roster_weekview');
 
@@ -50,6 +62,7 @@ function getEmployeeRow(employeetimes) {
     var cellInner = '';
     var role = '';
     var backgroundColour = '';
+    var textcolour = 'black';
 
     for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
@@ -69,13 +82,8 @@ function getEmployeeRow(employeetimes) {
 
         cellInner = startTime + ' - ' + finishTime + ' ' + role;
 
-        if (role.toLowerCase() == 'manager') {
-          backgroundColour = 'yellow';
-        } else if (role.toLowerCase() == 'foh') {
-          backgroundColour = 'aqua';
-        } else {
-          backgroundColour = 'White';
-        }
+        backgroundColour = getRoleColour(role);
+        textcolour = getRoleTextColour(role);
       }
     }
     
@@ -84,6 +92,7 @@ function getEmployeeRow(employeetimes) {
 
     control.innerHTML = cellInner;
     control.style.background = backgroundColour;
+    control.style.color = textcolour;
 
     control.setAttribute('employee_id', employeetimes.id);
 
@@ -183,61 +192,18 @@ function createModal(modaltarget, employeetimes, date) {
   rolelabel.innerHTML = 'Role:';
   p.appendChild(rolelabel);
 
-  /*var roleinput = document.createElement('input');
-  roleinput.setAttribute('type', 'text');
-  roleinput.setAttribute('class', 'form-control');
-  roleinput.setAttribute('id', 'role_' + modaltarget);
-  p.appendChild(roleinput);*/
   var roleselect = document.createElement('select');
   roleselect.setAttribute('type', 'text');
   roleselect.setAttribute('class', 'form-control');
   roleselect.setAttribute('id', 'role_' + modaltarget);
 
-  var roleoption1 = document.createElement('option');
-  roleoption1.value = 'FOH';
-  roleoption1.innerHTML = 'FOH';
+  for(var i = 0; i < roles.length; i++) {
+    var roleoption = document.createElement('option');
+    roleoption.value = roles[i].name;
+    roleoption.innerHTML = roles[i].name; 
 
-  var roleoption2 = document.createElement('option');
-  roleoption2.value = 'Cook';
-  roleoption2.innerHTML = 'Cook';
-
-  var roleoption3 = document.createElement('option');
-  roleoption3.value = 'Open';
-  roleoption3.innerHTML = 'Open';
-
-  var roleoption4 = document.createElement('option');
-  roleoption4.value = 'Close';
-  roleoption4.innerHTML = 'Close';
-
-  var roleoption5 = document.createElement('option');
-  roleoption5.value = 'Manager';
-  roleoption5.innerHTML = 'Manager';
-
-  var roleoption6 = document.createElement('option');
-  roleoption6.value = 'Sandwich';
-  roleoption6.innerHTML = 'Sandwich';
-
-  var roleoption7 = document.createElement('option');
-  roleoption7.value = 'Sandwich/Cook';
-  roleoption7.innerHTML = 'Sandwich/Cook';
-
-  var roleoption8 = document.createElement('option');
-  roleoption8.value = 'Dishwasher';
-  roleoption8.innerHTML = 'Dishwasher';
-
-  var roleoption9 = document.createElement('option');
-  roleoption9.value = 'Training';
-  roleoption9.innerHTML = 'Training';
- 
-  roleselect.appendChild(roleoption1);
-  roleselect.appendChild(roleoption2);
-  roleselect.appendChild(roleoption3);
-  roleselect.appendChild(roleoption4);
-  roleselect.appendChild(roleoption5);
-  roleselect.appendChild(roleoption6);
-  roleselect.appendChild(roleoption7);
-  roleselect.appendChild(roleoption8);
-  roleselect.appendChild(roleoption9);
+    roleselect.appendChild(roleoption);
+  }
 
   p.appendChild(roleselect);
 
@@ -272,7 +238,23 @@ function createModal(modaltarget, employeetimes, date) {
 
   return modal;
 }
-  
+
+function getRoleColour(role) {
+  for(var i = 0; i < roles.length; i++) {
+    if (roles[i].name.toLowerCase() == role.toLowerCase()) {
+      return roles[i].colour;
+    }
+  }
+}
+
+function getRoleTextColour(role) {
+  for(var i = 0; i < roles.length; i++) {
+    if (roles[i].name.toLowerCase() == role.toLowerCase()) {
+      return roles[i].textcolour;
+    }
+  }
+}
+
 function getTimes(employeeid, date) {
   for(var i = 0; i < employeestimes.length; i++) {
     if (employeestimes[i].id == employeeid) {
@@ -364,13 +346,8 @@ function save(id, date, modaltarget) {
 
   control.innerHTML = startTime + ' - ' + finishTime + ' ' +  role.value;
 
-  if (role.value.toLowerCase() == 'manager') {
-    control.style.background = 'yellow';
-  } else if (role.value.toLowerCase() == 'foh') {
-    control.style.background = 'aqua';
-  } else {
-    control.style.background = 'White';
-  }
+  control.style.background = getRoleColour(role.value);
+  control.style.color = getRoleTextColour(role.value);
 
   updateTime(id, date, start.value, finish.value, role.value);
 
