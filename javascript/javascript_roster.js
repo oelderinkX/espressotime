@@ -193,7 +193,6 @@ function createModal(modaltarget, employeetimes, date) {
   finishinput.value = getEndTime(employeetimes.id, date);
   p.appendChild(finishinput);
 
-  // will need combo i think!
   var rolelabel = document.createElement('label');
   rolelabel.setAttribute('for', 'role_' + modaltarget);
   rolelabel.innerHTML = 'Role:';
@@ -211,6 +210,7 @@ function createModal(modaltarget, employeetimes, date) {
 
     roleselect.appendChild(roleoption);
   }
+  roleselect.value = getRole(employeetimes.id, date);
 
   p.appendChild(roleselect);
 
@@ -296,6 +296,20 @@ function getEndTime(employeeid, date) {
   }
 
   return "18:15";
+}
+
+function getRole(employeeid, date) {
+  var times = getTimes(employeeid, date);
+
+  if (times) {
+    for(var i = 0; i < times.length; i++) {
+      if (times[i].date == date) {
+        return times[i].role;
+      }
+    }
+  }
+
+  return roles[0].name;
 }
 
 function updateTime(employeeid, date, start, finish, role) {
