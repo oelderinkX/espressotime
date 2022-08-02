@@ -56,13 +56,13 @@ function getEmployeeRow(employeetimes) {
         role = employeetimes.times[x].role;
         var startStr = employeetimes.times[x].start;
         var start = new Date('1970-01-01');
-        start.setHours(startStr.split(':'))[0];
-        start.setMinutes(startStr.split(':'))[1];
+        start.setHours(startStr.split(':')[0]);
+        start.setMinutes(startStr.split(':')[1]);
 
         var endStr = employeetimes.times[x].end;
         var end = new Date('1970-01-01');
-        end.setHours(endStr.split(':'))[0];
-        end.setMinutes(endStr.split(':'))[1];
+        end.setHours(endStr.split(':')[0]);
+        end.setMinutes(endStr.split(':')[1]);
 
         var startTime = start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
         var finishTime = end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
