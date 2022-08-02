@@ -12,8 +12,10 @@ var roles = [
 
 function drawTable() {
   var roster_weekview = document.getElementById('roster_weekview');
+  var modals = document.getElementById('modals');
 
   roster_weekview.innerHTML = '';
+  modals.innerHTML = '';
 
   var table = document.createElement('table');
   table.setAttribute('width', '1440px');
