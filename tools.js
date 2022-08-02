@@ -293,8 +293,6 @@ module.exports = function(app){
 					}
 				}
 
-				// NOW WE NEED TO COMBINE THE ROSTER TABLE TO EMPLOYEESTIMES!
-
 				sql = "select employeeid, date, start, finish, role from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
 
 				pool.connect(function(err, connection, done) {
@@ -309,7 +307,6 @@ module.exports = function(app){
 									for(var x = 0; x < employeestimes.length; x++) {
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 											var d = new Date(result.rows[i].date);
-											//var dateStr = dateHelper.formatDate(date);
 											dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
 
 											var start = new Date(result.rows[i].start);
