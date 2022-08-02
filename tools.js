@@ -310,7 +310,7 @@ module.exports = function(app){
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 											var d = new Date(result.rows[i].date);
 											//var dateStr = dateHelper.formatDate(date);
-											console.log(pad(d.getFullYear()) + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()));
+											console.log(dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate()));
 
 											var start = new Date(result.rows[i].start);
 											var startStr = dateHelper.formatTime(start);
