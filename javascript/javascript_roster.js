@@ -366,14 +366,13 @@ function save(id, date, modaltarget) {
 
 function rosterBack() {
   var d = new Date(rosterStart);
-  //d.setDate( d.getDate() - 7 );
+  d.setDate( d.getDate() - 14 );
   getRosterDates(d);
   getEmployeeTimes();
 }
 
 function rosterForward() {
   var d = new Date(rosterStart);
-  //d.setDate( d.getDate() + 7 );
   getRosterDates(d);
   getEmployeeTimes();
 }
