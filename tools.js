@@ -313,6 +313,8 @@ module.exports = function(app){
 											var dateFull = String(result.rows[i].date);
 											var dateStr = dateFull.split('T')[0];
 											console.log(result.rows[i].date);
+											console.log(date);
+											console.log(dateFull);
 											console.log(dateStr);
 
 											var start = new Date(result.rows[i].start);
