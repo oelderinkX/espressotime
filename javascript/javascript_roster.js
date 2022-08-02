@@ -47,14 +47,27 @@ function getEmployeeRow(employeetimes) {
   row.appendChild(nameCell);
 
   for(var i = 0; i < rosterdates.length; i++) {
-    var time = '';
+    var cellInner = '';
     var role = '';
-    var backgroundColour = 'white';
+    var backgroundColour = '';
 
     for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
         role = employeetimes.times[x].role;
-        time = employeetimes.times[x].start + ' - ' + employeetimes.times[x].end + ' ' + role;
+        var startStr = employeetimes.times[x].start;
+        var start = new Date('1970-01-01');
+        start.setHours(startStr.split(':'))[0];
+        start.setMinutes(startStr.split(':'))[1];
+
+        var endStr = employeetimes.times[x].end;
+        var end = new Date('1970-01-01');
+        end.setHours(endStr.split(':'))[0];
+        end.setMinutes(endStr.split(':'))[1];
+
+        var startTime = start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+        var finishTime = end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+        cellInner = startTime + ' - ' + finishTime + ' ' + role;
 
         if (role.toLowerCase() == 'manager') {
           backgroundColour = 'yellow';
@@ -69,7 +82,7 @@ function getEmployeeRow(employeetimes) {
     var cell = createCell();
     var control = createControl();
 
-    control.innerHTML = time;
+    control.innerHTML = cellInner;
     control.style.background = backgroundColour;
 
     control.setAttribute('employee_id', employeetimes.id);
@@ -200,11 +213,31 @@ function createModal(modaltarget, employeetimes, date) {
   roleoption5.value = 'Manager';
   roleoption5.innerHTML = 'Manager';
 
+  var roleoption6 = document.createElement('option');
+  roleoption6.value = 'Sandwich';
+  roleoption6.innerHTML = 'Sandwich';
+
+  var roleoption7 = document.createElement('option');
+  roleoption7.value = 'Sandwich/Cook';
+  roleoption7.innerHTML = 'Sandwich/Cook';
+
+  var roleoption8 = document.createElement('option');
+  roleoption8.value = 'Dishwasher';
+  roleoption8.innerHTML = 'Dishwasher';
+
+  var roleoption9 = document.createElement('option');
+  roleoption9.value = 'Training';
+  roleoption9.innerHTML = 'Training';
+ 
   roleselect.appendChild(roleoption1);
   roleselect.appendChild(roleoption2);
   roleselect.appendChild(roleoption3);
   roleselect.appendChild(roleoption4);
   roleselect.appendChild(roleoption5);
+  roleselect.appendChild(roleoption6);
+  roleselect.appendChild(roleoption7);
+  roleselect.appendChild(roleoption8);
+  roleselect.appendChild(roleoption9);
 
   p.appendChild(roleselect);
 
