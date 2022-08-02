@@ -317,6 +317,9 @@ module.exports = function(app){
 											var end = new Date(result.rows[i].finish);
 											var endStr = dateHelper.formatTime(end);
 											
+											console.log(result.rows[i].date);
+											console.log(dateStr);
+
 											employeestimes[x].times.push({
 												date: dateStr,
 												start: startStr,
