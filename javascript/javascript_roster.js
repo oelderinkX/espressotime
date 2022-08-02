@@ -10,12 +10,17 @@ var roles = [
   {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
   {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"}];
 
-function drawTable() {
+function clearTable() {
   var roster_weekview = document.getElementById('roster_weekview');
   var modals = document.getElementById('modals');
 
   roster_weekview.innerHTML = '';
   modals.innerHTML = '';
+}
+
+function drawTable() {
+  var roster_weekview = document.getElementById('roster_weekview');
+  var modals = document.getElementById('modals');
 
   var table = document.createElement('table');
   table.setAttribute('width', '1440px');
@@ -413,6 +418,8 @@ function getRosterDates(newDate) {
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
   loading.innerHTML = ' Loading...';
+
+  clearTable();
 
   employeestimes = [];
   var request = { date: rosterdates[0] };
