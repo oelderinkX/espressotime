@@ -309,16 +309,17 @@ module.exports = function(app){
 									for(var x = 0; x < employeestimes.length; x++) {
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 											var date = new Date(result.rows[i].date);
-											var dateStr = dateHelper.formatDate(date);
+											//var dateStr = dateHelper.formatDate(date);
+											var dateFull = result.rows[i].date;
+											var dateStr = dateFull.split('T')[0];
+											console.log(result.rows[i].date);
+											console.log(dateStr);
 
 											var start = new Date(result.rows[i].start);
 											var startStr = dateHelper.formatTime(start);
 
 											var end = new Date(result.rows[i].finish);
 											var endStr = dateHelper.formatTime(end);
-											
-											console.log(result.rows[i].date);
-											console.log(dateStr);
 
 											employeestimes[x].times.push({
 												date: dateStr,
