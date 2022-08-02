@@ -307,6 +307,11 @@ module.exports = function(app){
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									for(var x = 0; x < employeestimes.length; x++) {
+										console.log('employeestimes[x].id: ' + employeestimes[x].id);
+										console.log('result.rows[i].employeeid: ' + result.rows[i].employeeid);
+										console.log('equals: ' + (employeestimes[x].id == result.rows[i].employeeid));
+										console.log('');
+										
 										if (employeestimes[x].id == result.rows[i].employeeid) {
 
 											var date = new Date(result.rows[i].date);
