@@ -239,7 +239,7 @@ function createModal(modaltarget, employeetimes, date) {
   delette.setAttribute('class', 'btn btn-default mr-auto');
   delette.setAttribute('data-dismiss', 'modal');
   delette.innerHTML = 'Delete';
-  delette.setAttribute('onclick', 'delete(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
+  delette.setAttribute('onclick', 'deleteit(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
 
   modalfooter.appendChild(delette);
   modalfooter.appendChild(cancel);
@@ -395,7 +395,7 @@ function save(id, date, modaltarget) {
   });
 }
 
-function save(id, date, modaltarget) {
+function deleteit(id, date) {
   var request = { 
     id: id,
     date: date

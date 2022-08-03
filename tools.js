@@ -362,9 +362,6 @@ module.exports = function(app){
 		var employeeid = req.body.id;
 		var date = req.body.date;
 
-		console.log(employeeid);
-		console.log(date);
-
 		var sql = 'delete from espresso.roster where shopid=$1 and employeeid=$2 and date=$3';
 	
 		pool.connect(function(err, connection, done) {
