@@ -236,8 +236,9 @@ function createModal(modaltarget, employeetimes, date) {
 
   var delette = document.createElement('button');
   delette.setAttribute('type', 'button');
-  delette.setAttribute('class', 'btn btn-default mr-auto');
+  delette.setAttribute('class', 'btn');
   delette.setAttribute('data-dismiss', 'modal');
+  delette.style.float = 'left';
   delette.innerHTML = 'Delete';
   delette.setAttribute('onclick', 'deleteit(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
 
