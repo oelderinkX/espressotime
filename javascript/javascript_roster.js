@@ -72,6 +72,7 @@ function getEmployeeRow(employeetimes) {
     var role = '';
     var backgroundColour = '';
     var textcolour = 'black';
+    var hours = 0;
 
     for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
@@ -93,6 +94,10 @@ function getEmployeeRow(employeetimes) {
 
         backgroundColour = getRoleColour(role);
         textcolour = getRoleTextColour(role);
+
+        var totalMilliSeconds = Math.abs(end - start);
+        var totalHours = totalMilliSeconds / 36e5;
+        hours += totalHours;
       }
     }
     
@@ -125,6 +130,9 @@ function getEmployeeRow(employeetimes) {
   }
 
   var hourCell = createCell();
+
+  hourCell.innerHTML = hours;
+
   row.appendChild(hourCell);
 
   return row;
@@ -357,7 +365,6 @@ function updateTime(employeeid, date, start, finish, role) {
 }
 
 function dragstart_handler(ev) {
-  // Add the target element's id to the data transfer object
   var employeeid = ev.target.getAttribute("employee_id");
   var celldate = ev.target.getAttribute("cell_date");
   ev.dataTransfer.setData("text/plain", employeeid + "," + celldate);
@@ -365,7 +372,6 @@ function dragstart_handler(ev) {
 
 function drop_handler(ev) {
   ev.preventDefault();
-  // Get the id of the target and add the moved element to the target's DOM
   var id_and_date = ev.dataTransfer.getData("text/plain");
   var id = id_and_date.split(',')[0];
   var date = id_and_date.split(',')[1];
