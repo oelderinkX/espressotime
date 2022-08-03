@@ -110,9 +110,9 @@ function getEmployeeRow(employeetimes) {
 
     if (cellInner.length > 0) { //has a date and role so is draggable
       control.draggable = true;
-      window.addEventListener('DOMContentLoaded', () => {
+      //window.addEventListener('DOMContentLoaded', () => {
         control.addEventListener("dragstart", dragstart_handler);
-      });
+      //});
     } else {  // has no date so is dropable
       control.setAttribute('ondragover', 'dragover_handler(event)');
       control.setAttribute('ondrop', 'drop_handler(event)');
