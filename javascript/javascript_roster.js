@@ -234,6 +234,14 @@ function createModal(modaltarget, employeetimes, date) {
   save.innerHTML = 'Save';
   save.setAttribute('onclick', 'save(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
 
+  var delette = document.createElement('button');
+  delette.setAttribute('type', 'button');
+  delette.setAttribute('class', 'btn btn-default mr-auto');
+  delette.setAttribute('data-dismiss', 'modal');
+  delette.innerHTML = 'Delete';
+  delette.setAttribute('onclick', 'delete(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
+
+  modalfooter.appendChild(delette);
   modalfooter.appendChild(cancel);
   modalfooter.appendChild(save);
 
@@ -382,6 +390,17 @@ function save(id, date, modaltarget) {
     role: role.value
   };
   sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
+    employeestimes =  JSON.parse(response);
+    getEmployeeTimes();
+  });
+}
+
+function save(id, date, modaltarget) {
+  var request = { 
+    id: id,
+    date: date
+  };
+  sendPost("/deleteemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
     getEmployeeTimes();
   });

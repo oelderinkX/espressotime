@@ -334,7 +334,6 @@ module.exports = function(app){
 		});
 	});
 
-
 	app.post('/saveemployeetimes', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 
@@ -352,16 +351,24 @@ module.exports = function(app){
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, employeeid, date, start, finish, role], function(err, result) {
 				done();
-
-				console.log(sql);
-				console.log(result);
-				console.log(err);
-
 				res.send({ "result": "success" });
 			});
 		});
 	});
 
+	app.post('/deleteemployeetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
 
+		var employeeid = req.body.id;
+		var date = req.body.date;
 
+		var sql = 'delete from espresso.roster where shopid=$1 and employeeid=$2 and date=$3';
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, employeeid, date], function(err, result) {
+				done();
+				res.send({ "result": "success" });
+			});
+		});
+	});
 }
