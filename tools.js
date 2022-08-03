@@ -371,4 +371,22 @@ module.exports = function(app){
 			});
 		});
 	});
+
+	app.post('/moveemployeetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var employeeid = req.body.originalid;
+		var date = req.body.originaldate;
+		var newemployeeid = req.body.newid;
+		var newdate = req.body.newdate;
+
+		var sql = 'UPDATE espresso.roster SET (employeeid, date) VALUES ($4, $5) WHERE shopid=$1 AND employeeid=$2 AND date=$3';
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, employeeid, date, newemployeeid, newdate], function(err, result) {
+				done();
+				res.send({ "result": "success" });
+			});
+		});
+	});
 }

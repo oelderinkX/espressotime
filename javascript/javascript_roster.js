@@ -373,8 +373,16 @@ function drop_handler(ev) {
   var dest_employeeid = ev.target.getAttribute("employee_id");
   var dest_celldate = ev.target.getAttribute("cell_date");
 
-  console.log('hi');
-  // update where src_id and src_date equals and set dest_id, dest_date
+  var request = { 
+    originalid: id,
+    originaldate: date,
+    newid: dest_employeeid,
+    newdate: dest_celldate,
+  };
+  sendPost("/moveemployeetimes", JSON.stringify(request), function(response) {
+    employeestimes =  JSON.parse(response);
+    getEmployeeTimes();
+  });
 }
 
 function dragover_handler(ev) {
