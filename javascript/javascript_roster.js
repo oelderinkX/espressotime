@@ -108,6 +108,13 @@ function getEmployeeRow(employeetimes) {
     var modaltarget = i + '_' + employeetimes.id;
     control.setAttribute('data-target', '#' + modaltarget);
 
+    if (cellInner.length > 0) { //has a date and role etc
+      control.draggable = true;
+      window.addEventListener('DOMContentLoaded', () => {
+        // Add the ondragstart event listener
+        control.addEventListener("dragstart", dragstart_handler);
+      });
+    }
     var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
     cell.appendChild(control);
@@ -346,7 +353,16 @@ function updateTime(employeeid, date, start, finish, role) {
     }
   }
 }
-  
+
+function dragstart_handler(ev) {
+  // Add the target element's id to the data transfer object
+  ev.dataTransfer.setData("text/plain", ev.target.id);
+}
+
+function dragdrop(src_id, src_date, src_modaltarget, dest_id, dest_date) {
+  // update where src_id and src_date equals and set dest_id, dest_date
+}
+
 function save(id, date, modaltarget) {
   var controlQuery = "[data-target='#" + modaltarget + "']";
   var control = document.querySelector(controlQuery);
