@@ -108,17 +108,16 @@ function getEmployeeRow(employeetimes) {
     var modaltarget = i + '_' + employeetimes.id;
     control.setAttribute('data-target', '#' + modaltarget);
 
-    if (cellInner.length > 0) { //has a date and role etc
+    if (cellInner.length > 0) { //has a date and role so is draggable
       control.draggable = true;
       window.addEventListener('DOMContentLoaded', () => {
-        // Add the ondragstart event listener
         control.addEventListener("dragstart", dragstart_handler);
       });
     } else {  // has no date so is dropable
       control.setAttribute('ondragover', 'dragover_handler(event)');
       control.setAttribute('ondrop', 'drop_handler(event)');
     }
-    
+
     var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
     cell.appendChild(control);
@@ -360,7 +359,7 @@ function updateTime(employeeid, date, start, finish, role) {
 
 function dragstart_handler(ev) {
   // Add the target element's id to the data transfer object
-  ev.dataTransfer.setData("text/plain", ev.target.id);
+  ev.dataTransfer.setData("text/plain", "hi");
 }
 
 function dragover_handler(ev) {
@@ -371,7 +370,7 @@ function dragover_handler(ev) {
 function drop_handler(ev) {
   ev.preventDefault();
   // Get the id of the target and add the moved element to the target's DOM
-  const data = ev.dataTransfer.getData("text/plain");
+  var data = ev.dataTransfer.getData("text/plain");
   //ev.target.appendChild(document.getElementById(data));
 }
 
