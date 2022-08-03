@@ -358,23 +358,28 @@ function updateTime(employeeid, date, start, finish, role) {
 
 function dragstart_handler(ev) {
   // Add the target element's id to the data transfer object
-  ev.dataTransfer.setData("text/plain", "hi");
-}
-
-function dragover_handler(ev) {
-  ev.preventDefault();
-  ev.dataTransfer.dropEffect = "move";
+  var employeeid = ev.target.getAttribute("employee_id");
+  var celldate = ev.target.getAttribute("cell_date");
+  ev.dataTransfer.setData("text/plain", employeeid + "," + celldate);
 }
 
 function drop_handler(ev) {
   ev.preventDefault();
   // Get the id of the target and add the moved element to the target's DOM
-  var data = ev.dataTransfer.getData("text/plain");
-  //ev.target.appendChild(document.getElementById(data));
+  var id_and_date = ev.dataTransfer.getData("text/plain");
+  var id = id_and_date.split(',')[0];
+  var date = id_and_date.split(',')[1];
+
+  var dest_employeeid = ev.target.getAttribute("employee_id");
+  var dest_celldate = ev.target.getAttribute("cell_date");
+
+  console.log('hi');
+  // update where src_id and src_date equals and set dest_id, dest_date
 }
 
-function dragdrop(src_id, src_date, src_modaltarget, dest_id, dest_date) {
-  // update where src_id and src_date equals and set dest_id, dest_date
+function dragover_handler(ev) {
+  ev.preventDefault();
+  ev.dataTransfer.dropEffect = "move";
 }
 
 function save(id, date, modaltarget) {
