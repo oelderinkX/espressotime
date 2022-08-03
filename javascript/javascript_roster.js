@@ -104,15 +104,14 @@ function getEmployeeRow(employeetimes) {
     control.style.color = textcolour;
 
     control.setAttribute('employee_id', employeetimes.id);
+    control.setAttribute('cell_date', rosterdates[i]);
 
     var modaltarget = i + '_' + employeetimes.id;
     control.setAttribute('data-target', '#' + modaltarget);
 
     if (cellInner.length > 0) { //has a date and role so is draggable
       control.draggable = true;
-      //window.addEventListener('DOMContentLoaded', () => {
-        control.addEventListener("dragstart", dragstart_handler);
-      //});
+      control.addEventListener("dragstart", dragstart_handler);
     } else {  // has no date so is dropable
       control.setAttribute('ondragover', 'dragover_handler(event)');
       control.setAttribute('ondrop', 'drop_handler(event)');
