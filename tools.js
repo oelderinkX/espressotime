@@ -385,6 +385,10 @@ module.exports = function(app){
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, employeeid, date, newemployeeid, newdate], function(err, result) {
 				done();
+
+				console.log(err);
+				console.log(result);
+
 				res.send({ "result": "success" });
 			});
 		});
