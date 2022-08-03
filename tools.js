@@ -380,10 +380,10 @@ module.exports = function(app){
 		var newemployeeid = req.body.newid;
 		var newdate = req.body.newdate;
 
-		var sql = 'UPDATE espresso.roster SET (employeeid, date) VALUES ($4, $5) WHERE shopid=$1 AND employeeid=$2 AND date=$3';
+		var sql = 'UPDATE espresso.roster SET employeeid=$1, date=$2 WHERE shopid=$3 AND employeeid=$4 AND date=$5';
 	
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId, employeeid, date, newemployeeid, newdate], function(err, result) {
+			connection.query(sql, [newemployeeid, newdate, shopId, employeeid, date], function(err, result) {
 				done();
 
 				console.log(err);
