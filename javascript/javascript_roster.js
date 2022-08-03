@@ -67,12 +67,12 @@ function getEmployeeRow(employeetimes) {
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
 
+  var hours = 0;
   for(var i = 0; i < rosterdates.length; i++) {
     var cellInner = '';
     var role = '';
     var backgroundColour = '';
     var textcolour = 'black';
-    var hours = 0;
 
     for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
