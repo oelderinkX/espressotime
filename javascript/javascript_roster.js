@@ -190,7 +190,7 @@ function createCell() {
 function createControl() {
   var control = document.createElement('div');
   control.setAttribute('class', 'btn');
-  control.setAttribute('style', 'display:inline-block; width: 160px; height: 40px; white-space: normal;')
+  control.setAttribute('style', 'display:inline-block; width: 160px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px');
   control.setAttribute('width', '100%');
   control.setAttribute('data-toggle', 'modal');
 
