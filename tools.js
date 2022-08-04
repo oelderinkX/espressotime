@@ -403,8 +403,6 @@ module.exports = function(app){
 
 		sql = "select employeeid from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week' limit 1;";
 
-		console.log(sql);
-
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
@@ -417,9 +415,13 @@ module.exports = function(app){
 					sql += "WHERE shopid = $1 AND ";
 					sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day';";
 
+					console.log(sql);
+
 					pool.connect(function(err, connection, done) {
 						connection.query(sql, [shopId], function(err, result) {
 							done();
+
+							console.log(err);
 
 							if (err) {
 								res.send({ "success": false, "reason": err });
