@@ -35,6 +35,8 @@ function drawTable() {
     table.appendChild(getEmployeeRow(employeestimes[i]));
   }
 
+  table.appendChild(getFooterRow());
+
   roster_weekview.appendChild(table);
 }
   
@@ -52,7 +54,23 @@ function getHeaderRow() {
 
   return row;
 }
+
+function getFooterRow() {
+  var row = createRow();
   
+  row.appendChild(createHeader('Totals'));
+
+  for(var i = 0; i < rosterdates.length; i++)
+  {
+    //calc hours!
+    row.appendChild(createHeader('0'));
+  }
+
+  row.appendChild(createHeader('1000'));
+
+  return row;
+}
+
 function createHeader(text) {
   var header = document.createElement('td');
   header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px;');
