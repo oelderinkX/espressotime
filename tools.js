@@ -272,56 +272,58 @@ module.exports = function(app){
 		var date = req.body.date;
 		var employeestimes = [];
 
-		var sql = 'select id, name from espresso.employee where ex = false and shopid = $1 order by name';
-		var parameters = [shopId];
-	
+		sql = "select employeeid, date, start, finish, role from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
+
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, parameters, function(err, result) {
+			connection.query(sql, [shopId], function(err, result) {
 				done();
 
-				if (err) {
-					console.log(err);
-				} else {
-					if (result && result.rowCount > 0) {
-						for(var i = 0; i < result.rowCount; i++) {
-							employeestimes.push({
-								id: result.rows[i].id,
-								name: result.rows[i].name,
-								times: []			
-							});
+				var ids = [];
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						var employeeid = result.rows[i].employeeid;
+						if (ids.indexOf(employeeid) == -1) {
+							ids.push(employeeid);
 						}
 					}
 				}
 
-				sql = "select employeeid, date, start, finish, role from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
+				var sql = 'select id, name from espresso.employee where shopid = $1 and (ex = false or id in (' + ids.join(',') +  ')) order by name';
+				console.log(sql);
 
 				pool.connect(function(err, connection, done) {
-					connection.query(sql, [shopId], function(err, result) {
+					connection.query(sql, [shopId], function(err, employee_result) {
 						done();
 
-						if (err) {
-							console.log(err);
-						} else {
-							if (result && result.rowCount > 0) {
-								for(var i = 0; i < result.rowCount; i++) {
-									for(var x = 0; x < employeestimes.length; x++) {
-										if (employeestimes[x].id == result.rows[i].employeeid) {
-											var d = new Date(result.rows[i].date);
-											dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
+						if (employee_result && employee_result.rowCount > 0) {
+							for(var i = 0; i < employee_result.rowCount; i++) {
+								employeestimes.push({
+									id: employee_result.rows[i].id,
+									name: employee_result.rows[i].name,
+									times: []			
+								});
+							}
+						}
 
-											var start = new Date(result.rows[i].start);
-											var startStr = dateHelper.formatTime(start);
+						if (result && result.rowCount > 0) {
+							for(var i = 0; i < result.rowCount; i++) {
+								for(var x = 0; x < employeestimes.length; x++) {
+									if (employeestimes[x].id == result.rows[i].employeeid) {
+										var d = new Date(result.rows[i].date);
+										dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
 
-											var end = new Date(result.rows[i].finish);
-											var endStr = dateHelper.formatTime(end);
+										var start = new Date(result.rows[i].start);
+										var startStr = dateHelper.formatTime(start);
 
-											employeestimes[x].times.push({
-												date: dateStr,
-												start: startStr,
-												end: endStr,
-												role: result.rows[i].role
-											});
-										}
+										var end = new Date(result.rows[i].finish);
+										var endStr = dateHelper.formatTime(end);
+
+										employeestimes[x].times.push({
+											date: dateStr,
+											start: startStr,
+											end: endStr,
+											role: result.rows[i].role
+										});
 									}
 								}
 							}
