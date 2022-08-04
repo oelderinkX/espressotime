@@ -394,10 +394,42 @@ module.exports = function(app){
 			connection.query(sql, [newemployeeid, newdate, shopId, employeeid, date], function(err, result) {
 				done();
 
-				console.log(err);
-				console.log(result);
-
 				res.send({ "result": "success" });
+			});
+		});
+	});
+
+	app.post('/copylastweek', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var date = req.body.date;
+
+		sql = "select count(employeeid) from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				if (result && result.rowCount > 0) {
+					res.send({ "success": "false", "reason": "you need to clear the entire week to copy from last week" });
+				} else {
+
+					sql = "INSERT INTO espresso.roster (shopid, emloyeeid, date, start, finish, role) ";
+					sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
+					sql += "WHERE shopid = $1 AND ";
+					sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day';";
+
+					pool.connect(function(err, connection, done) {
+						connection.query(sql, [shopId], function(err, result) {
+							done();
+
+							if (err) {
+								res.send({ "success": "false", "reason": err });
+							} else {
+								res.send({ "success": "true" });
+							}
+						});
+					});
+				}
 			});
 		});
 	});

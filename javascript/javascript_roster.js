@@ -553,3 +553,16 @@ function getEmployeeTimes() {
       loading.innerHTML = '';
   });
 }
+
+function copyLastWeek() {
+  var request = { date: rosterdates[0] };
+  sendPost("/copylastweek", JSON.stringify(request), function(response) {
+    var result =  JSON.parse(response);
+
+    if (result.success == false) {
+      alert('Not able to copy last week because: ' + result.reason);
+    }
+
+    getEmployeeTimes();
+  });
+}
