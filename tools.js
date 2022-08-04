@@ -403,6 +403,8 @@ module.exports = function(app){
 
 		sql = "select count(employeeid) from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
 
+		console.log(sql);
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
