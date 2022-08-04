@@ -94,7 +94,7 @@ function getFooterRow() {
 
 function createHeader(text) {
   var header = document.createElement('td');
-  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px;');
+  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
   header.innerHTML = text;
   return header;
 
@@ -183,14 +183,14 @@ function createRow() {
 
 function createCell() {
   var cell = document.createElement('td');
-  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px;');
+  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
   return cell;
 }
   
 function createControl() {
   var control = document.createElement('div');
   control.setAttribute('class', 'btn');
-  control.setAttribute('style', 'display:inline-block; width: 160px; height: 50px; white-space: normal;')
+  control.setAttribute('style', 'display:inline-block; width: 160px; height: 40px; white-space: normal;')
   control.setAttribute('width', '100%');
   control.setAttribute('data-toggle', 'modal');
 
