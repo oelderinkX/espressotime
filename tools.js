@@ -291,8 +291,7 @@ module.exports = function(app){
 				var sql = '';
 				if (ids.length > 0) {
 					sql = 'select id, name from espresso.employee where shopid = $1 and (ex = false or id in (' + ids.join(',') + ')) order by name';
-				} else
-				{
+				} else {
 					sql = 'select id, name from espresso.employee where shopid = $1 and ex = false order by name';
 				}
 
