@@ -272,7 +272,7 @@ module.exports = function(app){
 		var date = req.body.date;
 		var employeestimes = [];
 
-		var sql = 'select id, name from espresso.employee where ex = false and shopid = $1';
+		var sql = 'select id, name from espresso.employee where ex = false and shopid = $1 order by name';
 		var parameters = [shopId];
 	
 		pool.connect(function(err, connection, done) {
