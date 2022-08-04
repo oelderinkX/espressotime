@@ -401,7 +401,7 @@ module.exports = function(app){
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
 
-		sql = "select count(employeeid) from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week';";
+		sql = "select employeeid from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week' limit 1;";
 
 		console.log(sql);
 
