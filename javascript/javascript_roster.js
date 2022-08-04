@@ -57,16 +57,35 @@ function getHeaderRow() {
 
 function getFooterRow() {
   var row = createRow();
-  
   row.appendChild(createHeader('Totals'));
+  var totalHours = 0;
 
   for(var i = 0; i < rosterdates.length; i++)
   {
-    //calc hours!
-    row.appendChild(createHeader('0'));
+    var totalDayHours = 0;
+
+    for(var x = 0; x < employeetimes.length; x++) {
+      for(var y = 0; y < employeetimes[x].times.length; y++) {
+        var start = new Date('1970-01-01');
+        start.setHours(employeetimes[x].times[y].start.split(':')[0]);
+        start.setMinutes(employeetimes[x].times[y].start.split(':')[1]);
+
+        var end = new Date('1970-01-01');
+        end.setHours(employeetimes[x].times[y].end.split(':')[0]);
+        end.setMinutes(employeetimes[x].times[y].end.split(':')[1]);
+
+        var totalMilliSeconds = Math.abs(end - start);
+        var hours = totalMilliSeconds / 36e5;
+
+        totalDayHours += hours;
+        totalHours += hours;
+      }
+    }
+
+    row.appendChild(createHeader(totalDayHours));
   }
 
-  row.appendChild(createHeader('1000'));
+  row.appendChild(createHeader(totalHours));
 
   return row;
 }
