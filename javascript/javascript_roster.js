@@ -64,15 +64,15 @@ function getFooterRow() {
   {
     var totalDayHours = 0;
 
-    for(var x = 0; x < employeetimes.length; x++) {
-      for(var y = 0; y < employeetimes[x].times.length; y++) {
+    for(var x = 0; x < employeestimes.length; x++) {
+      for(var y = 0; y < employeestimes[x].times.length; y++) {
         var start = new Date('1970-01-01');
-        start.setHours(employeetimes[x].times[y].start.split(':')[0]);
-        start.setMinutes(employeetimes[x].times[y].start.split(':')[1]);
+        start.setHours(employeestimes[x].times[y].start.split(':')[0]);
+        start.setMinutes(employeestimes[x].times[y].start.split(':')[1]);
 
         var end = new Date('1970-01-01');
-        end.setHours(employeetimes[x].times[y].end.split(':')[0]);
-        end.setMinutes(employeetimes[x].times[y].end.split(':')[1]);
+        end.setHours(employeestimes[x].times[y].end.split(':')[0]);
+        end.setMinutes(employeestimes[x].times[y].end.split(':')[1]);
 
         var totalMilliSeconds = Math.abs(end - start);
         var hours = totalMilliSeconds / 36e5;
