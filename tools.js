@@ -295,8 +295,6 @@ module.exports = function(app){
 					sql = 'select id, name from espresso.employee where shopid = $1 and ex = false order by name';
 				}
 
-				console.log(sql);
-
 				pool.connect(function(err, connection, done) {
 					connection.query(sql, [shopId], function(err, employee_result) {
 						done();
@@ -409,10 +407,11 @@ module.exports = function(app){
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
+				console.log(err);
+
 				if (result && result.rowCount > 0) {
 					res.send({ "success": "false", "reason": "you need to clear the entire week to copy from last week" });
 				} else {
-
 					sql = "INSERT INTO espresso.roster (shopid, emloyeeid, date, start, finish, role) ";
 					sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
 					sql += "WHERE shopid = $1 AND ";
