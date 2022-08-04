@@ -410,7 +410,7 @@ module.exports = function(app){
 				if (result && result.rowCount > 0) {
 					res.send({ "success": false, "reason": "you need to clear the entire week to copy from last week" });
 				} else {
-					sql = "INSERT INTO espresso.roster (shopid, emloyeeid, date, start, finish, role) ";
+					sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
 					sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
 					sql += "WHERE shopid = $1 AND ";
 					sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day';";
