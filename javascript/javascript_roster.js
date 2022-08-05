@@ -410,7 +410,7 @@ function dragstart_handler(ev) {
   ev.dataTransfer.setData("text/plain", employeeid + "/" + celldate + "/" + color);
 
   if (!ev.ctrlKey) {
-    ev.target.style.visibility = 'hidden';
+    //ev.target.style.visibility = 'hidden';
   }
 }
 
