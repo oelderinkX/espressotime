@@ -409,6 +409,9 @@ function dragstart_handler(ev) {
   var color = ev.target.style.backgroundColor;
   ev.dataTransfer.setData("text/plain", employeeid + "/" + celldate + "/" + color);
 
+  if (!ev.ctrlKey) {
+    ev.target.style.visibility = 'hidden';
+  }
 }
 
 function drop_handler(ev) {
