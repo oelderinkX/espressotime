@@ -407,16 +407,16 @@ function dragstart_handler(ev) {
   var employeeid = ev.target.getAttribute("employee_id");
   var celldate = ev.target.getAttribute("cell_date");
   var color = ev.target.style.backgroundColor;
-  ev.dataTransfer.setData("text/plain", employeeid + "," + celldate + "," + color);
+  ev.dataTransfer.setData("text/plain", employeeid + "/" + celldate + "/" + color);
 
 }
 
 function drop_handler(ev) {
   ev.preventDefault();
   var id_and_date = ev.dataTransfer.getData("text/plain");
-  var id = id_and_date.split(',')[0];
-  var date = id_and_date.split(',')[1];
-  var color = id_and_date.split(',')[2];
+  var id = id_and_date.split('/')[0];
+  var date = id_and_date.split('/')[1];
+  var color = id_and_date.split('/')[2];
 
   var dest_employeeid = ev.target.getAttribute("employee_id");
   var dest_celldate = ev.target.getAttribute("cell_date");
