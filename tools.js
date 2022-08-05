@@ -406,7 +406,7 @@ module.exports = function(app){
 		var newdate = req.body.newdate;
 
 		var sql = 'INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ';
-		sql += "SELECT $1, $2, $3, start, finish FROM espresso.roster WHERE shopid = $1 AND employeeid = $4 and date = $5 ";
+		sql += "SELECT $1, $2, $3, start, finish, role FROM espresso.roster WHERE shopid = $1 AND employeeid = $4 and date = $5 ";
 		sql += "ON CONFLICT (shopid, employeeid, date) ";
 		sql += "DO NOTHING;";
 	
