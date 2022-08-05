@@ -397,6 +397,30 @@ module.exports = function(app){
 		});
 	});
 
+	app.post('/copyemployeetimes', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var employeeid = req.body.originalid;
+		var date = req.body.originaldate;
+		var newemployeeid = req.body.newid;
+		var newdate = req.body.newdate;
+
+		var sql = 'INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ';
+		sql += "SELECT $1, $2, $3, start, finish FROM espresso.roster WHERE shopid = $1 AND employeeid = $4 and date = $5 ";
+		sql += "ON CONFLICT (shopid, employeeid, date) ";
+		sql += "DO NOTHING;";
+	
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, newemployeeid, newdate, employeeid, date], function(err, result) {
+				done();
+
+				console.log(err);
+
+				res.send({ "result": "success" });
+			});
+		});
+	});
+
 	app.post('/copylastweek', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;

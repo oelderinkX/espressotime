@@ -406,7 +406,9 @@ function updateTime(employeeid, date, start, finish, role) {
 function dragstart_handler(ev) {
   var employeeid = ev.target.getAttribute("employee_id");
   var celldate = ev.target.getAttribute("cell_date");
-  ev.dataTransfer.setData("text/plain", employeeid + "," + celldate);
+  var color = ev.target.backgroundColour;
+  ev.dataTransfer.setData("text/plain", employeeid + "," + celldate + "," + color);
+
 }
 
 function drop_handler(ev) {
@@ -414,9 +416,12 @@ function drop_handler(ev) {
   var id_and_date = ev.dataTransfer.getData("text/plain");
   var id = id_and_date.split(',')[0];
   var date = id_and_date.split(',')[1];
+  var color = id_and_date.split(',')[2];
 
   var dest_employeeid = ev.target.getAttribute("employee_id");
   var dest_celldate = ev.target.getAttribute("cell_date");
+
+  ev.target.backgroundColour = color;
 
   var request = { 
     originalid: id,
