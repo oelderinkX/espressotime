@@ -579,14 +579,16 @@ function getEmployeeTimes() {
 }
 
 function copyLastWeek() {
-  var request = { date: rosterdates[0] };
-  sendPost("/copylastweek", JSON.stringify(request), function(response) {
-    var result =  JSON.parse(response);
+  if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
+    var request = { date: rosterdates[0] };
+    sendPost("/copylastweek", JSON.stringify(request), function(response) {
+      var result =  JSON.parse(response);
 
-    if (result.success == false) {
-      alert('Not able to copy last week because: ' + result.reason);
-    }
+      if (result.success == false) {
+        alert('Not able to copy last week because: ' + result.reason);
+      }
 
-    getEmployeeTimes();
-  });
+      getEmployeeTimes();
+    });
+  }
 }
