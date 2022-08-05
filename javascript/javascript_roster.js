@@ -8,7 +8,8 @@ var roles = [
   {"name": "Dishwasher", "colour": "#4DD0E1", "textcolour": "black"},
   {"name": "Manager", "colour": "#2196F3", "textcolour": "white"},
   {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
-  {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"}];
+  {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"},
+  {"name": "Sick", "colour": "black", "textcolour": "white"}];
 
 function clearTable() {
   var roster_weekview = document.getElementById('roster_weekview');
@@ -50,13 +51,16 @@ function getHeaderRow() {
     row.appendChild(createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate()));
   }
 
-  row.appendChild(createHeader('Hours'));
+  hoursHeader = createHeader('Hours');
+  hoursHeader.classList.add('hidden-print');
+  row.appendChild(hoursHeader);
 
   return row;
 }
 
 function getFooterRow() {
   var row = createRow();
+  row.classList.add('hidden-print');
   row.appendChild(createHeader('Totals'));
   var totalHours = 0;
 
@@ -169,7 +173,7 @@ function getEmployeeRow(employeetimes) {
   }
 
   var hourCell = createCell();
-
+  hourCell.classList.add('hidden-print');
   hourCell.innerHTML = hours;
 
   row.appendChild(hourCell);
