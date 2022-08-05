@@ -408,6 +408,10 @@ function dragstart_handler(ev) {
   var celldate = ev.target.getAttribute("cell_date");
   var color = ev.target.style.backgroundColor;
   ev.dataTransfer.setData("text/plain", employeeid + "/" + celldate + "/" + color);
+
+  if (!ev.ctrlKey) {
+    ev.target.innerHTML = 'Moving...';
+  }
 }
 
 function drop_handler(ev) {
@@ -420,7 +424,10 @@ function drop_handler(ev) {
   var dest_employeeid = ev.target.getAttribute("employee_id");
   var dest_celldate = ev.target.getAttribute("cell_date");
 
-  //ev.target.style.backgroundColor = color;
+  if (ev.ctrlKey) {
+    ev.target.style.backgroundColor = color;
+    ev.target.innerHTML = 'Copying...'
+  }
 
   var request = { 
     originalid: id,
