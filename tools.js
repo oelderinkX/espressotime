@@ -401,35 +401,25 @@ module.exports = function(app){
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
 
-		sql = "select employeeid from espresso.roster where shopid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week' limit 1;";
+		sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
+		sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
+		sql += "WHERE shopid = $1 AND ";
+		sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day' ";
+		sql += "ON CONFLICT (shopid, employeeid, date) ";
+		sql += "DO NOTHING;"
+
+		console.log(sql);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
-				if (result && result.rowCount > 0) {
-					res.send({ "success": false, "reason": "you need to clear the entire week to copy from last week" });
+				console.log(err);
+
+				if (err) {
+					res.send({ "success": false, "reason": err });
 				} else {
-					sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
-					sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
-					sql += "WHERE shopid = $1 AND ";
-					sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day';";
-
-					console.log(sql);
-
-					pool.connect(function(err, connection, done) {
-						connection.query(sql, [shopId], function(err, result) {
-							done();
-
-							console.log(err);
-
-							if (err) {
-								res.send({ "success": false, "reason": err });
-							} else {
-								res.send({ "success": true });
-							}
-						});
-					});
+					res.send({ "success": true });
 				}
 			});
 		});
