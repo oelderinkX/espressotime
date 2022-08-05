@@ -424,15 +424,28 @@ function drop_handler(ev) {
     newid: dest_employeeid,
     newdate: dest_celldate,
   };
-  sendPost("/moveemployeetimes", JSON.stringify(request), function(response) {
-    employeestimes =  JSON.parse(response);
-    getEmployeeTimes();
-  });
+
+  if (ev.ctrlKey) {
+    sendPost("/copyemployeetimes", JSON.stringify(request), function(response) {
+      employeestimes =  JSON.parse(response);
+      getEmployeeTimes();
+    });
+  } else {
+    sendPost("/moveemployeetimes", JSON.stringify(request), function(response) {
+      employeestimes =  JSON.parse(response);
+      getEmployeeTimes();
+    });
+  }
 }
 
 function dragover_handler(ev) {
   ev.preventDefault();
-  ev.dataTransfer.dropEffect = "move";
+
+  if (ev.ctrlKey) {
+    ev.dataTransfer.dropEffect = "copy";
+  } else {
+    ev.dataTransfer.dropEffect = "move";
+  }
 }
 
 function save(id, date, modaltarget) {
