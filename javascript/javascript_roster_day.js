@@ -121,71 +121,36 @@ function getEmployeeRow(employeetimes) {
   var nameCell = createCell();
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
+   
+  var timeBarCell = createCell();
+  timeBarCell.colSpan = 24;
+  var control = createControl();
 
-  var hours = 0;
-  for(var i = 0; i < 24; i++) {
-    var cellInner = '';
-    var role = '';
-    var backgroundColour = '';
-    var textcolour = 'black';
+  var cellInner = 'Employee X'
+  control.innerHTML = cellInner;
+  control.style.background = blue;
+  control.style.color = white;
 
-    /*for(var x = 0; x < employeetimes.times.length; x++) {
-      if (employeetimes.times[x].date == rosterdates[i]) {
-        role = employeetimes.times[x].role;
-        var startStr = employeetimes.times[x].start;
-        var start = new Date('1970-01-01');
-        start.setHours(startStr.split(':')[0]);
-        start.setMinutes(startStr.split(':')[1]);
+  control.setAttribute('employee_id', employeetimes.id);
 
-        var endStr = employeetimes.times[x].end;
-        var end = new Date('1970-01-01');
-        end.setHours(endStr.split(':')[0]);
-        end.setMinutes(endStr.split(':')[1]);
+  var modaltarget = i + '_' + employeetimes.id;
+  control.setAttribute('data-target', '#' + modaltarget);
 
-        var startTime = start.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-        var finishTime = end.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
-        cellInner = startTime + ' - ' + finishTime + ' ' + role;
-
-        backgroundColour = getRoleColour(role);
-        textcolour = getRoleTextColour(role);
-
-        var totalMilliSeconds = Math.abs(end - start);
-        var totalHours = totalMilliSeconds / 36e5;
-        hours += totalHours;
-      }
-    }*/
-    
-    var cell = createCell();
-    var control = createControl();
-
-    control.innerHTML = cellInner;
-    control.style.background = backgroundColour;
-    control.style.color = textcolour;
-
-    control.setAttribute('employee_id', employeetimes.id);
-    control.setAttribute('cell_date', rosterdates[i]);
-
-    var modaltarget = i + '_' + employeetimes.id;
-    control.setAttribute('data-target', '#' + modaltarget);
-
-    if (cellInner.length > 0) { //has a date and role so is draggable
-      control.draggable = true;
-      control.addEventListener("dragstart", dragstart_handler);
-    } else {  // has no date so is dropable
-      control.setAttribute('ondragover', 'dragover_handler(event)');
-      control.setAttribute('ondrop', 'drop_handler(event)');
-    }
-
-    var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
-
-    cell.appendChild(control);
-
-    row.appendChild(cell);
+  if (cellInner.length > 0) { //has a date and role so is draggable
+    control.draggable = true;
+    control.addEventListener("dragstart", dragstart_handler);
+  } else {  // has no date so is dropable
+    control.setAttribute('ondragover', 'dragover_handler(event)');
+    control.setAttribute('ondrop', 'drop_handler(event)');
   }
 
+  var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
+
+  timeBarCell.appendChild(control);
+
+  row.appendChild(timeBarCell);
+
   var hourCell = createCell();
-  hourCell.classList.add('hidden-print');
   hourCell.innerHTML = hours;
 
   row.appendChild(hourCell);
@@ -206,8 +171,7 @@ function createCell() {
 function createControl() {
   var control = document.createElement('div');
   control.setAttribute('class', 'btn');
-  control.setAttribute('style', 'display:inline-block; width: 20px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px');
-  control.setAttribute('width', '100%');
+  control.setAttribute('style', 'display:inline-block; width: 20px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px; width: 300px; resize: horizontal; overflow: auto;');
   control.setAttribute('data-toggle', 'modal');
 
   return control;
