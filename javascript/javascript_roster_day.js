@@ -128,8 +128,8 @@ function getEmployeeRow(employeetimes) {
 
   var cellInner = 'Employee X'
   control.innerHTML = cellInner;
-  control.style.background = blue;
-  control.style.color = white;
+  control.style.background = 'blue';
+  control.style.color = 'white';
 
   control.setAttribute('employee_id', employeetimes.id);
 
