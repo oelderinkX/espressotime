@@ -144,7 +144,7 @@ function getEmployeeRow(employeetimes) {
     control.setAttribute('ondrop', 'drop_handler(event)');
   }
 
-  var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
+  //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
   timeBarCell.appendChild(control);
 
