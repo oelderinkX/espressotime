@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Roster</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="javascript/common.js"></script>
+  <script src="javascript/javascript_roster_day.js"></script>
+<style>
+  body {
+    background-color: #ac9175;
+    color: #1f1f1f !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+</style>
+</head>
+<script>
+  var employeestimes = [];
+  var rosterdates = '';
+</script>
+<body>
+  <br class="hidden-print">
+  <input type="button" value="&lt;" id="back" class="hidden-print" onclick="rosterBack();"><span id="rosterDate" class="hidden-print"></span><input type="button" value="&gt;" id="forward" class="hidden-print" onclick="rosterForward();">
+  <span id="loading"></span>
+  <br class="hidden-print">
+  <h1 class="hidden-print">Roster - Week</h1>
+  <br class="hidden-print">
+  <div id="roster_weekview"></div>
+  <div id="modals"></div>
+<script>
+  getRosterDate();
+  getEmployeeTimes();
+</script>
+</body>
+</html>
+

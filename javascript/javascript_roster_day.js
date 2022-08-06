@@ -1,29 +1,16 @@
-var roles = [
-  {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
-  {"name": "Open", "colour": "#43A047", "textcolour": "white"},
-  {"name": "Close", "colour": "#F4511E", "textcolour": "white"},
-  {"name": "Sandwich", "colour": "#FFE0B2", "textcolour": "black"},
-  {"name": "Cook", "colour": "white", "textcolour": "black"},
-  {"name": "Sandwich/Cook", "colour": "#D7CCC8", "textcolour": "black"},
-  {"name": "Dishwasher", "colour": "#4DD0E1", "textcolour": "black"},
-  {"name": "Manager", "colour": "#2196F3", "textcolour": "white"},
-  {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
-  {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"},
-  {"name": "Sick", "colour": "black", "textcolour": "white"}];
-
 function clearTable() {
-  var roster_weekview = document.getElementById('roster_weekview');
+  var roster_dayview = document.getElementById('roster_dayview');
   var modals = document.getElementById('modals');
 
-  roster_weekview.innerHTML = '';
+  roster_dayview.innerHTML = '';
   modals.innerHTML = '';
 }
 
 function drawTable() {
   clearTable();
   
-  var roster_weekview = document.getElementById('roster_weekview');
-  var modals = document.getElementById('modals');
+  var roster_dayview = document.getElementById('roster_dayview');
+  //var modals = document.getElementById('modals');
 
   var table = document.createElement('table');
   table.setAttribute('width', '1440px');
@@ -33,26 +20,24 @@ function drawTable() {
 
   for(var i = 0; i < employeestimes.length; i++)
   {
-    table.appendChild(getEmployeeRow(employeestimes[i]));
+    //table.appendChild(getEmployeeRow(employeestimes[i]));
   }
 
-  table.appendChild(getFooterRow());
+  //table.appendChild(getFooterRow());
 
-  roster_weekview.appendChild(table);
+  roster_dayview.appendChild(table);
 }
   
 function getHeaderRow() {
   var row = createRow();
   row.appendChild(createHeader('Employee'));
 
-  for(var i = 0; i < rosterdates.length; i++)
+  for(var i = 0; i < 24; i++)
   {
-    var headerDate = new Date(rosterdates[i]);
-    row.appendChild(createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate()));
+    row.appendChild(createHeader(i));
   }
 
   hoursHeader = createHeader('Hours');
-  hoursHeader.classList.add('hidden-print');
   row.appendChild(hoursHeader);
 
   return row;
@@ -239,7 +224,6 @@ function createModal(modaltarget, employeetimes, date) {
   var startinput = document.createElement('input');
   startinput.setAttribute('type', 'time');
   startinput.setAttribute('class', 'form-control');
-  startinput.setAttribute('step', 900);
   startinput.setAttribute('id', 'start_' + modaltarget);
   startinput.value = getStartTime(employeetimes.id, date);
   p.appendChild(startinput);
@@ -252,7 +236,6 @@ function createModal(modaltarget, employeetimes, date) {
   var finishinput = document.createElement('input');
   finishinput.setAttribute('type', 'time');
   finishinput.setAttribute('class', 'form-control');
-  finishinput.setAttribute('step', 900);
   finishinput.setAttribute('id', 'finish_' + modaltarget);
   finishinput.value = getEndTime(employeetimes.id, date);
   p.appendChild(finishinput);
@@ -523,18 +506,18 @@ function deleteit(id, date) {
 
 function rosterBack() {
   var d = new Date(rosterStart);
-  d.setDate( d.getDate() - 14 );
-  getRosterDates(d);
+  d.setDate( d.getDate() - 2 );
+  getRosterDate(d);
   getEmployeeTimes();
 }
 
 function rosterForward() {
   var d = new Date(rosterStart);
-  getRosterDates(d);
+  getRosterDate(d);
   getEmployeeTimes();
 }
 
-function getRosterDates(newDate) {
+function getRosterDate(newDate) {
     var rosterDate = document.getElementById("rosterDate");
 
     var d = new Date();
@@ -555,7 +538,7 @@ function getRosterDates(newDate) {
     var from = pad(rosterStart.getDate()) + ' ' + monthNames[rosterStart.getMonth()] + ' ' + rosterStart.getFullYear();
     var to = pad(rosterEnd.getDate()) + ' ' + monthNames[rosterEnd.getMonth()] + ' ' + rosterEnd.getFullYear();
 
-    rosterDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
+    rosterDate.innerHTML = ' ' + from;
 
     rosterdates = [];
     for(var i = 0; i < 7; i++)
