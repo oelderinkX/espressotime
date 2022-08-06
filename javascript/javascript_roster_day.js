@@ -137,7 +137,7 @@ function getEmployeeRow(employeetimes) {
   var modaltarget = 0 + '_' + employeetimes.id;
   control.setAttribute('data-target', '#' + modaltarget);
 
-  if (cellInner.length > 0) { //has a date and role so is draggable
+  if (role.length > 0) { //has a date and role so is draggable
     control.draggable = true;
     control.addEventListener("dragstart", dragstart_handler);
   } else {  // has no date so is dropable
