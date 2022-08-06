@@ -43,7 +43,7 @@ function drawTable() {
   
 function getHeaderRow() {
   var row = createRow();
-  row.appendChild(createHeader('Employee', 120));
+  row.appendChild(createHeader('Employee', 160));
 
   for(var i = 0; i < 24; i++)
   {
@@ -60,7 +60,7 @@ function getHeaderRow() {
     row.appendChild(createHeader(hour));
   }
 
-  hoursHeader = createHeader('Hours', 120);
+  hoursHeader = createHeader('Hours', 160);
   row.appendChild(hoursHeader);
 
   return row;
@@ -69,7 +69,7 @@ function getHeaderRow() {
 function getFooterRow() {
   var row = createRow();
   row.classList.add('hidden-print');
-  row.appendChild(createHeader('Totals', 120));
+  row.appendChild(createHeader('Totals', 160));
   var totalHours = 0;
 
   for(var i = 0; i < rosterdates.length; i++)
@@ -199,14 +199,14 @@ function createRow() {
 
 function createCell() {
   var cell = document.createElement('td');
-  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
+  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
   return cell;
 }
   
 function createControl() {
   var control = document.createElement('div');
   control.setAttribute('class', 'btn');
-  control.setAttribute('style', 'display:inline-block; width: 160px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px');
+  control.setAttribute('style', 'display:inline-block; width: 20px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px');
   control.setAttribute('width', '100%');
   control.setAttribute('data-toggle', 'modal');
 
