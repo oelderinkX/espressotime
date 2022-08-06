@@ -122,15 +122,14 @@ function getEmployeeRow(employeetimes) {
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
    
-  var left = createCell();
+  var timeCell = createCell();
+  timeCell.style = 'resize: horizontal; overflow: auto;';
+  timeCell.colSpan = 24;
+
+  var left = createTimeBar();
   left.style = 'resize: horizontal; overflow: auto;';
 
-  var timeBarCell = createCell();
-  timeBarCell.style = 'resize: horizontal; overflow: auto;';
-
-  timeBarCell.colSpan = 22;
-  
-  var right = createCell();
+  var right = createTimeBar();
   right.style = 'resize: horizontal; overflow: auto;';
 
   var control = createTimeBar();
@@ -155,10 +154,11 @@ function getEmployeeRow(employeetimes) {
 
   //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
-  row.appendChild(left);
-  timeBarCell.appendChild(control);
-  row.appendChild(timeBarCell);
-  row.appendChild(right);
+
+  timeCell.appendChild(left);
+  timeCell.appendChild(control);
+  timeCell.appendChild(right);
+  row.appendChild(timeCell);
 
   var hourCell = createCell();
   hourCell.innerHTML = hours;
