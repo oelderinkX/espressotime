@@ -20,7 +20,7 @@ function drawTable() {
 
   for(var i = 0; i < employeestimes.length; i++)
   {
-    //table.appendChild(getEmployeeRow(employeestimes[i]));
+    table.appendChild(getEmployeeRow(employeestimes[i]));
   }
 
   //table.appendChild(getFooterRow());
@@ -34,7 +34,13 @@ function getHeaderRow() {
 
   for(var i = 0; i < 24; i++)
   {
-    row.appendChild(createHeader(i));
+    var hour = '';
+    if (i < 12) {
+      hour = i + ' AM';
+    } else {
+      hour = i + ' PM'
+    }
+    row.appendChild(createHeader(hour));
   }
 
   hoursHeader = createHeader('Hours');
@@ -83,7 +89,7 @@ function getFooterRow() {
 
 function createHeader(text) {
   var header = document.createElement('td');
-  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
+  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
   header.innerHTML = text;
   return header;
 
@@ -96,13 +102,13 @@ function getEmployeeRow(employeetimes) {
   row.appendChild(nameCell);
 
   var hours = 0;
-  for(var i = 0; i < rosterdates.length; i++) {
+  for(var i = 0; i < 24; i++) {
     var cellInner = '';
     var role = '';
     var backgroundColour = '';
     var textcolour = 'black';
 
-    for(var x = 0; x < employeetimes.times.length; x++) {
+    /*for(var x = 0; x < employeetimes.times.length; x++) {
       if (employeetimes.times[x].date == rosterdates[i]) {
         role = employeetimes.times[x].role;
         var startStr = employeetimes.times[x].start;
@@ -127,7 +133,7 @@ function getEmployeeRow(employeetimes) {
         var totalHours = totalMilliSeconds / 36e5;
         hours += totalHours;
       }
-    }
+    }*/
     
     var cell = createCell();
     var control = createControl();
