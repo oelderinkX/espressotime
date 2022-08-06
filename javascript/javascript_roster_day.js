@@ -1,3 +1,16 @@
+var roles = [
+  {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
+  {"name": "Open", "colour": "#43A047", "textcolour": "white"},
+  {"name": "Close", "colour": "#F4511E", "textcolour": "white"},
+  {"name": "Sandwich", "colour": "#FFE0B2", "textcolour": "black"},
+  {"name": "Cook", "colour": "white", "textcolour": "black"},
+  {"name": "Sandwich/Cook", "colour": "#D7CCC8", "textcolour": "black"},
+  {"name": "Dishwasher", "colour": "#4DD0E1", "textcolour": "black"},
+  {"name": "Manager", "colour": "#2196F3", "textcolour": "white"},
+  {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
+  {"name": "Annual Leave", "colour": "#F48FB1", "textcolour": "black"},
+  {"name": "Sick", "colour": "black", "textcolour": "white"}];
+
 function clearTable() {
   var roster_dayview = document.getElementById('roster_dayview');
   var modals = document.getElementById('modals');
