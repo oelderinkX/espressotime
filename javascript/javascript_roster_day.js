@@ -126,6 +126,7 @@ function getEmployeeRow(employeetimes) {
   timeBarCell.colSpan = 24;
   var control = createControl();
 
+  var hours = 0;
   var cellInner = 'Employee X'
   control.innerHTML = cellInner;
   control.style.background = 'blue';
