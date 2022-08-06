@@ -106,7 +106,7 @@ function getFooterRow() {
 
 function createHeader(text, width) {
   if (!width) {
-    width = 20;
+    width = 30;
   }
 
   var header = document.createElement('td');
@@ -124,11 +124,11 @@ function getEmployeeRow(employeetimes) {
    
   var timeBarCell = createCell();
   timeBarCell.colSpan = 24;
-  var control = createControl();
+  var control = createTimeBar();
 
   var hours = 0;
-  var cellInner = 'Employee X'
-  control.innerHTML = cellInner;
+  var role = 'FOH';
+  control.innerHTML = role;
   control.style.background = 'blue';
   control.style.color = 'white';
 
@@ -165,14 +165,26 @@ function createRow() {
 
 function createCell() {
   var cell = document.createElement('td');
-  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
+  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 30px;');
   return cell;
 }
   
-function createControl() {
+function createTimeBar() {
   var control = document.createElement('div');
   control.setAttribute('class', 'btn');
-  control.setAttribute('style', 'display:inline-block; width: 20px; height: 40px; white-space: normal; padding: 3px 12px; font-size: 13px; width: 300px; resize: horizontal; overflow: auto;');
+
+  var styles = 'display:inline-block; ';
+  styles += 'width: 20px; ';
+  styles += 'height: 40px; ';
+  styles += 'width: 300px; ';
+  styles += 'max-width: 1200px; ';
+  styles += 'white-space: normal; ';
+  styles += 'padding: 3px 12px; ';
+  styles += 'font-size: 13px; ';
+  styles += 'resize: horizontal; ';
+  styles += 'overflow: auto;';
+
+  control.setAttribute('style', styles);
   control.setAttribute('data-toggle', 'modal');
 
   return control;
