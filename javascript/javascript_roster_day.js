@@ -43,7 +43,7 @@ function drawTable() {
   
 function getHeaderRow() {
   var row = createRow();
-  row.appendChild(createHeader('Employee'));
+  row.appendChild(createHeader('Employee', 120));
 
   for(var i = 0; i < 24; i++)
   {
@@ -51,12 +51,16 @@ function getHeaderRow() {
     if (i < 12) {
       hour = i + ' AM';
     } else {
-      hour = i + ' PM'
+      if (i == 12) {
+        hour = '12 PM'
+      } else {
+        hour = (i-12) + ' PM'
+      }
     }
     row.appendChild(createHeader(hour));
   }
 
-  hoursHeader = createHeader('Hours');
+  hoursHeader = createHeader('Hours', 120);
   row.appendChild(hoursHeader);
 
   return row;
@@ -65,7 +69,7 @@ function getHeaderRow() {
 function getFooterRow() {
   var row = createRow();
   row.classList.add('hidden-print');
-  row.appendChild(createHeader('Totals'));
+  row.appendChild(createHeader('Totals', 120));
   var totalHours = 0;
 
   for(var i = 0; i < rosterdates.length; i++)
@@ -100,9 +104,13 @@ function getFooterRow() {
   return row;
 }
 
-function createHeader(text) {
+function createHeader(text, width) {
+  if (!width) {
+    width = 20;
+  }
+
   var header = document.createElement('td');
-  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
+  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: ' + width +  'px;');
   header.innerHTML = text;
   return header;
 
