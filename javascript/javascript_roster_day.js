@@ -122,10 +122,18 @@ function getEmployeeRow(employeetimes) {
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
    
-  var timeBarCell = createCell();
-  timeBarCell.colSpan = 24;
-  var control = createTimeBar();
+  var left = createCell();
+  left.style = 'resize: horizontal; overflow: auto;';
 
+  var timeBarCell = createCell();
+  timeBarCell.style = 'resize: horizontal; overflow: auto;';
+
+  timeBarCell.colSpan = 22;
+  
+  var right = createCell();
+  right.style = 'resize: horizontal; overflow: auto;';
+
+  var control = createTimeBar();
   var hours = 0;
   var role = 'FOH';
   control.innerHTML = role;
@@ -147,9 +155,10 @@ function getEmployeeRow(employeetimes) {
 
   //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
+  row.appendChild(left);
   timeBarCell.appendChild(control);
-
   row.appendChild(timeBarCell);
+  row.appendChild(right);
 
   var hourCell = createCell();
   hourCell.innerHTML = hours;
@@ -176,13 +185,10 @@ function createTimeBar() {
   var styles = 'display:inline-block; ';
   styles += 'width: 20px; ';
   styles += 'height: 40px; ';
-  styles += 'width: 300px; ';
-  styles += 'max-width: 1200px; ';
+  styles += 'width: 100%; ';
   styles += 'white-space: normal; ';
   styles += 'padding: 3px 12px; ';
   styles += 'font-size: 13px; ';
-  styles += 'resize: horizontal; ';
-  styles += 'overflow: auto;';
 
   control.setAttribute('style', styles);
   control.setAttribute('data-toggle', 'modal');
