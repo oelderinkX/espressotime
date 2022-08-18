@@ -583,17 +583,12 @@ function getEmployeeTimes() {
 
 function copyLastWeek() {
   var copylastweekdate = document.getElementById('copylastweekdate');
-  var todate = '1970-01-01';
+  var fromdate = copylastweekdate.value;
 
-  var todate_date = new Date();
-  if (copylastweekdate.valueAsDate) {
-    todate_date = copylastweekdate.valueAsDate
-  }
-
-  todate = todate_date.getFullYear() + '-' + pad(todate_date.getMonth()+1) + '-' + pad(todate_date.getDate());
+  //todate = todate_date.getFullYear() + '-' + pad(todate_date.getMonth()+1) + '-' + pad(todate_date.getDate());
 
   //if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
-    var request = { date: rosterdates[0], todate: todate };
+    var request = { date: rosterdates[0], from_date: fromdate };
     /*sendPost("/copylastweek", JSON.stringify(request), function(response) {
       var result =  JSON.parse(response);
 
