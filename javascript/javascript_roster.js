@@ -567,7 +567,7 @@ function getRosterDates(newDate) {
 
     copylastweekdate.innerHTML = '';
     var lastweekdate = new Date();
-    lastweekdate.setDate(rosterStart.getDate() - 7);
+    lastweekdate.setDate(rosterStart.getDate() - 14);
     for(var i = 0; i < 5; i++) {
       var option = document.createElement('option');
       option.value = lastweekdate.getFullYear() + '-' + pad(lastweekdate.getMonth()+1) + '-' + pad(lastweekdate.getDate());
