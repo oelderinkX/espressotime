@@ -571,7 +571,7 @@ function getRosterDates(newDate) {
     for(var i = 0; i < 5; i++) {
       var option = document.createElement('option');
       option.value = lastweekdate.getFullYear() + '-' + pad(lastweekdate.getMonth()+1) + '-' + pad(lastweekdate.getDate());
-      option.innerHTML = lastweekdate.getFullYear() + '-' + pad(lastweekdate.getMonth()+1) + '-' + pad(lastweekdate.getDate());
+      option.innerHTML = pad(lastweekdate.getDate()) + ' ' + monthNames[lastweekdate.getMonth()] + ' ' + lastweekdate.getFullYear();
       copylastweekdate.appendChild(option);
       lastweekdate.setDate(lastweekdate.getDate() - 7);
     }
