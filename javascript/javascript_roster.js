@@ -582,9 +582,10 @@ function getEmployeeTimes() {
 }
 
 function copyLastWeek() {
-  if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
-    var request = { date: rosterdates[0] };
-    sendPost("/copylastweek", JSON.stringify(request), function(response) {
+  var copylastweekdate = document.getElementById('copylastweekdate');
+  //if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
+    var request = { date: rosterdates[0], todate: copylastweekdate.valueAsDate };
+    /*sendPost("/copylastweek", JSON.stringify(request), function(response) {
       var result =  JSON.parse(response);
 
       if (result.success == false) {
@@ -592,6 +593,6 @@ function copyLastWeek() {
       }
 
       getEmployeeTimes();
-    });
-  }
+    });*/
+  //}
 }
