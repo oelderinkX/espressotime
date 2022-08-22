@@ -443,9 +443,9 @@ module.exports = function(app){
 
 		sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
 		sql += "SELECT shopid, employeeid, ";
-		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) ";
-		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + start::time ";
-		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + finish::time ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date), ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + start::time, ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + finish::time, ";
 		sql += "role FROM espresso.roster ";
 		sql += "WHERE shopid = $1 AND ";
 		sql += "date between '" + from_date + "'::date and '" + from_date + "'::date + interval '1 week' ";
