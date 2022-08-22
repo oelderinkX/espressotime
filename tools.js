@@ -454,7 +454,7 @@ module.exports = function(app){
 
 		console.log(sql);
 
-		/*pool.connect(function(err, connection, done) {
+		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
@@ -466,7 +466,6 @@ module.exports = function(app){
 					res.send({ "success": true });
 				}
 			});
-		});*/
-		res.send({ "success": false, "reason": 'testing!' });
+		});
 	});
 }
