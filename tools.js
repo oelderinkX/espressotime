@@ -438,13 +438,17 @@ module.exports = function(app){
 
 	app.post('/copylastweek', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var date = req.body.date;
+		var to_date = req.body.date;
 		var from_date = req.body.from_date;
 
 		sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
-		sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
+		sql += "SELECT shopid, employeeid, ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + start::time ";
+		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + finish::time ";
+		sql += "role FROM espresso.roster ";
 		sql += "WHERE shopid = $1 AND ";
-		sql += "date between '" + date + "'::date - interval '1 week' and '" + date + "'::date - interval '1 day' ";
+		sql += "date between '" + from_date + "'::date and '" + from_date + "'::date + interval '1 week' ";
 		sql += "ON CONFLICT (shopid, employeeid, date) ";
 		sql += "DO NOTHING;"
 
