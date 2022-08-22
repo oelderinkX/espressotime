@@ -597,8 +597,9 @@ function getEmployeeTimes() {
 function copyLastWeek() {
   var copylastweekdate = document.getElementById('copylastweekdate');
   var fromdate = copylastweekdate.value;
+  var fromdatetext = copylastweekdate.options[copylastweekdate.selectedIndex].text;
 
-  if (window.confirm("Are you sure you want to merge week, starting '" + fromdate + "', into this week ?")) {
+  if (window.confirm("Are you sure you want to merge '" + fromdatetext + "', into this week ?")) {
     var request = { date: rosterdates[0], from_date: fromdate };
     sendPost("/copylastweek", JSON.stringify(request), function(response) {
       var result =  JSON.parse(response);
