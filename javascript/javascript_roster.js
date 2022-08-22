@@ -581,7 +581,10 @@ function getRosterDates(newDate) {
 
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
+  var roster_weekview = document.getElementById('roster_weekview');
+  
   loading.innerHTML = ' Loading...';
+  roster_weekview.classList.add('disable');
 
   employeestimes = [];
   var request = { date: rosterdates[0] };
@@ -590,7 +593,10 @@ function getEmployeeTimes() {
       drawTable();
 
       var loading = document.getElementById('loading');
+      var roster_weekview = document.getElementById('roster_weekview');
+
       loading.innerHTML = '';
+      roster_weekview.classList.remove('disable');
   });
 }
 
