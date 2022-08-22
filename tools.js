@@ -448,7 +448,7 @@ module.exports = function(app){
 		sql += "'" + to_date + "'::date + (date - '" + from_date + "'::date) + finish::time, ";
 		sql += "role FROM espresso.roster ";
 		sql += "WHERE shopid = $1 AND ";
-		sql += "date between '" + from_date + "'::date and '" + from_date + "'::date + interval '1 week' ";
+		sql += "date between '" + from_date + "'::date and '" + from_date + "'::date + interval '6 days' ";
 		sql += "ON CONFLICT (shopid, employeeid, date) ";
 		sql += "DO NOTHING;"
 
