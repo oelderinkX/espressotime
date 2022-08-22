@@ -439,6 +439,7 @@ module.exports = function(app){
 	app.post('/copylastweek', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
+		var from_date = req.body.from_date;
 
 		sql = "INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) ";
 		sql += "SELECT shopid, employeeid, date + interval '1 week', start + interval '1 week', finish + interval '1 week', role FROM espresso.roster ";
@@ -449,7 +450,7 @@ module.exports = function(app){
 
 		console.log(sql);
 
-		pool.connect(function(err, connection, done) {
+		/*pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
@@ -461,6 +462,7 @@ module.exports = function(app){
 					res.send({ "success": true });
 				}
 			});
-		});
+		});*/
+		res.send({ "success": false, "reason": 'testing!' });
 	});
 }

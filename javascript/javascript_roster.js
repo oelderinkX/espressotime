@@ -598,9 +598,7 @@ function copyLastWeek() {
   var copylastweekdate = document.getElementById('copylastweekdate');
   var fromdate = copylastweekdate.value;
 
-  //todate = todate_date.getFullYear() + '-' + pad(todate_date.getMonth()+1) + '-' + pad(todate_date.getDate());
-
-  //if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
+  if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
     var request = { date: rosterdates[0], from_date: fromdate };
     /*sendPost("/copylastweek", JSON.stringify(request), function(response) {
       var result =  JSON.parse(response);
@@ -611,5 +609,5 @@ function copyLastWeek() {
 
       getEmployeeTimes();
     });*/
-  //}
+  }
 }
