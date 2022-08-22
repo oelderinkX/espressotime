@@ -599,7 +599,7 @@ function copyLastWeek() {
   var fromdate = copylastweekdate.value;
   var fromdatetext = copylastweekdate.options[copylastweekdate.selectedIndex].text;
 
-  if (window.confirm("Are you sure you want to merge '" + fromdatetext + "', into this week ?")) {
+  if (window.confirm("Are you sure you want to merge " + fromdatetext + " into this week ?")) {
     var request = { date: rosterdates[0], from_date: fromdate };
     sendPost("/copylastweek", JSON.stringify(request), function(response) {
       var result =  JSON.parse(response);
