@@ -12,6 +12,8 @@ var roles = [
   {"name": "Annual Leave", "colour": "black", "textcolour": "white"},
   {"name": "Sick", "colour": "black", "textcolour": "white"}];
 
+var rosterStart = new Date(); // GLOBAL
+
 function clearTable() {
   var roster_weekview = document.getElementById('roster_weekview');
   var modals = document.getElementById('modals');
@@ -566,8 +568,8 @@ function getRosterDates(newDate) {
     }
 
     copylastweekdate.innerHTML = '';
-    var lastweekdate = new Date();
-    lastweekdate.setDate(rosterStart.getDate() - 14);
+    var lastweekdate = new Date(rosterStart);
+    lastweekdate.setDate(lastweekdate.getDate() - 14);
     for(var i = 0; i < 5; i++) {
       var option = document.createElement('option');
       option.value = lastweekdate.getFullYear() + '-' + pad(lastweekdate.getMonth()+1) + '-' + pad(lastweekdate.getDate());
