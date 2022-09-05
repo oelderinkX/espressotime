@@ -429,7 +429,7 @@ function drop_handler(ev) {
   var dest_employeeid = ev.target.getAttribute("employee_id");
   var dest_celldate = ev.target.getAttribute("cell_date");
 
-  if (ev.ctrlKey) {
+  if (ev.ctrlKey || ev.shiftKey) {
     ev.target.style.backgroundColor = color;
     ev.target.innerHTML = 'Copying...'
   }
@@ -441,7 +441,7 @@ function drop_handler(ev) {
     newdate: dest_celldate,
   };
 
-  if (ev.ctrlKey) {
+  if (ev.ctrlKey || ev.shiftKey) {
     sendPost("/copyemployeetimes", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
       getEmployeeTimes();
@@ -457,7 +457,7 @@ function drop_handler(ev) {
 function dragover_handler(ev) {
   ev.preventDefault();
 
-  if (ev.ctrlKey) {
+  if (ev.ctrlKey || ev.shiftKey) {
     ev.dataTransfer.dropEffect = "copy";
   } else {
     ev.dataTransfer.dropEffect = "move";

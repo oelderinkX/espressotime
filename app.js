@@ -4,8 +4,6 @@ var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser')
 var port = process.env.PORT || 80;
 
-
-
 console.log('espress time port number is: ' + port);
 
 app.use(favicon(__dirname + '/images/favicon.ico'));
