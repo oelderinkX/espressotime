@@ -142,6 +142,7 @@ function getEmployeeRow(employeetimes) {
   //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
   row.appendChild(timeCell);
 
+  var hours = 0;
   var hourCell = createCell();
   hourCell.innerHTML = hours;
   row.appendChild(hourCell);
