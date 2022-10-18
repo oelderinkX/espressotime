@@ -121,26 +121,24 @@ function getEmployeeRow(employeetimes) {
   var nameCell = createCell();
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
-   
-  var timeCell = createCell();
-  timeCell.style = 'resize: horizontal; overflow: auto;';
-  //timeCell.colSpan = 24;
 
   for(var x = 0; x < 96; x++) {
-    var td = document.createElement('td');
-    td.setAttribute('employee_id', employeetimes.id);
-    td.setAttribute('time_index', x);
-    td.setAttribute('time_set', false);
-    td.draggable = false;
-    td.ondragstart = function() { return false; };
-    td.ondrop = function() { return false; };
-    td.onmousedown = function() { select(this); return true; };
-    td.onmousemove = function() { select(this); return true; };
-    td.onmouseup = function() { save(this); return true; };
-    timeCell.appendChild(td);
+    var timeCell = createCell();
+    //timeCell.style = 'resize: horizontal; overflow: auto;';
+
+    timeCell.setAttribute('employee_id', employeetimes.id);
+    timeCell.setAttribute('time_index', x);
+    timeCell.setAttribute('time_set', false);
+    timeCell.draggable = false;
+    timeCell.ondragstart = function() { return false; };
+    timeCell.ondrop = function() { return false; };
+    timeCell.onmousedown = function() { select(this); return true; };
+    timeCell.onmousemove = function() { select(this); return true; };
+    timeCell.onmouseup = function() { save(this); return true; };
+
+    row.appendChild(timeCell);
   }
   //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
-  row.appendChild(timeCell);
 
   var hours = 0;
   var hourCell = createCell();
