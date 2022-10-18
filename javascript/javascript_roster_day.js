@@ -124,6 +124,7 @@ function getEmployeeRow(employeetimes) {
 
   for(var x = 0; x < 96; x++) {
     var timeCell = createCell();
+    timeCell.style.backgroundColor = 'white';
     //timeCell.style = 'resize: horizontal; overflow: auto;';
 
     timeCell.setAttribute('employee_id', employeetimes.id);
@@ -369,7 +370,7 @@ function save(element) {
     }
   }
 
-  alert('employee (' + employeeid + ') start:' + startDate + ', end:' + endDate);
+  //alert('employee (' + employeeid + ') start:' + startDate + ', end:' + endDate);
 
   var request = { 
     id: id,
