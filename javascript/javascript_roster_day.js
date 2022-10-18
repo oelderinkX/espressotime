@@ -13,17 +13,14 @@ var roles = [
 
 function clearTable() {
   var roster_dayview = document.getElementById('roster_dayview');
-  var modals = document.getElementById('modals');
 
   roster_dayview.innerHTML = '';
-  modals.innerHTML = '';
 }
 
 function drawTable() {
   clearTable();
   
   var roster_dayview = document.getElementById('roster_dayview');
-  //var modals = document.getElementById('modals');
 
   var table = document.createElement('table');
   table.setAttribute('width', '1440px');
@@ -57,7 +54,10 @@ function getHeaderRow() {
         hour = (i-12) + ' PM'
       }
     }
-    row.appendChild(createHeader(hour));
+    var hourHeader = createHeader(hour)
+    hourHeader.colSpan = 4;
+
+    row.appendChild(hourHeader);
   }
 
   hoursHeader = createHeader('Hours', 160);
@@ -124,45 +124,26 @@ function getEmployeeRow(employeetimes) {
    
   var timeCell = createCell();
   timeCell.style = 'resize: horizontal; overflow: auto;';
-  timeCell.colSpan = 24;
+  //timeCell.colSpan = 24;
 
-  var left = createTimeBar();
-  left.style = 'resize: horizontal; overflow: auto;';
-
-  var right = createTimeBar();
-  right.style = 'resize: horizontal; overflow: auto;';
-
-  var control = createTimeBar();
-  var hours = 0;
-  var role = 'FOH';
-  control.innerHTML = role;
-  control.style.background = 'blue';
-  control.style.color = 'white';
-
-  control.setAttribute('employee_id', employeetimes.id);
-
-  var modaltarget = 0 + '_' + employeetimes.id;
-  control.setAttribute('data-target', '#' + modaltarget);
-
-  if (role.length > 0) { //has a date and role so is draggable
-    control.draggable = true;
-    control.addEventListener("dragstart", dragstart_handler);
-  } else {  // has no date so is dropable
-    control.setAttribute('ondragover', 'dragover_handler(event)');
-    control.setAttribute('ondrop', 'drop_handler(event)');
+  for(var x = 0; x < 96; x++) {
+    var td = document.createElement('td');
+    td.setAttribute('employee_id', employeetimes.id);
+    td.setAttribute('time_index', x);
+    td.setAttribute('time_set', false);
+    td.draggable = false;
+    td.ondragstart = function() { return false; };
+    td.ondrop = function() { return false; };
+    td.onmousedown = function() { select(this); return true; };
+    td.onmousemove = function() { select(this); return true; };
+    td.onmouseup = function() { save(this); return true; };
+    timeCell.appendChild(td);
   }
-
   //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
-
-
-  timeCell.appendChild(left);
-  timeCell.appendChild(control);
-  timeCell.appendChild(right);
   row.appendChild(timeCell);
 
   var hourCell = createCell();
   hourCell.innerHTML = hours;
-
   row.appendChild(hourCell);
 
   return row;
@@ -194,122 +175,6 @@ function createTimeBar() {
   control.setAttribute('data-toggle', 'modal');
 
   return control;
-}
-  
-function createModal(modaltarget, employeetimes, date) {
-  var modals = document.getElementById('modals');
-
-  var modal = document.createElement('div');
-  modal.setAttribute('class', 'modal fade');
-  modal.setAttribute('id', modaltarget);
-  modal.setAttribute('role', 'dialog');
-
-  var modaldialog = document.createElement('div');
-  modaldialog.setAttribute('class', 'modal-dialog');
-
-  var modalcontent = document.createElement('div');
-  modalcontent.setAttribute('class', 'modal-content');
-
-  var modalheader = document.createElement('div');
-  modalheader.setAttribute('class', 'modal-header');
-
-  //<button type="button" class="close" data-dismiss="modal">&times;</button>  (for X)
-
-  var title = document.createElement('h4');
-  title.setAttribute('class', 'modal-title');
-  title.innerHTML = 'Edit Shift for ' + employeetimes.name + ' ' + date;
-
-  modalheader.appendChild(title);
-
-  var modalbody = document.createElement('div');
-  modalbody.setAttribute('class', 'modal-body');
-
-  var p = document.createElement('p');
-
-  var startlabel = document.createElement('label');
-  startlabel.setAttribute('for', 'start_' + modaltarget);
-  startlabel.innerHTML = 'Start Time:';
-  p.appendChild(startlabel);
-
-  var startinput = document.createElement('input');
-  startinput.setAttribute('type', 'time');
-  startinput.setAttribute('class', 'form-control');
-  startinput.setAttribute('id', 'start_' + modaltarget);
-  startinput.value = getStartTime(employeetimes.id, date);
-  p.appendChild(startinput);
-
-  var finishlabel = document.createElement('label');
-  finishlabel.setAttribute('for', 'finish_' + modaltarget);
-  finishlabel.innerHTML = 'Finish Time:';
-  p.appendChild(finishlabel);
-
-  var finishinput = document.createElement('input');
-  finishinput.setAttribute('type', 'time');
-  finishinput.setAttribute('class', 'form-control');
-  finishinput.setAttribute('id', 'finish_' + modaltarget);
-  finishinput.value = getEndTime(employeetimes.id, date);
-  p.appendChild(finishinput);
-
-  var rolelabel = document.createElement('label');
-  rolelabel.setAttribute('for', 'role_' + modaltarget);
-  rolelabel.innerHTML = 'Role:';
-  p.appendChild(rolelabel);
-
-  var roleselect = document.createElement('select');
-  roleselect.setAttribute('type', 'text');
-  roleselect.setAttribute('class', 'form-control');
-  roleselect.setAttribute('id', 'role_' + modaltarget);
-
-  for(var i = 0; i < roles.length; i++) {
-    var roleoption = document.createElement('option');
-    roleoption.value = roles[i].name;
-    roleoption.innerHTML = roles[i].name; 
-
-    roleselect.appendChild(roleoption);
-  }
-  roleselect.value = getRole(employeetimes.id, date);
-
-  p.appendChild(roleselect);
-
-  modalbody.appendChild(p);
-
-  var modalfooter = document.createElement('div');
-  modalfooter.setAttribute('class', 'modal-footer');
-
-  var cancel = document.createElement('button');
-  cancel.setAttribute('type', 'button');
-  cancel.setAttribute('class', 'btn btn-default');
-  cancel.setAttribute('data-dismiss', 'modal');
-  cancel.innerHTML = 'Cancel';
-
-  var save = document.createElement('button');
-  save.setAttribute('type', 'button');
-  save.setAttribute('class', 'btn btn-default');
-  save.setAttribute('data-dismiss', 'modal');
-  save.innerHTML = 'Save';
-  save.setAttribute('onclick', 'save(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
-
-  var delette = document.createElement('button');
-  delette.setAttribute('type', 'button');
-  delette.setAttribute('class', 'btn');
-  delette.setAttribute('data-dismiss', 'modal');
-  delette.style.float = 'left';
-  delette.innerHTML = 'Delete';
-  delette.setAttribute('onclick', 'deleteit(' + employeetimes.id + ', \'' + date + '\', \'' + modaltarget + '\');');
-
-  modalfooter.appendChild(delette);
-  modalfooter.appendChild(cancel);
-  modalfooter.appendChild(save);
-
-  modaldialog.appendChild(modalcontent);
-  modalcontent.appendChild(modalheader);
-  modalcontent.appendChild(modalbody);
-  modalcontent.appendChild(modalfooter);
-  modal.appendChild(modaldialog);
-
-  modals.appendChild(modal);
-
-  return modal;
 }
 
 function getRoleColour(role) {
@@ -402,92 +267,7 @@ function updateTime(employeeid, date, start, finish, role) {
   }
 }
 
-function dragstart_handler(ev) {
-  var employeeid = ev.target.getAttribute("employee_id");
-  var celldate = ev.target.getAttribute("cell_date");
-  var color = ev.target.style.backgroundColor;
-  ev.dataTransfer.setData("text/plain", employeeid + "/" + celldate + "/" + color);
-}
-
-function drop_handler(ev) {
-  ev.preventDefault();
-  var id_and_date = ev.dataTransfer.getData("text/plain");
-  var id = id_and_date.split('/')[0];
-  var date = id_and_date.split('/')[1];
-  var color = id_and_date.split('/')[2];
-
-  var dest_employeeid = ev.target.getAttribute("employee_id");
-  var dest_celldate = ev.target.getAttribute("cell_date");
-
-  if (ev.ctrlKey) {
-    ev.target.style.backgroundColor = color;
-    ev.target.innerHTML = 'Copying...'
-  }
-
-  var request = { 
-    originalid: id,
-    originaldate: date,
-    newid: dest_employeeid,
-    newdate: dest_celldate,
-  };
-
-  if (ev.ctrlKey) {
-    sendPost("/copyemployeetimes", JSON.stringify(request), function(response) {
-      employeestimes =  JSON.parse(response);
-      getEmployeeTimes();
-    });
-  } else {
-    sendPost("/moveemployeetimes", JSON.stringify(request), function(response) {
-      employeestimes =  JSON.parse(response);
-      getEmployeeTimes();
-    });
-  }
-}
-
-function dragover_handler(ev) {
-  ev.preventDefault();
-
-  if (ev.ctrlKey) {
-    ev.dataTransfer.dropEffect = "copy";
-  } else {
-    ev.dataTransfer.dropEffect = "move";
-  }
-}
-
 function save(id, date, modaltarget) {
-  var controlQuery = "[data-target='#" + modaltarget + "']";
-  var control = document.querySelector(controlQuery);
-
-  var startId = 'start_' + modaltarget;
-  var start = document.getElementById(startId);
-
-  var finishId = 'finish_' + modaltarget;
-  var finish = document.getElementById(finishId);
-
-  var roleId = 'role_' + modaltarget;
-  var role = document.getElementById(roleId);
-
-  var startUtc = new Date(start.valueAsDate.getUTCFullYear(),
-                          start.valueAsDate.getUTCMonth(),
-                          start.valueAsDate.getUTCDate(), 
-                          start.valueAsDate.getUTCHours(), 
-                          start.valueAsDate.getUTCMinutes(), 
-                          start.valueAsDate.getUTCSeconds());
-  var startTime = startUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
-  var finishUtc = new Date(finish.valueAsDate.getUTCFullYear(),
-                            finish.valueAsDate.getUTCMonth(),
-                            finish.valueAsDate.getUTCDate(), 
-                            finish.valueAsDate.getUTCHours(), 
-                            finish.valueAsDate.getUTCMinutes(), 
-                            finish.valueAsDate.getUTCSeconds());
-  var finishTime = finishUtc.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-
-  control.innerHTML = startTime + ' - ' + finishTime + ' ' +  role.value;
-
-  control.style.background = getRoleColour(role.value);
-  control.style.color = getRoleTextColour(role.value);
-
   updateTime(id, date, start.value, finish.value, role.value);
 
   var request = { 
@@ -497,10 +277,10 @@ function save(id, date, modaltarget) {
     finish: finish.value,
     role: role.value
   };
-  sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
+  /*sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
     getEmployeeTimes();
-  });
+  });*/
 }
 
 function deleteit(id, date) {
@@ -508,10 +288,10 @@ function deleteit(id, date) {
     id: id,
     date: date
   };
-  sendPost("/deleteemployeetimes", JSON.stringify(request), function(response) {
+  /*sendPost("/deleteemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
     getEmployeeTimes();
-  });
+  });*/
 }
 
 function rosterBack() {
@@ -571,19 +351,4 @@ function getEmployeeTimes() {
       var loading = document.getElementById('loading');
       loading.innerHTML = '';
   });
-}
-
-function copyLastWeek() {
-  if (window.confirm("Are you sure you want to merge last weeks roster into this week ?")) {
-    var request = { date: rosterdates[0] };
-    sendPost("/copylastweek", JSON.stringify(request), function(response) {
-      var result =  JSON.parse(response);
-
-      if (result.success == false) {
-        alert('Not able to copy last week because: ' + result.reason);
-      }
-
-      getEmployeeTimes();
-    });
-  }
 }
