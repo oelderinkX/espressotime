@@ -146,7 +146,9 @@ function getEmployeeRow(employeetimes) {
     bartime.setHours(0,0,0,0);
     bartime.setMinutes(15*x);
 
-    if (bartime > starttime && bartime < endtime) {
+    if (starttime.getHours() == 0 && starttime.getMinutes() && endtime.getHours() == 0 && endtime.getMinutes()) {
+      timeCell.style.backgroundColor = 'white';
+    } else if (bartime >= starttime && bartime <= endtime) {
       timeCell.style.backgroundColor = getRoleColour(role);
     } else {
       timeCell.style.backgroundColor = 'white';
@@ -238,7 +240,7 @@ function getStartTime(employeeid, date) {
     }
   }
 
-  return "09:00";
+  return "00:00";
 }
 
 function getEndTime(employeeid, date) {
@@ -252,7 +254,7 @@ function getEndTime(employeeid, date) {
     }
   }
 
-  return "18:15";
+  return "00:00";
 }
 
 function getRole(employeeid, date) {
