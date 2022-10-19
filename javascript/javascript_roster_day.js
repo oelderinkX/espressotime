@@ -445,7 +445,7 @@ function getEmployeeTimes() {
   loading.innerHTML = ' Loading...';
 
   employeestimes = [];
-  var request = { date: rosterdates[0] };
+  var request = { date: rosterdate };
   sendPost("/getemployeetimes", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
       drawTable();
