@@ -146,7 +146,7 @@ function getEmployeeRow(employeetimes) {
     bartime.setHours(0,0,0,0);
     bartime.setMinutes(15*x);
 
-    if (starttime.getHours() == 0 && starttime.getMinutes() && endtime.getHours() == 0 && endtime.getMinutes()) {
+    if (starttime.getHours() == 0 && starttime.getMinutes() == 0 && endtime.getHours() == 0 && endtime.getMinutes() == 0) {
       timeCell.style.backgroundColor = 'white';
     } else if (bartime >= starttime && bartime <= endtime) {
       timeCell.style.backgroundColor = getRoleColour(role);
