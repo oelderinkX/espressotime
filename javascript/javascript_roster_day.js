@@ -23,7 +23,7 @@ function drawTable() {
   var roster_dayview = document.getElementById('roster_dayview');
 
   var table = document.createElement('table');
-  table.setAttribute('width', '1440px');
+  table.setAttribute('width', '1800px');
   table.setAttribute('border', '1');
 
   table.appendChild(getHeaderRow());
@@ -40,7 +40,8 @@ function drawTable() {
   
 function getHeaderRow() {
   var row = createRow();
-  row.appendChild(createHeader('Employee', 160));
+  row.appendChild(createHeader('Employee', 320));
+  row.appendChild(createHeader('Role', 160));
 
   for(var i = 0; i < 24; i++)
   {
@@ -118,14 +119,20 @@ function createHeader(text, width) {
   
 function getEmployeeRow(employeetimes) {
   var row = createRow();
+
   var nameCell = createCell();
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
 
+  var roleCell = createCell();
+  roleCell.innerHTML = employeetimes.role;
+  roleCell.style.backgroundColor = getRoleColour(employeetimes.role);
+  roleCell.style.color = getRoleTextColour(employeetimes.role);
+  row.appendChild(roleCell);
+
   for(var x = 0; x < 96; x++) {
     var timeCell = createCell();
-    timeCell.style.backgroundColor = 'white';
-    //timeCell.style = 'resize: horizontal; overflow: auto;';
+    timeCell.style.backgroundColor = getRoleColour(employeetimes.role);
 
     timeCell.setAttribute('employee_id', employeetimes.id);
     timeCell.setAttribute('time_index', x);
