@@ -1,3 +1,5 @@
+const { getTime } = require("../script/dateHelper");
+
 var roles = [
   {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
   {"name": "Open", "colour": "#43A047", "textcolour": "white"},
@@ -131,13 +133,31 @@ function getEmployeeRow(employeetimes) {
   roleCell.style.color = getRoleTextColour(role);
   row.appendChild(roleCell);
 
+  var starttime = new Date(rosterdate);
+  var st_split = getStartTime(employeetimes.id, rosterdate).split(':');
+  starttime.setHours(parseInt(st_split[0]), parseInt(st_split[1]), 0);
+
+  var endtime = new Date(rosterdate);
+  var et_split = getEndTime(employeetimes.id, rosterdate).split(':');
+  endtime.setHours(parseInt(et_split[0]), parseInt(et_split[1]), 0);
+
   for(var x = 0; x < 96; x++) {
     var timeCell = createCell();
-    timeCell.style.backgroundColor = getRoleColour(role);
+
+    var bartime = new Date(rosterdate);
+    bartime.setHours(0,0,0,0);
+    bartime.setMinutes(15*x);
+
+    if (bartime > starttime && bartime < endtime) {
+      timeCell.style.backgroundColor = getRoleColour(role);
+    } else {
+      timeCell.style.backgroundColor = 'white';
+    }
 
     timeCell.setAttribute('employee_id', employeetimes.id);
     timeCell.setAttribute('time_index', x);
     timeCell.setAttribute('time_set', false);
+    timeCell.setAttribute('role_colour', getRoleColour(role));
     timeCell.draggable = false;
     timeCell.ondragstart = function() { return false; };
     timeCell.ondrop = function() { return false; };
