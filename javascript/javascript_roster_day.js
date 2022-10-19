@@ -125,14 +125,15 @@ function getEmployeeRow(employeetimes) {
   row.appendChild(nameCell);
 
   var roleCell = createCell();
-  roleCell.innerHTML = employeetimes.role;
-  roleCell.style.backgroundColor = getRoleColour(employeetimes.role);
-  roleCell.style.color = getRoleTextColour(employeetimes.role);
+  var role = getRole(employeetimes.id, rosterdate);
+  roleCell.innerHTML = role;
+  roleCell.style.backgroundColor = getRoleColour(role);
+  roleCell.style.color = getRoleTextColour(role);
   row.appendChild(roleCell);
 
   for(var x = 0; x < 96; x++) {
     var timeCell = createCell();
-    timeCell.style.backgroundColor = getRoleColour(employeetimes.role);
+    timeCell.style.backgroundColor = getRoleColour(role);
 
     timeCell.setAttribute('employee_id', employeetimes.id);
     timeCell.setAttribute('time_index', x);
@@ -431,20 +432,12 @@ function getRosterDate(newDate) {
     } else {
         rosterStart.setDate( rosterStart.getDate() - (day - 1) );
     }
-    rosterEnd = new Date(rosterStart);
-    rosterEnd.setDate(rosterEnd.getDate() + 6);
 
     var from = pad(rosterStart.getDate()) + ' ' + monthNames[rosterStart.getMonth()] + ' ' + rosterStart.getFullYear();
-    var to = pad(rosterEnd.getDate()) + ' ' + monthNames[rosterEnd.getMonth()] + ' ' + rosterEnd.getFullYear();
 
-    rosterDate.innerHTML = ' ' + from;
+    rosterDate.innerHTML = ' ' + from + ' ';
 
-    rosterdates = [];
-    for(var i = 0; i < 7; i++)
-    {
-      rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
-      rosterStart.setDate(rosterStart.getDate() + 1);
-    }
+    rosterdate = rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate());
 }
 
 function getEmployeeTimes() {
