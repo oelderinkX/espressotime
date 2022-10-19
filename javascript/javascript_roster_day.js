@@ -1,5 +1,3 @@
-const { getTime } = require("../script/dateHelper");
-
 var roles = [
   {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
   {"name": "Open", "colour": "#43A047", "textcolour": "white"},
