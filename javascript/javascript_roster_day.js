@@ -203,23 +203,25 @@ function updateRole(id, element, td) {
 
   if (role == '-') {
     deleteit(id, rosterdate);
-  }
+  } else {
+    var times = getTimes(id);
+    var timeUpdated = false;
 
-  var times = getTimes(id);
-  var timeUpdated = false;
-
-  if (times.length > 0) {
-    for(var i = 0; i < times.length; i++) {
-      if (times[i].date == rosterdate) {
-        times[i].role = role;
-        timeUpdated = true;
+    if (times.length > 0) {
+      for(var i = 0; i < times.length; i++) {
+        if (times[i].date == rosterdate) {
+          times[i].role = role;
+          timeUpdated = true;
+        }
       }
+    }
+
+    if (timeUpdated == false) {
+      times.push({date: rosterdate, start: '09:00', end: '09:00', role: role});
     }
   }
 
-  if (timeUpdated == false) {
-    times.push({date: rosterdate, start: '09:00', end: '09:00', role: role});
-  }
+  // update employeetimes and refresh the page!
 }
 
 function createRow() {
@@ -447,10 +449,10 @@ function save(element) {
   //alert('employee (' + employeeid + ') start:' + startDate + ', end:' + endDate);
 
   var request = { 
-    id: id,
-    date: date,
-    start: start.value,
-    finish: finish.value,
+    id: employeeid,
+    date: rosterdate,
+    start: formatTime(startDate),
+    finish: formatTime(endDate),
     role: role.value
   };
   /*sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
