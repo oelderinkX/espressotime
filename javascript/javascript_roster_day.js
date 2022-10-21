@@ -147,18 +147,21 @@ function getEmployeeRow(employeetimes) {
     bartime.setHours(0,0,0,0);
     bartime.setMinutes(15*x);
 
-    if (starttime.getHours() == 0 && starttime.getMinutes() == 0 && endtime.getHours() == 0 && endtime.getMinutes() == 0) {
-      timeCell.style.backgroundColor = 'white';
-    } else if (bartime >= starttime && bartime < endtime) {
-      timeCell.style.backgroundColor = getRoleColour(role);
-    } else {
-      timeCell.style.backgroundColor = 'white';
-    }
-
     timeCell.setAttribute('employee_id', employeetimes.id);
     timeCell.setAttribute('time_index', x);
-    timeCell.setAttribute('time_set', false);
     timeCell.setAttribute('role_colour', getRoleColour(role));
+
+    if (starttime.getHours() == 0 && starttime.getMinutes() == 0 && endtime.getHours() == 0 && endtime.getMinutes() == 0) {
+      timeCell.style.backgroundColor = 'white';
+      timeCell.setAttribute('time_set', false);
+    } else if (bartime >= starttime && bartime < endtime) {
+      timeCell.style.backgroundColor = getRoleColour(role);
+      timeCell.setAttribute('time_set', true);
+    } else {
+      timeCell.style.backgroundColor = 'white';
+      timeCell.setAttribute('time_set', false);
+    }
+
     timeCell.draggable = false;
     timeCell.ondragstart = function() { return false; };
     timeCell.ondrop = function() { return false; };
