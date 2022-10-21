@@ -116,7 +116,6 @@ function createHeader(text, width) {
   header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: ' + width +  'px;');
   header.innerHTML = text;
   return header;
-
 }
   
 function getEmployeeRow(employeetimes) {
@@ -126,11 +125,23 @@ function getEmployeeRow(employeetimes) {
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
 
-  var roleCell = createCell();
   var role = getRole(employeetimes.id, rosterdate);
-  roleCell.innerHTML = role;
+  var roleCell = createCell();
   roleCell.style.backgroundColor = getRoleColour(role);
   roleCell.style.color = getRoleTextColour(role);
+
+  var roleSelect = document.createElement('select');
+  roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
+  for(var i = 0; i < roles.length; i++) {
+    var roleOption = document.createElement('option');
+    roleOption.value = role;
+    roleOption.innerHTML = role;
+    roleSelect.appendChild(roleOption);
+    roleSelect.onclick = "roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';";
+  }
+  // need to do some kind of change thing!
+  roleCell.appendChild(roleSelect);
+
   row.appendChild(roleCell);
 
   var starttime = new Date(rosterdate);
