@@ -206,14 +206,18 @@ function updateRole(id, element, td) {
   }
 
   var times = getTimes(id);
+  var timeUpdated = false;
 
   if (times.length > 0) {
     for(var i = 0; i < times.length; i++) {
       if (times[i].date == rosterdate) {
         times[i].role = role;
+        timeUpdated = true;
       }
     }
-  } else {
+  }
+
+  if (timeUpdated == false) {
     times.push({date: rosterdate, start: '09:00', end: '09:00', role: role});
   }
 }
