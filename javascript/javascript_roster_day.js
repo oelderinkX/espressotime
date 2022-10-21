@@ -129,10 +129,11 @@ function getEmployeeRow(employeetimes) {
   var roleCell = createCell();
   roleCell.style.backgroundColor = getRoleColour(role);
   roleCell.style.color = getRoleTextColour(role);
+  roleCell.setAttribute('employee_id', employeetimes.id);
 
   var roleSelect = document.createElement('select');
   roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
-  roleSelect.setAttribute('onclick', "updateRole(this);");
+  roleSelect.setAttribute('onchange', "updateRole(this);");
   for(var i = 0; i < roles.length; i++) {
     var roleOption = document.createElement('option');
     roleOption.value = roles[i].name;
