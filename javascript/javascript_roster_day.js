@@ -192,8 +192,8 @@ function getEmployeeRow(employeetimes) {
   return row;
 }
 
-function updateRole(element) {
-  alert('updated!');
+function updateRole(id, element) {
+  alert('updating employee: ' + id + ' to ' + element.value);
 }
 
 function createRow() {
