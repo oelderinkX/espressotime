@@ -134,10 +134,10 @@ function getEmployeeRow(employeetimes) {
   roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
   for(var i = 0; i < roles.length; i++) {
     var roleOption = document.createElement('option');
-    roleOption.value = role;
-    roleOption.innerHTML = role;
+    roleOption.value = roles[i].name;
+    roleOption.innerHTML = roles[i].name;
     roleSelect.appendChild(roleOption);
-    roleSelect.onclick = "roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';";
+    roleSelect.onclick = "roleSelect.style = 'background-color: " + roles[i].colour + "; border:none; outline: none;';";
   }
   // need to do some kind of change thing!
   roleCell.appendChild(roleSelect);
