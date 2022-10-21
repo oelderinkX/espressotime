@@ -523,6 +523,9 @@ function getRosterDate(newDate) {
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
   loading.innerHTML = ' Loading...';
+  var roster_dayview = document.getElementById('roster_dayview');
+
+  roster_dayview.classList.add('disable');
 
   employeestimes = [];
   var request = { date: rosterdate };
@@ -532,5 +535,6 @@ function getEmployeeTimes() {
 
       var loading = document.getElementById('loading');
       loading.innerHTML = '';
+      roster_dayview.classList.remove('disable');
   });
 }
