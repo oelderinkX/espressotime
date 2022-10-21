@@ -51,7 +51,13 @@ function getHeaderRow() {
   for(var i = 0; i < rosterdates.length; i++)
   {
     var headerDate = new Date(rosterdates[i]);
-    row.appendChild(createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate()));
+    //https://espressotime.herokuapp.com/roster?view=day&date=%272022-10-19%27
+    var dayHeader = createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate());
+
+    var urlDate = headerDate.getFullYear() + '-' + headerDate.getMonth() + '-' + headerDate.getDay();
+    dayHeader.addEventListener("click", function() { location.href='roster?view=day&date="' + urlDate + '"'; }, false);  
+    
+    row.appendChild(dayHeader);
   }
 
   hoursHeader = createHeader('Hours');
