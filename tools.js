@@ -64,24 +64,21 @@ module.exports = function(app){
 
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
+		var view = req.query.view || 'week';
+		var date = req.query.date || '';
+
 		if (shopid && shopid != -1) {
-			webpage = rosterPage;
+			if (view == 'week') {
+				var formatted = rosterPage;
+				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
+				webpage = formatted;
+			} else {
+				var formatted = rosterDayPage;
+				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
+				webpage = formatted;
+			}
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/roster');
-		}
-
-		res.send(webpage);
-	});	
-
-	app.get('/rosterday', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
-		var shopid = common.getShopId(req.cookies['identifier']);
-		
-		if (shopid && shopid != -1) {
-			webpage = rosterDayPage;
-		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/rosterday');
 		}
 
 		res.send(webpage);

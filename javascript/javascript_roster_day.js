@@ -132,7 +132,7 @@ function getEmployeeRow(employeetimes) {
 
   var roleSelect = document.createElement('select');
   roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
-  roleSelect.onclick = "updateRole(this);";
+  roleSelect.setAttribute('onclick', "updateRole(this);");
   for(var i = 0; i < roles.length; i++) {
     var roleOption = document.createElement('option');
     roleOption.value = roles[i].name;
