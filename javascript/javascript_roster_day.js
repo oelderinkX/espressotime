@@ -132,7 +132,7 @@ function getEmployeeRow(employeetimes) {
 
   var roleSelect = document.createElement('select');
   roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
- //roleSelect.onclick = "roleSelect.style = 'background-color: " + roles[i].colour + "; border:none; outline: none;';";
+  roleSelect.onclick = "updateRole(this);";
   for(var i = 0; i < roles.length; i++) {
     var roleOption = document.createElement('option');
     roleOption.value = roles[i].name;
@@ -140,7 +140,6 @@ function getEmployeeRow(employeetimes) {
     roleSelect.appendChild(roleOption);
   }
   roleSelect.value = role;
-  // need to do some kind of change thing!
   roleCell.appendChild(roleSelect);
 
   row.appendChild(roleCell);
@@ -184,7 +183,6 @@ function getEmployeeRow(employeetimes) {
 
     row.appendChild(timeCell);
   }
-  //var modal = createModal(modaltarget, employeetimes, rosterdates[i]);
 
   var hours = 0;
   var hourCell = createCell();
@@ -193,7 +191,11 @@ function getEmployeeRow(employeetimes) {
 
   return row;
 }
-  
+
+function updateRole(element) {
+  alert('updated!');
+}
+
 function createRow() {
   return document.createElement('tr');
 }
@@ -444,13 +446,14 @@ function deleteit(id, date) {
 
 function rosterBack() {
   var d = new Date(rosterStart);
-  d.setDate( d.getDate() - 2 );
+  d.setDate(d.getDate()-1);
   getRosterDate(d);
   getEmployeeTimes();
 }
 
 function rosterForward() {
   var d = new Date(rosterStart);
+  d.setDate(d.getDate()+1);
   getRosterDate(d);
   getEmployeeTimes();
 }
@@ -465,11 +468,6 @@ function getRosterDate(newDate) {
     var day = d.getDay();
 
     rosterStart = new Date(d);
-    if (day == 0) {
-      rosterStart.setDate( rosterStart.getDate() - 6 );
-    } else {
-        rosterStart.setDate( rosterStart.getDate() - (day - 1) );
-    }
 
     var from = pad(rosterStart.getDate()) + ' ' + monthNames[rosterStart.getMonth()] + ' ' + rosterStart.getFullYear();
 
