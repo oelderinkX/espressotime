@@ -221,7 +221,7 @@ function updateRole(id, element, td) {
         if (times[i].date == rosterdate) {
           times[i].role = role;
           request.start = times[i].start;
-          request.finish = times[i].finish;
+          request.finish = times[i].end;
           timeUpdated = true;
         }
       }
