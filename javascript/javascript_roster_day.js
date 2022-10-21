@@ -482,10 +482,10 @@ function deleteit(id, date) {
     id: id,
     date: date
   };
-  /*sendPost("/deleteemployeetimes", JSON.stringify(request), function(response) {
+  sendPost("/deleteemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
     getEmployeeTimes();
-  });*/
+  });
 }
 
 function rosterBack() {
