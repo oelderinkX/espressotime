@@ -1,4 +1,5 @@
 var roles = [
+  {"name": "-", "colour": "white", "textcolour": "black"},
   {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
   {"name": "Open", "colour": "#43A047", "textcolour": "white"},
   {"name": "Close", "colour": "#F4511E", "textcolour": "white"},
@@ -305,6 +306,7 @@ function select(element) {
     var end = -1;
     var selected = parseInt(element.getAttribute('time_index'));
     var set = element.getAttribute('time_set');
+    var selectedBgColour = element.getAttribute('role_colour');
     var employeeid = element.getAttribute('employee_id');
     var tds = document.querySelectorAll('td[employee_id="' + employeeid + '"');
 
@@ -322,7 +324,7 @@ function select(element) {
     }
 
     if (start == -1 && end == -1) {
-      element.style.backgroundColor = 'black';
+      element.style.backgroundColor = selectedBgColour;
       element.setAttribute('time_set', true);
     } else if (start == end && start == selected) {
       element.style.backgroundColor = 'white';
@@ -350,7 +352,7 @@ function select(element) {
 
       for(var i = 0; i < tds.length; i++) {
         if (i >= start && i <= end) {
-          tds[i].style.backgroundColor = 'black';
+          tds[i].style.backgroundColor = selectedBgColour;
           tds[i].setAttribute('time_set', true);
         } else {
           tds[i].style.backgroundColor = 'white';
