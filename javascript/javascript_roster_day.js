@@ -132,6 +132,7 @@ function getEmployeeRow(employeetimes) {
   roleCell.style.color = getRoleTextColour(role);
 
   var roleSelect = document.createElement('select');
+  roleSelect.setAttribute('id', 'roleselect_' + employeetimes.id);
   roleSelect.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
   roleSelect.setAttribute('onchange', "updateRole("+ employeetimes.id + ", this);");
   for(var i = 0; i < roles.length; i++) {
@@ -406,7 +407,6 @@ function select(element) {
 }
 
 function save(element) {
-  //updateTime(id, date, start.value, finish.value, role.value);
   var start = -1;
   var end = -1;
   var employeeid = element.getAttribute('employee_id');
@@ -447,13 +447,16 @@ function save(element) {
   }
 
   //alert('employee (' + employeeid + ') start:' + startDate + ', end:' + endDate);
+  //'roleselect_' + employeetimes.id
+  var roleSelect = document.getElementById('roleselect_' + employeeid);
+
 
   var request = { 
     id: employeeid,
     date: rosterdate,
     start: formatTime(startDate),
     finish: formatTime(endDate),
-    role: role.value
+    role: roleSelect.value
   };
   /*sendPost("/saveemployeetimes", JSON.stringify(request), function(response) {
     employeestimes =  JSON.parse(response);
