@@ -127,6 +127,7 @@ function getEmployeeRow(employeetimes) {
 
   var role = getRole(employeetimes.id, rosterdate);
   var roleCell = createCell();
+  roleCell.setAttribute('id', 'rolecell_' + employeetimes.id);
   roleCell.style.backgroundColor = getRoleColour(role);
   roleCell.style.color = getRoleTextColour(role);
 
@@ -192,8 +193,13 @@ function getEmployeeRow(employeetimes) {
   return row;
 }
 
-function updateRole(id, element) {
-  element.style = 'background-color: ' + getRoleColour(element.value) + '; border:none; outline: none;';
+function updateRole(id, element, td) {
+  var role = element.value;
+  var roleCell = document.getElementById('rolecell_' + id);
+  roleCell.style.backgroundColor = getRoleColour(role);
+  roleCell.style.color = getRoleTextColour(role);
+
+  element.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
   //alert('updating employee: ' + id + ' to ' + element.value);
 }
 
