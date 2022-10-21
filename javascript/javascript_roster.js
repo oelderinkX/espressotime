@@ -51,12 +51,11 @@ function getHeaderRow() {
   for(var i = 0; i < rosterdates.length; i++)
   {
     var headerDate = new Date(rosterdates[i]);
-    var dayHeader = createHeader(dayNames[headerDate.getDay()] + ' ' + headerDate.getDate());
-    //dayHeader.addEventListener("click", function() { location.href='roster?view=day&date="' + getDbFormat(headerDate) + '"'; }, false);  
-    
+    var dayHeader = createHeader();
+
     var link = document.createElement('a');
     link.setAttribute('href', 'roster?view=day&date="' + getDbFormat(headerDate) + '"');
-    link.innerHTML = '&#8659;';
+    link.innerHTML = dayNames[headerDate.getDay()] + ' ' + headerDate.getDate();
     dayHeader.appendChild(link);
 
     row.appendChild(dayHeader);
