@@ -193,7 +193,8 @@ function getEmployeeRow(employeetimes) {
 }
 
 function updateRole(id, element) {
-  alert('updating employee: ' + id + ' to ' + element.value);
+  element.style = 'background-color: ' + getRoleColour(element.value) + '; border:none; outline: none;';
+  //alert('updating employee: ' + id + ' to ' + element.value);
 }
 
 function createRow() {
