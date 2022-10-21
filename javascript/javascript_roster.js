@@ -110,8 +110,8 @@ function createHeader(text) {
   var header = document.createElement('td');
   header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
   header.innerHTML = text;
+  
   return header;
-
 }
   
 function getEmployeeRow(employeetimes) {
