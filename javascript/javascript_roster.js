@@ -51,7 +51,7 @@ function getHeaderRow() {
   for(var i = 0; i < rosterdates.length; i++)
   {
     var headerDate = new Date(rosterdates[i]);
-    var dayHeader = createHeader();
+    var dayHeader = createHeader('');
 
     var link = document.createElement('a');
     link.setAttribute('href', 'roster?view=day&date="' + getDbFormat(headerDate) + '"');
