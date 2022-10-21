@@ -200,7 +200,22 @@ function updateRole(id, element, td) {
   roleCell.style.color = getRoleTextColour(role);
 
   element.style = 'background-color: ' + getRoleColour(role) + '; border:none; outline: none;';
-  //alert('updating employee: ' + id + ' to ' + element.value);
+
+  if (role == '-') {
+    deleteit(id, rosterdate);
+  }
+
+  var times = getTimes(id);
+
+  if (times.length > 0) {
+    for(var i = 0; i < times.length; i++) {
+      if (times[i].date == rosterdate) {
+        times[i].role = role;
+      }
+    }
+  } else {
+    times.push({date: rosterdate, start: '09:00', end: '09:00', role: role});
+  }
 }
 
 function createRow() {
@@ -247,7 +262,7 @@ function getRoleTextColour(role) {
   }
 }
 
-function getTimes(employeeid, date) {
+function getTimes(employeeid) {
   for(var i = 0; i < employeestimes.length; i++) {
     if (employeestimes[i].id == employeeid) {
       return employeestimes[i].times;
@@ -256,7 +271,7 @@ function getTimes(employeeid, date) {
 }
   
 function getStartTime(employeeid, date) {
-  var times = getTimes(employeeid, date);
+  var times = getTimes(employeeid);
 
   if (times) {
     for(var i = 0; i < times.length; i++) {
@@ -270,7 +285,7 @@ function getStartTime(employeeid, date) {
 }
 
 function getEndTime(employeeid, date) {
-  var times = getTimes(employeeid, date);
+  var times = getTimes(employeeid);
 
   if (times) {
     for(var i = 0; i < times.length; i++) {
@@ -284,7 +299,7 @@ function getEndTime(employeeid, date) {
 }
 
 function getRole(employeeid, date) {
-  var times = getTimes(employeeid, date);
+  var times = getTimes(employeeid);
 
   if (times) {
     for(var i = 0; i < times.length; i++) {
@@ -298,7 +313,7 @@ function getRole(employeeid, date) {
 }
 
 function updateTime(employeeid, date, start, finish, role) {
-  var times = getTimes(employeeid, date);
+  var times = getTimes(employeeid);
 
   if (times) {
     if (times.length > 0) {
