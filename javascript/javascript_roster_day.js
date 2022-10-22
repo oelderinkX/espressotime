@@ -111,7 +111,7 @@ function getFooterRow() {
     var slot30 = document.querySelectorAll('[time_index="' + (i+2) + '"]');
     var slot45 = document.querySelectorAll('[time_index="' + (i+3) + '"]');
 
-    for(var x = 0; x < slot1.length; x++) {
+    for(var x = 0; x < slot0.length; x++) {
       if (slot0[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
