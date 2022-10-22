@@ -74,13 +74,21 @@ function getFooterBarRow() {
   var row = createRow();
   row.appendChild(createHeader('', 160));
   row.appendChild(createHeader('', 160));
+  var totalEmployees = employeestimes.length;
 
   for(var i = 0; i < 24; i++) {
     var hourCell =  document.querySelector('[hour_total' + i + ']');
     var hours = parseInt(hourCell.innerHTML);
     var cell = createCell();
     cell.colSpan = 4;
-    cell.innerHTML = hours + 'x';
+
+    //cell.innerHTML = hours + 'x';
+    var bar = document.createElement('img');
+    bar.width = "30px";
+    bar.height = "20px";
+    bar.src = "images/bar.png";
+    cell.appendChild(bar);
+
     row.appendChild(cell);
   }
 
