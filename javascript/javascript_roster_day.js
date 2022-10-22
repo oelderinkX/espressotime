@@ -35,7 +35,7 @@ function drawTable() {
     table.appendChild(getEmployeeRow(employeestimes[i]));
   }
 
-  //table.appendChild(getFooterRow());
+  table.appendChild(getFooterRow());
 
   roster_dayview.appendChild(table);
 }
@@ -73,35 +73,16 @@ function getFooterRow() {
   var row = createRow();
   row.classList.add('hidden-print');
   row.appendChild(createHeader('Totals', 160));
+  row.appendChild(createHeader('', 160));
   var totalHours = 0;
 
-  for(var i = 0; i < rosterdates.length; i++)
-  {
-    var totalDayHours = 0;
-
-    for(var x = 0; x < employeestimes.length; x++) {
-      for(var y = 0; y < employeestimes[x].times.length; y++) {
-        if (employeestimes[x].times[y].date == rosterdates[i]) {
-          var start = new Date('1970-01-01');
-          start.setHours(employeestimes[x].times[y].start.split(':')[0]);
-          start.setMinutes(employeestimes[x].times[y].start.split(':')[1]);
-
-          var end = new Date('1970-01-01');
-          end.setHours(employeestimes[x].times[y].end.split(':')[0]);
-          end.setMinutes(employeestimes[x].times[y].end.split(':')[1]);
-
-          var totalMilliSeconds = Math.abs(end - start);
-          var hours = totalMilliSeconds / 36e5;
-
-          totalDayHours += hours;
-          totalHours += hours;
-        }
-      }
-    }
-
-    row.appendChild(createHeader(totalDayHours));
+  for(var i = 0; i < 96; i++) {
+    // all totals
+    //document.querySelectorAll('[time_index="1"]');
+    var cell = createCell('0');
+    cell.innerHTML = '0';
+    row.appendChild(cell);
   }
-
   row.appendChild(createHeader(totalHours));
 
   return row;
@@ -113,7 +94,7 @@ function createHeader(text, width) {
   }
 
   var header = document.createElement('td');
-  header.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: ' + width +  'px;');
+  header.setAttribute('style', 'background-color: white; text-align: center; vertical-align: middle; height: 40px; width: ' + width +  'px;');
   header.innerHTML = text;
   return header;
 }
