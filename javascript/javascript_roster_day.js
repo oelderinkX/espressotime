@@ -77,11 +77,20 @@ function getFooterRow() {
   var totalHours = 0;
 
   for(var i = 0; i < 96; i++) {
-    // all totals
-    //document.querySelectorAll('[time_index="1"]');
-    var cell = createCell('0');
-    cell.innerHTML = '0';
+    var totalMinutes = 0;
+    var allMinutesIn15Slot = document.querySelectorAll('[time_index="' + i + '"]');
+    for(var x = 0; x < allMinutesIn15Slot.length; x++) {
+      var isSet = allMinutesIn15Slot[x].getAttribute('time_set');
+      if (isSet == true) {
+        totalMinutes += 15;
+      }
+    }
+
+    var cell = createCell();
+    cell.innerHTML = calculateHours(totalMinutes);
     row.appendChild(cell);
+
+    totalHours += calculateHours(totalMinutes);
   }
   row.appendChild(createHeader(totalHours));
 
@@ -227,7 +236,7 @@ function createRow() {
 
 function createCell() {
   var cell = document.createElement('td');
-  cell.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 30px;');
+  cell.setAttribute('style', 'background-color: white; text-align: center; vertical-align: middle; height: 40px; width: 30px;');
   return cell;
 }
   
