@@ -83,7 +83,6 @@ function getFooterBarRow() {
     cell.colSpan = 4;
     cell.setAttribute('style', 'background-color: white; text-align: center; vertical-align: bottom; height: 40px; width: 30px;');
 
-    //cell.innerHTML = hours + 'x';
     var bar = document.createElement('img');
     bar.width = 30;
     bar.height = (hours / totalEmployees) * 40;
@@ -107,30 +106,33 @@ function getFooterRow() {
 
   for(var i = 0; i < 96; i += 4) {
     var totalMinutes = 0;
-    var slot1 = document.querySelectorAll('[time_index="' + i + '"]');
-    var slot2 = document.querySelectorAll('[time_index="' + (i+1) + '"]');
-    var slot3 = document.querySelectorAll('[time_index="' + (i+2) + '"]');
-    var slot4 = document.querySelectorAll('[time_index="' + (i+3) + '"]');
+    var slot0 = document.querySelectorAll('[time_index="' + i + '"]');
+    var slot15 = document.querySelectorAll('[time_index="' + (i+1) + '"]');
+    var slot30 = document.querySelectorAll('[time_index="' + (i+2) + '"]');
+    var slot45 = document.querySelectorAll('[time_index="' + (i+3) + '"]');
 
     for(var x = 0; x < slot1.length; x++) {
-      if (slot1[x].getAttribute('time_set') == "true") {
+      if (slot0[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
-      if (slot2[x].getAttribute('time_set') == "true") {
+      if (slot15[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
-      if (slot2[x].getAttribute('time_set') == "true") {
+      if (slot30[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
-      if (slot2[x].getAttribute('time_set') == "true") {
+      if (slot45[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
     }
 
+    var calcHours = calculateHours(totalMinutes);
     var cell = createCell();
     cell.colSpan = 4;
-    cell.setAttribute('hour_total' + (i/4), calculateHours(totalMinutes));
-    cell.innerHTML = calculateHours(totalMinutes);
+    cell.setAttribute('hour_total' + (i/4), calcHours);
+    if (calcHours > 0) {
+      cell.innerHTML = calculateHours(totalMinutes);
+    }
     row.appendChild(cell);
 
     totalHours += calculateHours(totalMinutes);
