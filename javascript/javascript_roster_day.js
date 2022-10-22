@@ -37,7 +37,8 @@ function drawTable() {
 
   roster_dayview.appendChild(table);
 
-  table.appendChild(getFooterRow()); // might need to do this at the end
+  table.appendChild(getFooterRow());
+  table.appendChild(getFooterBarRow());
 }
   
 function getHeaderRow() {
@@ -65,6 +66,25 @@ function getHeaderRow() {
 
   hoursHeader = createHeader('Hours', 160);
   row.appendChild(hoursHeader);
+
+  return row;
+}
+
+function getFooterBarRow() {
+  var row = createRow();
+  row.appendChild(createHeader('', 160));
+  row.appendChild(createHeader('', 160));
+
+  for(var i = 0; i < 24; i++) {
+    var hourCell = document.querySelectorAll('[hour_total="' + i + '"]');
+    var hours = parseInt(hourCell.innerHTML);
+    var cell = createCell();
+    cell.colSpan = 4;
+    cell.innerHTML = hours + 'x';
+    row.appendChild(cell);
+  }
+
+  row.appendChild(createHeader('', 160));
 
   return row;
 }
@@ -100,6 +120,7 @@ function getFooterRow() {
 
     var cell = createCell();
     cell.colSpan = 4;
+    cell.setAttribute('hour_total' + (x*4), calculateHours(totalMinutes));
     cell.innerHTML = calculateHours(totalMinutes);
     row.appendChild(cell);
 
