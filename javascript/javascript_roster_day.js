@@ -35,9 +35,9 @@ function drawTable() {
     table.appendChild(getEmployeeRow(employeestimes[i]));
   }
 
-  table.appendChild(getFooterRow());
-
   roster_dayview.appendChild(table);
+
+  table.appendChild(getFooterRow()); // might need to do this at the end
 }
   
 function getHeaderRow() {
