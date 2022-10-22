@@ -81,11 +81,12 @@ function getFooterBarRow() {
     var hours = parseInt(hourCell.innerHTML);
     var cell = createCell();
     cell.colSpan = 4;
+    cell.setAttribute('style', 'background-color: white; text-align: center; vertical-align: bottom; height: 40px; width: 30px;');
 
     //cell.innerHTML = hours + 'x';
     var bar = document.createElement('img');
-    bar.width = "30px";
-    bar.height = "20px";
+    bar.width = 30;
+    bar.height = 20;
     bar.src = "images/bar.png";
     cell.appendChild(bar);
 
