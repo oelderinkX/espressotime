@@ -120,7 +120,7 @@ function getFooterRow() {
 
     var cell = createCell();
     cell.colSpan = 4;
-    cell.setAttribute('hour_total' + (x/4), calculateHours(totalMinutes));
+    cell.setAttribute('hour_total' + (i/4), calculateHours(totalMinutes));
     cell.innerHTML = calculateHours(totalMinutes);
     row.appendChild(cell);
 
