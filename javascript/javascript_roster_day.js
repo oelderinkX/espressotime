@@ -81,7 +81,7 @@ function getFooterRow() {
     var allMinutesIn15Slot = document.querySelectorAll('[time_index="' + i + '"]');
     for(var x = 0; x < allMinutesIn15Slot.length; x++) {
       var isSet = allMinutesIn15Slot[x].getAttribute('time_set');
-      if (isSet == true) {
+      if (isSet == "true") {
         totalMinutes += 15;
       }
     }
