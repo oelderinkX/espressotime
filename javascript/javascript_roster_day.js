@@ -13,6 +13,10 @@ var roles = [
   {"name": "Annual Leave", "colour": "black", "textcolour": "white"},
   {"name": "Sick", "colour": "black", "textcolour": "white"}];
 
+function gotoWeekView() {
+  location.href="/roster?view=week&date='" + rosterdate + "'";
+}
+
 function clearTable() {
   var roster_dayview = document.getElementById('roster_dayview');
 

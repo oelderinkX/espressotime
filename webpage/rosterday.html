@@ -22,11 +22,22 @@
   var rosterdate = '';
 </script>
 <body>
-  <br class="hidden-print">
-  <input type="button" value="&lt;" id="back" class="hidden-print" onclick="rosterBack();"><span id="rosterDate" class="hidden-print"></span><input type="button" value="&gt;" id="forward" class="hidden-print" onclick="rosterForward();">
+  <table border="0" width="1440px" class="hidden-print">
+    <tr>
+      <td width="360px">
+        &nbsp;<input type="button" value="&lt;" id="back" class="hidden-print" onclick="rosterBack();"><span id="rosterDate" class="hidden-print"></span><input type="button" value="&gt;" id="forward" class="hidden-print" onclick="rosterForward();">
+      </td>
+      <td width="360px"><span id="loading"></span></td>
+      <td width="360px"></td>
+      <td align="right" width="360px">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000;" class="btn btn-em hidden-print" onclick="gotoWeekView();">Back to week view</button>
+      </td>
+    </tr>
+  </table>
+
+  
   <span id="loading"></span>
   <br class="hidden-print">
-  <h1 class="hidden-print">Roster - Day View</h1>
   <br class="hidden-print">
   <div id="roster_dayview"></div>
   <div id="modals"></div>
