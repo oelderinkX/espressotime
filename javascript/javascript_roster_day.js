@@ -14,7 +14,7 @@ var roles = [
   {"name": "Sick", "colour": "black", "textcolour": "white"}];
 
 function gotoWeekView() {
-  location.href="/roster?view=week&date='" + rosterdate + "'";
+  location.href='/roster?view=week&date="' + rosterdate + '"';
 }
 
 function clearTable() {
