@@ -86,7 +86,7 @@ function getFooterBarRow() {
     //cell.innerHTML = hours + 'x';
     var bar = document.createElement('img');
     bar.width = 30;
-    bar.height = 20;
+    bar.height = (hours / totalEmployees) * 40;
     bar.src = "images/bar.png";
     cell.appendChild(bar);
 
