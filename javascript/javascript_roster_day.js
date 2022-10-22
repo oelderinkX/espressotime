@@ -76,7 +76,7 @@ function getFooterBarRow() {
   row.appendChild(createHeader('', 160));
 
   for(var i = 0; i < 24; i++) {
-    var hourCell = document.querySelectorAll('[hour_total="' + i + '"]');
+    var hourCell =  document.querySelector('[hour_total' + i + ']');
     var hours = parseInt(hourCell.innerHTML);
     var cell = createCell();
     cell.colSpan = 4;
