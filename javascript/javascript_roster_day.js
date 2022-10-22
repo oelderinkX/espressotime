@@ -76,17 +76,30 @@ function getFooterRow() {
   row.appendChild(createHeader('', 160));
   var totalHours = 0;
 
-  for(var i = 0; i < 96; i++) {
+  for(var i = 0; i < 96; i += 4) {
     var totalMinutes = 0;
-    var allMinutesIn15Slot = document.querySelectorAll('[time_index="' + i + '"]');
-    for(var x = 0; x < allMinutesIn15Slot.length; x++) {
-      var isSet = allMinutesIn15Slot[x].getAttribute('time_set');
-      if (isSet == "true") {
+    var slot1 = document.querySelectorAll('[time_index="' + i + '"]');
+    var slot2 = document.querySelectorAll('[time_index="' + (i+1) + '"]');
+    var slot3 = document.querySelectorAll('[time_index="' + (i+2) + '"]');
+    var slot4 = document.querySelectorAll('[time_index="' + (i+3) + '"]');
+
+    for(var x = 0; x < slot1.length; x++) {
+      if (slot1[x].getAttribute('time_set') == "true") {
+        totalMinutes += 15;
+      }
+      if (slot2[x].getAttribute('time_set') == "true") {
+        totalMinutes += 15;
+      }
+      if (slot2[x].getAttribute('time_set') == "true") {
+        totalMinutes += 15;
+      }
+      if (slot2[x].getAttribute('time_set') == "true") {
         totalMinutes += 15;
       }
     }
 
     var cell = createCell();
+    cell.colSpan = 4;
     cell.innerHTML = calculateHours(totalMinutes);
     row.appendChild(cell);
 
