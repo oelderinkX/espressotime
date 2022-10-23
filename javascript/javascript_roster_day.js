@@ -231,7 +231,11 @@ function getEmployeeRow(employeetimes) {
   var minutes = seconds / 60;
   hours = calculateHours(minutes);
   var hourCell = createCell();
-  hourCell.innerHTML = hours;
+
+  if (hours > 0) {
+    hourCell.innerHTML = hours;
+  }
+
   row.appendChild(hourCell);
 
   return row;
