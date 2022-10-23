@@ -550,21 +550,21 @@ function rosterForward() {
 }
 
 function getRosterDate(newDate) {
-    var rosterDate = document.getElementById("rosterDate");
+    var rosterDateElement = document.getElementById("rosterDate");
 
     var d = new Date();
     if (newDate) {
         d = new Date(newDate);
     }
-    var day = d.getDay();
-
     rosterStart = new Date(d);
 
-    var from = pad(rosterStart.getDate()) + ' ' + monthNames[rosterStart.getMonth()] + ' ' + rosterStart.getFullYear();
-
-    rosterDate.innerHTML = ' ' + from + ' ';
-
     rosterdate = rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate());
+
+    var dayDateString = ' ' + dayNames[optionDate.getDay()] 
+    dayDateString  += ' ' + pad(rosterStart.getDate())
+    dayDateString  += ' ' + monthNames[rosterStart.getMonth()]
+    dayDateString  += ' ' + rosterStart.getFullYear() + ' ';
+    rosterDateElement.innerHTML = dayDateString;
 }
 
 function getEmployeeTimes() {
