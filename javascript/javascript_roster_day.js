@@ -560,7 +560,7 @@ function getRosterDate(newDate) {
 
     rosterdate = rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate());
 
-    var dayDateString = ' ' + dayNames[optionDate.getDay()] 
+    var dayDateString = ' ' + dayNames[rosterStart.getDay()] 
     dayDateString  += ' ' + pad(rosterStart.getDate())
     dayDateString  += ' ' + monthNames[rosterStart.getMonth()]
     dayDateString  += ' ' + rosterStart.getFullYear() + ' ';
