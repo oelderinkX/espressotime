@@ -70,7 +70,7 @@ module.exports = function(app){
 		if (shopid && shopid != -1) {
 			if (view == 'week') {
 				var formatted = rosterPage;
-				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
+				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + date + ');');
 				webpage = formatted;
 			} else {
 				var formatted = rosterDayPage;
