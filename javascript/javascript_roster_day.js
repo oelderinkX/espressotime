@@ -226,6 +226,10 @@ function getEmployeeRow(employeetimes) {
   }
 
   var hours = 0;
+  var milliseconds = endtime - starttime;
+  var seconds = milliseconds / 1000;
+  var minutes = seconds / 60;
+  hours = calculateHours(minutes);
   var hourCell = createCell();
   hourCell.innerHTML = hours;
   row.appendChild(hourCell);
