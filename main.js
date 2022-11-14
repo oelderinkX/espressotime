@@ -27,6 +27,21 @@ module.exports = function(app){
 		res.send(webpage);
 	});	
 
+	app.post('/', urlencodedParser, function(req, res) {
+		var webpage = loginPage;
+	
+		var identifier = req.body.identifier;
+		
+		if (identifier) {
+			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
+			webpage = mainPage;
+		} else {
+			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/');
+		}
+
+		res.send(webpage);
+	});	
+
 	app.post('/login', jsonParser, function(req, res) {
 		var name = req.body.name;
 		var pass = req.body.password;
