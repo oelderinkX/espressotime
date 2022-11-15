@@ -116,7 +116,7 @@ module.exports = function(app){
 			webpage = assetsPage;
 		} else {
 			//webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/assets');
-			res.redirect('https://espressotime-login.herokuapp.com/');
+			res.redirect(common.getRedirectUrl('/assets'));
 		}
 
 		res.send(webpage);

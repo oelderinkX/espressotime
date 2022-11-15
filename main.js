@@ -31,10 +31,16 @@ module.exports = function(app){
 		var webpage = loginPage;
 	
 		var identifier = req.body.identifier;
+		var redirect = req.body.redirect;
 		
 		if (identifier) {
 			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
-			webpage = mainPage;
+
+			if (redirect) {
+				res.redirect(redirect);
+			} else {
+				webpage = mainPage;
+			}
 		} else {
 			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/');
 		}
