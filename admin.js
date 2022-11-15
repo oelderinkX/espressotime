@@ -108,14 +108,15 @@ module.exports = function(app){
 	});	
 
 	app.get('/assets', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
+		//var webpage = loginPage;
 	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
 			webpage = assetsPage;
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/assets');
+			//webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/assets');
+			res.redirect('https://espressotime-login.herokuapp.com/');
 		}
 
 		res.send(webpage);
