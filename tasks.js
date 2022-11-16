@@ -15,31 +15,23 @@ var tasksMobilePage = fs.readFileSync(__dirname + "/webpage/tasksmobile.html", "
 
 module.exports = function(app){
 	app.get('/tasks', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = tasksPage;
+			res.send(tasksPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/tasks');
+			res.redirect(common.getLoginUrl('/tasks'));
 		}
-
-		res.send(webpage);
 	});
 
 	app.get('/tasksmobile', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = tasksMobilePage;
+			res.send(tasksMobilePage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/tasksmobile');
+			res.redirect(common.getLoginUrl('/tasksmobile'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.post('/gettasks', jsonParser, function(req, res) {

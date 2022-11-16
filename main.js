@@ -14,17 +14,13 @@ var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 
 module.exports = function(app){
 	app.get('/', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = mainPage;
+			res.send(mainPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/');
+			res.redirect(common.getLoginUrl('/'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.post('/', urlencodedParser, function(req, res) {
@@ -39,13 +35,11 @@ module.exports = function(app){
 			if (redirect) {
 				res.redirect(redirect);
 			} else {
-				webpage = mainPage;
+				res.send(mainPage);
 			}
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/');
+			res.redirect(common.getLoginUrl('/'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.post('/login', jsonParser, function(req, res) {

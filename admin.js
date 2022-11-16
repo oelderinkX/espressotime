@@ -23,117 +23,84 @@ var feedbackPage = fs.readFileSync(__dirname + "/webpage/feedback.html", "utf8")
 
 module.exports = function(app){
 	app.get('/admin', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = adminPage;
+			res.send(adminPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/admin');
+			res.redirect(common.getLoginUrl('/admin'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/employeelistedit', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = employeeListEditPage;
+			res.send(employeeListEditPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/employeelistedit');
+			res.redirect(common.getLoginUrl('/employeelistedit'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/timesheet', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = timesheetPage;
+			res.send(timesheetPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/timesheet');
+			res.redirect(common.getLoginUrl('/timesheet'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/shop', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 
 		if (shopid && shopid != -1) {
-			webpage = shopPage;
+			res.send(shopPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/shop');
+			res.redirect(common.getLoginUrl('/shop'));
 		}
-
-		res.send(webpage);
 	});	
 	
 	// edit time of staff!  when they clocked in!
 	app.get('/edittimes', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 
 		if (shopid && shopid != -1) {
-			webpage = editTimesPage;
+			res.send(editTimesPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/edit');
+			res.redirect(common.getLoginUrl('/edittimes'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/taskedit', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = taskEditPage;
+			res.send(taskEditPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/taskedit');
+			res.redirect(common.getLoginUrl('/taskedit'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/assets', urlencodedParser, function(req, res) {
-		//var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = assetsPage;
+			res.send(assetsPage);
 		} else {
-			//webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/assets');
-			res.redirect(common.getRedirectUrl('/assets'));
+			res.redirect(common.getLoginUrl('/assets'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/reports', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = reportsPage;
+			res.send(reportsPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/reports');
+			res.redirect(common.getLoginUrl('/reports'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/feedback', urlencodedParser, function(req, res) {

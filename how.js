@@ -13,32 +13,25 @@ var howPage = fs.readFileSync(__dirname + "/webpage/how.html", "utf8");
 
 module.exports = function(app) {
 	app.get('/how', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = howPage;
+			res.send(howPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/how');
+			res.redirect(common.getLoginUrl('/how'));
 		}
-
-		res.send(webpage);
 	});
 
 	app.get('/howedit', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
 			webpage = howPage;
             webpage = common.replaceAll(webpage, 'var canSave = false; // UPDATE CAN SAVE VIA how.jsp', 'var canSave = true; // UPDATE CAN SAVE VIA how.jsp');
+			res.send(webpage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/howedit');
+			res.redirect(common.getLoginUrl('/howedit'));
 		}
-
-		res.send(webpage);
 	});
 
 	app.post('/gethows', jsonParser, function(req, res) {

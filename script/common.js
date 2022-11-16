@@ -49,8 +49,8 @@ function getShopId(identifier) {
 }
 module.exports.getShopId = getShopId;
 
-function getRedirectUrl(path) {
+function getLoginUrl(path) {
   return 'https://espressotime-login.herokuapp.com?redirect=' + path;
 }
-module.exports.getRedirectUrl = getRedirectUrl;
+module.exports.getLoginUrl = getLoginUrl;
 

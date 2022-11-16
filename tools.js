@@ -18,50 +18,36 @@ var rosterDayPage = fs.readFileSync(__dirname + "/webpage/rosterday.html", "utf8
 
 module.exports = function(app){
 	app.get('/tools', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = toolsPage;
+			res.send(toolsPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/tools');
+			res.redirect(common.getLoginUrl('/tools'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/products', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = productsPage;
+			res.send(productsPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/products');
+			res.redirect(common.getLoginUrl('/products'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/productdetails', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-			webpage = productDetailsPage;
+			res.send(productDetailsPage);
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/productdetails');
+			res.redirect(common.getLoginUrl('/productdetails'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.get('/roster', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		var view = req.query.view || 'week';
@@ -71,17 +57,15 @@ module.exports = function(app){
 			if (view == 'week') {
 				var formatted = rosterPage;
 				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + date + ');');
-				webpage = formatted;
+				res.send(formatted);
 			} else {
 				var formatted = rosterDayPage;
 				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
-				webpage = formatted;
+				res.send(formatted);
 			}
 		} else {
-			webpage = common.replaceAll(webpage, '!%REDIRECT_URL%!', '/roster');
+			res.redirect(common.getLoginUrl('/roster'));
 		}
-
-		res.send(webpage);
 	});	
 
 	app.post('/getproducts', jsonParser, function(req, res) {
