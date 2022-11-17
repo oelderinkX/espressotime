@@ -69,6 +69,7 @@
                     button.setAttribute('type', 'button');
                     button.setAttribute('class', 'list-group-item list-group-item-action');
                     button.setAttribute('onclick', 'displayHow(' + how.id + ');');
+                    button.style = "font-size:16px";
                     button.innerText = how.name;
 
                     howlist.appendChild(button);
@@ -93,6 +94,7 @@
             sendPost("/updatehow", JSON.stringify(how), function(response) {
                 loadHow();
                 howlist.selectedIndex = selectedIndex;
+                alert('Saved!');
             });
         }
     </script>
@@ -119,7 +121,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">Search</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Enter search" aria-label="Enter search" aria-describedby="basic-addon1" size="50" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();">
+                    <input type="text" style="font-size:16px" class="form-control" placeholder="Enter search" aria-label="Enter search" aria-describedby="basic-addon1" size="50" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();">
                 </div>
                 <br/>
                 <div class="list-group" id="howlist">
@@ -128,9 +130,9 @@
             <td style="vertical-align:top;padding: 15px">
                 <input type="hidden" id="id" value="0"/>
                 <label id="howlabel" for="name">Help Name:</label>
-                <input id="howinput" type="text" class="form-control"/>
+                <input id="howinput" type="text" class="form-control" style="font-size:16px" />
                 <h3>Description</h3>
-                <textarea rows="20" style="width:100%;" id="description"></textarea>
+                <textarea rows="20" style="width:100%; background-color:white; font-size:16px" id="description"></textarea>
                 <br/>
                 <button id="savebutton" type="button" class="btn btn-success" onclick="saveHow();">Save</button>
             </td>
