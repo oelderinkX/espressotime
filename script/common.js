@@ -49,6 +49,17 @@ function getShopId(identifier) {
 }
 module.exports.getShopId = getShopId;
 
+
+function getEmployeeId(identifier) {
+  /*if (identifier) {
+    var decode =  Buffer.from(identifier, 'base64').toString('utf-8');
+    return decode.split(';12121976;')[1];
+  }
+  return -1;*/
+  return 47;
+}
+module.exports.getEmployeeId = getEmployeeId;
+
 function getLoginUrl(path) {
   return 'https://espressotime-login.herokuapp.com?redirect=' + path;
 }

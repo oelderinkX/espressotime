@@ -25,3 +25,4 @@ require('./admin.js')(app);
 require('./tasks.js')(app);
 require('./tools.js')(app);
 require('./how.js')(app);
+require('./employee.js')(app);
