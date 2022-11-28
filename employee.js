@@ -54,28 +54,48 @@ module.exports = function(app) {
 		}
 	});
 
-	app.post('/employee_getroster', jsonParser, function(req, res) {
+	app.post('/getemployeeweek', jsonParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 
-		var sql = "select id, name, description from espresso.how";
-		sql += " where shopid = $1";
+		var date = req.body.date;
+		var employeestimes = [];
+
+		sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [employeeid], function(err, result) {
 				done();
 
-				var hows = [];
+				employeestimes.push({
+					id: employeeid,
+					times: []			
+				});
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						hows.push({	id: result.rows[i].id,
-										name: result.rows[i].name,
-										description: result.rows[i].description
-									});
+						for(var x = 0; x < employeestimes.length; x++) {
+							if (employeestimes[x].id == result.rows[i].employeeid) {
+								var d = new Date(result.rows[i].date);
+								dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
+
+								var start = new Date(result.rows[i].start);
+								var startStr = dateHelper.formatTime(start);
+
+								var end = new Date(result.rows[i].finish);
+								var endStr = dateHelper.formatTime(end);
+
+								employeestimes[x].times.push({
+									date: dateStr,
+									start: startStr,
+									end: endStr,
+									role: result.rows[i].role
+								});
+							}
+						}
 					}
 				}
 					
-				res.send(hows);
+				res.send(employeestimes);
 			});
 		});
 	});
