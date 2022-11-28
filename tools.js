@@ -16,7 +16,7 @@ var productDetailsPage = fs.readFileSync(__dirname + "/webpage/productdetails.ht
 var rosterPage = fs.readFileSync(__dirname + "/webpage/roster.html", "utf8");
 var rosterDayPage = fs.readFileSync(__dirname + "/webpage/rosterday.html", "utf8");
 
-module.exports = function(app){
+module.exports = function(app) {
 	app.get('/tools', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		

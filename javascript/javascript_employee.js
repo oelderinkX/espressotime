@@ -77,7 +77,12 @@ function loadEmployeeRoster() {
 
         var day = document.createElement('td');
         day.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        day.innerHTML = rosterinfo.date;
+        var d = new Date(rosterinfo.date);
+        var dayinner = '';
+        dayinner += dayNames[d.getDay()];
+        dayinner += ' ';
+        dayinner +=  pad(rosterStart.getDate());
+        day.innerHTML = dayinner;
       
         var time_role = document.createElement('td');
         time_role.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
