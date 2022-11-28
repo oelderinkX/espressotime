@@ -61,10 +61,7 @@ function getRosterDates(newDate) {
 }
 
 function loadEmployeeRoster() {
-  var employee_rosterdate = document.getElementById('employee_rosterdate');
   var employee_roster = document.getElementById('employee_roster');
-
-  employee_rosterdate.innerHTML = '';
   employee_roster.innerHTML = '';
 
   employeestimes = [];
@@ -85,7 +82,7 @@ function loadEmployeeRoster() {
         var time_role = document.createElement('td');
         time_role.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
         var timerole = '';
-        if ( rosterinfo.start.start.length > 0) {
+        if (rosterinfo.start.length > 0) {
           timerole += rosterinfo.start;
           timerole += ' - ';
           timerole += rosterinfo.end;
