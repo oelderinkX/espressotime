@@ -81,7 +81,7 @@ function loadEmployeeRoster() {
         var dayinner = '';
         dayinner += dayNames[d.getDay()];
         dayinner += ' ';
-        dayinner +=  pad(rosterStart.getDate());
+        dayinner +=  pad(d.getDate());
         day.innerHTML = dayinner;
       
         var time_role = document.createElement('td');
