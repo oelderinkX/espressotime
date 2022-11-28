@@ -78,18 +78,18 @@ function loadEmployeeRoster() {
 
         var day = document.createElement('td');
         day.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        day.innerHTML = employeestimes.times[i].date;
+        day.innerHTML = employeestimes[0].times[i].date;
       
         var time_role = document.createElement('td');
         time_role.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        var timerole = employeestimes.times[i].start;
+        var timerole = employeestimes[0].times[i].start;
         timerole += ' - ';
-        timerole += employeestimes.times[i].end;
+        timerole += employeestimes[0].times[i].end;
         timerole += '<br/>';
-        timerole += employeestimes.times[i].role;
+        timerole += employeestimes[0].times[i].role;
         time_role.innerHTML = timerole;
-        time_role.style.backgroundColor = getRoleColour(employeestimes.times[i].role);
-        time_role.style.color = getRoleTextColour(employeestimes.times[i].role);
+        time_role.style.backgroundColor = getRoleColour(employeestimes[0].times[i].role);
+        time_role.style.color = getRoleTextColour(employeestimes[0].times[i].role);
  
         tr.appendChild(day);
         tr.appendChild(time_role);
