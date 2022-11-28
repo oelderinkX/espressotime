@@ -73,23 +73,28 @@ function loadEmployeeRoster() {
   sendPost("/getemployeeweek", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
 
-      for(var i = 0; i < employeestimes[0].times.length; i++) {
+      for(var i = 0; i < rosterdates.length; i++) {
+        var rosterinfo = getTimeByDate(employeestimes, rosterdates[i]);
+
         var tr = document.createElement('tr');
 
         var day = document.createElement('td');
         day.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        day.innerHTML = employeestimes[0].times[i].date;
+        day.innerHTML = rosterinfo.date;
       
         var time_role = document.createElement('td');
         time_role.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        var timerole = employeestimes[0].times[i].start;
-        timerole += ' - ';
-        timerole += employeestimes[0].times[i].end;
-        timerole += '<br/>';
-        timerole += employeestimes[0].times[i].role;
+        var timerole = '';
+        if ( rosterinfo.start.start.length > 0) {
+          timerole += rosterinfo.start;
+          timerole += ' - ';
+          timerole += rosterinfo.end;
+          timerole += '<br/>';
+          timerole += rosterinfo.role;
+        }
         time_role.innerHTML = timerole;
-        time_role.style.backgroundColor = getRoleColour(employeestimes[0].times[i].role);
-        time_role.style.color = getRoleTextColour(employeestimes[0].times[i].role);
+        time_role.style.backgroundColor = getRoleColour(rosterinfo.role);
+        time_role.style.color = getRoleTextColour(rosterinfo.role);
  
         tr.appendChild(day);
         tr.appendChild(time_role);
@@ -97,4 +102,14 @@ function loadEmployeeRoster() {
         employee_roster.appendChild(tr);
       }  
   });
+}
+
+function getTimeByDate(employeestimes, date) {
+  for(var i = 0; i < employeestimes[0].times.length; i++) {
+    if (employeestimes[0].times[i].date == date) {
+      return employeestimes[0].times[i];
+    }
+  }
+
+  return {date: date, start: '', end: '', role: ''};
 }
