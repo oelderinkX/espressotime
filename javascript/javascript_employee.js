@@ -73,7 +73,7 @@ function loadEmployeeRoster() {
   sendPost("/getemployeeweek", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
 
-      for(var i = 0; i < employeestimes.times.length; i++) {
+      for(var i = 0; i < employeestimes[0].times.length; i++) {
         var tr = document.createElement('tr');
 
         var day = document.createElement('td');

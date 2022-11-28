@@ -61,6 +61,8 @@ module.exports = function(app) {
 		var employeestimes = [];
 
 		sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
+		console.log(sql);
+		console.log(employeeid);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid], function(err, result) {
