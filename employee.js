@@ -1,5 +1,6 @@
 var pg = require('pg');
 var common = require('./script/common.js');
+var dateHelper = require('./script/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -78,7 +79,7 @@ module.exports = function(app) {
 						for(var x = 0; x < employeestimes.length; x++) {
 							if (employeestimes[x].id == result.rows[i].employeeid) {
 								var d = new Date(result.rows[i].date);
-								dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
+								var dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
 
 								var start = new Date(result.rows[i].start);
 								var startStr = dateHelper.formatTime(start);
