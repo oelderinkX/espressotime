@@ -161,7 +161,7 @@ function loadBreaks() {
         tr.appendChild(startbreak);
         tr.appendChild(endbreak);
 
-        employee_roster.appendChild(tr);
+        breakstable.appendChild(tr);
       }  
   });
 }
