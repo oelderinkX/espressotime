@@ -68,9 +68,10 @@ function getRosterDates(newDate) {
   employee_rosterdate.innerHTML = ' ' + from + ' - ' + to + ' ';
 
   rosterdates = [];
+  var rostdate = new Date(rosterStart);
   for(var i = 0; i < 7; i++)  {
-    rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
-    rosterStart.setDate(rosterStart.getDate() + 1);
+    rosterdates.push(rostdate.getFullYear() + '-' + pad(rostdate.getMonth()+1) + '-' + pad(rostdate.getDate()));
+    rostdate.setDate(rostdate.getDate() + 1);
   }
 }
 
