@@ -147,15 +147,22 @@ function loadBreaks() {
 
         var breaktype = document.createElement('td');
         breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        breaktype.innerHTML = breaks[i].breaktype;
+
+        var breaktypeicon = '';
+        if (breaks[i].breaktype == '10') {
+          breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
+        } else {
+          breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
+        }
+        breaktype.innerHTML = breaktypeicon;
 
         var startbreak = document.createElement('td');
         startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        startbreak.innerHTML = breaks[i].starttime;
+        startbreak.innerHTML = formatAMPM(formatTime(breaks[i].starttime));
       
         var endbreak = document.createElement('td');
         endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-        endbreak.innerHTML = breaks[i].finishtime;
+        endbreak.innerHTML = formatAMPM(formatTime(breaks[i].finishtime));
         
         tr.appendChild(breaktype);
         tr.appendChild(startbreak);
