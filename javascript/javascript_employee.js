@@ -33,14 +33,14 @@ function getRoleTextColour(role) {
 function goRosterBack() {
   var d = new Date(rosterStart);
   d.setDate(d.getDate()-1);
-  getRosterDate(d);
+  getRosterDates(d);
   loadEmployeeRoster();
 }
 
 function goRosterForward() {
   var d = new Date(rosterStart);
   d.setDate(d.getDate()+1);
-  getRosterDate(d);
+  getRosterDates(d);
   loadEmployeeRoster();
 }
 
