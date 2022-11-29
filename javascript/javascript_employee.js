@@ -103,9 +103,9 @@ function loadEmployeeRoster() {
         time_role.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
         var timerole = '';
         if (rosterinfo.start.length > 0) {
-          timerole += rosterinfo.start;
+          timerole += formatAMPM(rosterinfo.start);
           timerole += ' - ';
-          timerole += rosterinfo.end;
+          timerole += formatAMPM(rosterinfo.end);
           timerole += '<br/>';
           timerole += rosterinfo.role;
         }
