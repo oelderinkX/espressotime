@@ -32,14 +32,14 @@ function getRoleTextColour(role) {
 
 function goRosterBack() {
   var d = new Date(rosterStart);
-  d.setDate(d.getDate()-1);
+  d.setDate(d.getDate()-7);
   getRosterDates(d);
   loadEmployeeRoster();
 }
 
 function goRosterForward() {
   var d = new Date(rosterStart);
-  d.setDate(d.getDate()+1);
+  d.setDate(d.getDate()+7);
   getRosterDates(d);
   loadEmployeeRoster();
 }
@@ -70,7 +70,6 @@ function getRosterDates(newDate) {
   rosterdates = [];
   for(var i = 0; i < 7; i++)  {
     rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
-    rosterStart.setDate(rosterStart.getDate() + 1);
   }
 }
 
