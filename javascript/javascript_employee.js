@@ -70,6 +70,7 @@ function getRosterDates(newDate) {
   rosterdates = [];
   for(var i = 0; i < 7; i++)  {
     rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
+    rosterStart.setDate(rosterStart.getDate() + 1);
   }
 }
 
