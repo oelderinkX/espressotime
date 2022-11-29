@@ -103,15 +103,11 @@ module.exports = function(app) {
 
 	app.post('/employee_breaks', jsonParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
-		employeeid = 9;
 
 		var date = req.body.date;
 		var breaks = [];
 
 		sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2";
-		console.log(sql);
-		console.log(employeeid);
-		console.log(date);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid, date], function(err, result) {
