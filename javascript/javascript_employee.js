@@ -131,9 +131,6 @@ function getTimeByDate(employeestimes, date) {
   return {date: date, start: '', end: '', role: ''};
 }
 
-
-
-
 function loadBreaks() {
   var breakstable = document.getElementById('breaks');
   breakstable.innerHTML = '';
