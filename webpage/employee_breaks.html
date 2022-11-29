@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <title>Espresso Time - Breaks</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -19,8 +21,16 @@
 </head>
 <html>
 <body>
-    <h1>Breaks</h1>
-    <br/>
-    All the breaks you have had today!
+    <center>
+        <div class="container"></div>
+            <h4>Breaks</h4>
+            <br/>
+            <table border="0" id="breaks">
+            </table>
+        </div>
+    </center>
+    <script>
+        loadBreaks();
+    </script>
 </body>
 </html>

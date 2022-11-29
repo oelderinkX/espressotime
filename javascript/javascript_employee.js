@@ -130,3 +130,41 @@ function getTimeByDate(employeestimes, date) {
 
   return {date: date, start: '', end: '', role: ''};
 }
+
+
+
+
+function loadBreaks() {
+  var breakstable = document.getElementById('breaks');
+  breakstable.innerHTML = '';
+
+  breaks = [];
+  var today = new Date();
+  var request = { date: getDbFormat(today) };
+
+  sendPost("/employee_breaks", JSON.stringify(request), function(response) {
+      breaks =  JSON.parse(response);
+
+      for(var i = 0; i < breaks.length; i++) {
+        var tr = document.createElement('tr');
+
+        var breaktype = document.createElement('td');
+        breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
+        breaktype.innerHTML = breaks[i].breaktype;
+
+        var startbreak = document.createElement('td');
+        startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
+        startbreak.innerHTML = breaks[i].starttime;
+      
+        var endbreak = document.createElement('td');
+        endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
+        endbreak.innerHTML = breaks[i].finishtime;
+        
+        tr.appendChild(breaktype);
+        tr.appendChild(startbreak);
+        tr.appendChild(endbreak);
+
+        employee_roster.appendChild(tr);
+      }  
+  });
+}

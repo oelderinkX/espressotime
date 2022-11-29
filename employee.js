@@ -62,8 +62,6 @@ module.exports = function(app) {
 		var employeestimes = [];
 
 		sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
-		console.log(sql);
-		console.log(employeeid);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid], function(err, result) {
@@ -99,6 +97,43 @@ module.exports = function(app) {
 				}
 					
 				res.send(employeestimes);
+			});
+		});
+	});
+
+	app.post('/employee_breaks', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		employeeid = 9;
+
+		var date = req.body.date;
+		var breaks = [];
+
+		sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2";
+		console.log(sql);
+		console.log(employeeid);
+		console.log(date);
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [employeeid, date], function(err, result) {
+				done();
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+
+						var finishtime = '-';
+						if (result.rows[i].finishtime) {
+							finishtime = result.rows[i].finishtime;
+						}
+
+						breaks.push({
+							starttime: result.rows[i].starttime,
+							breaktype: result.rows[i].breaktype,
+							finishtime: finishtime
+						});
+					}
+				}
+					
+				res.send(breaks);
 			});
 		});
 	});
