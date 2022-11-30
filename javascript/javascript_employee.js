@@ -182,7 +182,7 @@ function loadBreaks() {
   });
 }
 
-function loadHelps() {
+function loadHelps(contains) {
   var howlist = document.getElementById('howlist');
   howlist.innerHTML = '';
 
@@ -192,11 +192,25 @@ function loadHelps() {
       helps =  JSON.parse(response);
 
       for(var i = 0; i < helps.length; i++) {
-        var help  = document.createElement('li');
-        help.classList.add('list-group-item');
-        help.innerHTML = helps[i].name;
+        var name = helps[i].name;
+        var id = helps[i].id;
+        if (name.includes(contains)) {
+          var help  = document.createElement('li');
+          help.classList.add('list-group-item');
+          help.innerHTML = name;
+          help.setAttribute('onclick', 'showHelp(' + id + ');');
 
-        howlist.appendChild(help);
+          howlist.appendChild(help);
+        }
       }  
   });
+}
+
+function showHelp(id) {
+  for(var i = 0; i < helps.length; i++) {
+    if (id == helps[i].id) {
+      alert(helps[i].description);
+      break;
+    }
+  }  
 }

@@ -42,11 +42,11 @@ module.exports = function(app) {
 
 		if (shopId) {
 			id = shopId;
-			sql += " where shopid = $1";
+			sql += " where shopid = $1 order by name;";
 		} else {
 			var employeeid = common.getEmployeeId(req.cookies['identifier']);
 			id = employeeid;
-			sql += " where shopid = (select shopid from espresso.employee where id = $1);";
+			sql += " where shopid = (select shopid from espresso.employee where id = $1) order by name";
 		}
 
 		pool.connect(function(err, connection, done) {
