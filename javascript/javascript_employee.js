@@ -158,10 +158,10 @@ function loadBreaks() {
 
         var startbreak = document.createElement('td');
         startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
-        startbreak.innerHTML = formatAMPM(formatTime(breaks[i].starttime));
+        startbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].starttime)) + '</h4>';
 
         var sep = document.createElement('td');
-        sep.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
+        sep.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
         sep.innerHTML = '-';
 
         var endbreak = document.createElement('td');
@@ -169,7 +169,7 @@ function loadBreaks() {
         if (breaks[i].finishtime == '-') {
           endbreak.innerHTML = '';
         } else {
-          endbreak.innerHTML = formatAMPM(formatTime(breaks[i].finishtime));
+          endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
         }
         
         tr.appendChild(breaktype);
