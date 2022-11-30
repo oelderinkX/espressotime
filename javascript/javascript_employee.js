@@ -184,7 +184,7 @@ function loadBreaks() {
 
 function loadHelps() {
   var helptable = document.getElementById('help');
-  breakstable.innerHTML = '';
+  helptable.innerHTML = '';
 
   helps = [];
 
