@@ -187,8 +187,9 @@ function loadHelps() {
   helptable.innerHTML = '';
 
   helps = [];
-
-  sendPost("/gethows", function(response) {
+  var request = {};
+  
+  sendPost("/gethows", JSON.stringify(request), function(response) {
       helps =  JSON.parse(response);
 
       for(var i = 0; i < helps.length; i++) {
