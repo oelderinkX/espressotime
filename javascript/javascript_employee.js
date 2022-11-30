@@ -183,16 +183,20 @@ function loadBreaks() {
 }
 
 function loadHelps() {
-  var helptable = document.getElementById('help');
-  helptable.innerHTML = '';
+  var howlist = document.getElementById('howlist');
+  howlist.innerHTML = '';
 
-  helps = [];
   var request = {};
   
   sendPost("/gethows", JSON.stringify(request), function(response) {
       helps =  JSON.parse(response);
 
       for(var i = 0; i < helps.length; i++) {
+        var help  = document.createElement('li');
+        help.classList.add('list-group-item');
+        help.innerHTML = helps[i].name;
+
+        howlist.appendChild(help);
       }  
   });
 }
