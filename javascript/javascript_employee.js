@@ -182,7 +182,7 @@ function loadBreaks() {
   });
 }
 
-function loadHelps(contains) {
+function loadHelps() {
   var howlist = document.getElementById('howlist');
   howlist.innerHTML = '';
 
@@ -190,20 +190,26 @@ function loadHelps(contains) {
   
   sendPost("/gethows", JSON.stringify(request), function(response) {
       helps =  JSON.parse(response);
-
-      for(var i = 0; i < helps.length; i++) {
-        var name = helps[i].name;
-        var id = helps[i].id;
-        if (name.includes(contains)) {
-          var help  = document.createElement('li');
-          help.classList.add('list-group-item');
-          help.innerHTML = name;
-          help.setAttribute('onclick', 'showHelp(' + id + ');');
-
-          howlist.appendChild(help);
-        }
-      }  
+      displayHelps('');
   });
+}
+
+function displayHelps(contains) {
+  var howlist = document.getElementById('howlist');
+  howlist.innerHTML = '';
+  
+  for(var i = 0; i < helps.length; i++) {
+    var name = helps[i].name;
+    var id = helps[i].id;
+    if (name.toUpperCase().includes(contains.toUpperCase())) {
+      var help  = document.createElement('li');
+      help.classList.add('list-group-item');
+      help.innerHTML = name;
+      help.setAttribute('onclick', 'showHelp(' + id + ');');
+
+      howlist.appendChild(help);
+    }
+  }
 }
 
 function showHelp(id) {
