@@ -29,9 +29,9 @@
             <h3>Help</h4>
             <br/>
             <div class="input-group mb-3">
-                <input type="text" name="search" id="search" class="form-control" placeholder="Search">
+                <input type="text" name="search" id="search" class="form-control" placeholder="Search" onkeyup="displayHelps(document.getElementById('search').value);">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" onclick="displayHelps(document.getElementById('search').value);" onkeyup="displayHelps(document.getElementById('search').value);"><span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-primary" onclick="displayHelps(document.getElementById('search').value);"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             </div>
             <br/>
