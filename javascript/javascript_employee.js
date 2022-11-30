@@ -181,3 +181,17 @@ function loadBreaks() {
       }  
   });
 }
+
+function loadHelps() {
+  var helptable = document.getElementById('help');
+  breakstable.innerHTML = '';
+
+  helps = [];
+
+  sendPost("/gethows", function(response) {
+      helps =  JSON.parse(response);
+
+      for(var i = 0; i < helps.length; i++) {
+      }  
+  });
+}

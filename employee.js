@@ -12,6 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var employeePage = fs.readFileSync(__dirname + "/webpage/employee.html", "utf8");
 var rosterPage = fs.readFileSync(__dirname + "/webpage/employee_roster.html", "utf8");
 var breaksPage = fs.readFileSync(__dirname + "/webpage/employee_breaks.html", "utf8");
+var helpPage = fs.readFileSync(__dirname + "/webpage/employee_help.html", "utf8");
 var shopDetailsPage = fs.readFileSync(__dirname + "/webpage/employee_shopdetails.html", "utf8");
 
 module.exports = function(app) {
@@ -44,6 +45,17 @@ module.exports = function(app) {
 			res.redirect(common.getLoginUrl('/employee_breaks'));
 		}
 	});
+
+	app.get('/employee_help', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(helpPage);
+		} else {
+			res.redirect(common.getLoginUrl('/employee_help'));
+		}
+	});
+
 
 	app.get('/employee_shopdetails', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);

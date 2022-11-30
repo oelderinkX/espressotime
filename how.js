@@ -35,13 +35,22 @@ module.exports = function(app) {
 	});
 
 	app.post('/gethows', jsonParser, function(req, res) {
+		var id = '';
 		var shopId = common.getShopId(req.cookies['identifier']);
 
 		var sql = "select id, name, description from espresso.how";
-		sql += " where shopid = $1";
+
+		if (shopId) {
+			id = shopId;
+			sql += " where shopid = $1";
+		} else {
+			var employeeid = common.getEmployeeId(req.cookies['identifier']);
+			id = employeeid;
+			sql += " where shopid = (select shopid from espresso.employee where id = $1);";
+		}
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [id], function(err, result) {
 				done();
 
 				var hows = [];
