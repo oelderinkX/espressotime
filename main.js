@@ -9,7 +9,7 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
+//var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
 var mainPage = fs.readFileSync(__dirname + "/webpage/main.html", "utf8");
 
 module.exports = function(app){
@@ -24,8 +24,6 @@ module.exports = function(app){
 	});	
 
 	app.post('/', urlencodedParser, function(req, res) {
-		var webpage = loginPage;
-	
 		var identifier = req.body.identifier;
 		var redirect = req.body.redirect;
 		
@@ -42,7 +40,7 @@ module.exports = function(app){
 		}
 	});	
 
-	app.post('/login', jsonParser, function(req, res) {
+	/*app.post('/login', jsonParser, function(req, res) {
 		var name = req.body.name;
 		var pass = req.body.password;
 		
@@ -73,7 +71,7 @@ module.exports = function(app){
 				res.send(login);
 			});
 		});
-	});
+	});*/
 	
 	app.post('/getemployees', urlencodedParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
