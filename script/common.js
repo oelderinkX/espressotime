@@ -51,12 +51,11 @@ module.exports.getShopId = getShopId;
 
 
 function getEmployeeId(identifier) {
-  /*if (identifier) {
+  if (identifier) {
     var decode =  Buffer.from(identifier, 'base64').toString('utf-8');
-    return decode.split(';12121976;')[1];
+    return decode.split(';17122011;')[1];
   }
-  return -1;*/
-  return 47;
+  return -1;
 }
 module.exports.getEmployeeId = getEmployeeId;
 
