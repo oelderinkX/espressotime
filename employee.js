@@ -26,6 +26,18 @@ module.exports = function(app) {
 		}
 	});
 
+	app.post('/employee', urlencodedParser, function(req, res) {
+		var identifier = req.body.identifier;
+
+		if (identifier) {
+			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
+
+			res.send(employeePage);
+		} else {
+			res.redirect(common.getLoginUrl('/employee'));
+		}
+	});
+
 	app.get('/employee_roster', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		
