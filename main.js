@@ -39,39 +39,6 @@ module.exports = function(app){
 			res.redirect(common.getLoginUrl('/'));
 		}
 	});	
-
-	/*app.post('/login', jsonParser, function(req, res) {
-		var name = req.body.name;
-		var pass = req.body.password;
-		
-		var sql = "SELECT id, shopid, name, username, permissions from espresso.user where username = $1 and password = $2"
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [name, pass], function(err, result) {
-				done();
-
-				var login = { success: false, reason: "unknown error" };
-
-				if (result && result.rowCount == 1) {
-					var encoded_identifier = result.rows[0].id;
-					encoded_identifier += ';12121976;';
-					encoded_identifier += result.rows[0].shopid;
-					encoded_identifier += ';12121976;';
-					encoded_identifier += result.rows[0].username;
-					encoded_identifier += ';12121976;';
-
-					var encode = Buffer.from(encoded_identifier).toString('base64');
-					login = { success: true, identifier: encode };
-				} else if (result && result.rowCount > 1 ) {
-					login = { success: false, reason: "multiple users found, call administrator" };
-				} else {
-					login = { success: false, reason: "shop name or password incorrect" };
-				}
-					
-				res.send(login);
-			});
-		});
-	});*/
 	
 	app.post('/getemployees', urlencodedParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
