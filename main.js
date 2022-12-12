@@ -148,12 +148,11 @@ module.exports = function(app){
 	app.post('/employeestart', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
-		var employeePin = req.body.employeePin;
 		var startTime = req.body.startTime;
 		
 		var sql = "INSERT INTO espresso.start_finish (employeeid, starttime)";
 		sql += " SELECT '" + employeeId + "', '" + startTime +"'";
-		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' and pin = '" + employeePin + "' ) "
+		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "' ) "
 		sql += " and NOT EXISTS (select id from espresso.start_finish where employeeid = " + employeeId + "";
 		sql += " and starttime > '" + startTime + "'::timestamp::date and finishtime is null)"
 
@@ -178,7 +177,6 @@ module.exports = function(app){
 	app.post('/employeefinish', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
-		var employeePin = req.body.employeePin;
 		var date = req.body.date;
 		var finishTime = req.body.finishTime;
 

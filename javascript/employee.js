@@ -325,9 +325,8 @@ function saveNotes(employeeId) {
 }
 
 function employeeStart(employeeId) {
-    var employeePin = 1234;
     var startTime = getDbFormat() + ' ' + getTime();
-    var json = { "employeeId": employeeId, "employeePin": employeePin, "startTime": startTime };
+    var json = { "employeeId": employeeId, "startTime": startTime };
 
     var shiftbutton = document.getElementById("shiftbutton");
     shiftbutton.removeAttribute('onclick');
@@ -338,7 +337,6 @@ function employeeStart(employeeId) {
 }
 
 function employeeFinish(employeeId) {
-    var employeePin = 1234;  //use alert!!  maybe...
     var date = getDbFormat();
 
     var now = new Date();
@@ -352,7 +350,7 @@ function employeeFinish(employeeId) {
     }
     var finishTime = getDbFormat() + ' ' + getTime(now);
 
-    var json = { "employeeId": employeeId, "employeePin": employeePin, "date": date, "finishTime": finishTime };
+    var json = { "employeeId": employeeId, "date": date, "finishTime": finishTime };
 
     var shiftbutton = document.getElementById("shiftbutton");
     shiftbutton.removeAttribute('onclick');
