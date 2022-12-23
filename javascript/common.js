@@ -8,7 +8,11 @@ function setCookie(cname, cvalue) {
   var expires = "expires="+ d.toUTCString();
   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
-  
+
+function setCookieTemp(cname, cvalue) {
+  document.cookie = cname + "=" + cvalue + ";" + ";path=/";
+}
+
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);

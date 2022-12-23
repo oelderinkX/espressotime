@@ -595,6 +595,15 @@ function enableRoster() {
   roster_weekview.style.opacity = '1';
 }
 
+function isEditMode() {
+  var isEditMode = getCookie('roster_editmode');
+  return isEditMode;
+}
+
+function setEditMode() {
+  setCookieTemp('roster_editmode', true)
+}
+
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
   loading.innerHTML = ' Loading...';
@@ -610,7 +619,9 @@ function getEmployeeTimes() {
       var loading = document.getElementById('loading');
       loading.innerHTML = '';
 
-      enableRoster();
+      if (isEditMode()) {
+        enableRoster();
+      }
   });
 }
 
