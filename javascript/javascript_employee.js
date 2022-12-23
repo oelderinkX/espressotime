@@ -77,13 +77,14 @@ function getRosterDates(newDate) {
 
 function loadEmployeeRoster() {
   var employee_roster = document.getElementById('employee_roster');
-  employee_roster.innerHTML = '';
 
   employeestimes = [];
   var request = { date: rosterdates[0] };
 
   sendPost("/getemployeeweek", JSON.stringify(request), function(response) {
       employeestimes =  JSON.parse(response);
+
+      employee_roster.innerHTML = '';
 
       for(var i = 0; i < rosterdates.length; i++) {
         var rosterinfo = getTimeByDate(employeestimes, rosterdates[i]);

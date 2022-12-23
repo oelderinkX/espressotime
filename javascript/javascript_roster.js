@@ -26,7 +26,6 @@ function drawTable() {
   clearTable();
   
   var roster_weekview = document.getElementById('roster_weekview');
-  var modals = document.getElementById('modals');
 
   var table = document.createElement('table');
   table.setAttribute('width', '1440px');
@@ -227,8 +226,6 @@ function createModal(modaltarget, employeetimes, date) {
 
   var modalheader = document.createElement('div');
   modalheader.setAttribute('class', 'modal-header');
-
-  //<button type="button" class="close" data-dismiss="modal">&times;</button>  (for X)
 
   var title = document.createElement('h4');
   title.setAttribute('class', 'modal-title');
@@ -586,12 +583,23 @@ function getRosterDates(newDate) {
     }
 }
 
+function disableRoster() {
+  var roster_weekview = document.getElementById('roster_weekview');
+  roster_weekview.style.pointerEvents = 'none';
+  roster_weekview.style.opacity = '0.6';
+}
+
+function enableRoster() {
+  var roster_weekview = document.getElementById('roster_weekview');
+  roster_weekview.style.pointerEvents = '';
+  roster_weekview.style.opacity = '1';
+}
+
 function getEmployeeTimes() {
   var loading = document.getElementById('loading');
-  var roster_weekview = document.getElementById('roster_weekview');
-  
   loading.innerHTML = ' Loading...';
-  roster_weekview.classList.add('disable');
+
+  disableRoster();
 
   employeestimes = [];
   var request = { date: rosterdates[0] };
@@ -600,10 +608,9 @@ function getEmployeeTimes() {
       drawTable();
 
       var loading = document.getElementById('loading');
-      var roster_weekview = document.getElementById('roster_weekview');
-
       loading.innerHTML = '';
-      roster_weekview.classList.remove('disable');
+
+      //enableRoster();
   });
 }
 
