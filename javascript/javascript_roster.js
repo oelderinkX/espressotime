@@ -610,7 +610,7 @@ function getEmployeeTimes() {
       var loading = document.getElementById('loading');
       loading.innerHTML = '';
 
-      //enableRoster();
+      enableRoster();
   });
 }
 
