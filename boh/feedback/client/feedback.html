@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+ 
+    <script src="common/client/common.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        .btn-em {
+            color: #f3f4e6 !important;
+            background-color: #1f1f1f !important;
+        }
+    </style>
+</head>
+<html>
+<body>
+  <br/>
+  <table id="feedbacktable" style="margin-left: auto; margin-right: auto;">
+  </table>
+</body>
+<script>
+
+function submit()
+{
+  var shopId = 0;
+  var table = document.getElementById('feedbacktable');
+  var additional = document.getElementById('additional');
+
+  table.innerHTML = '<tr><td><h1>Thank you for your feedback</h1></td></tr>';
+  var timestamp = getDbFormat() + ' ' + getTime() + ":00";
+  var json = { shopId: shopId, feedbackitems: feedbackitems, additional: additional.value, timestamp: timestamp };
+  sendPost("/givefeedback", JSON.stringify(json), function(response) {
+
+  });
+}
+
+function selectRating(feedbackIndex, rating) {
+  for(var i = 1; i <= 5; i++) {
+    var ratElement = document.getElementById('rate'+ feedbackIndex + '_' + i);
+
+    feedbackitems[feedbackIndex].rating = rating;
+
+    if (rating == i) {
+      ratElement.setAttribute('style', 'font-size:30px');
+    } else {
+      ratElement.setAttribute('style', 'font-size:30px;opacity: 0.2;');
+    }
+  }
+}
+
+var feedbackitems = [];
+feedbackitems.push({ id: 0, rating: 0, description: 'Hows our coffee today ?'});
+feedbackitems.push({ id: 1, rating: 0, description: 'Hows our food ?'});
+feedbackitems.push({ id: 2, rating: 0, description: 'Hows our customer service ?'});
+feedbackitems.push({ id: 3, rating: 0, description: 'Hows our speed ?'});
+
+var table = document.getElementById('feedbacktable');
+
+for(var i = 0; i < feedbackitems.length; i++) {
+  var tr = document.createElement('tr');
+  var tddescription = document.createElement('td');
+  tddescription.innerHTML = feedbackitems[i].description;
+  tddescription.setAttribute('colspan', 5);
+  tddescription.setAttribute('style', 'text-align: center;');
+  tr.appendChild(tddescription);
+  table.appendChild(tr);
+
+  var tr1 = document.createElement('tr');
+
+  var tdlove = document.createElement('td');
+  tdlove.setAttribute('style', 'text-align: center;');
+  var plove = document.createElement('p');
+  plove.setAttribute('style', 'font-size:30px');
+  plove.innerHTML = '&#128525;';
+  plove.setAttribute('onclick', 'selectRating(' + i + ', ' + 5 + ');')
+  plove.setAttribute('id', 'rate' + i + '_' + 5);
+  tdlove.appendChild(plove);
+  tr1.appendChild(tdlove);
+
+  var tdhappy = document.createElement('td');
+  tdhappy.setAttribute('style', 'text-align: center;');
+  var phappy = document.createElement('p');
+  phappy.setAttribute('style', 'font-size:30px');
+  phappy.innerHTML = '&#128522;';
+  phappy.setAttribute('onclick', 'selectRating(' + i + ', ' + 4 + ');')
+  phappy.setAttribute('id', 'rate' + i + '_' + 4);
+  tdhappy.appendChild(phappy);
+  tr1.appendChild(tdhappy);
+
+  var tdneutral = document.createElement('td');
+  tdneutral.setAttribute('style', 'text-align: center;');
+  var pneutral = document.createElement('p');
+  pneutral.setAttribute('style', 'font-size:30px');
+  pneutral.innerHTML = '&#128528;';
+  pneutral.setAttribute('onclick', 'selectRating(' + i + ', ' + 3 + ');')
+  pneutral.setAttribute('id', 'rate' + i + '_' + 3);
+  tdneutral.appendChild(pneutral);
+  tr1.appendChild(tdneutral);
+
+  var tdsad = document.createElement('td');
+  tdsad.setAttribute('style', 'text-align: center;');
+  var psad = document.createElement('p');
+  psad.setAttribute('style', 'font-size:30px');
+  psad.innerHTML = '&#128542;';
+  psad.setAttribute('onclick', 'selectRating(' + i + ', ' + 2 + ');')
+  psad.setAttribute('id', 'rate' + i + '_' + 2);
+  tdsad.appendChild(psad);
+  tr1.appendChild(tdsad);
+
+  var tdangry = document.createElement('td');
+  tdangry.setAttribute('style', 'text-align: center;');
+  var pangry = document.createElement('p');
+  pangry.setAttribute('style', 'font-size:30px');
+  pangry.innerHTML = '&#128544;';
+  pangry.setAttribute('onclick', 'selectRating(' + i + ', ' + 1 + ');')
+  pangry.setAttribute('id', 'rate' + i + '_' + 1);
+  tdangry.appendChild(pangry);
+  tr1.appendChild(tdangry);
+
+  table.appendChild(tr1);
+}
+
+var tradd = document.createElement('tr');
+var tdadd = document.createElement('td');
+tdadd.innerHTML = 'Tell us more<br/><textarea id="additional" rows="4" cols="30"></textarea>';
+tdadd.setAttribute('colspan', 5);
+tdadd.setAttribute('style', 'text-align: center;');
+tradd.appendChild(tdadd);
+table.appendChild(tradd);
+
+var trsubmit = document.createElement('tr');
+var tdsubmit = document.createElement('td');
+tdsubmit.innerHTML = '<br/><button type="button" class="btn btn-em" onclick="submit();">Submit</button>';
+tdsubmit.setAttribute('colspan', 5);
+tdsubmit.setAttribute('style', 'text-align: center;');
+trsubmit.appendChild(tdsubmit);
+table.appendChild(trsubmit);
+
+</script>
+</html>

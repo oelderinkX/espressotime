@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Tasks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
+    <script src="common/client/common.js"></script>
+    <script src="boh/asset/client/assets.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        .btn-em {
+            color: #f3f4e6 !important;
+            background-color: #1f1f1f !important;
+            margin: 5px;
+        }
+        .desc {
+            background-color: #f5f5f5 !important;
+        }
+        .li-em {
+            color: #f3f4e6 !important;
+            background-color: #1f1f1f !important;
+            padding-top: 20px;
+            border: solid 3px #ac9175;
+        }
+    </style>
+</head>
+<html>
+<body>
+  <h1>Assets</h1>
+  <table border=0 width="100%">
+    <tr >
+      <td style="vertical-align:top;padding: 15px">
+        <select id="assetselect" class="custom-select" size="15" onchange="displayAsset();">
+        </select>
+        <br/>
+        <br/>
+        <br/>
+        <hr/>
+        <h3>Who has what!</h3>
+        <hr/>
+        <select id="employeehasselect" class="custom-select" size="8" onchange="displayAssigned();">
+        </select>
+        <br/>
+        <br/>        
+        <p id="haslist"></p>
+      </td>
+      <td>
+      </td>
+      <td style="vertical-align:top;padding: 15px">
+          <input type="hidden" id="id" value="">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name">
+          <br/>
+          <label for="cost">Cost:</label>
+          <input type="text" class="form-control" id="cost">
+          <br/>
+          
+          Status:
+          <div class="input-group">
+            <select class="input-large form-control" id="status">
+              <option value="0">Unassigned</option>
+              <option value="1">Assigned</option>
+              <option value="2">Lost</option>
+              <option value="3">Damaged</option>
+              <option value="4">Cost-recouped</option>
+            </select>
+          </div>
+          <br/>
+
+          Employee:
+          <div class="input-group">
+            <select class="input-large form-control" aria-describedby="employee-addon" id="employeeid">
+            </select>
+          </div>
+          <br/>
+          <label for="notes">Notes:</label>
+          <textarea class="form-control" rows="2" id="notes"></textarea>
+          <br/>
+          <label for="dateassigned">Date Assigned:</label>
+          <input type="text" class="form-control" id="dateassigned" readonly />
+          <br/>
+          <label for="statuschangedate">Status Change Date:</label>
+          <input type="text" class="form-control" id="statuschangedate" readonly />
+          <br/>
+          <button type="button" class="btn btn-em" onclick="save()">Save</button>
+      </td>
+    </tr>
+  </table>
+</body>
+<script>
+    loadEmployees();
+    loadAssets();
+</script>
+</html>

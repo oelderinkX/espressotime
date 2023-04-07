@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="common/client/common.js"></script>
+    <script src="boh/shop/client/shop.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<html>
+<body>
+    <h1>Edit Shop Details</h1>
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" readonly />
+    <br/>
+    <label for="allow_single_click_breaks">Allow Single Click Breaks:</label>
+    <input type="checkbox" class="form-control" id="allow_single_click_breaks"/>
+    <br/>
+    <button type="button" class="btn btn-primary" onclick="saveShopDetails();">Save</button>
+</body>
+<script>
+    getShopDetails();
+</script>
+</html>

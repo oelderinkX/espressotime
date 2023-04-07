@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Edit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="common/client/common.js"></script>
+    <script src="boh/edittimes/client/edittimes.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<html>
+<body>
+    <h1>Edit Times</h1>
+    <br/>
+    <br/>
+    <div class="input-group">
+        <span class="input-group-addon" id="day-addon">Day</span>
+        <select class="input-large form-control" aria-describedby="day-addon" id="day" onchange="getStartFinishBreaks();">
+        </select>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon" id="employee-addon">Employee</span>
+        <select class="input-large form-control" aria-describedby="employee-addon" id="employeecombox" onchange="getStartFinishBreaks();">
+            <option value>Select Employee</option>
+        </select>
+    </div>
+  
+    <br/>
+    <br/>
+    <hr>
+    <br/>
+
+    <h1>Times</h1>
+	<div class="form-group" id="times">
+	</div>
+    <button type="button" class="btn btn-default" onclick="updateTimes();">Update Times</button>
+    <br/>
+    <h1>Breaks</h1>
+	<div class="form-group" id="breaks">
+	</div>
+    <br/>
+    <button type="button" class="btn btn-default" onclick="updateBreaks();">Update Breaks</button>
+</body>
+<script>
+    getEmployees();
+    setDatesCombo();
+</script>
+</html>
