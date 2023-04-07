@@ -31,10 +31,7 @@ console.log('loading assets.js');
 require('./boh/assets/srv/assets.js')(app);
 
 console.log('loading editemployees.js');
-require('./boh/editemployees/srv/assets.js')(app);
-
-console.log('loading edittimes.js');
-require('./boh/edittimes/srv/edittimes.js')(app);
+require('./boh/editemployees/srv/editemployees.js')(app);
 
 console.log('loading edittimes.js');
 require('./boh/edittimes/srv/edittimes.js')(app);
