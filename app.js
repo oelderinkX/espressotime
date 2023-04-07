@@ -21,8 +21,8 @@ app.listen(port, function () {
 });
 
 // not done
-console.log('loading main.js');
-require('./boh/main/srv/main.js')(app);
+//console.log('loading main.js');
+//require('./boh/main/srv/main.js')(app);
 
 console.log('loading admin.js');
 require('./boh/admin/srv/admin.js')(app);
