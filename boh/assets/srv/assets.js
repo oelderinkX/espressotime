@@ -7,6 +7,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var assetsPage = fs.readFileSync(__dirname + "/../client/assets.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	app.get('/assets', urlencodedParser, function(req, res) {
