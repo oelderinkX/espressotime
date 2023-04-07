@@ -1,6 +1,6 @@
 var pg = require('pg');
-var common = require('../../script/common.js');
-var dateHelper = require('../../script/dateHelper.js');
+var common = require('../../../common/srv/common.js');
+var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
