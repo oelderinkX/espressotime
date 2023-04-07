@@ -11,7 +11,7 @@ app.use(favicon(__dirname + '/images/favicon.ico'));
 app.disable('etag');
 
 app.use(cookieParser())
-app.use('/images', express.static('images'));
+app.use('/common/images', express.static('images'));
 app.use('/script', express.static('script'));
 app.use('/webpage', express.static('webpage'));
 app.use('/javascript', express.static('javascript'));
