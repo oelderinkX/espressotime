@@ -2,6 +2,7 @@ var pg = require('pg');
 var fs = require("fs");
 var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var dateHelper = require('../../script/dateHelper.js');
 const { stringify } = require('querystring');

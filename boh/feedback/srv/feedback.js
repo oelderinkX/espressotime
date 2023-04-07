@@ -5,6 +5,7 @@ var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 var feedbackPage = fs.readFileSync(__dirname + "/../client/feedback.html", "utf8");
 

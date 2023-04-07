@@ -7,6 +7,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var employeeListEditPage = fs.readFileSync(__dirname + "/../client/employeelistedit.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	app.get('/employeelistedit', urlencodedParser, function(req, res) {

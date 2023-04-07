@@ -7,6 +7,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var editTimesPage = fs.readFileSync(__dirname + "/../client/edittimes.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	app.get('/edittimes', urlencodedParser, function(req, res) {
