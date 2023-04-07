@@ -2,7 +2,7 @@ var fs = require("fs");
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
 
-var adminPage = fs.readFileSync(__dirname + "../client/admin.html", "utf8");
+var adminPage = fs.readFileSync(__dirname + "/../client/admin.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
