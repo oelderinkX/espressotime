@@ -1,5 +1,5 @@
 var pg = require('pg');
-var common = require('../../script/common.js');
+var common = require('../../../common/srv/common.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -8,8 +8,7 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
-var howPage = fs.readFileSync(__dirname + "/webpage/how.html", "utf8");
+var howPage = fs.readFileSync(__dirname + "/../client/how.html", "utf8");
 
 module.exports = function(app) {
 	app.get('/how', urlencodedParser, function(req, res) {

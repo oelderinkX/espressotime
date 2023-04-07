@@ -1,6 +1,6 @@
 var pg = require('pg');
-var common = require('../../script/common.js');
-var dateHelper = require('../../script/dateHelper.js');
+var common = require('../../../common/srv/common.js');
+var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
@@ -9,9 +9,9 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var loginPage = fs.readFileSync(__dirname + "/webpage/login.html", "utf8");
-var tasksPage = fs.readFileSync(__dirname + "/webpage/tasks.html", "utf8");
-var tasksMobilePage = fs.readFileSync(__dirname + "/webpage/tasksmobile.html", "utf8");
+var loginPage = fs.readFileSync(__dirname + "/../client/login.html", "utf8");
+var tasksPage = fs.readFileSync(__dirname + "/../client/tasks.html", "utf8");
+var tasksMobilePage = fs.readFileSync(__dirname + "/../client/tasksmobile.html", "utf8");
 
 module.exports = function(app){
 	app.get('/tasks', urlencodedParser, function(req, res) {
