@@ -5,6 +5,7 @@ var common = require('../../../common/srv/common.js');
 var timeSheetPage = fs.readFileSync(__dirname + "/../client/timesheet.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	app.get('/timesheet', urlencodedParser, function(req, res) {

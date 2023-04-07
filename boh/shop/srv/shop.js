@@ -7,6 +7,7 @@ var pool = new pg.Pool(common.postgresConfig());
 var shopPage = fs.readFileSync(__dirname + "/../client/shop.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
     app.get('/shop', urlencodedParser, function(req, res) {

@@ -6,6 +6,7 @@ var common = require('../../../common/srv/common.js');
 var taskEditPage = fs.readFileSync(__dirname + "/../client/taskedit.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	app.get('/taskedit', urlencodedParser, function(req, res) {
