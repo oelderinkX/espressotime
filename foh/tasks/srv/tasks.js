@@ -9,7 +9,6 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var loginPage = fs.readFileSync(__dirname + "/../client/login.html", "utf8");
 var tasksPage = fs.readFileSync(__dirname + "/../client/tasks.html", "utf8");
 var tasksMobilePage = fs.readFileSync(__dirname + "/../client/tasksmobile.html", "utf8");
 
