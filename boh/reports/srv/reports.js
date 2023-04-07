@@ -2,10 +2,11 @@ var pg = require('pg');
 var fs = require("fs");
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
+var dateHelper = require('../../../common/srv/dateHelper.js');
 var pool = new pg.Pool(common.postgresConfig());
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var dateHelper = require('../../script/dateHelper.js');
+
 const { stringify } = require('querystring');
 
 var pool = new pg.Pool(common.postgresConfig());
