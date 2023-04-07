@@ -9,11 +9,11 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var employeePage = fs.readFileSync(__dirname + "/webpage/employee.html", "utf8");
-var rosterPage = fs.readFileSync(__dirname + "/webpage/employee_roster.html", "utf8");
-var breaksPage = fs.readFileSync(__dirname + "/webpage/employee_breaks.html", "utf8");
-var helpPage = fs.readFileSync(__dirname + "/webpage/employee_help.html", "utf8");
-var shopDetailsPage = fs.readFileSync(__dirname + "/webpage/employee_shopdetails.html", "utf8");
+var employeePage = fs.readFileSync(__dirname + "/../client/employee.html", "utf8");
+var rosterPage = fs.readFileSync(__dirname + "/../client/employee_roster.html", "utf8");
+var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
+var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
+var shopDetailsPage = fs.readFileSync(__dirname + "/../client/employee_shopdetails.html", "utf8");
 
 module.exports = function(app) {
 	app.get('/employee', urlencodedParser, function(req, res) {
