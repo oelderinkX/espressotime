@@ -13,8 +13,8 @@ var toolsPage = fs.readFileSync(__dirname + "/../client/tools.html", "utf8");
 var productsPage = fs.readFileSync(__dirname + "/../client/products.html", "utf8");
 var productDetailsPage = fs.readFileSync(__dirname + "/../client/productdetails.html", "utf8");
 
-var rosterPage = fs.readFileSync(__dirname + "/../../client/roster.html", "utf8");
-var rosterDayPage = fs.readFileSync(__dirname + "/../../client/rosterday.html", "utf8");
+var rosterPage = fs.readFileSync(__dirname + "/../../roster/client/roster.html", "utf8");
+var rosterDayPage = fs.readFileSync(__dirname + "/../../roster/client/rosterday.html", "utf8");
 
 module.exports = function(app) {
 	app.get('/tools', urlencodedParser, function(req, res) {
