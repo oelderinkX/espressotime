@@ -1,9 +1,10 @@
 var fs = require("fs");
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
 
-var assetsPage = fs.readFileSync(__dirname + "../client/assets.html", "utf8");
+var assetsPage = fs.readFileSync(__dirname + "/../client/assets.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 

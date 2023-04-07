@@ -8,9 +8,9 @@ const { stringify } = require('querystring');
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var table = fs.readFileSync(__dirname + "../client/table.html", "utf8");
-var labelsPage = fs.readFileSync(__dirname + "../client/labels.html", "utf8");
-var reportsPage = fs.readFileSync(__dirname + "../client/reports.html", "utf8");
+var table = fs.readFileSync(__dirname + "/../client/table.html", "utf8");
+var labelsPage = fs.readFileSync(__dirname + "/../client/labels.html", "utf8");
+var reportsPage = fs.readFileSync(__dirname + "/../client/reports.html", "utf8");
 
 module.exports = function(app) {
 	app.get('/reports', urlencodedParser, function(req, res) {

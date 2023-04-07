@@ -1,11 +1,12 @@
 var fs = require("fs");
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var feedbackPage = fs.readFileSync(__dirname + ".../client/feedback.html", "utf8");
+var feedbackPage = fs.readFileSync(__dirname + "/../client/feedback.html", "utf8");
 
 module.exports = function(app){
     app.get('/feedback', urlencodedParser, function(req, res) {

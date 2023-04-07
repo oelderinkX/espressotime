@@ -1,8 +1,9 @@
 var fs = require("fs");
+var pg = require('pg');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
 
-var taskEditPage = fs.readFileSync(__dirname + "../client/taskedit.html", "utf8");
+var taskEditPage = fs.readFileSync(__dirname + "/../client/taskedit.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
