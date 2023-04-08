@@ -1,15 +1,17 @@
 var fs = require("fs");
 var pg = require('pg');
+var express = require('express');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
-
-var editTimesPage = fs.readFileSync(__dirname + "/../client/edittimes.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
+	var editTimesPage = fs.readFileSync(__dirname + "/../client/edittimes.html", "utf8");
+	app.use('/scripts/edittimes.js', express.static(__dirname + '/../client/edittimes.js'));
+
 	app.get('/edittimes', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 
