@@ -13,7 +13,7 @@ app.disable('etag');
 app.use(cookieParser())
 app.use('/images', express.static(__dirname + '/common/images'));
 app.use('/scripts', express.static(__dirname + '/common/client'));
-app.use('/manifest.json', express.static(__dirname + '/common/manifest.json'));
+app.use('/webapge/manifest.json', express.static(__dirname + '/common/manifest.json'));
 
 app.listen(port, function () {
 	console.log('Ready to time da staff people!');

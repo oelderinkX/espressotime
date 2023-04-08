@@ -1,4 +1,5 @@
 var pg = require('pg');
+var express = require('express');
 var common = require('../../../common/srv/common.js');
 var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
@@ -9,10 +10,11 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var tasksPage = fs.readFileSync(__dirname + "/../client/tasks.html", "utf8");
-var tasksMobilePage = fs.readFileSync(__dirname + "/../client/tasksmobile.html", "utf8");
+module.exports = function(app) {
+	var tasksPage = fs.readFileSync(__dirname + "/../client/tasks.html", "utf8");
+	var tasksMobilePage = fs.readFileSync(__dirname + "/../client/tasksmobile.html", "utf8");
+	app.use('/scripts/tasks.js', express.static(__dirname + '/../client/tasks.js'));
 
-module.exports = function(app){
 	app.get('/tasks', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
