@@ -1,4 +1,5 @@
 var pg = require('pg');
+var express = require('express');
 var common = require('../../common/srv/common.js');
 var dateHelper = require('../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
@@ -9,13 +10,15 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var employeePage = fs.readFileSync(__dirname + "/../client/employee.html", "utf8");
-var rosterPage = fs.readFileSync(__dirname + "/../client/employee_roster.html", "utf8");
-var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
-var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
-var shopDetailsPage = fs.readFileSync(__dirname + "/../client/employee_shopdetails.html", "utf8");
-
 module.exports = function(app) {
+	var employeePage = fs.readFileSync(__dirname + "/../client/employee.html", "utf8");
+	var rosterPage = fs.readFileSync(__dirname + "/../client/employee_roster.html", "utf8");
+	var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
+	var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
+	var shopDetailsPage = fs.readFileSync(__dirname + "/../client/employee_shopdetails.html", "utf8");
+
+	app.use('/scripts/m_employee.js', express.static(__dirname + '"/../client/m_employee.js'));
+
 	app.get('/employee', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		
