@@ -1,4 +1,5 @@
 var pg = require('pg');
+var express = require('express');
 var common = require('../../../common/srv/common.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
@@ -8,9 +9,9 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var howPage = fs.readFileSync(__dirname + "/../client/how.html", "utf8");
-
 module.exports = function(app) {
+	var howPage = fs.readFileSync(__dirname + "/../client/how.html", "utf8");
+
 	app.get('/how', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
