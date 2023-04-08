@@ -5,6 +5,7 @@ var common = require('../../../common/srv/common.js');
 var pool = new pg.Pool(common.postgresConfig());
 
 var assetsPage = fs.readFileSync(__dirname + "/../client/assets.html", "utf8");
+app.use('/scripts/assets.js', express.static(__dirname + '/../client/assets.js'));
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();

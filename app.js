@@ -12,9 +12,8 @@ app.disable('etag');
 
 app.use(cookieParser())
 app.use('/images', express.static(__dirname + '/common/images'));
-app.use('/script', express.static('script'));
-app.use('/webpage', express.static('webpage'));
-app.use('/javascript', express.static('javascript'));
+app.use('/scripts', express.static(__dirname + '/common/client'));
+app.use('/manifest.json', express.static(__dirname + '/common/manifest.json'));
 
 app.listen(port, function () {
 	console.log('Ready to time da staff people!');
