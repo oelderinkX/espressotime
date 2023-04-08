@@ -9,10 +9,10 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var mainPage = fs.readFileSync(__dirname + "/../client/main.html", "utf8");
-app.use('/scripts/employee.js', express.static(__dirname + '/../client/employee.js'));
+module.exports = function(app) {
+	var mainPage = fs.readFileSync(__dirname + "/../client/main.html", "utf8");
+	app.use('/scripts/employee.js', express.static(__dirname + '/../client/employee.js'));
 
-module.exports = function(app){
 	app.get('/', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
