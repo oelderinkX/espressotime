@@ -15,6 +15,8 @@ var labelsPage = fs.readFileSync(__dirname + "/../client/labels.html", "utf8");
 var reportsPage = fs.readFileSync(__dirname + "/../client/reports.html", "utf8");
 
 module.exports = function(app) {
+	app.use('/scripts/reports.js', express.static(__dirname + '/../client/reports.js'));
+
 	app.get('/reports', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
