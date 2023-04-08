@@ -19,7 +19,7 @@ module.exports = function(app) {
 	var rosterDayPage = fs.readFileSync(__dirname + "/../../roster/client/rosterday.html", "utf8");
 	
 	app.use('/scripts/roster.js', express.static(__dirname + '/../../roster/client/roster.js'));
-	app.use('/scripts/roster.js', express.static(__dirname + '/../../roster/client/roster_day.js'));
+	app.use('/scripts/roster_day.js', express.static(__dirname + '/../../roster/client/roster_day.js'));
 
 	app.get('/tools', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
