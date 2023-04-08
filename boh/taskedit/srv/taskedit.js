@@ -10,7 +10,7 @@ var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
 	var taskEditPage = fs.readFileSync(__dirname + "/../client/taskedit.html", "utf8");
-	app.use('/scripts/edittimes.js', express.static(__dirname + '/../client/taskedit.js'));
+	app.use('/scripts/taskedit.js', express.static(__dirname + '/../client/taskedit.js'));
 
 	app.get('/taskedit', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
