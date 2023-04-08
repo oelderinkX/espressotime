@@ -1,4 +1,5 @@
 var pg = require('pg');
+var express = require('express');
 var common = require('../../../common/srv/common.js');
 var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
@@ -9,14 +10,16 @@ var jsonParser = bodyParser.json();
 
 var pool = new pg.Pool(common.postgresConfig());
 
-var toolsPage = fs.readFileSync(__dirname + "/../client/tools.html", "utf8");
-var productsPage = fs.readFileSync(__dirname + "/../client/products.html", "utf8");
-var productDetailsPage = fs.readFileSync(__dirname + "/../client/productdetails.html", "utf8");
-
-var rosterPage = fs.readFileSync(__dirname + "/../../roster/client/roster.html", "utf8");
-var rosterDayPage = fs.readFileSync(__dirname + "/../../roster/client/rosterday.html", "utf8");
-
 module.exports = function(app) {
+	var toolsPage = fs.readFileSync(__dirname + "/../client/tools.html", "utf8");
+	var productsPage = fs.readFileSync(__dirname + "/../client/products.html", "utf8");
+	var productDetailsPage = fs.readFileSync(__dirname + "/../client/productdetails.html", "utf8");
+	
+	var rosterPage = fs.readFileSync(__dirname + "/../../roster/client/roster.html", "utf8");
+	var rosterDayPage = fs.readFileSync(__dirname + "/../../roster/client/rosterday.html", "utf8");
+	
+	app.use('/scripts/roster.js', express.static(__dirname + '/../../roster/client/roster.js'));
+
 	app.get('/tools', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
