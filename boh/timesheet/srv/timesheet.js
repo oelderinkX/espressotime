@@ -1,13 +1,18 @@
 var fs = require("fs");
+var pg = require('pg');
+var express = require('express');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
-
-var timeSheetPage = fs.readFileSync(__dirname + "/../client/timesheet.html", "utf8");
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
+var pool = new pg.Pool(common.postgresConfig());
+
 module.exports = function(app) {
+	var timeSheetPage = fs.readFileSync(__dirname + "/../client/timesheet.html", "utf8");
+	app.use('/scripts/timesheet.js', express.static(__dirname + '"/../client/timesheet.js'));
+
 	app.get('/timesheet', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
