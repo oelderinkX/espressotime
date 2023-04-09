@@ -10,6 +10,33 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
+	var rosterPage = fs.readFileSync(__dirname + "/../roster/client/roster.html", "utf8");
+	var rosterDayPage = fs.readFileSync(__dirname + "/../roster/client/rosterday.html", "utf8");
+	
+	app.use('/scripts/roster.js', express.static(__dirname + '/../roster/client/roster.js'));
+	app.use('/scripts/roster_day.js', express.static(__dirname + '/../roster/client/roster_day.js'));
+
+	app.get('/roster', urlencodedParser, function(req, res) {
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		var view = req.query.view || 'week';
+		var date = req.query.date || '';
+
+		if (shopid && shopid != -1) {
+			if (view == 'week') {
+				var formatted = rosterPage;
+				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + date + ');');
+				res.send(formatted);
+			} else {
+				var formatted = rosterDayPage;
+				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
+				res.send(formatted);
+			}
+		} else {
+			res.redirect(common.getLoginUrl('/roster'));
+		}
+	});	
+
 	app.post('/getroles', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		

@@ -14,12 +14,6 @@ module.exports = function(app) {
 	var toolsPage = fs.readFileSync(__dirname + "/../client/tools.html", "utf8");
 	var productsPage = fs.readFileSync(__dirname + "/../client/products.html", "utf8");
 	var productDetailsPage = fs.readFileSync(__dirname + "/../client/productdetails.html", "utf8");
-	
-	var rosterPage = fs.readFileSync(__dirname + "/../../roster/client/roster.html", "utf8");
-	var rosterDayPage = fs.readFileSync(__dirname + "/../../roster/client/rosterday.html", "utf8");
-	
-	app.use('/scripts/roster.js', express.static(__dirname + '/../../roster/client/roster.js'));
-	app.use('/scripts/roster_day.js', express.static(__dirname + '/../../roster/client/roster_day.js'));
 
 	app.get('/tools', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
@@ -48,27 +42,6 @@ module.exports = function(app) {
 			res.send(productDetailsPage);
 		} else {
 			res.redirect(common.getLoginUrl('/productdetails'));
-		}
-	});	
-
-	app.get('/roster', urlencodedParser, function(req, res) {
-		var shopid = common.getShopId(req.cookies['identifier']);
-		
-		var view = req.query.view || 'week';
-		var date = req.query.date || '';
-
-		if (shopid && shopid != -1) {
-			if (view == 'week') {
-				var formatted = rosterPage;
-				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + date + ');');
-				res.send(formatted);
-			} else {
-				var formatted = rosterDayPage;
-				formatted = formatted.replace('getRosterDate();', 'getRosterDate(' + date + ');');
-				res.send(formatted);
-			}
-		} else {
-			res.redirect(common.getLoginUrl('/roster'));
 		}
 	});	
 
