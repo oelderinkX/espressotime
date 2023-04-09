@@ -32,10 +32,12 @@ function drawTable() {
   table.appendChild(getFooterBarRow());
 }
 
-function getRoles() {
+function loadPage() {
+  getRosterDates();
   var request = {};
   sendPost("/getroles", JSON.stringify(request), function(response) {
     roles =  JSON.parse(response);
+    getEmployeeTimes();
   });
 }
 
