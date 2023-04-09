@@ -10,11 +10,11 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
-	var rosterPage = fs.readFileSync(__dirname + "/../roster/client/roster.html", "utf8");
-	var rosterDayPage = fs.readFileSync(__dirname + "/../roster/client/rosterday.html", "utf8");
+	var rosterPage = fs.readFileSync(__dirname + "/../client/roster.html", "utf8");
+	var rosterDayPage = fs.readFileSync(__dirname + "/../client/rosterday.html", "utf8");
 	
-	app.use('/scripts/roster.js', express.static(__dirname + '/../roster/client/roster.js'));
-	app.use('/scripts/roster_day.js', express.static(__dirname + '/../roster/client/roster_day.js'));
+	app.use('/scripts/roster.js', express.static(__dirname + '/../client/roster.js'));
+	app.use('/scripts/roster_day.js', express.static(__dirname + '/../client/roster_day.js'));
 
 	app.get('/roster', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
