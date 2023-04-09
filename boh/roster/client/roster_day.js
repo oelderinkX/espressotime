@@ -33,7 +33,7 @@ function drawTable() {
 }
 
 function loadPage() {
-  getRosterDates();
+  getRosterDate();
   var request = {};
   sendPost("/getroles", JSON.stringify(request), function(response) {
     roles =  JSON.parse(response);
