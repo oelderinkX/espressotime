@@ -1,17 +1,4 @@
-var roles = [
-  {"name": "-", "colour": "white", "textcolour": "black"},
-  {"name": "FOH", "colour": "#303F9F", "textcolour": "white"},
-  {"name": "Open", "colour": "#43A047", "textcolour": "white"},
-  {"name": "Close", "colour": "#F4511E", "textcolour": "white"},
-  {"name": "Sandwich", "colour": "#FFE0B2", "textcolour": "black"},
-  {"name": "Cook", "colour": "yellow", "textcolour": "black"},
-  {"name": "Sandwich/Cook", "colour": "#D7CCC8", "textcolour": "black"},
-  {"name": "Kitchen Open", "colour": "#FF9900", "textcolour": "black"},
-  {"name": "Dishwasher", "colour": "#4DD0E1", "textcolour": "black"},
-  {"name": "Manager", "colour": "#2196F3", "textcolour": "white"},
-  {"name": "Training", "colour": "#673AB7", "textcolour": "white"},
-  {"name": "Annual Leave", "colour": "black", "textcolour": "white"},
-  {"name": "Sick", "colour": "black", "textcolour": "white"}];
+var roles = [ ];
 
 function gotoWeekView() {
   location.href='/roster?view=week&date="' + rosterdate + '"';
@@ -44,7 +31,13 @@ function drawTable() {
   table.appendChild(getFooterRow());
   table.appendChild(getFooterBarRow());
 }
-  
+
+function getRoles() {
+  sendPost("/getroles", JSON.stringify(request), function(response) {
+    roles =  JSON.parse(response);
+  });
+}
+
 function getHeaderRow() {
   var row = createRow();
   row.appendChild(createHeader('Employee', 320));
