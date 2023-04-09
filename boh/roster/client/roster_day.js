@@ -33,6 +33,7 @@ function drawTable() {
 }
 
 function getRoles() {
+  var request = {};
   sendPost("/getroles", JSON.stringify(request), function(response) {
     roles =  JSON.parse(response);
   });
