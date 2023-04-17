@@ -72,4 +72,4 @@ console.log('loading tasks.js');
 require('./foh/tasks/srv/tasks.js')(app);
 
 console.log('loading rh_roster.js');
-require('./foh/roster/srv/rh_roster.js')(app);
+require('./foh/roster/srv/foh_roster.js')(app);
