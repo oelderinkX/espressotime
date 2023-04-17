@@ -95,10 +95,6 @@ function getEmployeeRow(employeetimes) {
 
         backgroundColour = getRoleColour(role);
         textcolour = getRoleTextColour(role);
-
-        var totalMilliSeconds = Math.abs(end - start);
-        var totalHours = totalMilliSeconds / 36e5;
-        hours += totalHours;
       }
     }
     
@@ -110,7 +106,7 @@ function getEmployeeRow(employeetimes) {
     control.style.color = textcolour;
 
     cell.appendChild(control);
-    
+
     row.appendChild(cell);
   }
 
