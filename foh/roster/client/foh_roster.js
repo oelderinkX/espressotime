@@ -2,6 +2,28 @@ var roles = [];
 
 var rosterStart = new Date(); // GLOBAL
 
+function clock() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var ampm = "am";
+  m = pad(m);
+
+  if (h > 11) {
+      ampm = "pm";
+  }
+
+  if (h > 12) {
+      h = h - 12;
+  }
+
+  document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
+
+  t = setTimeout(function() {
+    clock()
+  }, 10000);
+}
+
 function clearTable() {
   var roster_weekview = document.getElementById('roster_weekview');
   roster_weekview.innerHTML = '';
