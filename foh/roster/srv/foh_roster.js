@@ -10,9 +10,9 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
-	var rosterPage = fs.readFileSync(__dirname + "/../client/roh_roster.html", "utf8");
+	var rosterPage = fs.readFileSync(__dirname + "/../client/foh_roster.html", "utf8");
 	
-	app.use('/scripts/roh_roster.js', express.static(__dirname + '/../client/roh_roster.js'));
+	app.use('/scripts/foh_roster.js', express.static(__dirname + '/../client/foh_roster.js'));
 
 	app.get('/roh_roster', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
