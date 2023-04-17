@@ -211,7 +211,6 @@ function rosterForward() {
 
 function getRosterDates(newDate) {
     var rosterDate = document.getElementById("rosterDate");
-    var copylastweekdate = document.getElementById('copylastweekdate');
 
     var d = new Date();
     if (newDate) {
@@ -237,17 +236,6 @@ function getRosterDates(newDate) {
     for(var i = 0; i < 7; i++)  {
       rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
       rosterStart.setDate(rosterStart.getDate() + 1);
-    }
-
-    copylastweekdate.innerHTML = '';
-    var lastweekdate = new Date(rosterStart);
-    lastweekdate.setDate(lastweekdate.getDate() - 14);
-    for(var i = 0; i < 5; i++) {
-      var option = document.createElement('option');
-      option.value = lastweekdate.getFullYear() + '-' + pad(lastweekdate.getMonth()+1) + '-' + pad(lastweekdate.getDate());
-      option.innerHTML = pad(lastweekdate.getDate()) + ' ' + monthNames[lastweekdate.getMonth()] + ' ' + lastweekdate.getFullYear();
-      copylastweekdate.appendChild(option);
-      lastweekdate.setDate(lastweekdate.getDate() - 7);
     }
 }
 
