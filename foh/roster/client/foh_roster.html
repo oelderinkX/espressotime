@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Roster</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="/scripts/common.js"></script>
+  <script src="/scripts/foh_roster.js"></script>
+<style>
+  body {
+    background-color: #ac9175;
+    color: #1f1f1f !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .disable {
+        position:relative;
+  }
+  .disable:after {
+        content: '';
+        position: absolute;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        z-index:1;
+        background: transparent;
+  }
+</style>
+</head>
+<script>
+  var employeestimes = [];
+  var rosterdates = [];
+</script>
+<body>
+  <table border="0" width="1440px" class="hidden-print">
+    <tr>
+      <td width="360px">
+        &nbsp;<input type="button" value="&lt;" id="back" class="hidden-print" onclick="rosterBack();"><span id="rosterDate" class="hidden-print"></span><input type="button" value="&gt;" id="forward" class="hidden-print" onclick="rosterForward();">
+      </td>
+      <td width="360px"><span id="loading"></span></td>
+      <td width="360px"><button class="btn btn-default" onclick="setEditMode(); enableRoster();"><i class="glyphicon glyphicon-pencil"></i> Edit</button></td>
+      <td align="right" width="360px">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000;" class="btn btn-em hidden-print" onclick="copyLastWeek();">Merge from week</button>
+        <select id="copylastweekdate">
+        </select>
+      </td>
+    </tr>
+  </table>
+  <div id="roster_weekview"></div>
+  <div id="modals"></div>
+  <br class="hidden-print">
+  <table border="0" width="1440px" class="hidden-print">
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td align="right"><button type="button" style="margin:15px;color:#ffffff;background-color:#000000;" class="btn btn-em hidden-print" onclick="window.print();">Print</button></td>
+    </tr>
+  </table>
+  <br class="hidden-print">
+  <br class="hidden-print">
+  <br class="hidden-print">
+<script>
+  loadPage();
+</script>
+</body>
+</html>
+
