@@ -69,7 +69,6 @@ function getEmployeeRow(employeetimes) {
   nameCell.innerHTML = employeetimes.name;
   row.appendChild(nameCell);
 
-  var hours = 0;
   for(var i = 0; i < rosterdates.length; i++) {
     var cellInner = '';
     var role = '';
@@ -104,7 +103,14 @@ function getEmployeeRow(employeetimes) {
     }
     
     var cell = createCell();
+    var control = createControl();
 
+    control.innerHTML = cellInner;
+    control.style.background = backgroundColour;
+    control.style.color = textcolour;
+
+    cell.appendChild(control);
+    
     row.appendChild(cell);
   }
 
