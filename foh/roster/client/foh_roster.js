@@ -105,8 +105,6 @@ function getEmployeeRow(employeetimes) {
     
     var cell = createCell();
 
-    cell.appendChild(control);
-
     row.appendChild(cell);
   }
 

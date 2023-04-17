@@ -14,7 +14,7 @@ module.exports = function(app) {
 	
 	app.use('/scripts/foh_roster.js', express.static(__dirname + '/../client/foh_roster.js'));
 
-	app.get('/roh_roster', urlencodedParser, function(req, res) {
+	app.get('/foh_roster', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		var date = req.query.date || '';
@@ -24,7 +24,7 @@ module.exports = function(app) {
             formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + date + ');');
             res.send(formatted);
 		} else {
-			res.redirect(common.getLoginUrl('/roh_roster'));
+			res.redirect(common.getLoginUrl('/foh_roster'));
 		}
 	});	
 }
