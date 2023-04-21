@@ -1,33 +1,40 @@
 var roles = [];
 
-function displayHow(id) {
-    for(var i = 0; i < hows.length; i++) {
-        if (hows[i].id == id) {
-            how = hows[i];
+/*
+id: 0, 
+ name: '-', 
+ colour: '#FFFFFF', 
+ textcolour: '#000000', 
+ rights: 0
+*/
+
+function displayRole(id) {
+    for(var i = 0; i < roles.length; i++) {
+        if (role[i].id == id) {
+            role = role[i];
             break;
         }
     }
     
-    var id = document.getElementById('id');
-    id.value = how.id;
+    //var id = document.getElementById('id');
+    //id.value = how.id;
 
-    var name = document.getElementById('howinput');
-    name.value = how.name;
+    var name = document.getElementById('roleinput');
+    name.value = role.name;
 
-    var description = document.getElementById('description');
-    description.value = how.description;
+    var colour = document.getElementById('colourinput');
+    colour.value = role.colour;
+
+    var textcolour = document.getElementById('textcolourinput');
+    textcolour.value = role.textcolour;
 }
 
-function loadHow() {
+function loadRoles() {
     var request = {};
-    sendPost("/gethows", JSON.stringify(request), function(response) {
-        hows  = JSON.parse(response);
-        
-        if (canSave == true) {
-            hows.push({ id: 0, name: '*** New Help', description: 'Enter name and description and Save'});
-        }
+    sendPost("/getroles", JSON.stringify(request), function(response) {
+        roles  = JSON.parse(response);
 
-        hows = hows.sort((a, b) => {
+        roles = roles.sort((a, b) => {
             var n1 = a.name.toUpperCase();
             var n2 = b.name.toUpperCase();
             if (n1 > n2) {
@@ -39,32 +46,32 @@ function loadHow() {
             }
         });
 
-        loadHowCombo();
+        loadRoleCombo();
     });
 }
 
-function loadHowCombo() {
-    var howlist = document.getElementById('howlist');
+function loadRoleCombo() {
+    var rolelist = document.getElementById('rolelist');
 
-    howlist.innerHTML = '';
+    rolelist.innerHTML = '';
 
-    for(var i = 0; i < hows.length; i++) {
-        if (filter == '' || hows[i].name.toUpperCase().includes(filter)) {
-            var how = hows[i];
+    for(var i = 0; i < roles.length; i++) {
+        var role = roles[i];
 
-            var button = document.createElement('button');
-            button.setAttribute('type', 'button');
-            button.setAttribute('class', 'list-group-item list-group-item-action');
-            button.setAttribute('onclick', 'displayHow(' + how.id + ');');
-            button.style = "font-size:16px";
-            button.innerText = how.name;
+        var button = document.createElement('button');
+        button.setAttribute('type', 'button');
+        button.setAttribute('class', 'list-group-item list-group-item-action');
+        button.setAttribute('onclick', 'displayRole(' + role.id + ');');
+        button.style = "font-size:16px";
+        button.innerText = role.name;
 
-            howlist.appendChild(button);
-        }
+        rolelist.appendChild(button);
     }
 }
 
 function saveHow() {
+    return;
+
     var howlist = document.getElementById('howlist');
     var selectedIndex = howlist.selectedIndex;
 

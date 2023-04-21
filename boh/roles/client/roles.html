@@ -26,22 +26,19 @@
     <table width="100%" border=0>
         <tr>
             <td style="vertical-align:top;padding: 15px" width="400px">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Search</span>
-                    </div>
-                    <input type="text" style="font-size:16px" class="form-control" placeholder="Enter search" aria-label="Enter search" aria-describedby="basic-addon1" size="50" id="filter" onkeyup="filter = this.value.toUpperCase(); loadHowCombo();">
-                </div>
-                <br/>
-                <div class="list-group" id="howlist">
+                <div class="list-group" id="rolelist">
                 </div>
             </td>
             <td style="vertical-align:top;padding: 15px">
                 <input type="hidden" id="id" value="0"/>
-                <label id="howlabel" for="name">Help Name:</label>
-                <input id="howinput" type="text" class="form-control" style="font-size:16px" />
-                <h3>Description</h3>
-                XtextareaX rows="20" style="width:100%; background-color:white; font-size:16px" id="description">X/textareaX
+                <label id="rolelabel" for="name">Role:</label>
+                <input id="roleinput" type="text" class="form-control" style="font-size:16px" />
+                <br/>
+                <label id="colourlabel" for="name">Colour:</label>
+                <input id="colourinput" type="color" class="form-control" style="font-size:16px" />
+                <br/>
+                <label id="textcolourlabel" for="name">Text Colour:</label>
+                <input id="textcolourinput" type="color" class="form-control" style="font-size:16px" />
                 <br/>
                 <button id="savebutton" type="button" class="btn btn-success" onclick="save();">Save</button>
             </td>
@@ -49,6 +46,6 @@
     </table>
 </body>
 <script>
-    //loadHow();
+    loadRoles();
 </script>
 </html>
