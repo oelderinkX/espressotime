@@ -27,6 +27,9 @@ function displayRole(id) {
 
     var textcolour = document.getElementById('textcolourinput');
     textcolour.value = role.textcolour;
+
+    var displayrole = document.getElementById('displayrole');
+    displayrole.style = 'background-color: ' + role.colour + '; color: ' + role.textcolour + '; font-size:16px; text-align: center;';
 }
 
 function loadRoles() {
