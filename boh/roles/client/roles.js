@@ -71,6 +71,10 @@ function loadRoleCombo() {
 
         rolelist.appendChild(button);
     }
+
+    if (roles.length > 0) {
+        displayRole(roles[0].id);
+    }
 }
 
 function saveHow() {
