@@ -19,15 +19,14 @@ app.listen(port, function () {
 	console.log('Ready to time da staff people!');
 });
 
-// not done
-//console.log('loading main.js');
-//require('./boh/main/srv/main.js')(app);
-
 console.log('loading admin.js');
 require('./boh/admin/srv/admin.js')(app);
 
 console.log('loading assets.js');
 require('./boh/assets/srv/assets.js')(app);
+
+console.log('loading roles.js');
+require('./boh/roles/srv/roles.js')(app);
 
 console.log('loading editemployees.js');
 require('./boh/editemployees/srv/editemployees.js')(app);
@@ -40,8 +39,6 @@ require('./boh/feedback/srv/feedback.js')(app);
 
 console.log('loading reports.js');
 require('./boh/reports/srv/reports.js')(app);
-
-//where is roster ?
 
 console.log('loading shop.js');
 require('./boh/shop/srv/shop.js')(app);
