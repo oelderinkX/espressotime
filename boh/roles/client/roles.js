@@ -10,8 +10,8 @@ id: 0,
 
 function displayRole(id) {
     for(var i = 0; i < roles.length; i++) {
-        if (role[i].id == id) {
-            role = role[i];
+        if (roles[i].id == id) {
+            role = roles[i];
             break;
         }
     }
