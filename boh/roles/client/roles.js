@@ -8,6 +8,16 @@ id: 0,
  rights: 0
 */
 
+function showExample() {
+    var name = document.getElementById('roleinput');
+    var colour = document.getElementById('colourinput');
+    var textcolour = document.getElementById('textcolourinput');
+
+    var displayrole = document.getElementById('displayrole');
+    displayrole.style = 'background-color: ' + colour.value + '; color: ' + textcolour.value + '; font-size:16px; text-align: center; resize: none; border-radius: 10px;';
+    displayrole.value  = '6:30 AM - 3:00 PM\n' + name.value; 
+}
+
 function displayRole(id) {
     for(var i = 0; i < roles.length; i++) {
         if (roles[i].id == id) {
@@ -16,9 +26,6 @@ function displayRole(id) {
         }
     }
     
-    //var id = document.getElementById('id');
-    //id.value = how.id;
-
     var name = document.getElementById('roleinput');
     name.value = role.name;
 
@@ -28,9 +35,7 @@ function displayRole(id) {
     var textcolour = document.getElementById('textcolourinput');
     textcolour.value = role.textcolour;
 
-    var displayrole = document.getElementById('displayrole');
-    displayrole.style = 'background-color: ' + role.colour + '; color: ' + role.textcolour + '; font-size:16px; text-align: center; resize: none; border-radius: 10px;';
-    displayrole.value  = '6:30 AM - 3:00 PM\n' + role.name; 
+    showExample();
 }
 
 function loadRoles() {
