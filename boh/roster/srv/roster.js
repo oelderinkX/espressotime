@@ -36,37 +36,4 @@ module.exports = function(app) {
 			res.redirect(common.getLoginUrl('/roster'));
 		}
 	});	
-
-	app.post('/getroles', jsonParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']);
-		
-		var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
-				done();
-
-				var roles = [];
-				roles.push({ id: 0, 
-                             name: '-', 
-                             colour: '#FFFFFF', 
-                             textcolour: '#000000', 
-                             rights: 0
-                });
-
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						roles.push({ id: result.rows[i].id,
-									 name: result.rows[i].name,
-                                     colour: result.rows[i].colour,
-                                     textcolour: result.rows[i].textcolour,
-                                     rights: result.rows[i].rights
-						});
-					}
-				}
-					
-				res.send(roles);
-			});
-		});
-	});
 }
