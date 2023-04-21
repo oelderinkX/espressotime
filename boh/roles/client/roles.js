@@ -29,7 +29,8 @@ function displayRole(id) {
     textcolour.value = role.textcolour;
 
     var displayrole = document.getElementById('displayrole');
-    displayrole.style = 'background-color: ' + role.colour + '; color: ' + role.textcolour + '; font-size:16px; text-align: center;';
+    displayrole.style = 'background-color: ' + role.colour + '; color: ' + role.textcolour + '; font-size:16px; text-align: center; resize: none; border-radius: 10px;';
+    displayrole.value  = '6:30 AM - 3:00 PM\n' + role.name; 
 }
 
 function loadRoles() {
