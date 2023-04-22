@@ -93,6 +93,8 @@ function addnew() {
     name.value = 'New Role';
     colour.value = '#FFFFFF';
     textcolour.value = '#000000';
+
+    showExample();
 }
 
 function save() {
@@ -116,5 +118,13 @@ function save() {
 }
 
 function deleterole() {
+    var id = document.getElementById('id');
 
+    var role = {
+        id: id.value,
+    };
+
+    sendPost("/deleterole", JSON.stringify(role), function(response) {
+        loadRoles();
+    });
 }
