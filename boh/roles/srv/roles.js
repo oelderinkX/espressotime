@@ -58,4 +58,54 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/updaterole', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+		var name = req.body.name;
+        var colour = req.body.colour;
+		var textcolour = req.body.textcolour;
+		var rights = req.body.rights;
+
+        var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
+
+        var values = [];
+
+        if (id == -1) {
+            console.log('insert');
+            sql = "insert into espresso.role (shopid, name, colour, textcolour, rights )";
+            sql += " values ($1, $2, $3, $4, $5)";
+            values = [shopId, name, colour, textcolour, rights];
+        } else if (id > 0) {
+            console.log('update');
+            sql = "update espresso.role set name = $3, colour = $4, textcolour = $5, rights = $6 ";
+            sql += " where shopid = $1 and id = $2";
+            values = [shopId, id, name, colour, textcolour, rights];
+        }
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+			
+				res.send({ result: 'success' });
+			});
+		});
+	});
+
+	app.post('/deleterole', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var id = req.body.id;
+
+        // var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
+
+        var sql = "delete espresso.role where shopid = $1 and id = $2";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId, id], function(err, result) {
+				done();
+			
+				res.send({ result: 'success' });
+			});
+		});
+	});
 }

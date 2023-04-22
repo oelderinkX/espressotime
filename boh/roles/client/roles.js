@@ -1,13 +1,5 @@
 var roles = [];
 
-/*
-id: 0, 
- name: '-', 
- colour: '#FFFFFF', 
- textcolour: '#000000', 
- rights: 0
-*/
-
 function showExample() {
     var name = document.getElementById('roleinput');
     var colour = document.getElementById('colourinput');
@@ -26,6 +18,9 @@ function displayRole(id) {
         }
     }
     
+    var id = document.getElementById('id');
+    id.value = role.id;
+
     var name = document.getElementById('roleinput');
     name.value = role.name;
 
@@ -67,22 +62,24 @@ function loadRoleCombo() {
     for(var i = 0; i < roles.length; i++) {
         var role = roles[i];
 
-        var button = document.createElement('button');
-        button.setAttribute('type', 'button');
-        button.setAttribute('class', 'list-group-item list-group-item-action');
-        button.setAttribute('onclick', 'displayRole(' + role.id + ');');
-        button.style = "font-size:16px";
-        button.innerText = role.name;
+        if (role.id != 0) {
+            var button = document.createElement('button');
+            button.setAttribute('type', 'button');
+            button.setAttribute('class', 'list-group-item list-group-item-action');
+            button.setAttribute('onclick', 'displayRole(' + role.id + ');');
+            button.style = "font-size:16px";
+            button.innerText = role.name;
 
-        rolelist.appendChild(button);
+            rolelist.appendChild(button);
+        }
     }
 
-    if (roles.length > 0) {
+    if (roles.length > 1) {
         displayRole(roles[0].id);
     }
 }
 
-function saveHow() {
+function save() {
     return;
 
     var howlist = document.getElementById('howlist');
@@ -103,4 +100,8 @@ function saveHow() {
         howlist.selectedIndex = selectedIndex;
         alert('Saved!');
     });
+}
+
+function deleterole() {
+
 }
