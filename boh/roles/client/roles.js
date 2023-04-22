@@ -1,4 +1,5 @@
 var roles = [];
+var loadingRoles = false;
 
 function showExample() {
     var name = document.getElementById('roleinput');
@@ -34,6 +35,8 @@ function displayRole(id) {
 }
 
 function loadRoles() {
+    loadingRoles = true;
+
     var request = {};
     sendPost("/getroles", JSON.stringify(request), function(response) {
         roles  = JSON.parse(response);
@@ -51,6 +54,8 @@ function loadRoles() {
         });
 
         loadRoleCombo();
+
+        loadingRoles = false;
     });
 }
 
@@ -95,7 +100,12 @@ function save() {
     sendPost("/updaterole", JSON.stringify(role), function(response) {
         loadRoles();
         alert('Saved!');
-        
+
+        var i = 0;
+        while(loadingRoles) {
+            i = i + 1;
+        }
+
         var json  = JSON.parse(response);
         displayRole(json.roleid);
     });
