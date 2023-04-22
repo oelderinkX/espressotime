@@ -94,7 +94,10 @@ function save() {
 
     sendPost("/updaterole", JSON.stringify(role), function(response) {
         loadRoles();
-        displayRole(response.roleid);
+
+        var json  = JSON.parse(response);
+        displayRole(json.roleid);
+        
         alert('Saved!');
     });
 }
