@@ -76,9 +76,9 @@ function loadRoleCombo(id) {
 
     if (roles.length > 1) {
         if (id) {
-            displayRole(roles[1].id);
-        } else {
             displayRole(id);
+        } else {
+            displayRole(roles[1].id);
         }
     }
 }
