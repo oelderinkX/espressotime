@@ -119,12 +119,17 @@ function save() {
 
 function deleterole() {
     var id = document.getElementById('id');
+    var name = document.getElementById('roleinput');
 
     var role = {
         id: id.value,
     };
 
-    sendPost("/deleterole", JSON.stringify(role), function(response) {
-        loadRoles();
-    });
+    var doDelete = confirm('Are you sure you want to DELETE ' + name.value);
+
+    if (doDelete) {
+        sendPost("/deleterole", JSON.stringify(role), function(response) {
+            loadRoles();
+        });
+    }
 }

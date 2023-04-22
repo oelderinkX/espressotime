@@ -101,23 +101,11 @@ module.exports = function(app) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var id = req.body.id;
 
-        // var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
-
         var sql = "delete from espresso.role where shopid = $1 and id = $2";
-
-		console.log(' *** START');
-		console.log(sql);
-		console.log(shopId);
-		console.log(id);
-		console.log(' *** END');
-
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, id], function(err, result) {
 				done();
-			
-				console.log(result);
-				console.log(err);
 
 				res.send({ result: 'success' });
 			});
