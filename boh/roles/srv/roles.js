@@ -75,6 +75,7 @@ module.exports = function(app) {
             console.log('insert');
             sql = "insert into espresso.role (shopid, name, colour, textcolour, rights )";
             sql += " values ($1, $2, $3, $4, $5)";
+			sql += " RETURNING id;";
             values = [shopId, name, colour, textcolour, rights];
         } else if (id > 0) {
             console.log('update');
@@ -87,7 +88,11 @@ module.exports = function(app) {
 			connection.query(sql, values, function(err, result) {
 				done();
 			
-				res.send({ result: 'success' });
+				if (id == -1) {
+					id = result.rows[0].id;
+				}
+
+				res.send({ result: 'success', roleid: id });
 			});
 		});
 	});

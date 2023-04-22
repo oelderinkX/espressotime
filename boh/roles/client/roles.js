@@ -80,24 +80,21 @@ function loadRoleCombo() {
 }
 
 function save() {
-    return;
-
-    var howlist = document.getElementById('howlist');
-    var selectedIndex = howlist.selectedIndex;
-
     var id = document.getElementById('id');
-    var name = document.getElementById('howinput');
-    var description = document.getElementById('description');
+    var name = document.getElementById('roleinput');
+    var colour = document.getElementById('colourinput');
+    var textcolour = document.getElementById('textcolourinput');
 
-    var how = {
+    var role = {
         id: id.value,
         name: name.value,
-        description: description.value,
+        colour: colour.value,
+        textcolour: textcolour.value,
     };
 
-    sendPost("/updatehow", JSON.stringify(how), function(response) {
-        loadHow();
-        howlist.selectedIndex = selectedIndex;
+    sendPost("/updaterole", JSON.stringify(role), function(response) {
+        loadRoles();
+        displayRole(response.roleid);
         alert('Saved!');
     });
 }
