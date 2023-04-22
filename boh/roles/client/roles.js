@@ -83,6 +83,18 @@ function loadRoleCombo(id) {
     }
 }
 
+function addnew() {
+    var id = document.getElementById('id');
+    var name = document.getElementById('roleinput');
+    var colour = document.getElementById('colourinput');
+    var textcolour = document.getElementById('textcolourinput');
+
+    id.value = -1;
+    name.value = 'New Role';
+    colour.value = '#FFFFFF';
+    textcolour.value = '#000000';
+}
+
 function save() {
     var id = document.getElementById('id');
     var name = document.getElementById('roleinput');
