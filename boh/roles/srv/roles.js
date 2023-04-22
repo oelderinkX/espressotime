@@ -103,7 +103,7 @@ module.exports = function(app) {
 
         // var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
 
-        var sql = "delete espresso.role where shopid = $1 and id = $2";
+        var sql = "delete from espresso.role where shopid = $1 and id = $2";
 
 		console.log(' *** START');
 		console.log(sql);
