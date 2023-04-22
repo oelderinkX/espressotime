@@ -105,10 +105,20 @@ module.exports = function(app) {
 
         var sql = "delete espresso.role where shopid = $1 and id = $2";
 
+		console.log(' *** START');
+		console.log(sql);
+		console.log(shopId);
+		console.log(id);
+		console.log(' *** END');
+
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, id], function(err, result) {
 				done();
 			
+				console.log(result);
+				console.log(err);
+
 				res.send({ result: 'success' });
 			});
 		});
