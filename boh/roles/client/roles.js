@@ -125,7 +125,7 @@ function deleterole() {
         id: id.value,
     };
 
-    var doDelete = confirm('Are you sure you want to DELETE ' + name.value);
+    var doDelete = confirm('Are you sure you want to DELETE "' + name.value + '"');
 
     if (doDelete) {
         sendPost("/deleterole", JSON.stringify(role), function(response) {
