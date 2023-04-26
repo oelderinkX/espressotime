@@ -15,6 +15,8 @@ module.exports = function(app) {
 	var productsPage = fs.readFileSync(__dirname + "/../client/products.html", "utf8");
 	var productDetailsPage = fs.readFileSync(__dirname + "/../client/productdetails.html", "utf8");
 
+	app.use('/scripts/tools.js', express.static(__dirname + '/../client/tools.js'));
+
 	app.get('/tools', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
