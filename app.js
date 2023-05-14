@@ -52,6 +52,9 @@ require('./boh/timesheet/srv/timesheet.js')(app);
 console.log('loading roster.js');
 require('./boh/roster/srv/roster.js')(app);
 
+console.log('loading daily reconciliation.js');
+require('./boh/dailyreconciliation/srv/dailyreconciliation.js')(app);
+
 // this might need to be deleted or updated!
 console.log('loading tools.js');
 require('./boh/tools/srv/tools.js')(app);
