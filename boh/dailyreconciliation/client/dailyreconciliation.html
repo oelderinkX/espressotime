@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Daily Reconciliation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+          background-color: #ac9175;
+          color: #1f1f1f !important;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+    </style>
+</head>
+<script>
+function loadDays() {
+    var daylist = document.getElementById('daylist');
+
+    daylist.innerHTML = '';
+
+    var date = new Date();
+    date.setDate(date.getDate()-14);
+
+    for(var i = 0; i <= 14; i++) {
+            var button = document.createElement('button');
+            button.setAttribute('type', 'button');
+            button.setAttribute('class', 'list-group-item list-group-item-action');
+            button.setAttribute('onclick', 'displayDay(' + date.getDate() + ');');
+            button.style = "font-size:16px";
+            button.innerText = date.getDate();
+
+            daylist.appendChild(button);
+
+            date.setDate(date.getDate()+1);
+    }
+}
+
+function displayDay(date) {
+    //
+}
+
+function calcDailyTaily() {
+    var ten_cents = document.getElementById("ten_cents");
+    var ten_cents_calc = document.getElementById("ten_cents_calc");
+    var twenty_cents = document.getElementById("twenty_cents");
+    var twenty_cents_calc = document.getElementById("twenty_cents_calc");
+    var fifty_cents = document.getElementById("fifty_cents");
+    var fifty_cents_calc = document.getElementById("fifty_cents_calc");
+    var one_dollar = document.getElementById("one_dollar");
+    var one_dollar_calc = document.getElementById("one_dollar_calc");
+
+    var two_dollar = document.getElementById("two_dollar");
+    var two_dollar_calc = document.getElementById("two_dollar_calc");
+    var five_dollar = document.getElementById("five_dollar");
+    var five_dollar_calc = document.getElementById("five_dollar_calc");
+    var ten_dollar = document.getElementById("ten_dollar");
+    var ten_dollar_calc = document.getElementById("ten_dollar_calc");
+    var twenty_dollar = document.getElementById("twenty_dollar");
+    var twenty_dollar_calc = document.getElementById("twenty_dollar_calc");
+    var fifty_dollar = document.getElementById("fifty_dollar");
+    var fifty_dollar_calc = document.getElementById("fifty_dollar_calc");
+    var hundred_dollar = document.getElementById("hundred_dollar");
+    var hundred_dollar_calc = document.getElementById("hundred_dollar_calc");
+
+    var subtotal = document.getElementById("subtotal");
+    var float = document.getElementById("float");
+    var bank = document.getElementById("bank");
+
+    ten_cents_calc.innerHTML = (ten_cents.value * 0.10).toFixed(2);
+    twenty_cents_calc.innerHTML = (twenty_cents.value * 0.20).toFixed(2);
+    fifty_cents_calc.innerHTML = (fifty_cents.value * 0.50).toFixed(2);
+    one_dollar_calc.innerHTML = (one_dollar.value * 1.00).toFixed(2);
+
+    two_dollar_calc.innerHTML = (two_dollar.value * 2.00).toFixed(2);
+    five_dollar_calc.innerHTML = (five_dollar.value * 5.00).toFixed(2);
+    ten_dollar_calc.innerHTML = (ten_dollar.value * 10.00).toFixed(2);
+    twenty_dollar_calc.innerHTML = (twenty_dollar.value * 20.00).toFixed(2);
+    fifty_dollar_calc.innerHTML = (fifty_dollar.value * 50.00).toFixed(2);
+    hundred_dollar_calc.innerHTML = (hundred_dollar.value * 100.00).toFixed(2);
+
+    subtotal.innerHTML =  (parseFloat(ten_cents_calc.innerHTML)
+                        + parseFloat(twenty_cents_calc.innerHTML)
+                        + parseFloat(fifty_cents_calc.innerHTML)
+                        + parseFloat(one_dollar_calc.innerHTML)
+                        + parseFloat(two_dollar_calc.innerHTML)
+                        + parseFloat(five_dollar_calc.innerHTML)
+                        + parseFloat(ten_dollar_calc.innerHTML)
+                        + parseFloat(twenty_dollar_calc.innerHTML)
+                        + parseFloat(fifty_dollar_calc.innerHTML)
+                        + parseFloat(hundred_dollar_calc.innerHTML)).toFixed(2);
+
+    float.innerHTML = '600.00';
+
+    bank.innerHTML = (parseFloat(subtotal.innerHTML) - parseFloat(float.innerHTML)).toFixed(2);
+
+    calcReconciliation();
+}
+
+function calcReconciliation() {
+    var bank = document.getElementById("bank");
+
+    var cashout1 = document.getElementById("cashout1");
+    var giftcards1 = document.getElementById("giftcards1");
+    var total1 = document.getElementById("total1");
+
+    var cashout2 = document.getElementById("cashout2");
+    var giftcards2 = document.getElementById("giftcards2");
+    var total2 = document.getElementById("total2");
+
+    var poscash = document.getElementById("poscash");
+    var poseftpos = document.getElementById("poseftpos");
+    var posaccount = document.getElementById("posaccount");
+    var posvoucher = document.getElementById("posvoucher");
+
+    var reconcash = document.getElementById("reconcash");
+    var reconeftpos = document.getElementById("reconeftpos");
+    var reconaccount = document.getElementById("reconaccount");
+    var reconvoucher = document.getElementById("reconvoucher");
+
+    reconcash.innerHTML = (parseFloat(bank.innerHTML) - (poscash.value - cashout1.value - cashout2.value)).toFixed(2);
+    reconeftpos.innerHTML = (parseFloat(poseftpos.value) - (parseFloat(total1.value) + parseFloat(total2.value))).toFixed(2);
+
+    reconaccount.innerHTML = '0.00'; // no idea how to do this ?
+    reconvoucher.innerHTML = '0.00'; // no idea!
+}
+
+</script>
+<html>
+    <span style="float: top;">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/admin';">Back</button>
+    </span>
+    <h1>Daily Reconciliation (not ready)</h1>
+    <table width="100%" border=0>
+        <tr>
+            <td style="vertical-align:top; padding: 15px" width="400px">
+                <div class="list-group" id="daylist">
+                </div>
+            </td>
+            <td style="vertical-align:top; padding: 15px" width="400px">
+                <input type="hidden" id="id" value="-1"/>
+                <label id="cashlabel" for="name">Cash Taily:</label>
+                <table border=1 bgcolor="white">
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$0.10</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="ten_cents" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="ten_cents_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$0.20</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="twenty_cents" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="twenty_cents_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$0.50</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="fifty_cents" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="fifty_cents_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$1.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="one_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="one_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$2.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="two_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="two_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$5.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="five_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="five_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$10.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="ten_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="ten_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$20.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="twenty_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="twenty_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$50.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="fifty_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="fifty_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">$100.00</td>
+                        <td style="background:#ffffff; padding: 5px;"><input id="hundred_dollar" type="number" min="0" max="1000" onkeyup="calcDailyTaily();"/></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="hundred_dollar_calc">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">SUB TOTAL</td>
+                        <td style="background:#ffffff; padding: 5px;"></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="subtotal">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">LESS FLOAT</td>
+                        <td style="background:#ffffff; padding: 5px;"></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="float">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">CASHED TO BE BANKED</td>
+                        <td style="background:#ffffff; padding: 5px;"></td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="bank">0.00</td>
+                    </tr>
+                </table>
+                <br/>
+                <label id="colourlabel" for="name">EFTPOS 1 Receipt:</label>
+                <table border=1 bgcolor="white">
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">CASH OUT</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="cashout1" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">GIFT CARDS</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="giftcards1" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">TOTAL</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="total1" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                </table>
+                <br/>
+                <label id="colourlabel" for="name">EFTPOS 2 Receipt:</label>
+                <table border=1 bgcolor="white">
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">CASH OUT</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="cashout2" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">GIFT CARDS</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="giftcards2" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">TOTAL</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="total2" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="vertical-align:top; padding: 15px" width="400px">
+                <label id="colourlabel" for="name">POS Receipt:</label>
+                <table border=1 bgcolor="white">
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">CASH</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="poscash" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">EFTPOS</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="poseftpos" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">ACCOUNT</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="posaccount" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">VOUCHER</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right"><input id="posvoucher" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
+                    </tr>
+                </table>
+                <br/>
+                <hr/>
+                <br/>
+                <label id="colourlabel" for="name">RECONCILIATION:</label>
+                <table border=1 bgcolor="white">
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">CASH</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="reconcash">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">EFTPOS</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="reconeftpos">0.00</td>
+                    </tr>
+
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">ACCOUNT</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="reconaccount">0.00</td>
+                    </tr>
+                    <tr>
+                        <td style="background:#ffffff; padding: 5px;">VOUCHER</td>
+                        <td style="background:#ffffff; padding: 5px; text-align:right" id="reconvoucher">0.00</td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <button id="savebutton" type="button" class="btn btn-success" onclick="save();">Save</button>               
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    loadDays();
+    calcDailyTaily();
+</script>
+</html>
