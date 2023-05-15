@@ -10,7 +10,7 @@ function loadDays() {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'list-group-item list-group-item-action');
-            button.setAttribute('onclick', 'displayDay(' + getDbFormat(date) + ');');
+            button.setAttribute('onclick', 'displayDay(\'' + getDbFormat(date) + '\');');
             button.style = "font-size:16px";
             button.innerText = date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear() + ' (' + dayNames[date.getDay()] + ')';
 
