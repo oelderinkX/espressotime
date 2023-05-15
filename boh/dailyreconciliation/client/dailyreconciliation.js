@@ -21,7 +21,9 @@ function loadDays() {
 }
 
 function displayDay(date) {
-    alert(date);
+    // alert(date);
+    // get recon for "date" for company
+    // should only have 1 per day
 }
 
 function calcDailyTaily() {
