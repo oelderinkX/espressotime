@@ -12,6 +12,9 @@ function loadDays() {
             button.setAttribute('class', 'list-group-item list-group-item-action');
             button.setAttribute('onclick', 'displayDay(' + date.getDate() + ');');
             button.style = "font-size:16px";
+
+            dayNames[date.getDay()] + ' ' + date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();
+
             button.innerText = date.getDate();
 
             daylist.appendChild(button);
