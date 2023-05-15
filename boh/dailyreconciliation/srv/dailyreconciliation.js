@@ -12,7 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 module.exports = function(app) {
 	var rolesPage = fs.readFileSync(__dirname + "/../client/dailyreconciliation.html", "utf8");
 	
-	//app.use('/scripts/dailyreconciliation.js', express.static(__dirname + '/../client/dailyreconciliation.js'));
+	app.use('/scripts/dailyreconciliation.js', express.static(__dirname + '/../client/dailyreconciliation.js'));
 
 	app.get('/dailyreconciliation', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
