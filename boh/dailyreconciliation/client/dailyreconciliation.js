@@ -115,6 +115,7 @@ function calcReconciliation() {
 
 function bankDepositCalc() {
     var bankdepositcalc = document.getElementById("bankdepositcalc");
+    bankdepositcalc.innerHTML = '';
 
     var noteline = document.createElement('tr');
 
