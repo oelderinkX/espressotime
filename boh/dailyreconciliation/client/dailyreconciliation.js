@@ -27,11 +27,11 @@ function displayDay(date) {
 }
 
 function setColour(element, value) {
-    if (value > 100) {
+    if (value < -100) {
         element.setAttribute('style', 'background:#ff4000; color: #000000; padding: 5px;');
-    } else if (value > 50) {
+    } else if (value < -50) {
         element.setAttribute('style', 'background:#ff8000; color: #000000; padding: 5px;');
-    } else if (value > 10) {
+    } else if (value < -10) {
         element.setAttribute('style', 'background:#ffbf00; color: #000000; padding: 5px;');
     } else {
         element.setAttribute('style', 'background:#00ff00; color: #000000; padding: 5px;');
