@@ -81,32 +81,63 @@ function calcDailyTaily() {
     bank.innerHTML = (parseFloat(subtotal.innerHTML) - parseFloat(float.innerHTML)).toFixed(2);
 
     calcReconciliation();
+    bankDepositCalc();
 }
 
 function calcReconciliation() {
     var bank = document.getElementById("bank");
 
     var cashout1 = document.getElementById("cashout1");
-    var giftcards1 = document.getElementById("giftcards1");
-    var total1 = document.getElementById("total1");
+    var credittobank1 = document.getElementById("credittobank1");
+    var amex1 = document.getElementById("amex1");
+    var giftredeem1 = document.getElementById("giftredeem1");
+    var gifttopup1 = document.getElementById("gifttopup1");
 
     var cashout2 = document.getElementById("cashout2");
-    var giftcards2 = document.getElementById("giftcards2");
-    var total2 = document.getElementById("total2");
+    var credittobank2 = document.getElementById("credittobank2");
+    var amex2 = document.getElementById("amex2");
+    var giftredeem2 = document.getElementById("giftredeem2");
+    var gifttopup2 = document.getElementById("gifttopup2");
 
-    var poscash = document.getElementById("poscash");
-    var poseftpos = document.getElementById("poseftpos");
-    var posaccount = document.getElementById("posaccount");
-    var posvoucher = document.getElementById("posvoucher");
+    var finalcash = document.getElementById("finalcash");
+    var finalmanualsmartpay = document.getElementById("finalmanualsmartpay");
+    var finalsmartpay = document.getElementById("finalsmartpay");
+    var finalsalesamount = document.getElementById("finalsalesamount");
 
     var reconcash = document.getElementById("reconcash");
-    var reconeftpos = document.getElementById("reconeftpos");
-    var reconaccount = document.getElementById("reconaccount");
-    var reconvoucher = document.getElementById("reconvoucher");
+    var reconeftpospaymark = document.getElementById("reconeftpospaymark");
+    var recongiftcardtopups = document.getElementById("recongiftcardtopups");
 
-    reconcash.innerHTML = (parseFloat(bank.innerHTML) - (poscash.value - cashout1.value - cashout2.value)).toFixed(2);
-    reconeftpos.innerHTML = ((parseFloat(total1.value) + parseFloat(total2.value)) - parseFloat(poseftpos.value)).toFixed(2);
+    reconcash.innerHTML = (parseFloat(bank.innerHTML)  (finalcash.value - cashout1.value - cashout2.value)).toFixed(2);
+    reconeftpospaymark.innerHTML = ((credittobank1.value + amex1.value + giftredeem1 + credittobank2.value + amex2.value + giftredeem2) - (finalsmartpay.value + finalmanualsmartpay.value)).toFixed(2);
+    recongiftcardtopups.innerHTML = (gifttopup1.value + gifttopup2.value).toFixed(2);
 
-    reconaccount.innerHTML = '0.00'; // no idea how to do this ?
-    reconvoucher.innerHTML = '0.00'; // no idea!
+}
+
+function bankDepositCalc() {
+    var bankdepositcalc = document.getElementById("bankdepositcalc");
+
+    var noteline = document.createElement('tr');
+
+    var notevalue100 = document.createElement('td');
+    notevalue100.setAttribute('style', 'background:#ffffff; color: #000000; padding: 5px;');
+    notevalue100.innerText  = '$100';
+
+    var notecount100 = document.createElement('td');
+    notecount100.setAttribute('style', 'background:#cccccc; color: #ffffff; padding: 5px;');
+    notecount100.innerText  = '0';
+
+    noteline.appendChild(notevalue100);
+    noteline.appendChild(notecount100);
+
+    bankdepositcalc.appendChild(noteline);
+}
+
+function calcField(event) {
+    if (event.key == "Enter") {
+        event.target.value = eval(event.target.value);
+        event.target.value = parseFloat(event.target.value).toFixed(2);
+    } else if (event.key == "Escape") {
+        event.target.value = "0.00";
+    }
 }
