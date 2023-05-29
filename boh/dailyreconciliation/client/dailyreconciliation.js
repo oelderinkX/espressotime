@@ -26,6 +26,14 @@ function displayDay(date) {
     // should only have 1 per day
 }
 
+function getFloatValue(float) {
+    if (isNaN(float)) {
+        return 0.00;
+    } else {
+        return parseFloat(float);
+    }
+}
+
 function calcDailyTaily() {
     var ten_cents = document.getElementById("ten_cents");
     var ten_cents_calc = document.getElementById("ten_cents_calc");
@@ -65,20 +73,20 @@ function calcDailyTaily() {
     fifty_dollar_calc.innerHTML = (fifty_dollar.value * 50.00).toFixed(2);
     hundred_dollar_calc.innerHTML = (hundred_dollar.value * 100.00).toFixed(2);
 
-    subtotal.innerHTML =  (parseFloat(ten_cents_calc.innerHTML)
-                        + parseFloat(twenty_cents_calc.innerHTML)
-                        + parseFloat(fifty_cents_calc.innerHTML)
-                        + parseFloat(one_dollar_calc.innerHTML)
-                        + parseFloat(two_dollar_calc.innerHTML)
-                        + parseFloat(five_dollar_calc.innerHTML)
-                        + parseFloat(ten_dollar_calc.innerHTML)
-                        + parseFloat(twenty_dollar_calc.innerHTML)
-                        + parseFloat(fifty_dollar_calc.innerHTML)
-                        + parseFloat(hundred_dollar_calc.innerHTML)).toFixed(2);
+    subtotal.innerHTML =  (getFloatValue(ten_cents_calc.innerHTML)
+                        + getFloatValue(twenty_cents_calc.innerHTML)
+                        + getFloatValue(fifty_cents_calc.innerHTML)
+                        + getFloatValue(one_dollar_calc.innerHTML)
+                        + getFloatValue(two_dollar_calc.innerHTML)
+                        + getFloatValue(five_dollar_calc.innerHTML)
+                        + getFloatValue(ten_dollar_calc.innerHTML)
+                        + getFloatValue(twenty_dollar_calc.innerHTML)
+                        + getFloatValue(fifty_dollar_calc.innerHTML)
+                        + getFloatValue(hundred_dollar_calc.innerHTML)).toFixed(2);
 
     float.innerHTML = '600.00';
 
-    bank.innerHTML = (parseFloat(subtotal.innerHTML) - parseFloat(float.innerHTML)).toFixed(2);
+    bank.innerHTML = (getFloatValue(subtotal.innerHTML) - getFloatValue(float.innerHTML)).toFixed(2);
 
     calcReconciliation();
     bankDepositCalc();
@@ -106,24 +114,28 @@ function calcReconciliation() {
 
     var reconcash = document.getElementById("reconcash");
     var reconeftpospaymark = document.getElementById("reconeftpospaymark");
+    var recontotal = document.getElementById("recontotal");
+
     var giftcardtopups = document.getElementById("giftcardtopups");
 
-    reconcash.innerHTML = (parseFloat(bank.innerHTML)
-                            - (parseFloat(finalcash.value)
-                            - parseFloat(cashout1.value)
-                            - parseFloat(cashout2.value))).toFixed(2);
+    reconcash.innerHTML = (getFloatValue(bank.innerHTML)
+                            - (getFloatValue(finalcash.value)
+                            - getFloatValue(cashout1.value)
+                            - getFloatValue(cashout2.value))).toFixed(2);
 
-    reconeftpospaymark.innerHTML = ((parseFloat(credittobank1.value)
-                                    + parseFloat(amex1.value)
-                                    + parseFloat(giftredeem1.value)
-                                    + parseFloat(credittobank2.value)
-                                    + parseFloat(amex2.value)
-                                    + parseFloat(giftredeem2.value))
-                                    - (parseFloat(finalsmartpay.value)
-                                    + parseFloat(finalmanualsmartpay.value))).toFixed(2);
+    reconeftpospaymark.innerHTML = ((getFloatValue(credittobank1.value)
+                                    + getFloatValue(amex1.value)
+                                    + getFloatValue(giftredeem1.value)
+                                    + getFloatValue(credittobank2.value)
+                                    + getFloatValue(amex2.value)
+                                    + getFloatValue(giftredeem2.value))
+                                    - (getFloatValue(finalsmartpay.value)
+                                    + getFloatValue(finalmanualsmartpay.value))).toFixed(2);
 
-    giftcardtopups.innerHTML =  (parseFloat(gifttopup1.value)
-                               + parseFloat(gifttopup2.value)).toFixed(2);
+    giftcardtopups.innerHTML =  (getFloatValue(gifttopup1.value)
+                               + getFloatValue(gifttopup2.value)).toFixed(2);
+
+    recontotal.innerHTML = '';
 }
 
 function bankDepositCalc() {
@@ -149,7 +161,7 @@ function bankDepositCalc() {
 function calcField(event) {
     if (event.key == "Enter") {
         event.target.value = eval(event.target.value);
-        event.target.value = parseFloat(event.target.value).toFixed(2);
+        event.target.value = getFloatValue(event.target.value).toFixed(2);
     } else if (event.key == "Escape") {
         event.target.value = "0.00";
     }
