@@ -118,11 +118,13 @@ function calcReconciliation() {
 
     var giftcardtopups = document.getElementById("giftcardtopups");
 
+    // CASHED TO BE BACKED - Cash
     reconcash.innerHTML = (getFloatValue(bank.innerHTML)
                             - (getFloatValue(finalcash.value)
                             - getFloatValue(cashout1.value)
                             - getFloatValue(cashout2.value))).toFixed(2);
 
+    // ACCT + AMEX + REDEEM - Smartpay - manualpay
     reconeftpospaymark.innerHTML = ((getFloatValue(credittobank1.value)
                                     + getFloatValue(amex1.value)
                                     + getFloatValue(giftredeem1.value)
@@ -132,10 +134,14 @@ function calcReconciliation() {
                                     - (getFloatValue(finalsmartpay.value)
                                     + getFloatValue(finalmanualsmartpay.value))).toFixed(2);
 
+    // recon CASH + recon EFTPOS Paymark
+    recontotal.innerHTML =  (getFloatValue(reconcash.innerHTML)
+                           + getFloatValue(reconeftpospaymark.innerHTML)).toFixed(2);
+
+    // Add all top ups
     giftcardtopups.innerHTML =  (getFloatValue(gifttopup1.value)
                                + getFloatValue(gifttopup2.value)).toFixed(2);
 
-    recontotal.innerHTML = '';
 }
 
 function bankDepositCalc() {
