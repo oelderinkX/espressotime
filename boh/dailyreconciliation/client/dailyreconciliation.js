@@ -26,10 +26,24 @@ function displayDay(date) {
     // should only have 1 per day
 }
 
+function setColour(element, value) {
+    if (value > 100) {
+        element.setAttribute('style', 'background:#ff4000; color: #000000; padding: 5px;');
+    } else if (value > 50) {
+        element.setAttribute('style', 'background:#ff8000; color: #000000; padding: 5px;');
+    } else if (value > 10) {
+        element.setAttribute('style', 'background:#ffbf00; color: #000000; padding: 5px;');
+    } else {
+        element.setAttribute('style', 'background:#00ff00; color: #000000; padding: 5px;');
+    }
+}
+
 function getFloatValue(float) {
     if (isNaN(float)) {
-        return 0.00;
-    } else {
+        return 0;
+    } else if (float == "") {
+        return 0;
+    }else {
         return parseFloat(float);
     }
 }
@@ -119,28 +133,35 @@ function calcReconciliation() {
     var giftcardtopups = document.getElementById("giftcardtopups");
 
     // CASHED TO BE BACKED - Cash
-    reconcash.innerHTML = (getFloatValue(bank.innerHTML)
-                            - (getFloatValue(finalcash.value)
-                            - getFloatValue(cashout1.value)
-                            - getFloatValue(cashout2.value))).toFixed(2);
+    var reconcashvalue = (getFloatValue(bank.innerHTML)
+                       - (getFloatValue(finalcash.value)
+                       - getFloatValue(cashout1.value)
+                       - getFloatValue(cashout2.value)));
+    reconcash.innerHTML = (reconcashvalue).toFixed(2);
+    setColour(reconcash, reconcashvalue);
 
     // ACCT + AMEX + REDEEM - Smartpay - manualpay
-    reconeftpospaymark.innerHTML = ((getFloatValue(credittobank1.value)
+    var reconeftpospaymarkvalue = ((getFloatValue(credittobank1.value)
                                     + getFloatValue(amex1.value)
                                     + getFloatValue(giftredeem1.value)
                                     + getFloatValue(credittobank2.value)
                                     + getFloatValue(amex2.value)
                                     + getFloatValue(giftredeem2.value))
                                     - (getFloatValue(finalsmartpay.value)
-                                    + getFloatValue(finalmanualsmartpay.value))).toFixed(2);
+                                    + getFloatValue(finalmanualsmartpay.value)));
+    reconeftpospaymark.innerHTML = (reconeftpospaymarkvalue).toFixed(2);
+    setColour(reconeftpospaymark, reconeftpospaymarkvalue);
 
     // recon CASH + recon EFTPOS Paymark
-    recontotal.innerHTML =  (getFloatValue(reconcash.innerHTML)
-                           + getFloatValue(reconeftpospaymark.innerHTML)).toFixed(2);
+    var recontotalvalue =  (getFloatValue(reconcash.innerHTML)
+                           + getFloatValue(reconeftpospaymark.innerHTML));
+    recontotal.innerHTML = (recontotalvalue).toFixed(2);
+    setColour(recontotal, recontotalvalue);
 
-    // Add all top ups
-    giftcardtopups.innerHTML =  (getFloatValue(gifttopup1.value)
-                               + getFloatValue(gifttopup2.value)).toFixed(2);
+    // Add all gift top ups
+    var giftcardtopupsvalue =  (getFloatValue(gifttopup1.value)
+                               + getFloatValue(gifttopup2.value));
+    giftcardtopups.innerHTML = (giftcardtopupsvalue).toFixed(2);                   
 
 }
 
