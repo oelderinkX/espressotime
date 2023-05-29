@@ -109,9 +109,8 @@ function calcReconciliation() {
     var giftcardtopups = document.getElementById("giftcardtopups");
 
     reconcash.innerHTML = (parseFloat(bank.innerHTML) - (finalcash.value - cashout1.value - cashout2.value)).toFixed(2);
-    reconeftpospaymark.innerHTML = ((credittobank1.value + amex1.value + giftredeem1 + credittobank2.value + amex2.value + giftredeem2) - (finalsmartpay.value + finalmanualsmartpay.value)).toFixed(2);
+    reconeftpospaymark.innerHTML = ((credittobank1.value + amex1.value + giftredeem1.value + credittobank2.value + amex2.value + giftredeem2.value) - (finalsmartpay.value + finalmanualsmartpay.value)).toFixed(2);
     giftcardtopups.innerHTML = (gifttopup1.value + gifttopup2.value).toFixed(2);
-
 }
 
 function bankDepositCalc() {
