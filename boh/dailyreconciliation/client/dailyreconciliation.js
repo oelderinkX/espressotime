@@ -8,26 +8,54 @@ function loadDays() {
 
     var firstDate = getDbFormat(date);
 
+    var enableSave = true;
     for(var i = 0; i <= 14; i++) {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'list-group-item list-group-item-action');
-            button.setAttribute('onclick', 'displayDay(\'' + getDbFormat(date) + '\');');
+            button.setAttribute('onclick', 'displayDay(\'' + getDbFormat(date) + '\', ' + enableSave + ');');
             button.style = "font-size:16px";
             button.innerText = date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear() + ' (' + dayNames[date.getDay()] + ')';
 
             daylist.appendChild(button);
 
             date.setDate(date.getDate()-1);
+            enableSave = false;
     }
 
-    displayDay(firstDate);
+    displayDay(firstDate, true);
 }
 
-function displayDay(date) {
-    alert(date);
-    // get recon for "date" for company
-    // should only have 1 per day
+function displayDay(date, enableSave) {
+    if (!enableSave) {
+        var savebutton = document.getElementById('savebutton');
+        savebutton.setAttribute('disabled');
+    }
+
+    var request = { recon_date: date };
+    sendPost("/getreconciliation", JSON.stringify(request), function(response) {
+        recon  = JSON.parse(response);
+    });
+}
+
+function save() {
+    /*var id = document.getElementById('id');
+    var name = document.getElementById('roleinput');
+    var colour = document.getElementById('colourinput');
+    var textcolour = document.getElementById('textcolourinput');
+
+    var recon = {
+        id: id.value,
+        name: name.value,
+        colour: colour.value,
+        textcolour: textcolour.value,
+    };
+
+    sendPost("/updaterole", JSON.stringify(role), function(response) {
+        var json  = JSON.parse(response);
+        loadRoles(json.roleid);
+        alert('Saved!');
+    });*/
 }
 
 function setColour(element, value) {
