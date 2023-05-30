@@ -27,6 +27,9 @@ function loadDays() {
 }
 
 function displayDay(date, enableSave) {
+    var recon_date = document.getElementById('recon_date');
+    recon_date.value = date;
+
     if (!enableSave) {
         var savebutton = document.getElementById('savebutton');
         savebutton.disabled = true;
@@ -35,27 +38,92 @@ function displayDay(date, enableSave) {
     var request = { recon_date: date };
     sendPost("/getreconciliation", JSON.stringify(request), function(response) {
         recon  = JSON.parse(response);
+
+        document.getElementById("ten_cents").value = recon.cents_10;
+        document.getElementById("twenty_cents").value = recon.cents_20;
+        document.getElementById("fifty_cents").value = recon.cents_50;
+        document.getElementById("one_dollar").value = recon.dollars_1;
+        document.getElementById("two_dollar").value = recon.dollars_2;
+        document.getElementById("five_dollar").value = recon.dollars_5;
+        document.getElementById("ten_dollar").value = recon.dollars_10;
+        document.getElementById("twenty_dollar").value = recon.dollars_20;
+        document.getElementById("fifty_dollar").value = recon.dollars_50;
+        document.getElementById("hundred_dollar").value = recon.dollars_100;
+        document.getElementById("cashout1").value = recon.cashout1;
+        document.getElementById("credittobank1").value = recon.credittobank1;
+        document.getElementById("amex1").value = recon.amex1;
+        document.getElementById("giftredeem1").value = recon.giftredeem1;
+        document.getElementById("gifttopup1").value = recon.gifttopup1;
+        document.getElementById("cashout2").value = recon.cashout2;
+        document.getElementById("credittobank2").value = recon.credittobank2;
+        document.getElementById("amex2").value = recon.amex2;
+        document.getElementById("giftredeem2").value = recon.giftredeem2;
+        document.getElementById("gifttopup2").value = recon.gifttopup2;
+        document.getElementById("finalcash").value = recon.finalcash;
+        document.getElementById("finalmanualsmartpay").value = recon.finalmanualsmartpay;
+        document.getElementById("finalsmartpay").value = recon.finalsmartpay;
+
+        calcDailyTaily();
     });
 }
 
 function save() {
-    /*var id = document.getElementById('id');
-    var name = document.getElementById('roleinput');
-    var colour = document.getElementById('colourinput');
-    var textcolour = document.getElementById('textcolourinput');
+    var recon_date = document.getElementById('recon_date');
+    var ten_cents = document.getElementById("ten_cents");
+    var twenty_cents = document.getElementById("twenty_cents");
+    var fifty_cents = document.getElementById("fifty_cents");
+    var one_dollar = document.getElementById("one_dollar");
+    var two_dollar = document.getElementById("two_dollar");
+    var five_dollar = document.getElementById("five_dollar");
+    var ten_dollar = document.getElementById("ten_dollar");
+    var twenty_dollar = document.getElementById("twenty_dollar");
+    var fifty_dollar = document.getElementById("fifty_dollar");
+    var hundred_dollar = document.getElementById("hundred_dollar");
+    var cashout1 = document.getElementById("cashout1");
+    var credittobank1 = document.getElementById("credittobank1");
+    var amex1 = document.getElementById("amex1");
+    var giftredeem1 = document.getElementById("giftredeem1");
+    var gifttopup1 = document.getElementById("gifttopup1");
+    var cashout2 = document.getElementById("cashout2");
+    var credittobank2 = document.getElementById("credittobank2");
+    var amex2 = document.getElementById("amex2");
+    var giftredeem2 = document.getElementById("giftredeem2");
+    var gifttopup2 = document.getElementById("gifttopup2");
+    var finalcash = document.getElementById("finalcash");
+    var finalmanualsmartpay = document.getElementById("finalmanualsmartpay");
+    var finalsmartpay = document.getElementById("finalsmartpay");
 
     var recon = {
-        id: id.value,
-        name: name.value,
-        colour: colour.value,
-        textcolour: textcolour.value,
+        recon_date: recon_date.value,
+		cents_10: getIntValue(ten_cents.value),
+        cents_20: getIntValue(twenty_cents.value),
+		cents_50: getIntValue(fifty_cents.value),
+		dollars_1: getIntValue(one_dollar.value),
+		dollars_2: getIntValue(two_dollar.value),
+		dollars_5: getIntValue(five_dollar.value),
+        dollars_10: getIntValue(ten_dollar.value),
+		dollars_20: getIntValue(twenty_dollar.value),
+		dollars_50: getIntValue(fifty_dollar.value),
+		dollars_100: getIntValue(hundred_dollar.value),
+		cashout1: getFloatValue(cashout1.value),
+        credittobank1: getFloatValue(credittobank1.value),
+		amex1: getFloatValue(amex1.value),
+		giftredeem1: getFloatValue(giftredeem1.value),
+		gifttopup1: getFloatValue(gifttopup1.value),
+		cashout2: getFloatValue(cashout2.value),
+        credittobank2: getFloatValue(credittobank2.value),
+		amex2: getFloatValue(amex2.value),
+		giftredeem2: getFloatValue(giftredeem2.value),
+		gifttopup2: getFloatValue(gifttopup2.value),
+		finalcash: getFloatValue(finalcash.value),
+        finalmanualsmartpay: getFloatValue(finalmanualsmartpay.value),
+		finalsmartpay: getFloatValue(finalsmartpay.value)
     };
 
-    sendPost("/updaterole", JSON.stringify(role), function(response) {
+    sendPost("/savereconciliation", JSON.stringify(recon), function(response) {
         var json  = JSON.parse(response);
-        loadRoles(json.roleid);
         alert('Saved!');
-    });*/
+    });
 }
 
 function setColour(element, value) {
@@ -77,6 +145,16 @@ function getFloatValue(float) {
         return 0;
     }else {
         return parseFloat(float);
+    }
+}
+
+function getIntValue(int) {
+    if (isNaN(int)) {
+        return 0;
+    } else if (int == "") {
+        return 0;
+    }else {
+        return parseInt(int);
     }
 }
 
