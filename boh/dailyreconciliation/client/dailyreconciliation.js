@@ -132,6 +132,11 @@ function calcReconciliation() {
 
     var giftcardtopups = document.getElementById("giftcardtopups");
 
+    //calc final sales amount from all other values
+    finalsalesamount.innerHTML = (getFloatValue(finalcash.value)
+                                    + getFloatValue(finalmanualsmartpay.value)
+                                    + getFloatValue(finalsmartpay.value)).toFixed(2);
+
     // CASHED TO BE BACKED - Cash
     var reconcashvalue = (getFloatValue(bank.innerHTML)
                        - (getFloatValue(finalcash.value)
