@@ -287,7 +287,7 @@ function calcReconciliation() {
 }
 
 function bankDepositCalc() {
-    var bankdepositcalc = document.getElementById("bankdepositcalc");
+    /*var bankdepositcalc = document.getElementById("bankdepositcalc");
     bankdepositcalc.innerHTML = '';
 
     var noteline = document.createElement('tr');
@@ -303,7 +303,7 @@ function bankDepositCalc() {
     noteline.appendChild(notevalue100);
     noteline.appendChild(notecount100);
 
-    bankdepositcalc.appendChild(noteline);
+    bankdepositcalc.appendChild(noteline);*/
 }
 
 function calcField(event) {
