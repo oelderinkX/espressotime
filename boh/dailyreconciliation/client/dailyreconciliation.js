@@ -30,8 +30,10 @@ function displayDay(date, enableSave) {
     var recon_date = document.getElementById('recon_date');
     recon_date.value = date;
 
-    if (!enableSave) {
-        var savebutton = document.getElementById('savebutton');
+    var savebutton = document.getElementById('savebutton');
+    if (enableSave) {
+        savebutton.disabled = false;
+    } else {
         savebutton.disabled = true;
     }
 
