@@ -119,7 +119,7 @@ module.exports = function(app) {
 			connection.query(sql, values, function(err, result) {
 				done();
 
-				res.send({ result: 'success' });
+				res.send({ result: 'success', err: err, result: result });
 			});
 		});
 	});
