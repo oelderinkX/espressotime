@@ -29,7 +29,7 @@ function loadDays() {
 function displayDay(date, enableSave) {
     if (!enableSave) {
         var savebutton = document.getElementById('savebutton');
-        savebutton.setAttribute('disabled');
+        savebutton.disabled = true;
     }
 
     var request = { recon_date: date };
