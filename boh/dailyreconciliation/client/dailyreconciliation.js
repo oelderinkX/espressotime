@@ -4,7 +4,7 @@ function loadDays() {
     daylist.innerHTML = '';
 
     var date = new Date();
-    date.setDate(date.getDate()+14);
+    date.setDate(date.getDate());
 
     for(var i = 0; i <= 14; i++) {
             var button = document.createElement('button');
@@ -16,7 +16,7 @@ function loadDays() {
 
             daylist.appendChild(button);
 
-            date.setDate(date.getDate()-1);
+            date.setDate(date.getDate()+1);
     }
 }
 
