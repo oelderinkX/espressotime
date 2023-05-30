@@ -39,16 +39,16 @@ function displayDay(date, enableSave) {
     sendPost("/getreconciliation", JSON.stringify(request), function(response) {
         recon  = JSON.parse(response);
 
-        document.getElementById("ten_cents").value = recon.cents_10;
-        document.getElementById("twenty_cents").value = recon.cents_20;
-        document.getElementById("fifty_cents").value = recon.cents_50;
-        document.getElementById("one_dollar").value = recon.dollars_1;
-        document.getElementById("two_dollar").value = recon.dollars_2;
-        document.getElementById("five_dollar").value = recon.dollars_5;
-        document.getElementById("ten_dollar").value = recon.dollars_10;
-        document.getElementById("twenty_dollar").value = recon.dollars_20;
-        document.getElementById("fifty_dollar").value = recon.dollars_50;
-        document.getElementById("hundred_dollar").value = recon.dollars_100;
+        document.getElementById("ten_cents").value = getIntValue(recon.cents_10);
+        document.getElementById("twenty_cents").value = getIntValue(recon.cents_20);
+        document.getElementById("fifty_cents").value = getIntValue(recon.cents_50);
+        document.getElementById("one_dollar").value = getIntValue(recon.dollars_1);
+        document.getElementById("two_dollar").value = getIntValue(recon.dollars_2);
+        document.getElementById("five_dollar").value = getIntValue(recon.dollars_5);
+        document.getElementById("ten_dollar").value = getIntValue(recon.dollars_10);
+        document.getElementById("twenty_dollar").value = getIntValue(recon.dollars_20);
+        document.getElementById("fifty_dollar").value = getIntValue(recon.dollars_50);
+        document.getElementById("hundred_dollar").value = getIntValue(recon.dollars_100);
         document.getElementById("cashout1").value = getFloatValue(recon.cashout1);
         document.getElementById("credittobank1").value = getFloatValue(recon.credittobank1);
         document.getElementById("amex1").value = getFloatValue(recon.amex1);
