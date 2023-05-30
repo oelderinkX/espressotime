@@ -29,9 +29,9 @@ module.exports = function(app) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var recon_date = req.body.recon_date;
 		
-		var sql = 'select id, recon_date, cents_10, cents_20, cents_50, dollars_1, dollars_2, dollars_5, dollars_10, dollars_20,';
-		sql += 'dollars_50, dollars_100, cashout1, credittobank1, amex1, giftredeem1, gifttopup1, cashout2, credittobank2,';
-		sql += 'amex2, giftredeem2, gifttopup2, finalcash, finalmanualsmartpay, finalsmartpay';
+		var sql = 'select id, recon_date, cents_10, cents_20, cents_50, dollars_1, dollars_2, dollars_5, dollars_10, dollars_20, ';
+		sql += 'dollars_50, dollars_100, cashout1, credittobank1, amex1, giftredeem1, gifttopup1, cashout2, credittobank2, ';
+		sql += 'amex2, giftredeem2, gifttopup2, finalcash, finalmanualsmartpay, finalsmartpay ';
 		sql += 'from espresso.reconciliation where shopid = $1 and recon_date = $2';
 
 		pool.connect(function(err, connection, done) {
