@@ -6,6 +6,8 @@ function loadDays() {
     var date = new Date();
     date.setDate(date.getDate());
 
+    var firstDate = getDbFormat(date);
+
     for(var i = 0; i <= 14; i++) {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
@@ -18,10 +20,12 @@ function loadDays() {
 
             date.setDate(date.getDate()-1);
     }
+
+    displayDay(firstDate);
 }
 
 function displayDay(date) {
-    // alert(date);
+    alert(date);
     // get recon for "date" for company
     // should only have 1 per day
 }
