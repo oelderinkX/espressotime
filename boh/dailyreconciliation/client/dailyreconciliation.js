@@ -6,7 +6,7 @@ function loadDays() {
     var date = new Date();
     date.setDate(date.getDate()+14);
 
-    for(var i = 0; i <= 0; i++) {
+    for(var i = 0; i <= 14; i++) {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'list-group-item list-group-item-action');
