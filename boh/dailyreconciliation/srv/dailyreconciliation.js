@@ -38,6 +38,8 @@ module.exports = function(app) {
 			connection.query(sql, [shopId, recon_date], function(err, result) {
 				done();
 
+				console.log(err);
+
 				var recon = {};
 
 				if (result && result.rowCount == 1) {
@@ -118,8 +120,6 @@ module.exports = function(app) {
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
 				done();
-
-				console.log(err);
 
 				res.send({ result: 'success', err: err, result: result });
 			});
