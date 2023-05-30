@@ -49,19 +49,19 @@ function displayDay(date, enableSave) {
         document.getElementById("twenty_dollar").value = recon.dollars_20;
         document.getElementById("fifty_dollar").value = recon.dollars_50;
         document.getElementById("hundred_dollar").value = recon.dollars_100;
-        document.getElementById("cashout1").value = recon.cashout1;
-        document.getElementById("credittobank1").value = recon.credittobank1;
-        document.getElementById("amex1").value = recon.amex1;
-        document.getElementById("giftredeem1").value = recon.giftredeem1;
-        document.getElementById("gifttopup1").value = recon.gifttopup1;
-        document.getElementById("cashout2").value = recon.cashout2;
-        document.getElementById("credittobank2").value = recon.credittobank2;
-        document.getElementById("amex2").value = recon.amex2;
-        document.getElementById("giftredeem2").value = recon.giftredeem2;
-        document.getElementById("gifttopup2").value = recon.gifttopup2;
-        document.getElementById("finalcash").value = recon.finalcash;
-        document.getElementById("finalmanualsmartpay").value = recon.finalmanualsmartpay;
-        document.getElementById("finalsmartpay").value = recon.finalsmartpay;
+        document.getElementById("cashout1").value = getFloatValue(recon.cashout1);
+        document.getElementById("credittobank1").value = getFloatValue(recon.credittobank1);
+        document.getElementById("amex1").value = getFloatValue(recon.amex1);
+        document.getElementById("giftredeem1").value = getFloatValue(recon.giftredeem1);
+        document.getElementById("gifttopup1").value = getFloatValue(recon.gifttopup1);
+        document.getElementById("cashout2").value = getFloatValue(recon.cashout2);
+        document.getElementById("credittobank2").value = getFloatValue(recon.credittobank2);
+        document.getElementById("amex2").value = getFloatValue(recon.amex2);
+        document.getElementById("giftredeem2").value = getFloatValue(recon.giftredeem2);
+        document.getElementById("gifttopup2").value = getFloatValue(recon.gifttopup2);
+        document.getElementById("finalcash").value = getFloatValue(recon.finalcash);
+        document.getElementById("finalmanualsmartpay").value = getFloatValue(recon.finalmanualsmartpay);
+        document.getElementById("finalsmartpay").value = getFloatValue(recon.finalsmartpay);
 
         calcDailyTaily();
     });
@@ -144,7 +144,7 @@ function getFloatValue(float) {
     } else if (float == "") {
         return 0;
     }else {
-        return parseFloat(float);
+        return parseFloat(float.replace("$", ""));
     }
 }
 
