@@ -119,6 +119,8 @@ module.exports = function(app) {
 			connection.query(sql, values, function(err, result) {
 				done();
 
+				console.log(err);
+
 				res.send({ result: 'success', err: err, result: result });
 			});
 		});
