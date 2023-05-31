@@ -44,13 +44,14 @@
         <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/admin';">Back</button>
     </span>
     <h1>Daily Reconciliation</h1>
-    <table width="100%" border=0>
+    <table border=0>
         <tr>
-            <td style="vertical-align:top; padding: 15px" width="400px">
+            <td style="vertical-align:top; padding: 15px" width="600px">
                 <div class="list-group" id="daylist">
                 </div>
             </td>
-            <td style="vertical-align:top; padding: 15px" width="400px">
+            <td style="vertical-align:top; padding: 15px" width="600px">
+                <center>
                 <input type="hidden" id="recon_date" value=""/>
                 <label id="cashlabel" for="name">Cash Taily:</label>
                 <table border=1 bgcolor="white">
@@ -165,8 +166,10 @@
                         <td style="background:#ffffff; padding: 5px; text-align:right"><input id="gifttopup2" type="number" min="0" max="100000" value="0.00" onkeyup="calcReconciliation();"/></td>
                     </tr>
                 </table>
+                </center>
             </td>
-            <td style="vertical-align:top; padding: 15px" width="400px">
+            <td style="vertical-align:top; padding: 15px" width="600px">
+                <center>
                 <label id="colourlabel" for="name">Finalised Takings:</label>
                 <table border=1 bgcolor="white">
                     <tr>
@@ -235,10 +238,11 @@
                 <br/>
                 <br/>
                 <br/>
-                <button id="savebutton" type="button" class="btn btn-success" onclick="save();">Save</button>               
+                </center>              
             </td>
         </tr>
     </table>
+    <button id="savebutton" type="button" class="btn btn-success" onclick="save();">Save</button> 
 </body>
 <script>
     loadDays();
