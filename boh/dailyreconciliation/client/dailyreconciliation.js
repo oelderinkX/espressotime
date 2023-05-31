@@ -31,11 +31,10 @@ function displayDay(date, enableSave) {
     recon_date.value = date;
 
     var savebutton = document.getElementById('savebutton');
-    //if (enableSave) {
-        savebutton.disabled = false;
-    //} else {
-    //    savebutton.disabled = true;
-    //}
+    savebutton.disabled = false;
+
+    var recontitle = document.getElementById('recontitle');
+    recontitle.innerHTML = 'Daily Reconciliation ' + date;
 
     var request = { recon_date: date };
     sendPost("/getreconciliation", JSON.stringify(request), function(response) {
