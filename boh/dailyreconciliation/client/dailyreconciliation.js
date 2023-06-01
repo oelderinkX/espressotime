@@ -142,7 +142,7 @@ function setColour(element, value) {
 function getFloatValue(float) {
     if (isNaN(float)) {
         if (float && float.includes("$")) {
-            return parseFloat(float.replace("$", ""));
+            return parseFloat(float.replace("$", "").replace(",", ""));
         } else {
             return 0;
         }
