@@ -108,6 +108,7 @@ function save() {
         name: name.value,
         colour: colour.value,
         textcolour: textcolour.value,
+        rights: 0
     };
 
     sendPost("/updaterole", JSON.stringify(role), function(response) {

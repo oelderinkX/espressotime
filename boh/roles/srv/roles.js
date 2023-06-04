@@ -73,7 +73,7 @@ module.exports = function(app) {
 
         if (id == -1) {
             console.log('insert');
-            sql = "insert into espresso.role (shopid, name, colour, textcolour, rights )";
+            sql = "insert into espresso.role (shopid, name, colour, textcolour, rights)";
             sql += " values ($1, $2, $3, $4, $5)";
 			sql += " RETURNING id;";
             values = [shopId, name, colour, textcolour, rights];
