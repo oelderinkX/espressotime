@@ -88,6 +88,10 @@ module.exports = function(app) {
 			connection.query(sql, values, function(err, result) {
 				done();
 			
+				if (err) {
+					console.log(err);
+				}
+
 				if (id == -1) {
 					id = result.rows[0].id;
 				}
