@@ -90,13 +90,14 @@ module.exports = function(app) {
 			
 				if (err) {
 					console.log(err);
-				}
+					res.send({ result: 'fail', err: err });
+				} else {
+					if (id == -1) {
+						id = result.rows[0].id;
+					}
 
-				if (id == -1) {
-					id = result.rows[0].id;
+					res.send({ result: 'success', roleid: id });
 				}
-
-				res.send({ result: 'success', roleid: id });
 			});
 		});
 	});
