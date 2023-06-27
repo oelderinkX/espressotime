@@ -2,7 +2,7 @@ var fs = require("fs");
 var pg = require('pg');
 var express = require('express');
 var bodyParser = require('body-parser');
-var common = require('../../../common/srv/common.js');
+var common = require('./common/srv/common.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
