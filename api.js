@@ -14,17 +14,67 @@ module.exports = function(app) {
 
 	app.get('/api*', urlencodedParser, function(req, res) {
         if (req.url.includes('/api/status')) {
-            res.send(apiPage);
+            var sql = 'select id, request_time, method, url, data from espresso.api order by id desc limit 100'
+
+            pool.connect(function(err, connection, done) {
+                connection.query(sql, function(err, result) {
+                    done();
+
+                    var replace = '<tr><td></td><td></td><td></td><td></td><td></td></tr>';
+                    var rows = '';
+
+                    if (result && result.rowCount > 0) {
+                        for(var i = 0; i < result.rowCount; i++) {
+                            rows += '<tr>';
+
+                            rows += '<td>' + result.rows[i].id + '</td>';
+                            rows += '<td>' + result.rows[i].request_time + '</td>';
+                            rows += '<td>' + result.rows[i].method + '</td>';
+                            rows += '<td>' + result.rows[i].url + '</td>';
+                            rows += '<td>' + result.rows[i].data + '</td>';
+
+                            rows += '</tr>';
+                        }
+                    }
+                    
+                    page = apiPage;
+                    page = common.replaceAll(page, replace, rows);
+
+                    res.send(apiPage);
+                });
+            });
         } else {
-            console.log(req.url);
-            console.log(req.body);
-            res.send('{}');
+            sql = "insert into espresso.api (method, url, data)";
+            sql += " values ($1, $2, $3);";
+            values = ['GET', req.url, req.body];
+    
+            pool.connect(function(err, connection, done) {
+                connection.query(sql, values, function(err, result) {
+                    done();
+                
+                    if (err) {
+                        console.log(err);
+                    }
+                    res.send({});
+                });
+            });
         }
     });	
 
 	app.post('/api*', urlencodedParser, function(req, res) {
-        console.log(req.url);
-        console.log(req.body);
-        res.send('{}');
+        sql = "insert into espresso.api (method, url, data)";
+        sql += " values ($1, $2, $3);";
+        values = ['POST', req.url, req.body];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+			
+				if (err) {
+					console.log(err);
+				}
+                res.send({});
+			});
+		});
     });	
 }
