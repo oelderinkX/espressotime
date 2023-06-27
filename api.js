@@ -40,7 +40,7 @@ module.exports = function(app) {
                     page = apiPage;
                     page = common.replaceAll(page, replace, rows);
 
-                    res.send(apiPage);
+                    res.send(page);
                 });
             });
         } else {
