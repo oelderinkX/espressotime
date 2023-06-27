@@ -73,3 +73,6 @@ require('./foh/tasks/srv/tasks.js')(app);
 
 console.log('loading rh_roster.js');
 require('./foh/roster/srv/foh_roster.js')(app);
+
+console.log('loading api.js');
+require('./api.js')(app);
