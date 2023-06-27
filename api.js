@@ -17,14 +17,14 @@ module.exports = function(app) {
             res.send(apiPage);
         } else {
             console.log(req.url);
-            console.log(req.param);
+            console.log(req.body);
             res.send('{}');
         }
     });	
 
 	app.post('/api*', urlencodedParser, function(req, res) {
         console.log(req.url);
-        console.log(req.param);
+        console.log(req.body);
         res.send('{}');
     });	
 }
