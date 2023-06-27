@@ -16,11 +16,15 @@ module.exports = function(app) {
         if (req.url.includes('/api/status')) {
             res.send(apiPage);
         } else {
+            console.log(req.url);
+            console.log(req.param);
             res.send('{}');
         }
     });	
 
 	app.post('/api*', urlencodedParser, function(req, res) {
+        console.log(req.url);
+        console.log(req.param);
         res.send('{}');
     });	
 }
