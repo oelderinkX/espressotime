@@ -10,7 +10,7 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
-	var apiPage = fs.readFileSync(__dirname + "../api.html", "utf8");
+	var apiPage = fs.readFileSync(__dirname + "/api.html", "utf8");
 
 	app.get('/api*', urlencodedParser, function(req, res) {
         if (req.url.includes('/api/status')) {
