@@ -17,7 +17,7 @@ module.exports = function(app) {
             var sql = 'select css from espresso.branding where shopid = $1';
 
             pool.connect(function(err, connection, done) {
-                connection.query(sql, [shopId], function(err, result) {
+                connection.query(sql, [shopid], function(err, result) {
                     done();
 
                     if (result && result.rowCount == 1) {
