@@ -21,13 +21,16 @@ module.exports = function(app) {
                     done();
 
                     if (result && result.rowCount == 1) {
+                        res.type('text/css');
                         res.send(result.rows[0].css);
                     }  else {
+                        res.type('text/css');
                         res.send(basic_css);
                     }
                 });
             });
 		} else {
+            res.type('text/css');
 			res.send(basic_css);
 		}
 	});	
