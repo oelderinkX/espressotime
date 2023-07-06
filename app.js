@@ -19,6 +19,9 @@ app.listen(port, function () {
 	console.log('Ready to time da staff people!');
 });
 
+console.log('loading branding.js');
+require('/common/srv/branding.js')(app);
+
 console.log('loading admin.js');
 require('./boh/admin/srv/admin.js')(app);
 
