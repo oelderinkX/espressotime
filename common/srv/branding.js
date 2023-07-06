@@ -22,8 +22,7 @@ module.exports = function(app) {
 
                     if (result && result.rowCount == 1) {
                         res.send(result.rows[0].css);
-                    }
-                    else {
+                    }  else {
                         res.send(basic_css);
                     }
                 });
