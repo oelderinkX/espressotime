@@ -1,4 +1,4 @@
-var reloadTasks;
+var refreshPageTimer;
 var employees = [];
 
 function clock() {
@@ -72,10 +72,21 @@ function getTasksForHour() {
         }
     });
 
-    window.clearTimeout(reloadTasks);
-    reloadTasks = window.setTimeout(function() {
-        window.location.href = "/tasks";
-      }, 5 * 60 * 1000);
+    window.clearTimeout(refreshPageTimer);
+    refreshPageTimer = window.setTimeout(function() {
+        var randomPage = Math.floor(Math.random() * 4) + 1;
+        var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
+
+        if (randomPage == 1) {
+            window.location.href = "/?refresh=" + refresh;
+        } else if (randomPage == 2) {
+            window.location.href = "/how?refresh=" + refresh;
+        } else if (randomPage == 3) {
+            window.location.href = "/foh_roster?refresh=" + refresh;
+        } else if (randomPage == 4) {
+            window.location.href = "/tasks?refresh=" + refresh;
+        }
+    }, 240000);
 }
 
 function showDescription(taskid, name, inputtype, description) {
