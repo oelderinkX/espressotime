@@ -105,6 +105,7 @@ module.exports = function(app) {
 
 		var sql = "select id, name from espresso.task";
 		sql += "  where starttime <> '00:00:00' and shopid = $1";
+		sql += " order by starttime";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -130,7 +131,8 @@ module.exports = function(app) {
 		var dayStart = req.body.date + ' 00:00:00';
 		var dayEnd = req.body.date + ' 23:59:59';
 
-		var sql = "select taskid, timestamp::time, by, input, notes from espresso.task_complete";
+		var sql = "select taskid, timestamp::time, espresso.employee.name, input, notes from espresso.task_complete";
+		sql += " join espresso.employee on espresso.employee.id = espresso.task_complete.by";
 		sql += " where timestamp > $1";
 		sql += " and timestamp <= $2";
 		sql += " and shopid = $3";
@@ -145,7 +147,7 @@ module.exports = function(app) {
 					for(var i = 0; i < result.rowCount; i++) {
 						yesterdaystasks.push({	taskid: result.rows[i].taskid,
 												timestamp: result.rows[i].timestamp,
-												by: result.rows[i].by,
+												name: result.rows[i].name,
 												input: result.rows[i].input,
 												notes: result.rows[i].notes
 						});

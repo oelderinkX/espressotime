@@ -252,15 +252,28 @@ function getYesterdaysTasks() {
         var row = document.createElement('tr');
         var namehead = document.createElement('th');
         namehead.innerHTML = 'Name';
+        namehead.style = 'text-align: center; vertical-align: middle; background: white;';
         row.appendChild(namehead);
 
         var completedhead = document.createElement('th');
         completedhead.innerHTML = 'Completed at';
+        completedhead.style = 'text-align: center; vertical-align: middle; background: white;';
         row.appendChild(completedhead);
 
         var byhead = document.createElement('th');
         byhead.innerHTML = 'By';
+        byhead.style = 'text-align: center; vertical-align: middle; background: white;';
         row.appendChild(byhead);
+
+        var inputhead = document.createElement('th');
+        inputhead.innerHTML = 'Input';
+        inputhead.style = 'text-align: center; vertical-align: middle; background: white;';
+        row.appendChild(inputhead);
+
+        var noteshead = document.createElement('th');
+        noteshead.innerHTML = 'Notes';
+        noteshead.style = 'text-align: center; vertical-align: middle; background: white;';
+        row.appendChild(noteshead);
 
         tasktable.appendChild(row);
 
@@ -282,20 +295,44 @@ function getYesterdaysTasks() {
 
             if (completedtask.timestamp != '00:00:00') {
                 var timestampcol = document.createElement('td');
-                timestampcol.innerHTML = completedtask.timestamp;
+                timestampcol.innerHTML = formatTime(completedtask.timestamp);
+                timestampcol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(timestampcol);
 
                 var bycol = document.createElement('td');
-                bycol.innerHTML = completedtask.by;
+                bycol.innerHTML = completedtask.name;
+                bycol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(bycol);
+
+                var inputcol = document.createElement('td');
+                inputcol.innerHTML = completedtask.input;
+                inputcol.style = 'text-align: center; vertical-align: middle; background: white;';
+                inputcol.appendChild(inputcol);
+
+                var notescol = document.createElement('td');
+                notescol.innerHTML = completedtask.notes;
+                notescol.style = 'text-align: center; vertical-align: middle; background: white;';
+                row.appendChild(notescol);
             } else {
                 var timestampcol = document.createElement('td');
                 timestampcol.innerHTML = 'X';
+                timestampcol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(timestampcol);
 
                 var bycol = document.createElement('td');
                 bycol.innerHTML = 'X';
+                bycol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(bycol);
+
+                var inputcol = document.createElement('td');
+                inputcol.innerHTML = 'X';
+                inputcol.style = 'text-align: center; vertical-align: middle; background: white;';
+                inputcol.appendChild(inputcol);
+
+                var notescol = document.createElement('td');
+                notescol.innerHTML = 'X';
+                notescol.style = 'text-align: center; vertical-align: middle; background: white;';
+                row.appendChild(notescol);
             }
 
             tasktable.appendChild(row);
