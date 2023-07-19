@@ -282,6 +282,7 @@ function getYesterdaysTasks() {
 
             var namecol = document.createElement('td');
             namecol.innerHTML = alltasks[t].name;
+            namecol.style = 'text-align: center; vertical-align: middle; background: white;';
             row.appendChild(namecol);
 
             var id = alltasks[t].id;
