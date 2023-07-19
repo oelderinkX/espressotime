@@ -19,9 +19,9 @@ function clock() {
     document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
 
     t = setTimeout(function() {
-      clock()
+        clock()
     }, 10000);
-  }
+}
 
 function loadEmployees() {
     var date = getDbFormat() + ' 00:00:00';
