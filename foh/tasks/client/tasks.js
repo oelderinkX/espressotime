@@ -296,7 +296,7 @@ function getYesterdaysTasks() {
 
             if (completedtask.timestamp != '00:00:00') {
                 var timestampcol = document.createElement('td');
-                timestampcol.innerHTML = formatTime(completedtask.timestamp);
+                timestampcol.innerHTML = formatAMPM(completedtask.timestamp);
                 timestampcol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(timestampcol);
 
@@ -316,22 +316,22 @@ function getYesterdaysTasks() {
                 row.appendChild(notescol);
             } else {
                 var timestampcol = document.createElement('td');
-                timestampcol.innerHTML = 'X';
+                timestampcol.innerHTML = '&#10060;';
                 timestampcol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(timestampcol);
 
                 var bycol = document.createElement('td');
-                bycol.innerHTML = 'X';
+                bycol.innerHTML = '&#10060;';
                 bycol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(bycol);
 
                 var inputcol = document.createElement('td');
-                inputcol.innerHTML = 'X';
+                inputcol.innerHTML = '';
                 inputcol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(inputcol);
 
                 var notescol = document.createElement('td');
-                notescol.innerHTML = 'X';
+                notescol.innerHTML = '';
                 notescol.style = 'text-align: center; vertical-align: middle; background: white;';
                 row.appendChild(notescol);
             }
