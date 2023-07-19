@@ -308,7 +308,7 @@ function getYesterdaysTasks() {
                 var inputcol = document.createElement('td');
                 inputcol.innerHTML = completedtask.input;
                 inputcol.style = 'text-align: center; vertical-align: middle; background: white;';
-                inputcol.appendChild(inputcol);
+                row.appendChild(inputcol);
 
                 var notescol = document.createElement('td');
                 notescol.innerHTML = completedtask.notes;
