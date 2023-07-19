@@ -100,6 +100,61 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/getalltasksv2', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+
+		var sql = "select name from espresso.task";
+		sql += "  where starttime <> '00:00:00' and shopid = $1";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [shopId], function(err, result) {
+				done();
+
+				var tasks = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						tasks.push({	name: result.rows[i].name });
+					}
+				}
+					
+				res.send(tasks);
+			});
+		});
+	});
+
+	app.post('/getyesterdayscompletedtasks', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var dayStart = req.body.date + ' 00:00:00';
+		var dayEnd = req.body.date + ' 23:59:59';
+
+		var sql = "select taskid, timestamp::time, by, input, notes from espresso.task_complete";
+		sql += " where timestamp > $1";
+		sql += " and timestamp <= $2";
+		sql += " and shopid = $3";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [dayStart, dayEnd, shopId], function(err, result) {
+				done();
+
+				var yesterdaystasks = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						yesterdaystasks.push({	taskid: result.rows[i].taskid,
+												timestamp: result.rows[i].timestamp,
+												by: result.rows[i].by,
+												input: result.rows[i].input,
+												notes: result.rows[i].notes
+						});
+					}
+				}
+					
+				res.send(yesterdaystasks);
+			});
+		});
+	});
+
 	app.post('/gettaskemployees', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;

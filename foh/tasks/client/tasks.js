@@ -1,5 +1,6 @@
 var refreshPageTimer;
 var employees = [];
+var alltasks = [];
 
 function clock() {
     var today = new Date();
@@ -32,6 +33,12 @@ function loadEmployees() {
         for(var i = 0; i < taskemployees.length; i++) {
             employees.push({id: taskemployees[i].id, name: taskemployees[i].name});
         }
+    });
+}
+
+function loadTasks() {
+    sendPost("/getalltasksv2", '{ }', function(response) {
+        alltasks = JSON.parse(response);
     });
 }
 
@@ -194,5 +201,65 @@ function getTasksForMobile() {
             task.appendChild(tasktime);
             tasksarea.appendChild(task);
         }
+    });
+}
+
+function reload(day) {
+    var today = document.getElementById("today")
+    var yesterday = document.getElementById("yesterday")
+
+    if (day == 'today') {
+        today.classList.add("active");
+        today.classList.remove("btn-secondary");
+        today.classList.add("btn-dark");
+
+        yesterday.classList.remove("active");
+        yesterday.classList.add("btn-secondary");
+        yesterday.classList.remove("btn-dark");
+        
+        getTasksForHour();
+    } else if (day == 'yesterday') {
+        yesterday.classList.add("active");
+        yesterday.classList.remove("btn-secondary");
+        yesterday.classList.add("btn-dark");
+
+        today.classList.remove("active");
+        today.classList.add("btn-secondary");
+        today.classList.remove("btn-dark");
+
+        getYesterdaysTasks();
+    }
+}
+
+function getYesterdaysTasks() {
+    var date = getDbFormat(); // need to set to yesterday
+    var request = {date: date};
+
+    sendPost("/getyesterdayscompletedtasks", JSON.stringify(request), function(response) {
+        var completedtasks = JSON.parse(response);
+
+        var tasksarea = document.getElementById("tasksarea")
+        tasksarea.innerHTML = '';
+
+        var tasktable = document.createElement("table");
+        tasktable.setAttribute('border', '1');
+        tasktable.setAttribute('width', '100%');
+
+        var row = document.createElement('tr');
+        var namehead = document.createElement('td');
+        row.appendChild(namehead);
+        tasktable.appendChild(row);
+
+        for(var t in alltasks) {
+            var row = document.createElement('tr');
+
+            var namecol = document.createElement('td');
+            namecol.innerHTML = t.name;
+            row.appendChild(namecol);
+
+            tasktable.appendChild(row);
+        }
+
+        tasksarea.appendChild(tasktable);
     });
 }

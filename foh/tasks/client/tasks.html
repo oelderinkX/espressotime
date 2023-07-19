@@ -46,7 +46,7 @@
         <div class="col-sm-6">
           <div class="form-outline">
               <h1>
-                Tasks &nbsp;&nbsp;&nbsp;
+                Tasks &nbsp;
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                   <label class="btn btn-secondary active">
                     <input type="radio" name="options" id="today" autocomplete="off" checked onchange="reload('today');">Today</label>
@@ -68,6 +68,7 @@
       </div>
 </body>
 <script>
+    loadTasks();
     getTasksForHour();
     loadEmployees();
     clock();
