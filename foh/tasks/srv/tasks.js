@@ -135,7 +135,7 @@ module.exports = function(app) {
 		sql += " join espresso.employee on espresso.employee.id = espresso.task_complete.by";
 		sql += " where timestamp > $1";
 		sql += " and timestamp <= $2";
-		sql += " and shopid = $3";
+		sql += " and espresso.task_complete.shopid = $3";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [dayStart, dayEnd, shopId], function(err, result) {
