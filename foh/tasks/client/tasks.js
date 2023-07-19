@@ -238,15 +238,16 @@ function getYesterdaysTasks() {
     sendPost("/getyesterdayscompletedtasks", JSON.stringify(request), function(response) {
         var completedtasks = JSON.parse(response);
 
-        var tasksarea = document.getElementById("tasksarea")
+        var tasksarea = document.getElementById('tasksarea');
         tasksarea.innerHTML = '';
 
-        var tasktable = document.createElement("table");
+        var tasktable = document.createElement('table');
         tasktable.setAttribute('border', '1');
         tasktable.setAttribute('width', '100%');
 
         var row = document.createElement('tr');
-        var namehead = document.createElement('td');
+        var namehead = document.createElement('th');
+        namehead.innerHTML = 'Name';
         row.appendChild(namehead);
         tasktable.appendChild(row);
 
@@ -254,7 +255,7 @@ function getYesterdaysTasks() {
             var row = document.createElement('tr');
 
             var namecol = document.createElement('td');
-            namecol.innerHTML = t.name;
+            namecol.innerHTML = alltasks[t].name;
             row.appendChild(namecol);
 
             tasktable.appendChild(row);

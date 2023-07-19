@@ -103,7 +103,7 @@ module.exports = function(app) {
 	app.post('/getalltasksv2', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 
-		var sql = "select name from espresso.task";
+		var sql = "select id, name from espresso.task";
 		sql += "  where starttime <> '00:00:00' and shopid = $1";
 
 		pool.connect(function(err, connection, done) {
@@ -114,7 +114,9 @@ module.exports = function(app) {
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						tasks.push({	name: result.rows[i].name });
+						tasks.push({	name: result.rows[i].name,
+										id: result.rows[i].id
+						});
 					}
 				}
 					
