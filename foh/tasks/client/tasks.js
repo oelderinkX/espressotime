@@ -240,6 +240,8 @@ function getYesterdaysTasks() {
 
         var tasksarea = document.getElementById('tasksarea');
         tasksarea.innerHTML = '';
+        var taskstatus = document.getElementById("taskstatus");
+        taskstatus.innerHTML = '';
 
         var tasktable = document.createElement('table');
         tasktable.setAttribute('border', '1');
@@ -249,6 +251,15 @@ function getYesterdaysTasks() {
         var namehead = document.createElement('th');
         namehead.innerHTML = 'Name';
         row.appendChild(namehead);
+
+        var completedhead = document.createElement('th');
+        completedhead.innerHTML = 'Completed at';
+        row.appendChild(completedhead);
+
+        var byhead = document.createElement('th');
+        byhead.innerHTML = 'By';
+        row.appendChild(byhead);
+
         tasktable.appendChild(row);
 
         for(var t in alltasks) {
@@ -257,6 +268,33 @@ function getYesterdaysTasks() {
             var namecol = document.createElement('td');
             namecol.innerHTML = alltasks[t].name;
             row.appendChild(namecol);
+
+            var id = alltasks[t].id;
+            var completedtask = { timestamp: '00:00:00' };
+            for(var ct in completedtasks) {
+                if (completedtasks[ct].taskid == id) {
+                    completedtask = completedtasks[ct];
+                    break;
+                }
+            }
+
+            if (completedtask.timestamp != '00:00:00') {
+                var timestampcol = document.createElement('td');
+                timestampcol.innerHTML = completedtask.timestamp;
+                row.appendChild(timestampcol);
+
+                var bycol = document.createElement('td');
+                bycol.innerHTML = completedtask.by;
+                row.appendChild(bycol);
+            } else {
+                var timestampcol = document.createElement('td');
+                timestampcol.innerHTML = 'X';
+                row.appendChild(timestampcol);
+
+                var bycol = document.createElement('td');
+                bycol.innerHTML = 'X';
+                row.appendChild(bycol);
+            }
 
             tasktable.appendChild(row);
         }
