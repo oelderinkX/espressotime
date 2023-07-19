@@ -252,7 +252,7 @@ function getYesterdaysTasks() {
         var row = document.createElement('tr');
         var namehead = document.createElement('th');
         namehead.innerHTML = 'Name';
-        namehead.style = 'text-align: center; vertical-align: middle; background: white;';
+        namehead.style = 'text-align: left; vertical-align: middle; background: white;';
         row.appendChild(namehead);
 
         var completedhead = document.createElement('th');
@@ -261,7 +261,7 @@ function getYesterdaysTasks() {
         row.appendChild(completedhead);
 
         var byhead = document.createElement('th');
-        byhead.innerHTML = 'By';
+        byhead.innerHTML = 'Completed by';
         byhead.style = 'text-align: center; vertical-align: middle; background: white;';
         row.appendChild(byhead);
 
@@ -282,7 +282,7 @@ function getYesterdaysTasks() {
 
             var namecol = document.createElement('td');
             namecol.innerHTML = alltasks[t].name;
-            namecol.style = 'text-align: center; vertical-align: middle; background: white;';
+            namecol.style = 'text-align: left; vertical-align: middle; background: white;';
             row.appendChild(namecol);
 
             var id = alltasks[t].id;
@@ -312,7 +312,7 @@ function getYesterdaysTasks() {
 
                 var notescol = document.createElement('td');
                 notescol.innerHTML = completedtask.notes;
-                notescol.style = 'text-align: center; vertical-align: middle; background: white;';
+                notescol.style = 'text-align: left; vertical-align: middle; background: white;';
                 row.appendChild(notescol);
             } else {
                 var timestampcol = document.createElement('td');
@@ -332,7 +332,7 @@ function getYesterdaysTasks() {
 
                 var notescol = document.createElement('td');
                 notescol.innerHTML = '';
-                notescol.style = 'text-align: center; vertical-align: middle; background: white;';
+                notescol.style = 'text-align: left; vertical-align: middle; background: white;';
                 row.appendChild(notescol);
             }
 
