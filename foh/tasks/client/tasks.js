@@ -232,8 +232,10 @@ function reload(day) {
 }
 
 function getYesterdaysTasks() {
-    var date = getDbFormat(); // need to set to yesterday
-    var request = {date: date};
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+    var yesterday = getDbFormat(date);
+    var request = {date: yesterday};
 
     sendPost("/getyesterdayscompletedtasks", JSON.stringify(request), function(response) {
         var completedtasks = JSON.parse(response);
