@@ -41,7 +41,7 @@
                 
                 if (canSave == true) {
                     hows.push({ id: 0, name: '*** New Help', description: 'Enter name and description and Save'});
-
+                } else {
                     window.clearTimeout(refreshPageTimer);
                     refreshPageTimer = window.setTimeout(function() {
                         var randomPage = Math.floor(Math.random() * 4) + 1;
