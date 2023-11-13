@@ -222,6 +222,28 @@ function getRole(employeeid, date) {
   return roles[0].name;
 }
 
+function setRosterDate(newDate)
+{
+  rosterStart = new Date(newDate);
+  // re-adjust to Sunday
+  var day = rosterState.getDay();
+  rosterStart.setDate( rosterStart.getDate() - day ); // set start day to Sunday
+
+  //rosterEnd = new Date(rosterStart);
+  //rosterEnd.setDate(rosterEnd.getDate() + 6);
+
+  rosterNew = new Date(rosterStart);
+
+  rosterdates = [];
+  for(var i = 0; i < 7; i++)  {
+    rosterdates.push(rosterNew.getFullYear() + '-' + pad(rosterNew.getMonth()+1) + '-' + pad(rosterNew.getDate()));
+    rosterNew.setDate(rosterNew.getDate() + 1);
+  }
+
+  getEmployeeTimes();
+}
+
+/*
 function rosterBack() {
   var d = new Date(rosterStart);
   d.setDate( d.getDate() - 14 );
@@ -264,6 +286,7 @@ function getRosterDates(newDate) {
       rosterStart.setDate(rosterStart.getDate() + 1);
     }
 }
+*/
 
 function enableRoster() {
   var roster_weekview = document.getElementById('roster_weekview');

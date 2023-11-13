@@ -43,7 +43,7 @@
   <table border="0" width="1280px" class="hidden-print">
     <tr>
       <td width="360px">
-        &nbsp;<input type="button" value="&lt;" id="back" class="hidden-print" onclick="rosterBack();"><span id="rosterDate" class="hidden-print"></span><input type="button" value="&gt;" id="forward" class="hidden-print" onclick="rosterForward();">
+        <input type="date" id="rosterDatePicker" name="roster-date-picker" onchange="setRosterDate(this.value);"/>
       </td>
       <td width="360px"><span id="loading"></span></td>
       <td width="360px"></td>
