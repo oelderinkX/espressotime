@@ -51,7 +51,8 @@ function drawTable() {
 }
 
 function loadPage() {
-  getRosterDates();
+  //getRosterDates();
+  setRosterDate(new Date());
   var request = {};
   sendPost("/getroles", JSON.stringify(request), function(response) {
     roles =  JSON.parse(response);
