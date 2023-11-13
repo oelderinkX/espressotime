@@ -51,7 +51,6 @@ function drawTable() {
 }
 
 function loadPage() {
-  //getRosterDates();
   setRosterDate(new Date());
   var request = {};
   sendPost("/getroles", JSON.stringify(request), function(response) {
@@ -233,7 +232,13 @@ function setRosterDate(d)
 
   // re-adjust to Sunday
   var day = rosterStart.getDay();
-  rosterStart.setDate( rosterStart.getDate() - day ); // set start day to Sunday
+
+  if (day == 0) { // sunday
+    rosterStart.setDate( rosterStart.getDate() - 6 ); // set start day to Sunday
+  } else {
+    rosterStart.setDate( rosterStart.getDate() - (day - 1 ) ); // set start day to Sunday
+  }
+
   var rosterdatepicker = document.getElementById('rosterdatepicker');
   rosterdatepicker.valueAsDate = rosterStart;
 
