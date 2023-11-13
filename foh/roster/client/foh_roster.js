@@ -253,51 +253,6 @@ function setRosterDate(d)
   getEmployeeTimes();
 }
 
-/*
-function rosterBack() {
-  var d = new Date(rosterStart);
-  d.setDate( d.getDate() - 14 );
-  getRosterDates(d);
-  getEmployeeTimes();
-}
-
-function rosterForward() {
-  var d = new Date(rosterStart);
-  getRosterDates(d);
-  getEmployeeTimes();
-}
-
-function getRosterDates(newDate) {
-    var rosterDate = document.getElementById("rosterDate");
-
-    var d = new Date();
-    if (newDate) {
-        d = new Date(newDate);
-    }
-    var day = d.getDay();
-
-    rosterStart = new Date(d);
-    if (day == 0) {
-      rosterStart.setDate( rosterStart.getDate() - 6 );
-    } else {
-        rosterStart.setDate( rosterStart.getDate() - (day - 1) );
-    }
-    rosterEnd = new Date(rosterStart);
-    rosterEnd.setDate(rosterEnd.getDate() + 6);
-
-    var from = pad(rosterStart.getDate()) + ' ' + monthNames[rosterStart.getMonth()] + ' ' + rosterStart.getFullYear();
-    var to = pad(rosterEnd.getDate()) + ' ' + monthNames[rosterEnd.getMonth()] + ' ' + rosterEnd.getFullYear();
-
-    rosterDate.innerHTML = ' ' + from + ' <---> ' + to + ' ';
-
-    rosterdates = [];
-    for(var i = 0; i < 7; i++)  {
-      rosterdates.push(rosterStart.getFullYear() + '-' + pad(rosterStart.getMonth()+1) + '-' + pad(rosterStart.getDate()));
-      rosterStart.setDate(rosterStart.getDate() + 1);
-    }
-}
-*/
-
 function enableRoster() {
   var roster_weekview = document.getElementById('roster_weekview');
   roster_weekview.style.pointerEvents = '';
