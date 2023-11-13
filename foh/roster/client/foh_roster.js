@@ -222,12 +222,19 @@ function getRole(employeeid, date) {
   return roles[0].name;
 }
 
-function setRosterDate(newDate)
+function setRosterDate(d)
 {
-  rosterStart = new Date(newDate);
+  if (d) {
+    rosterStart = new Date(d);
+  } else {
+    rosterStart = new Date();
+  }
+
   // re-adjust to Sunday
   var day = rosterStart.getDay();
   rosterStart.setDate( rosterStart.getDate() - day ); // set start day to Sunday
+  var rosterdatepicker = document.getElementById('rosterdatepicker');
+  rosterdatepicker.valueAsDate = rosterStart;
 
   rosterNew = new Date(rosterStart);
 
