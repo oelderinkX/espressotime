@@ -226,11 +226,8 @@ function setRosterDate(newDate)
 {
   rosterStart = new Date(newDate);
   // re-adjust to Sunday
-  var day = rosterState.getDay();
+  var day = rosterStart.getDay();
   rosterStart.setDate( rosterStart.getDate() - day ); // set start day to Sunday
-
-  //rosterEnd = new Date(rosterStart);
-  //rosterEnd.setDate(rosterEnd.getDate() + 6);
 
   rosterNew = new Date(rosterStart);
 
