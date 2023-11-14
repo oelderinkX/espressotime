@@ -123,11 +123,15 @@
                 notes: notes.value
             };
 
-            sendPost("/updatebooking", JSON.stringify(booking), function(response) {
-                loadBookings();
-                bookinglist.selectedIndex = selectedIndex;
-                alert('Saved!');
-            });
+            if (name.value && datetime.value && pax.value) {
+                alert('Please enter name, date and number of people');
+            } else {
+                sendPost("/updatebooking", JSON.stringify(booking), function(response) {
+                    loadBookings();
+                    bookinglist.selectedIndex = selectedIndex;
+                    alert('Saved!');
+                });
+            }
         }
 
         function newBooking() {
