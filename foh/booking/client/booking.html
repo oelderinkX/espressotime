@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Booking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script>
+        var refreshPageTimer;
+
+        var bookings = [];
+        var filter = '';
+    </script>
+    <script>
+        function displayBooking(id) {
+            for(var i = 0; i < bookings.length; i++) {
+                if (bookings[i].id == id) {
+                    booking = bookings[i];
+                    break;
+                }
+            }
+            
+            var id = document.getElementById('id');
+            id.value = booking.id;
+
+            var name = document.getElementById('name');
+            name.value = booking.name;
+
+            var datetime = document.getElementById('datetime');
+            datetime.value = booking.datetime;
+
+            var phone = document.getElementById('phone');
+            phone.value = booking.phone;
+
+            var pax = document.getElementById('pax');
+            pax.value = booking.pax;
+            
+            var notes = document.getElementById('notes');
+            notes.value = booking.notes;
+
+        }
+
+        function loadBookings() {
+            var request = {};
+            sendPost("/getbookings", JSON.stringify(request), function(response) {
+                bookings  = JSON.parse(response);
+                
+                // might need to change this!
+                window.clearTimeout(refreshPageTimer);
+                refreshPageTimer = window.setTimeout(function() {
+                    var randomPage = Math.floor(Math.random() * 4) + 1;
+                    var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
+
+                    if (randomPage == 1) {
+                        window.location.href = "/?refresh=" + refresh;
+                    } else if (randomPage == 2) {
+                        window.location.href = "/how?refresh=" + refresh;
+                    } else if (randomPage == 3) {
+                        window.location.href = "/foh_roster?refresh=" + refresh;
+                    } else if (randomPage == 4) {
+                        window.location.href = "/tasks?refresh=" + refresh;
+                    }
+                }, 240000);
+
+
+                bookings = bookings.sort((a, b) => {
+                    var n1 = a.datetime;
+                    var n2 = b.datetime;
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
+
+                loadBookingCombo();
+            });
+        }
+
+        function loadBookingCombo() {
+            var bookinglist = document.getElementById('bookinglist');
+
+            bookinglist.innerHTML = '';
+
+            for(var i = 0; i < hows.length; i++) {
+                if (filter == '' || bookings[i].name.toUpperCase().includes(filter)) {
+                    var booking = bookings[i];
+
+                    var button = document.createElement('button');
+                    button.setAttribute('type', 'button');
+                    button.setAttribute('class', 'list-group-item list-group-item-action');
+                    button.setAttribute('onclick', 'displayBooking(' + booking.id + ');');
+                    button.style = "font-size:16px";
+                    button.innerText = booking.name + '( ' + booking.pax + ' )';
+
+                    bookinglist.appendChild(button);
+                }
+            }
+        }
+
+        function saveBooking() {
+            var bookinglist = document.getElementById('bookinglist');
+            var selectedIndex = bookinglist.selectedIndex;
+
+            var id = document.getElementById('id');
+            var name = document.getElementById('bookingname');
+            var datetime = document.getElementById('datetime');
+            var pax = document.getElementById('pax');
+            var phone = document.getElementById('phone');
+            var notes = document.getElementById('notes');
+
+             var booking = {
+                id: id.value,
+                name: name.value,
+                datetime: datetime.value,
+                pax: pax.value,
+                phone: phone.value,
+                notes: notes.value
+            };
+
+            sendPost("/updatebooking", JSON.stringify(booking), function(response) {
+                loadBookings();
+                bookinglist.selectedIndex = selectedIndex;
+                alert('Saved!');
+            });
+        }
+    </script>
+</head>
+<html>
+<body>
+    <span style="float: top;">
+        <button id="signinoutbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/';"><span id="signin_icon" class="glyphicon glyphicon-check"></span> Sign in / out</button>
+        <button id="tasksbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasks';"><span id="task_icon" class="glyphicon glyphicon-list-alt"></span> Tasks</button>
+        <button id="bookingbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/bookings';"><span id="booking_icon" class="glyphicon glyphicon-book"></span> Bookings</button>
+        <button id="rosterbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/foh_roster';"><span id="roster_icon" class="glyphicon glyphicon-th-list"></span> Roster</button>
+        <button id="howbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/how';"><span id="help_icon" class="glyphicon glyphicon-info-sign"></span> Help</button>   
+    </span>
+    <h1>Bookings</h1>
+    <table width="100%" border=0>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="400px">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">Search</span>
+                    </div>
+                    <input type="text" style="font-size:16px" class="form-control" placeholder="Enter search" aria-label="Enter search" aria-describedby="basic-addon1" size="50" id="filter" onkeyup="filter = this.value.toUpperCase(); loadBookingCombo();">
+                </div>
+                <br/>
+                <div class="list-group" id="howlist">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id" value="0"/>
+
+                <label id="namelabel" for="name">Name:</label>
+                <input id="name" type="text" class="form-control" style="font-size:16px" />
+
+                <label id="datetimelabel" for="datetime">Date Time:</label>
+                <input id="datetime" type="datetime-local" class="form-control" style="font-size:16px" />
+
+                <label id="paxlabel" for="pax">People:</label>
+                <input id="pax" type="number" class="form-control" style="font-size:16px" value="2" />
+
+                <label id="phonelabel" for="phone">Phone:</label>
+                <input id="phone" type="text" class="form-control" style="font-size:16px" />
+
+                <label id="noteslabel" for="notes">Notes:</label>
+                <textarea rows="5" style="width:100%; background-color:white; font-size:16px" id="notes"></textarea>
+
+                <br/>
+                <button id="savebutton" type="button" class="btn btn-success" onclick="saveHow();">Save</button>
+                <button id="newbutton" type="button" class="btn btn-success" onclick="">New</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    loadBookings();
+</script>
+</html>
