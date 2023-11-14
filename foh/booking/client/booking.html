@@ -87,7 +87,7 @@
 
             bookinglist.innerHTML = '';
 
-            for(var i = 0; i < hows.length; i++) {
+            for(var i = 0; i < bookings.length; i++) {
                 if (filter == '' || bookings[i].name.toUpperCase().includes(filter)) {
                     var booking = bookings[i];
 
@@ -173,8 +173,9 @@
                 <textarea rows="5" style="width:100%; background-color:white; font-size:16px" id="notes"></textarea>
 
                 <br/>
-                <button id="savebutton" type="button" class="btn btn-success" onclick="saveHow();">Save</button>
-                <button id="newbutton" type="button" class="btn btn-success" onclick="">New</button>
+                <button id="newbutton" type="button" class="btn btn-primary" onclick="">New</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="savebutton" type="button" class="btn btn-success" onclick="saveBooking();">Save</button>
             </td>
         </tr>
     </table>
