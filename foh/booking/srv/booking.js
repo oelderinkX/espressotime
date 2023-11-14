@@ -12,7 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 module.exports = function(app) {
 	var bookingPage = fs.readFileSync(__dirname + "/../client/booking.html", "utf8");
 
-	app.get('/booking', urlencodedParser, function(req, res) {
+	app.get('/bookings', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
