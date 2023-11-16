@@ -144,23 +144,59 @@
             }
 
             if (bookinglist.children.length == 0) {
+                var nbsp1 = document.createTextNode("\u00A0");
+                var nbsp2 = document.createTextNode("\u00A0");
+                var nbsp3 = document.createTextNode("\u00A0");
+                var nbsp4 = document.createTextNode("\u00A0");
+                var nbsp5 = document.createTextNode("\u00A0");
+
                 var label = document.createElement('label');
-                label.style = "font-size:16px";
+                label.style = "font-size:13px";
                 label.innerText = 'No bookings';
+
+                bookinglist.appendChild(nbsp1);
+                bookinglist.appendChild(nbsp2);
+                bookinglist.appendChild(nbsp3);
+                bookinglist.appendChild(nbsp4);
+                bookinglist.appendChild(nbsp5);
                 bookinglist.appendChild(label);
             }
 
             if (todaybookinglist.children.length == 0) {
+                var nbsp1 = document.createTextNode("\u00A0");
+                var nbsp2 = document.createTextNode("\u00A0");
+                var nbsp3 = document.createTextNode("\u00A0");
+                var nbsp4 = document.createTextNode("\u00A0");
+                var nbsp5 = document.createTextNode("\u00A0");
+
                 var label = document.createElement('label');
-                label.style = "font-size:16px";
+                label.style = "font-size:13px";
                 label.innerText = 'No bookings';
+
+                todaybookinglist.appendChild(nbsp1);
+                todaybookinglist.appendChild(nbsp2);
+                todaybookinglist.appendChild(nbsp3);
+                todaybookinglist.appendChild(nbsp4);
+                todaybookinglist.appendChild(nbsp5);
                 todaybookinglist.appendChild(label);
             }
 
             if (tomorrowbookinglist.children.length == 0) {
+                var nbsp1 = document.createTextNode("\u00A0");
+                var nbsp2 = document.createTextNode("\u00A0");
+                var nbsp3 = document.createTextNode("\u00A0");
+                var nbsp4 = document.createTextNode("\u00A0");
+                var nbsp5 = document.createTextNode("\u00A0");
+
                 var label = document.createElement('label');
-                label.style = "font-size:16px";
+                label.style = "font-size:13px";
                 label.innerText = 'No bookings';
+
+                tomorrowbookinglist.appendChild(nbsp1);
+                tomorrowbookinglist.appendChild(nbsp2);
+                tomorrowbookinglist.appendChild(nbsp3);
+                tomorrowbookinglist.appendChild(nbsp4);
+                tomorrowbookinglist.appendChild(nbsp5);
                 tomorrowbookinglist.appendChild(label);
             }
         }
