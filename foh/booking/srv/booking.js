@@ -25,7 +25,7 @@ module.exports = function(app) {
 	app.post('/getbookings', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 
-		var sql = "select id, name, datetime, pax, phone, notes from espresso.booking where shopid = $1 order by datetime desc;";
+		var sql = "select id, name, datetime, pax, phone, notes from espresso.booking where shopid = $1 order by datetime desc limit 100;";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
