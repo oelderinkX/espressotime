@@ -129,7 +129,7 @@
                     var today = new Date();
                     var tomorrow = new Date();
                     tomorrow.setDate(tomorrow.getDate() + 1);
-                    var bookdate = new Date(booking.datetime);
+                    var bookdate = new Date(removeZuluTime(booking.datetime));
 
                     if (bookdate.getFullYear() == today.getFullYear()
                                 && bookdate.getMonth() == today.getMonth() 
@@ -193,6 +193,11 @@
             pax.value = '';
             notes.value = '';
         }
+
+        function ShowAllChange(value) {
+            showall = value;
+            loadBookingCombo();
+        }
     </script>
 </head>
 <html>
@@ -209,7 +214,7 @@
         <tr>
             <td style="vertical-align:top;padding: 15px" width="400px">
                 <div>
-                    <input type="checkbox" id="showall" name="showall" onchange="if (this.checked) { showall = true } else { showall = false}" />
+                    <input type="checkbox" id="showall" name="showall" onchange="ShowAllChange(this.checked)" />
                     <label for="showall">Show all bookings</label>
                 </div>
                 <br/>
