@@ -143,8 +143,26 @@
                 }
             }
 
-            // maybe here put some nice text like "No bookings today!"
+            if (bookinglist.children.length == 0) {
+                var label = document.createElement('label');
+                label.style = "font-size:16px";
+                label.innerText = 'No bookings';
+                bookinglist.appendChild(label);
+            }
 
+            if (todaybookinglist.children.length == 0) {
+                var label = document.createElement('label');
+                label.style = "font-size:16px";
+                label.innerText = 'No bookings';
+                todaybookinglist.appendChild(label);
+            }
+
+            if (tomorrowbookinglist.children.length == 0) {
+                var label = document.createElement('label');
+                label.style = "font-size:16px";
+                label.innerText = 'No bookings';
+                tomorrowbookinglist.appendChild(label);
+            }
         }
 
         function saveBooking() {
