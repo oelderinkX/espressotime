@@ -12,7 +12,7 @@
         var refreshPageTimer;
 
         var bookings = [];
-        var filter = '';
+        var showall = false;
     </script>
     <script>
         function displayBooking(id) {
@@ -84,23 +84,67 @@
 
         function loadBookingCombo() {
             var bookinglist = document.getElementById('bookinglist');
+            var todaybookinglist = document.getElementById('todaybookinglist');
+            var tomorrowbookinglist = document.getElementById('tomorrowbookinglist');
+
+            var alllabel = document.getElementById('alllabel');
+            var todaylabel = document.getElementById('todaylabel');
+            var tomorrowlabel = document.getElementById('tomorrowlabel');
 
             bookinglist.innerHTML = '';
+            todaybookinglist.innerHTML = '';
+            tomorrowbookinglist.innerHTML = '';
+
+            if (showall) {
+                bookinglist.style.display = 'block';
+                alllabel.style.display = 'block';
+
+                todaybookinglist.style.display = 'none';
+                todaylabel.style.display = 'none';
+                tomorrowbookinglist.style.display = 'none';
+                tomorrowlabel.style.display = 'none';
+            } else {
+                bookinglist.style.display = 'none';
+                alllabel.style.display = 'none';
+
+                todaybookinglist.style.display = 'block';
+                todaylabel.style.display = 'block';
+                tomorrowbookinglist.style.display = 'block';
+                tomorrowlabel.style.display = 'block';
+            }
 
             for(var i = 0; i < bookings.length; i++) {
-                if (filter == '' || bookings[i].name.toUpperCase().includes(filter)) {
-                    var booking = bookings[i];
+                var booking = bookings[i];
 
-                    var button = document.createElement('button');
-                    button.setAttribute('type', 'button');
-                    button.setAttribute('class', 'list-group-item list-group-item-action');
-                    button.setAttribute('onclick', 'displayBooking(' + booking.id + ');');
-                    button.style = "font-size:16px";
-                    button.innerText = booking.name;
+                var button = document.createElement('button');
+                button.setAttribute('type', 'button');
+                button.setAttribute('class', 'list-group-item list-group-item-action');
+                button.setAttribute('onclick', 'displayBooking(' + booking.id + ');');
+                button.style = "font-size:16px";
+                button.innerText = booking.name;
 
+                if (showall) {
                     bookinglist.appendChild(button);
+                } else {
+                    var today = new Date();
+                    var tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    var bookdate = new Date(booking.datetime);
+
+                    if (bookdate.getFullYear() == today.getFullYear()
+                                && bookdate.getMonth() == today.getMonth() 
+                                && bookdate.getDate() == today.getDate()) {
+                        todaybookinglist.appendChild(button);
+                    } else if (bookdate.getFullYear() == tomorrow.getFullYear() 
+                                && bookdate.getMonth() == tomorrow.getMonth() 
+                                && bookdate.getDate() == tomorrow.getDate()) {
+                        tomorrowbookinglist.appendChild(button);
+                    }
                 }
             }
+
+            // maybe here put some nice text like "No bookings today!"
+
         }
 
         function saveBooking() {
@@ -164,14 +208,19 @@
     <table width="100%" border=0>
         <tr>
             <td style="vertical-align:top;padding: 15px" width="400px">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Search</span>
-                    </div>
-                    <input type="text" style="font-size:16px" class="form-control" placeholder="Enter search" aria-label="Enter search" aria-describedby="basic-addon1" size="50" id="filter" onkeyup="filter = this.value.toUpperCase(); loadBookingCombo();">
+                <div>
+                    <input type="checkbox" id="showall" name="showall" onchange="if (this.checked) { showall = true } else { showall = false}" />
+                    <label for="showall">Show all bookings</label>
                 </div>
                 <br/>
+                <label id="alllabel" for="name">All:</label>
                 <div class="list-group" id="bookinglist">
+                </div>
+                <label id="todaylabel" for="name">Today:</label>
+                <div class="list-group" id="todaybookinglist">
+                </div>
+                <label id="tomorrowlabel" for="name">Tomorrow:</label>
+                <div class="list-group" id="tomorrowbookinglist">
                 </div>
             </td>
             <td style="vertical-align:top;padding: 15px">
