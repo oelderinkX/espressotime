@@ -103,11 +103,9 @@ module.exports = function(app) {
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
 				done();
-			
-				if (result && result.rowCount == 1) {
-					if (id == 0) {
-						id = result.rows[0].id;
-					}
+
+				if (err) {
+					console.log(err);
 				}
 
 				res.send({ result: 'success', id: id });
