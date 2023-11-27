@@ -64,11 +64,13 @@ module.exports = function(app) {
 
         if (id == 0) {
             console.log('insert');
+			console.log(id);
             sql = "insert into espresso.booking (shopid, name, datetime, pax, phone, notes)";
             sql += " values ($1, $2, $3, $4, $5, $6) returning id";
             values = [shopId, name, datetime, pax, phone, notes];
         } else {
             console.log('update');
+			console.log(id);
             sql = "update espresso.booking set name = $3, datetime = $4, pax = $5, phone = $6, notes = $7";
             sql += " where shopid = $1 and id = $2";
             values = [shopId, id, name, datetime, pax, phone, notes];
