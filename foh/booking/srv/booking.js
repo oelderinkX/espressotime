@@ -90,4 +90,28 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/deletebooking', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+        
+		var id = req.body.id;
+
+		sql = "delete espresso.booking";
+		sql += " where shopid = $1 and id = $2";
+		values = [shopId, id, name, datetime, pax, phone, notes];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+			
+				if (result && result.rowCount == 1) {
+					if (id == 0) {
+						id = result.rows[0].id;
+					}
+				}
+
+				res.send({ result: 'success', id: id });
+			});
+		});
+	});
 }

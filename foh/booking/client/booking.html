@@ -258,6 +258,21 @@
             notes.value = '';
         }
 
+        function deleteBooking() {
+            var id = document.getElementById('id');
+
+             var booking = {
+                id: id.value
+            };
+
+            if (id != 0) {
+                sendPost("/deletebooking", JSON.stringify(booking), function(response) {
+                    loadBookings();
+                    newBooking();
+                });
+            }
+        }
+
         function ShowAllChange(value) {
             showall = value;
             loadBookingCombo();
@@ -314,6 +329,9 @@
                 <button id="newbutton" type="button" class="btn btn-primary" onclick="newBooking();">New</button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button id="savebutton" type="button" class="btn btn-success" onclick="saveBooking();">Save</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="deletebutton" type="button" class="btn btn-danger" onclick="deleteBooking();">Delete Booking</button>
             </td>
         </tr>
     </table>
