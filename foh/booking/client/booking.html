@@ -225,12 +225,14 @@
                 alert('Please enter name, date and number of people');
             } else {
                 sendPost("/updatebooking", JSON.stringify(booking), function(response) {
+                    var updatedbooking  = JSON.parse(response);
+
                     loadBookings();
                     bookinglist.selectedIndex = selectedIndex;
 
-                    if (response.result == 'success') {
+                    if (updatedbooking.result == 'success') {
                         var id = document.getElementById('id');
-                        id.value = response.id;
+                        id.value = updatedbooking.id;
                         alert('Saved!');
                     }  else {
                         alert('failed :-(');
