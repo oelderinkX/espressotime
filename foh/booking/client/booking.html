@@ -15,6 +15,28 @@
         var showall = false;
     </script>
     <script>
+        function clock() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var ampm = "am";
+            m = pad(m);
+
+            if (h > 11) {
+                ampm = "pm";
+            }
+
+            if (h > 12) {
+                h = h - 12;
+            }
+
+            document.getElementById('time').innerHTML = h + ":" + m + ' ' + ampm + ' &nbsp;&nbsp;&nbsp;&nbsp;';
+
+            t = setTimeout(function() {
+                clock()
+            }, 10000);
+        }
+
         function displayBooking(id) {
             for(var i = 0; i < bookings.length; i++) {
                 if (bookings[i].id == id) {
@@ -288,6 +310,9 @@
         <button id="rosterbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/foh_roster';"><span id="roster_icon" class="glyphicon glyphicon-th-list"></span> Roster</button>
         <button id="howbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/how';"><span id="help_icon" class="glyphicon glyphicon-info-sign"></span> Help</button>   
     </span>
+    <span style="float: right;">
+        <h1 id="time" class="text-right">00:00</h1>
+      </span>
     <h1>Bookings</h1>
     <table width="100%" border=0>
         <tr>
@@ -326,17 +351,19 @@
                 <textarea rows="5" style="width:100%; background-color:white; font-size:16px" id="notes"></textarea>
 
                 <br/>
-                <button id="newbutton" type="button" class="btn btn-primary" onclick="newBooking();">New</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button id="savebutton" type="button" class="btn btn-success" onclick="saveBooking();">Save</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button id="deletebutton" type="button" class="btn btn-danger" onclick="deleteBooking();">Delete Booking</button>
+                <table width="100%">
+                    <tr>
+                        <td><button id="newbutton" type="button" class="btn btn-primary" onclick="newBooking();">New</button></td>
+                        <td><button id="savebutton" type="button" class="btn btn-success" onclick="saveBooking();">Save</button></td>
+                        <td style="text-align: right;"><button id="deletebutton" type="button" class="btn btn-danger" onclick="deleteBooking();">Delete Booking</button></td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
 </body>
 <script>
+    clock();
     loadBookings();
 </script>
 </html>
