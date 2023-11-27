@@ -96,7 +96,7 @@ module.exports = function(app) {
         
 		var id = req.body.id;
 
-		sql = "delete espresso.booking";
+		sql = "delete from espresso.booking";
 		sql += " where shopid = $1 and id = $2";
 		values = [shopId, id];
 
