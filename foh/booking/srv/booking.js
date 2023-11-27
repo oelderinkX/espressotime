@@ -81,7 +81,9 @@ module.exports = function(app) {
 				done();
 			
 				if (result && result.rowCount == 1) {
-					id = result.rows[0].id;
+					if (id == 0) {
+						id = result.rows[0].id;
+					}
 				}
 
 				res.send({ result: 'success', id: id });
