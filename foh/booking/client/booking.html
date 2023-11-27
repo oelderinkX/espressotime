@@ -227,7 +227,15 @@
                 sendPost("/updatebooking", JSON.stringify(booking), function(response) {
                     loadBookings();
                     bookinglist.selectedIndex = selectedIndex;
-                    alert('Saved!');
+
+                    if (response.result == 'success') {
+                        var id = document.getElementById('id');
+                        id.value = response.id;
+                        alert('Saved!');
+                    }  else {
+                        alert('failed :-(');
+                    }
+                    
                 });
             }
         }

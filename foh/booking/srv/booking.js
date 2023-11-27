@@ -65,7 +65,7 @@ module.exports = function(app) {
         if (id == 0) {
             console.log('insert');
             sql = "insert into espresso.booking (shopid, name, datetime, pax, phone, notes)";
-            sql += " values ($1, $2, $3, $4, $5, $6)";
+            sql += " values ($1, $2, $3, $4, $5, $6) returning id";
             values = [shopId, name, datetime, pax, phone, notes];
         } else {
             console.log('update');
@@ -78,7 +78,11 @@ module.exports = function(app) {
 			connection.query(sql, values, function(err, result) {
 				done();
 			
-				res.send({ result: 'success' });
+				if (result && result.rowCount == 1) {
+					id = result.rows[0].id;
+				}
+
+				res.send({ result: 'success', id: id });
 			});
 		});
 	});
