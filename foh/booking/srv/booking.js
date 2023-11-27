@@ -98,7 +98,7 @@ module.exports = function(app) {
 
 		sql = "delete espresso.booking";
 		sql += " where shopid = $1 and id = $2";
-		values = [shopId, id, name, datetime, pax, phone, notes];
+		values = [shopId, id];
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
