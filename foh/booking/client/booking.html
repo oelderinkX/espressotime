@@ -66,7 +66,9 @@
         }
 
         function loadBookings() {
-            var request = {};
+            var dbdate = getDbFormat();
+            var request = { date: dbdate };
+            
             sendPost("/getbookings", JSON.stringify(request), function(response) {
                 bookings  = JSON.parse(response);
                 

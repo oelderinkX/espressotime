@@ -24,11 +24,12 @@ module.exports = function(app) {
 
 	app.post('/getbookings', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
+		var date = req.body.date;
 
-		var sql = "select id, name, datetime, pax, phone, notes from espresso.booking where shopid = $1 order by datetime desc limit 100;";
+		var sql = "select id, name, datetime, pax, phone, notes from espresso.booking where shopid = $1 and datetime >= $2  order by datetime desc limit 100;";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
+			connection.query(sql, [shopId, date], function(err, result) {
 				done();
 
 				var bookings = [];
