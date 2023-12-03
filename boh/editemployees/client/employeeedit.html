@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Employee</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script>
+        var employees = [];
+        var showall = false;
+    </script>
+    <script>
+        function displayEmployee(id) {
+            for(var i = 0; i < employees.length; i++) {
+                if (employees[i].id == id) {
+                    employee = employees[i];
+                    break;
+                }
+            }
+            
+            var id = document.getElementById('id');
+            id.value = employee.id;
+
+            var name = document.getElementById('name');
+            name.value = employee.name;
+
+            var contact = document.getElementById('contact');
+            contact.value = employee.contact;
+
+            var pin = document.getElementById('pin');
+            pin.value = employee.pin;
+
+            var ex = document.getElementById('ex');
+            ex.value = employee.ex;
+
+            var startdate = document.getElementById('statedate');
+            startdate.value = employee.start_date;
+
+            var enddate = document.getElementById('enddate');
+            enddate.value = employee.end_date;
+
+            var jobtitle = document.getElementById('jobtitle');
+            jobtitle.value = employee.job_title; // drop down index
+
+            var hourlyrate = document.getElementById('hourlyrate');
+            hourlyrate.value = employee.hourly_rate;
+        }
+
+        function loadEmployees() {
+            var request = { };
+            
+            sendPost("/getbookings", JSON.stringify(request), function(response) {
+                bookings  = JSON.parse(response);
+
+                bookings = bookings.sort((a, b) => {
+                    var n1 = a.datetime;
+                    var n2 = b.datetime;
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
+
+                loadEmployeeCombo();
+            });
+        }
+
+        function loadEmployeeCombo() {
+            var employeelist = document.getElementById('employeelist');
+
+            employeelist.innerHTML = '';
+
+            for(var i = 0; i < employees.length; i++) {
+                var employee = employees[i];
+
+                var button = document.createElement('button');
+                button.setAttribute('type', 'button');
+                button.setAttribute('class', 'list-group-item list-group-item-action');
+                button.setAttribute('onclick', 'displayEmployee(' + employee.id + ');');
+                button.style = "font-size:16px";
+                button.innerText = employee.name;
+
+                if (showall && employee.ex == true) {
+                    employeelist.appendChild(button);
+                } else {
+                    employeelist.appendChild(button);
+                }
+            }
+        }
+
+        function saveBooking() {
+            return;
+
+            /*
+            var bookinglist = document.getElementById('bookinglist');
+            var selectedIndex = bookinglist.selectedIndex;
+
+            var id = document.getElementById('id');
+            var name = document.getElementById('name');
+            var datetime = document.getElementById('datetime');
+            var pax = document.getElementById('pax');
+            var phone = document.getElementById('phone');
+            var notes = document.getElementById('notes');
+
+             var booking = {
+                id: id.value,
+                name: name.value,
+                datetime: datetime.value,
+                pax: pax.value,
+                phone: phone.value,
+                notes: notes.value
+            };
+
+            if (!name.value || !datetime.value || !pax.value) {
+                alert('Please enter name, date and number of people');
+            } else {
+                sendPost("/updatebooking", JSON.stringify(booking), function(response) {
+                    var updatedbooking  = JSON.parse(response);
+
+                    loadBookings();
+                    bookinglist.selectedIndex = selectedIndex;
+
+                    if (updatedbooking.result == 'success') {
+                        var id = document.getElementById('id');
+                        id.value = updatedbooking.id;
+                        alert('Saved!');
+                    }  else {
+                        alert('failed :-(');
+                    }
+                    
+                });
+            }*/
+        }
+
+        function newEmployee() {
+            var id = document.getElementById('id');
+            var name = document.getElementById('name');
+            var contact = document.getElementById('contact');
+            var pin = document.getElementById('pin');
+            var ex = document.getElementById('ex');
+            var startdate = document.getElementById('statedate');
+            var enddate = document.getElementById('enddate');
+            var jobtitle = document.getElementById('jobtitle');
+            var hourlyrate = document.getElementById('hourlyrate');
+
+            id.value = 0;
+            name.value = '';
+            contact.value = '';
+            pin.value = '';
+            ex.value = '';
+            startdate.value = '';
+            enddate.value = '';
+            jobtitle.value = '';
+            hourlyrate.value = 0;
+        }
+
+        function ShowAllChange(value) {
+            showall = value;
+            loadBookingCombo();
+        }
+    </script>
+</head>
+<html>
+<body>
+    <h1>Employee Edit</h1>
+    <table width="100%" border=0>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="400px">
+                <div>
+                    <input type="checkbox" id="showall" name="showall" onchange="ShowAllChange(this.checked)" />
+                    <label for="showall">Show all employees</label>
+                </div>
+                <br/>
+                <label id="alllabel" for="name">Employees:</label>
+                <div class="list-group" id="employeelist">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id" value="0"/>
+
+                <label id="namelabel" for="name">Name:</label>
+                <input id="name" type="text" class="form-control" style="font-size:16px" />
+
+                <label id="contactlabel" for="contact">Contact:</label>
+                <input id="contact" type="text" class="form-control" style="font-size:16px" />
+
+                <label id="pinlabel" for="contact">Pin:</label>
+                <input id="pin" type="text" maxlength="4" class="form-control" style="font-size:16px" />
+
+                <label id="statedatelabel" for="statedate">Start Date:</label>
+                <input id="statedate" type="date" class="form-control" style="font-size:16px" />
+
+                <label id="jobtitlelabel" for="jobtitle">Job Title:</label>
+                <select name="jobtitle" id="jobtitle">
+                    <option value=0>None</option>
+                </select>
+
+                <label id="hourlyratelabel" for="hourlyrate">Hourly Rate:</label>
+                <input id="hourlyrate" type="password" class="form-control" style="font-size:16px" />
+
+                <label id="exlabel" for="ex">Ex Employee:</label>
+                <input id="ex" type="checkbox" class="form-control" style="font-size:16px" />
+
+                <label id="enddatelabel" for="enddate">End Date:</label>
+                <input id="enddate" type="date" class="form-control" style="font-size:16px" />
+
+                <br/>
+                <table width="100%">
+                    <tr>
+                        <td><button id="newbutton" type="button" class="btn btn-primary" onclick="newEmployee();">New</button></td>
+                        <td><button id="savebutton" type="button" class="btn btn-success" onclick="saveEmployee();">Save</button></td>
+                        <td style="text-align: right;"><button id="deletebutton" type="button" class="btn btn-danger" onclick="alert('');">Set Ex</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    loadEmployees();
+</script>
+</html>
