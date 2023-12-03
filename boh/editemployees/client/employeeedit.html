@@ -52,12 +52,12 @@
         function loadEmployees() {
             var request = { };
             
-            sendPost("/getbookings", JSON.stringify(request), function(response) {
-                bookings  = JSON.parse(response);
+            sendPost("/admin_getemployees", JSON.stringify(request), function(response) {
+                employees  = JSON.parse(response);
 
-                bookings = bookings.sort((a, b) => {
-                    var n1 = a.datetime;
-                    var n2 = b.datetime;
+                employees = bookings.sort((a, b) => {
+                    var n1 = a.name;
+                    var n2 = b.name;
                     if (n1 > n2) {
                         return 1;
                     } else if (n1 < n2) {
@@ -186,26 +186,33 @@
 
                 <label id="namelabel" for="name">Name:</label>
                 <input id="name" type="text" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="contactlabel" for="contact">Contact:</label>
                 <input id="contact" type="text" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="pinlabel" for="contact">Pin:</label>
                 <input id="pin" type="text" maxlength="4" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="statedatelabel" for="statedate">Start Date:</label>
                 <input id="statedate" type="date" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="jobtitlelabel" for="jobtitle">Job Title:</label>
                 <select name="jobtitle" id="jobtitle">
                     <option value=0>None</option>
                 </select>
+                <br/>
 
                 <label id="hourlyratelabel" for="hourlyrate">Hourly Rate:</label>
                 <input id="hourlyrate" type="password" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="exlabel" for="ex">Ex Employee:</label>
                 <input id="ex" type="checkbox" class="form-control" style="font-size:16px" />
+                <br/>
 
                 <label id="enddatelabel" for="enddate">End Date:</label>
                 <input id="enddate" type="date" class="form-control" style="font-size:16px" />
@@ -214,8 +221,7 @@
                 <table width="100%">
                     <tr>
                         <td><button id="newbutton" type="button" class="btn btn-primary" onclick="newEmployee();">New</button></td>
-                        <td><button id="savebutton" type="button" class="btn btn-success" onclick="saveEmployee();">Save</button></td>
-                        <td style="text-align: right;"><button id="deletebutton" type="button" class="btn btn-danger" onclick="alert('');">Set Ex</button></td>
+                        <td style="text-align: right;"><button id="savebutton" type="button" class="btn btn-success" onclick="saveEmployee();">Save</button></td>
                     </tr>
                 </table>
             </td>

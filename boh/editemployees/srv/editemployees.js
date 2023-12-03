@@ -42,7 +42,7 @@ module.exports = function(app) {
 			filterEx = ' and ex = false';
 		}
 
-		var sql = 'SELECT id, name, contact, pin, ex from espresso.employee where shopid = $1' + filterEx + ' order by name;'
+		var sql = 'SELECT id, name, contact, pin, ex, start_date, end_date, job_title, hourly_rate from espresso.employee where shopid = $1' + filterEx + ' order by name;'
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -57,6 +57,10 @@ module.exports = function(app) {
 											contact: result.rows[i].contact,
 											pin: result.rows[i].pin,
 											ex: result.rows[i].ex,
+											start_date: result.rows[i].start_date,
+											end_date: result.rows[i].end_date,
+											job_title: result.rows[i].job_title,
+											hourly_rate: result.rows[i].hourly_rate,
 										});
 					}
 				}
