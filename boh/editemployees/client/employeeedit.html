@@ -34,7 +34,7 @@
             pin.value = employee.pin;
 
             var ex = document.getElementById('ex');
-            ex.value = employee.ex;
+            ex.checked = employee.ex;
 
             var startdate = document.getElementById('statedate');
             startdate.value = employee.start_date;
@@ -83,7 +83,12 @@
                 button.setAttribute('type', 'button');
                 button.setAttribute('class', 'list-group-item list-group-item-action');
                 button.setAttribute('onclick', 'displayEmployee(' + employee.id + ');');
-                button.style = "font-size:16px";
+
+                if (employee.ex == true) {
+                    button.style = "background-color: #e7e7e7; color: black; font-size:14px"
+                } else {
+                    button.style = "font-size:14px";
+                }
                 button.innerText = employee.name;
 
                 if (showall) {
@@ -153,7 +158,7 @@
             name.value = '';
             contact.value = '';
             pin.value = '';
-            ex.value = '';
+            ex.checked = false;
             startdate.value = '';
             enddate.value = '';
             jobtitle.value = '';
@@ -184,6 +189,9 @@
             <td style="vertical-align:top;padding: 15px">
                 <input type="hidden" id="id" value="0"/>
 
+                <br/>
+                <br/>
+                <br/>
                 <label id="namelabel" for="name">Name:</label>
                 <input id="name" type="text" class="form-control" style="font-size:16px" />
                 <br/>
