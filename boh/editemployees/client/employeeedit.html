@@ -86,9 +86,9 @@
                 button.style = "font-size:16px";
                 button.innerText = employee.name;
 
-                if (showall && employee.ex == true) {
+                if (showall) {
                     employeelist.appendChild(button);
-                } else {
+                } else if (employee.ex == false) {
                     employeelist.appendChild(button);
                 }
             }
@@ -162,7 +162,7 @@
 
         function ShowAllChange(value) {
             showall = value;
-            loadBookingCombo();
+            loadEmployeeCombo();
         }
     </script>
 </head>
