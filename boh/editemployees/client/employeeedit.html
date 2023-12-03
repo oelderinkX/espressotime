@@ -55,7 +55,7 @@
             sendPost("/admin_getemployees", JSON.stringify(request), function(response) {
                 employees  = JSON.parse(response);
 
-                employees = bookings.sort((a, b) => {
+                employees = employees.sort((a, b) => {
                     var n1 = a.name;
                     var n2 = b.name;
                     if (n1 > n2) {
