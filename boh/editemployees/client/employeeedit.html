@@ -46,10 +46,11 @@
             jobtitle.innerHTML = '';
 
             for(var i = 0; i < roles.length; i++) {
-                    var roleoption = document.createElement('option');
-                    roleoption.value = role.id;
-                    roleoption.innerText = role.name;
-                    jobtitle.appendChild(roleoption);
+                var role = roles[i];
+                var roleoption = document.createElement('option');
+                roleoption.value = role.id;
+                roleoption.innerText = role.name;
+                jobtitle.appendChild(roleoption);
             }
             jobtitle.text = employee.job_title;
 
