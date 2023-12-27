@@ -132,7 +132,7 @@
                     var updatedemployee  = JSON.parse(response);
 
                     loadEmployees();
-                    bookinglist.selectedIndex = selectedIndex;
+                    employeelist.selectedIndex = selectedIndex;
 
                     if (updatedemployee.result == 'success') {
                         var id = document.getElementById('id');
