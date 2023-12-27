@@ -103,14 +103,14 @@ module.exports = function(app) {
         if (id == 0) {
             console.log('insert');
 			console.log(id);
-            sql = "INSERT INTO espresso.employee (shopId, name, contact, pin, ex, startdate, enddate, jobtitle, hourlyrate)";
+            sql = "INSERT INTO espresso.employee (shopId, name, contact, pin, ex, start_date, end_date, job_title, hourly_rate)";
             sql += " values ($1, $2, $3, $4, $5, $6, $7, $8, $9) returning id";
             values = [shopId, name, contact, pin, ex, startdate, enddate, jobtitle, hourlyrate];
         } else {
             console.log('update');
 			console.log(id);
             sql = "UPDATE espresso.employee SET name = $3, contact = $4, pin = $5, ex = $6,";
-			sql += " startdate = $7, enddate = $8, jobtitle = $9, hourlyrate = $10";
+			sql += " start_date = $7, end_date = $8, job_title = $9, hourly_rate = $10";
             sql += " WHERE id = $2 and shopid = $1";
             values = [shopId, id, name, contact, pin, ex, startdate, enddate, jobtitle, hourlyrate];
         }
