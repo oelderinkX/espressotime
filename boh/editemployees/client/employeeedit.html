@@ -122,7 +122,7 @@
                 startdate: startdate.valueAsDate,
                 enddate: enddate.valueAsDate,
                 jobtitle: jobtitle.value,
-                hourlyrate: hourlyrate.value
+                hourlyrate: parseInt(hourlyrate.value)
             };
 
             if (!name.value || !jobtitle.value) {
