@@ -109,7 +109,7 @@ module.exports = function(app) {
         } else {
             console.log('update');
 			console.log(id);
-            sql = "UPDATE espresso.employee SET name = $3, contact = $4, pin = $5, ex = $6";
+            sql = "UPDATE espresso.employee SET name = $3, contact = $4, pin = $5, ex = $6,";
 			sql += " startdate = $7, enddate = $8, jobtitle = $9, hourlyrate = $10";
             sql += " WHERE id = $2 and shopid = $1";
             values = [shopId, id, name, contact, pin, ex, startdate, enddate, jobtitle, hourlyrate];
