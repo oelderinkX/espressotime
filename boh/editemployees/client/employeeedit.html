@@ -43,7 +43,15 @@
             enddate.value = employee.end_date;
 
             var jobtitle = document.getElementById('jobtitle');
-            jobtitle.value = employee.job_title; // drop down index
+            jobtitle.innerHTML = '';
+
+            for(var i = 0; i < roles.length; i++) {
+                    var roleoption = document.createElement('option');
+                    roleoption.value = role.id;
+                    roleoption.innerText = role.name;
+                    jobtitle.appendChild(roleoption);
+            }
+            jobtitle.text = employee.job_title;
 
             var hourlyrate = document.getElementById('hourlyrate');
             hourlyrate.value = employee.hourly_rate;
@@ -67,7 +75,27 @@
                     }
                 });
 
-                loadEmployeeCombo();
+                var request = {};
+                sendPost("/getroles", JSON.stringify(request), function(response) {
+                    roles  = JSON.parse(response);
+
+                    roles = roles.sort((a, b) => {
+                        var n1 = a.name.toUpperCase();
+                        var n2 = b.name.toUpperCase();
+                        if (n1 > n2) {
+                            return 1;
+                        } else if (n1 < n2) {
+                            return - 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+
+                    loadEmployeeCombo();
+                });
+
+
+
             });
         }
 
@@ -121,7 +149,7 @@
                 ex: ex.checked,
                 startdate: startdate.valueAsDate,
                 enddate: enddate.valueAsDate,
-                jobtitle: jobtitle.value,
+                jobtitle: jobtitle.options[jobtitle.selectedIndex].text,
                 hourlyrate: parseInt(hourlyrate.value)
             };
 
@@ -212,7 +240,6 @@
 
                 <label id="jobtitlelabel" for="jobtitle">Job Title:</label>
                 <select name="jobtitle" id="jobtitle">
-                    <option value=0>None</option>
                 </select>
                 <br/>
 
