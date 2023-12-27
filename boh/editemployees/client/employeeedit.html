@@ -99,48 +99,50 @@
             }
         }
 
-        function saveBooking() {
-            return;
-
-            /*
-            var bookinglist = document.getElementById('bookinglist');
-            var selectedIndex = bookinglist.selectedIndex;
+        function saveEmployee() {
+            var employeelist = document.getElementById('employeelist');
+            var selectedIndex = employeelist.selectedIndex;
 
             var id = document.getElementById('id');
             var name = document.getElementById('name');
-            var datetime = document.getElementById('datetime');
-            var pax = document.getElementById('pax');
-            var phone = document.getElementById('phone');
-            var notes = document.getElementById('notes');
+            var contact = document.getElementById('contact');
+            var pin = document.getElementById('pin');
+            var ex = document.getElementById('ex');
+            var startdate = document.getElementById('statedate');
+            var enddate = document.getElementById('enddate');
+            var jobtitle = document.getElementById('jobtitle');
+            var hourlyrate = document.getElementById('hourlyrate');
 
-             var booking = {
+             var employee = {
                 id: id.value,
                 name: name.value,
-                datetime: datetime.value,
-                pax: pax.value,
-                phone: phone.value,
-                notes: notes.value
+                contact: contact.value,
+                pin: pin.value,
+                ex: ex.checked,
+                startdate: startdate.value,
+                enddate: enddate.value,
+                jobtitle: jobtitle.value,
+                hourlyrate: hourlyrate.value,
             };
 
-            if (!name.value || !datetime.value || !pax.value) {
-                alert('Please enter name, date and number of people');
+            if (!name.value || !jobtitle.value) {
+                alert('Please enter name and jobtitle');
             } else {
-                sendPost("/updatebooking", JSON.stringify(booking), function(response) {
-                    var updatedbooking  = JSON.parse(response);
+                sendPost("/updateemployee", JSON.stringify(employee), function(response) {
+                    var updatedemployee  = JSON.parse(response);
 
-                    loadBookings();
+                    loadEmployees();
                     bookinglist.selectedIndex = selectedIndex;
 
-                    if (updatedbooking.result == 'success') {
+                    if (updatedemployee.result == 'success') {
                         var id = document.getElementById('id');
-                        id.value = updatedbooking.id;
+                        id.value = updatedemployee.id;
                         alert('Saved!');
                     }  else {
                         alert('failed :-(');
                     }
-                    
                 });
-            }*/
+            }
         }
 
         function newEmployee() {
