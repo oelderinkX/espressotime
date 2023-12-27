@@ -9,27 +9,16 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
-	var employeeListEditPage = fs.readFileSync(__dirname + "/../client/employeelistedit.html", "utf8");
-	var employeeListEditPage2 = fs.readFileSync(__dirname + "/../client/employeeedit.html", "utf8");
+	var employeeListEditPage = fs.readFileSync(__dirname + "/../client/employeeedit.html", "utf8");
 	app.use('/scripts/editemployees.js', express.static(__dirname + '/../client/editemployees.js'));
 
-	app.get('/employeelistedit', urlencodedParser, function(req, res) {
+	app.get('/employeeedit', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
 			res.send(employeeListEditPage);
 		} else {
-			res.redirect(common.getLoginUrl('/employeelistedit'));
-		}
-	});	
-
-	app.get('/employeelistedit2', urlencodedParser, function(req, res) {
-		var shopid = common.getShopId(req.cookies['identifier']);
-		
-		if (shopid && shopid != -1) {
-			res.send(employeeListEditPage2);
-		} else {
-			res.redirect(common.getLoginUrl('/employeelistedit2'));
+			res.redirect(common.getLoginUrl('/employeeedit'));
 		}
 	});	
 
