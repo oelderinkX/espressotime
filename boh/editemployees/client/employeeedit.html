@@ -50,6 +50,11 @@
                 var roleoption = document.createElement('option');
                 roleoption.value = role.id;
                 roleoption.innerText = role.name;
+
+                if (role.id == employee.job_title) {
+                    roleoption.selected = true;
+                }
+
                 jobtitle.appendChild(roleoption);
             }
             jobtitle.text = employee.job_title;
