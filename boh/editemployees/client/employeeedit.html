@@ -113,16 +113,16 @@
             var jobtitle = document.getElementById('jobtitle');
             var hourlyrate = document.getElementById('hourlyrate');
 
-             var employee = {
+            var employee = {
                 id: id.value,
                 name: name.value,
                 contact: contact.value,
                 pin: pin.value,
                 ex: ex.checked,
-                startdate: startdate.value,
-                enddate: enddate.value,
+                startdate: startdate.valueAsDate,
+                enddate: enddate.valueAsDate,
                 jobtitle: jobtitle.value,
-                hourlyrate: hourlyrate.value,
+                hourlyrate: hourlyrate.value
             };
 
             if (!name.value || !jobtitle.value) {
