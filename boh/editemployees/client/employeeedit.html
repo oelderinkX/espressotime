@@ -44,7 +44,6 @@
                 startdate.value = "";
             }
 
-
             var enddate = document.getElementById('enddate');
             if (employee.end_date) {
                 var employee_end_date = new Date(employee.end_date);
@@ -71,7 +70,11 @@
                     jobtitle.appendChild(roleoption);
                 }
             }
-            jobtitle.text = employee.job_title;
+            if (employee.job_title) {
+                jobtitle.text = employee.job_title;
+            } else {
+                jobtitle.value = -1;
+            }
 
             var hourlyrate = document.getElementById('hourlyrate');
             hourlyrate.value = employee.hourly_rate;
