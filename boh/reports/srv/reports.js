@@ -15,40 +15,6 @@ var table = fs.readFileSync(__dirname + "/../client/table.html", "utf8");
 var labelsPage = fs.readFileSync(__dirname + "/../client/labels.html", "utf8");
 var reportsPage = fs.readFileSync(__dirname + "/../client/reports.html", "utf8");
 
-module.exports = function(app) {
-	app.use('/scripts/reports.js', express.static(__dirname + '/../client/reports.js'));
-
-	app.get('/reports', urlencodedParser, function(req, res) {
-		var shopid = common.getShopId(req.cookies['identifier']);
-		
-		if (shopid && shopid != -1) {
-			res.send(reportsPage);
-		} else {
-			res.redirect(common.getLoginUrl('/reports'));
-		}
-	});	
-
-	app.post('/runreport', urlencodedParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']);
-		var request = req.body.request;
-		var report = JSON.parse(request);
-
-		if (report.id == 'assetreport') {
-			reports.AssetReport(res, shopId)
-		} else if (report.id == 'dailytasks') {
-			reports.DailyTasks(res, shopId, report.start, report.end)
-		} else if (report.id == 'feedback') {
-			reports.FeedbackReport(res, shopId, report.start, report.end)
-		} else if (report.id == 'labels') {
-			reports.LabelsReport(res, shopId)
-		} else if (report.id == 'customlabel') {
-			reports.CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
-		} else {
-			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
-		}
-	});
-};
-
 function CustomLabelsReport(res, name, description, price, specials) {
 	var response = labelsPage;
 
@@ -392,3 +358,37 @@ function FeedbackReport(res, shopId, start, end) {
 	});
 }
 module.exports.FeedbackReport = FeedbackReport;
+
+module.exports = function(app) {
+	app.use('/scripts/reports.js', express.static(__dirname + '/../client/reports.js'));
+
+	app.get('/reports', urlencodedParser, function(req, res) {
+		var shopid = common.getShopId(req.cookies['identifier']);
+		
+		if (shopid && shopid != -1) {
+			res.send(reportsPage);
+		} else {
+			res.redirect(common.getLoginUrl('/reports'));
+		}
+	});	
+
+	app.post('/runreport', urlencodedParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var request = req.body.request;
+		var report = JSON.parse(request);
+
+		if (report.id == 'assetreport') {
+			reports.AssetReport(res, shopId)
+		} else if (report.id == 'dailytasks') {
+			reports.DailyTasks(res, shopId, report.start, report.end)
+		} else if (report.id == 'feedback') {
+			reports.FeedbackReport(res, shopId, report.start, report.end)
+		} else if (report.id == 'labels') {
+			reports.LabelsReport(res, shopId)
+		} else if (report.id == 'customlabel') {
+			reports.CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
+		} else {
+			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
+		}
+	});
+};
