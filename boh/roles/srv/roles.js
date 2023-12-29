@@ -29,7 +29,7 @@ module.exports = function(app) {
 	app.post('/getroles', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		
-		var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
+		var sql = 'select id, name, colour, textcolour, rights, isjob from espresso.role where shopid = $1 order by id'
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -49,7 +49,8 @@ module.exports = function(app) {
 									 name: result.rows[i].name,
                                      colour: result.rows[i].colour,
                                      textcolour: result.rows[i].textcolour,
-                                     rights: result.rows[i].rights
+                                     rights: result.rows[i].rights,
+									 isjob: result.rows[i].isjob
 						});
 					}
 				}
@@ -66,22 +67,23 @@ module.exports = function(app) {
         var colour = req.body.colour;
 		var textcolour = req.body.textcolour;
 		var rights = req.body.rights;
+		var isjob = req.body.isjob;
 
-        var sql = 'select id, name, colour, textcolour, rights from espresso.role where shopid = $1 order by id'
+        var sql = 'select id, name, colour, textcolour, rights, isjob from espresso.role where shopid = $1 order by id'
 
         var values = [];
 
         if (id == -1) {
             console.log('insert');
-            sql = "insert into espresso.role (shopid, name, colour, textcolour, rights)";
-            sql += " values ($1, $2, $3, $4, $5)";
+            sql = "insert into espresso.role (shopid, name, colour, textcolour, rights, isjob)";
+            sql += " values ($1, $2, $3, $4, $5, $6)";
 			sql += " RETURNING id;";
-            values = [shopId, name, colour, textcolour, rights];
+            values = [shopId, name, colour, textcolour, rights, isjob];
         } else if (id > 0) {
             console.log('update');
-            sql = "update espresso.role set name = $3, colour = $4, textcolour = $5, rights = $6 ";
+            sql = "update espresso.role set name = $3, colour = $4, textcolour = $5, rights = $6, isjob = $7";
             sql += " where shopid = $1 and id = $2";
-            values = [shopId, id, name, colour, textcolour, rights];
+            values = [shopId, id, name, colour, textcolour, rights, isjob];
         }
 
 		pool.connect(function(err, connection, done) {

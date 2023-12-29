@@ -91,11 +91,13 @@ function addnew() {
     var name = document.getElementById('roleinput');
     var colour = document.getElementById('colourinput');
     var textcolour = document.getElementById('textcolourinput');
+    var isjob = document.getElementById('isjob');
 
     id.value = -1;
     name.value = 'New Role';
     colour.value = '#FFFFFF';
     textcolour.value = '#000000';
+    isjob.checked = false;
 
     showExample();
 }
@@ -105,12 +107,14 @@ function save() {
     var name = document.getElementById('roleinput');
     var colour = document.getElementById('colourinput');
     var textcolour = document.getElementById('textcolourinput');
+    var isjob = document.getElementById('isjob');
 
     var role = {
         id: id.value,
         name: name.value,
         colour: colour.value,
         textcolour: textcolour.value,
+        isjob: isjob.checked,
         rights: 0
     };
 
