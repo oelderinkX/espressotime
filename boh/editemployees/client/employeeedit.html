@@ -36,16 +36,21 @@
             var ex = document.getElementById('ex');
             ex.checked = employee.ex;
 
+            var startdate = document.getElementById('statedate');
             if (employee.start_date) {
-                var startdate = document.getElementById('statedate');
                 var employee_start_date = new Date(employee.start_date);
                 startdate.value = getDbFormat(employee_start_date);
+            } else {
+                startdate.value = "";
             }
 
+
+            var enddate = document.getElementById('enddate');
             if (employee.end_date) {
-                var enddate = document.getElementById('enddate');
                 var employee_end_date = new Date(employee.end_date);
                 enddate.value = getDbFormat(employee_end_date);
+            } else {
+                enddate.value = "";
             }
 
             var jobtitle = document.getElementById('jobtitle');
