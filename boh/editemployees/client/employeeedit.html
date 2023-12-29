@@ -147,11 +147,17 @@
             var jobtitle = document.getElementById('jobtitle');
             var hourlyrate = document.getElementById('hourlyrate');
 
-            var newStartDate = new Date();
-            newStartDate.setDate(startdate.valueAsDate);
+            var newStartDate;
+            if (start.value != "")
+            {
+                newStartDate = start.value;
+            }
 
-            var newEndDate = new Date();
-            newEndDate.setDate(enddate.valueAsDate);
+            var newEndDate;
+            if (enddate.value != "")
+            {
+                newEndDate = enddate.value;
+            }
 
             var employee = {
                 id: id.value,
@@ -159,8 +165,8 @@
                 contact: contact.value,
                 pin: pin.value,
                 ex: ex.checked,
-                startdate: getDbFormat(newStartDate),
-                enddate: getDbFormat(newEndDate),
+                startdate: newStartDate,
+                enddate: newEndDate,
                 jobtitle: jobtitle.value,
                 hourlyrate: parseInt(hourlyrate.value)
             };
