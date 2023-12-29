@@ -24,6 +24,9 @@ function displayRole(id) {
     var name = document.getElementById('roleinput');
     name.value = role.name;
 
+    var isjob = document.getElementById('isjob');
+    isjob.checked = role.isjob;
+
     var colour = document.getElementById('colourinput');
     colour.value = role.colour;
 
