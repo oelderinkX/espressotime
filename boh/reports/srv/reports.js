@@ -378,15 +378,15 @@ module.exports = function(app) {
 		var report = JSON.parse(request);
 
 		if (report.id == 'assetreport') {
-			reports.AssetReport(res, shopId)
+			AssetReport(res, shopId)
 		} else if (report.id == 'dailytasks') {
-			reports.DailyTasks(res, shopId, report.start, report.end)
+			DailyTasks(res, shopId, report.start, report.end)
 		} else if (report.id == 'feedback') {
-			reports.FeedbackReport(res, shopId, report.start, report.end)
+			FeedbackReport(res, shopId, report.start, report.end)
 		} else if (report.id == 'labels') {
-			reports.LabelsReport(res, shopId)
+			LabelsReport(res, shopId)
 		} else if (report.id == 'customlabel') {
-			reports.CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
+			CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}
