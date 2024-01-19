@@ -55,21 +55,8 @@
             var jobtitle = document.getElementById('jobtitle');
             jobtitle.innerHTML = '';
 
-            for(var i = 0; i < roles.length; i++) {
-                var role = roles[i];
+            loadJobTitleCombo();
 
-                if (role.isjob) {
-                    var roleoption = document.createElement('option');
-                    roleoption.value = role.id;
-                    roleoption.innerText = role.name;
-
-                    if (role.id == employee.job_title) {
-                        roleoption.selected = true;
-                    }
-
-                    jobtitle.appendChild(roleoption);
-                }
-            }
             if (employee.job_title) {
                 jobtitle.text = employee.job_title;
             } else {
@@ -208,6 +195,28 @@
             }
         }
 
+        function loadJobTitleCombo()
+        {
+            var jobtitle = document.getElementById('jobtitle');
+            jobtitle.innerHTML = '';
+
+            for(var i = 0; i < roles.length; i++) {
+                var role = roles[i];
+
+                if (role.isjob) {
+                    var roleoption = document.createElement('option');
+                    roleoption.value = role.id;
+                    roleoption.innerText = role.name;
+
+                    if (role.id == employee.job_title) {
+                        roleoption.selected = true;
+                    }
+
+                    jobtitle.appendChild(roleoption);
+                }
+            }
+        }
+
         function newEmployee() {
             var id = document.getElementById('id');
             var name = document.getElementById('name');
@@ -228,6 +237,8 @@
             enddate.value = '';
             jobtitle.value = '';
             hourlyrate.value = 0;
+
+            loadJobTitleCombo();
         }
 
         function ShowAllChange(value) {
@@ -306,5 +317,6 @@
 </body>
 <script>
     loadEmployees();
+    newEmployee();
 </script>
 </html>
