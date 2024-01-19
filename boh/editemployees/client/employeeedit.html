@@ -102,6 +102,7 @@
                     });
 
                     loadEmployeeCombo();
+                    newEmployee();
                 });
 
 
@@ -165,7 +166,7 @@
 
             var employee = {
                 id: id.value,
-                name: name.value,
+                name: name.value.trimEnd(),
                 contact: contact.value,
                 pin: pin.value,
                 ex: ex.checked,
@@ -317,6 +318,5 @@
 </body>
 <script>
     loadEmployees();
-    newEmployee();
 </script>
 </html>
