@@ -55,7 +55,7 @@
             var jobtitle = document.getElementById('jobtitle');
             jobtitle.innerHTML = '';
 
-            loadJobTitleCombo();
+            loadJobTitleCombo(employee.job_title);
 
             if (employee.job_title) {
                 jobtitle.text = employee.job_title;
@@ -196,7 +196,7 @@
             }
         }
 
-        function loadJobTitleCombo()
+        function loadJobTitleCombo(employee_job_title)
         {
             var jobtitle = document.getElementById('jobtitle');
             jobtitle.innerHTML = '';
@@ -209,7 +209,7 @@
                     roleoption.value = role.id;
                     roleoption.innerText = role.name;
 
-                    if (role.id == employee.job_title) {
+                    if (employee_job_title && role.id == employee_job_title) {
                         roleoption.selected = true;
                     }
 
