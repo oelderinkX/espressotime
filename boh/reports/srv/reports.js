@@ -359,6 +359,68 @@ function FeedbackReport(res, shopId, start, end) {
 }
 module.exports.FeedbackReport = FeedbackReport;
 
+function EmployeeReport(res, shopId, employeeid) {
+	var response = table;
+
+	var sql = "select espresso.employee.name, espresso.employee.start_date, espresso.role.name as role from espresso.employee";
+	sql += " join espresso.role on espresso.role.id = espresso.employee.job_title"
+	sql += " where espresso.employee.id = $2 and espresso.employee.shopid = = $1"
+
+	pool.connect(function(err, connection, done) {
+		connection.query(sql, [employeeid, shopId], function(err, result) {
+			done();
+
+			if (result && result.rowCount == 1) {
+				var name = result.rows[0].name;
+				var start_date = result.rows[0].start_date;
+				var role = result.rows[0].role;
+
+				sql = "select employeeid, starttime, finishtime, abs(EXTRACT(EPOCH FROM (finishtime-starttime))/3600) as hours";
+				sql += " from espresso.start_finish where employeeid = $1 order by starttime"
+
+				pool.connect(function(err, connection, done) {
+					connection.query(tasksql, [employeeid], function(err, result) {
+						done();
+
+						if (result && result.rowCount > 0) {
+							var first_date_of_work = result.rows[0].starttime;
+							var totalhours = 0;
+
+							for(var i = 0; i < result.rowCount; i++) {
+								totalhours += result.rows[i].hours;
+							}
+
+							var headings = '<th scope="col">Name</th>\n';
+							headings += '<th scope="col">Job Title</th>\n';
+							headings += '<th scope="col">Employment Start Date</th>\n';
+							headings += '<th scope="col">First Day of Work</th>\n';
+							headings += '<th scope="col">Total Hours</th>\n';
+
+
+							var rows = '';
+							rows += '<tr>\n';
+							rows += '<td>' + name + '</td>\n';
+							rows += '<td>' + role + '</td>\n';
+							rows += '<td>' + start_date + '</td>\n';
+							rows += '<td>' + first_date_of_work + '</td>\n';
+							rows += '<td>' + totalhours + '</td>\n';
+
+							rows += ' </tr>\n';
+						}
+						
+						response = common.replaceAll(response, '!%REPORTNAME%!', 'Employee Report');
+						response = common.replaceAll(response, '!%HEADINGS%!', headings);
+						response = common.replaceAll(response, '!%ROWS%!', rows);
+			
+						res.send(response);
+					});
+				});
+			}
+		});
+	});
+}
+module.exports.EmployeeReport = EmployeeReport;
+
 module.exports = function(app) {
 	app.use('/scripts/reports.js', express.static(__dirname + '/../client/reports.js'));
 
@@ -387,6 +449,8 @@ module.exports = function(app) {
 			LabelsReport(res, shopId)
 		} else if (report.id == 'customlabel') {
 			CustomLabelsReport(res, report.name, report.description, report.price, report.specials);
+		} else if (report.id == 'employeereport') {
+			EmployeeReport(res, shopId, report.employee);
 		} else {
 			res.send('<html><body>Report function not found: ' + report.id + '</body></html>');
 		}

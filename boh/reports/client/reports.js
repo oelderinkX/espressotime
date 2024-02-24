@@ -1,3 +1,5 @@
+var employees = [];
+
 var reports = [
     {
         name: "Daily Tasks",
@@ -69,6 +71,18 @@ var reports = [
                 name: "Specials",
                 id: "specials",
                 type: "text"
+            }
+        ]
+    },
+    {
+        name: "Employee Report",
+        id: "employeereport",
+        description: "Details about an employee",
+        parameters: [
+            {
+                name: "Employee",
+                id: "employee",
+                type: "employee"
             }
         ]
     }
@@ -143,6 +157,13 @@ function displayReport() {
             textarea.setAttribute('id', id);
             textarea.classList.add('form-control');
             reportArea.appendChild(textarea);
+        } else if (type == 'employee') {
+            var select = document.createElement('select');
+            for(var x = 0; x < employees.length; x++) {
+                var option = document.createElement('option');
+                select.appendChild(option);
+            }
+            reportArea.appendChild(select);
         } else {
             var input = document.createElement('input');
             input.setAttribute('type', type);
