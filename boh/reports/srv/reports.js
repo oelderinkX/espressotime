@@ -370,6 +370,8 @@ function EmployeeReport(res, shopId, employeeid) {
 		connection.query(sql, [employeeid, shopId], function(err, result) {
 			done();
 
+			console.log(result);
+
 			if (result && result.rowCount == 1) {
 				var name = result.rows[0].name;
 				var start_date = result.rows[0].start_date;
@@ -381,6 +383,8 @@ function EmployeeReport(res, shopId, employeeid) {
 				pool.connect(function(err, connection, done) {
 					connection.query(tasksql, [employeeid], function(err, result) {
 						done();
+
+						console.log(result);
 
 						if (result && result.rowCount > 0) {
 							var first_date_of_work = result.rows[0].starttime;
@@ -438,6 +442,9 @@ module.exports = function(app) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var request = req.body.request;
 		var report = JSON.parse(request);
+
+		console.log(request);
+		console.log(report);
 
 		if (report.id == 'assetreport') {
 			AssetReport(res, shopId)
