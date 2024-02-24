@@ -367,7 +367,7 @@ function EmployeeReport(res, shopId, employeeid) {
 	sql += " where espresso.employee.id = $2 and espresso.employee.shopid = = $1"
 
 	pool.connect(function(err, connection, done) {
-		connection.query(sql, [employeeid, shopId], function(err, result) {
+		connection.query(sql, [shopId, employeeid], function(err, result) {
 			done();
 
 			console.log(result);
