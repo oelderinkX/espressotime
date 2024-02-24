@@ -204,12 +204,9 @@ function runReport() {
 
         var element = document.getElementById(param_id);
 
-        if (type == 'employee')
-        {
+        if (param_type == 'employee') {
             request[param_id]= element.value;
-        }
-        else
-        {
+        } else {
             request[param_id] = element.value;
         }
     }
