@@ -102,16 +102,20 @@ var reports = [
 */
 
 function loadReport() {
-    var reportselect = document.getElementById('reportselect');
-    reportselect.innerHTML = '';
+    sendPost("/admin_getemployees", '{ "showEx": ' + false + ' }', function(response) {
+        employees = JSON.parse(response);
 
-    for(var i = 0; i < reports.length; i++) {
-        var report = reports[i];
-        var option = document.createElement('option');
-        option.setAttribute('value', report.id);
-        option.innerHTML = report.name;
-        reportselect.appendChild(option);
-    } 
+        var reportselect = document.getElementById('reportselect');
+        reportselect.innerHTML = '';
+
+        for(var i = 0; i < reports.length; i++) {
+            var report = reports[i];
+            var option = document.createElement('option');
+            option.setAttribute('value', report.id);
+            option.innerHTML = report.name;
+            reportselect.appendChild(option);
+        } 
+    }
 }
 
 function getReport(id) {
@@ -149,8 +153,7 @@ function displayReport() {
         label.innerHTML = name + ':';
         reportArea.appendChild(label);
 
-        if (type == 'textarea')
-        {
+        if (type == 'textarea') {
             var textarea = document.createElement('textarea');
             textarea.setAttribute('rows', 3);
             textarea.setAttribute('cols', 30);
@@ -159,8 +162,11 @@ function displayReport() {
             reportArea.appendChild(textarea);
         } else if (type == 'employee') {
             var select = document.createElement('select');
+            select.setAttribute('id', 'employee');
             for(var x = 0; x < employees.length; x++) {
                 var option = document.createElement('option');
+                option.setAttribute('value', employees[x].id);
+                option.innerHTML = employees[x].name;
                 select.appendChild(option);
             }
             reportArea.appendChild(select);
@@ -197,7 +203,15 @@ function runReport() {
         var param_id = report.parameters[i].id;
 
         var element = document.getElementById(param_id);
-        request[param_id] = element.value; // if this is a checkbox might need to get .checked!
+
+        if (type == 'employee')
+        {
+            request[param_id]= element.value;
+        }
+        else
+        {
+            request[param_id] = element.value;
+        }
     }
 
     let windowName = report.id + '_' + Date.now() + Math.floor(Math.random() * 100000).toString();
