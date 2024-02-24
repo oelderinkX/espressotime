@@ -392,7 +392,7 @@ function EmployeeReport(res, shopId, employeeid) {
 							var totalhours = 0;
 
 							for(var i = 0; i < result.rowCount; i++) {
-								totalhours += result.rows[i].hours;
+								totalhours += parseFloat(result.rows[i].hours);
 							}
 
 							var headings = '<th scope="col">Name</th>\n';
@@ -406,9 +406,9 @@ function EmployeeReport(res, shopId, employeeid) {
 							rows += '<tr>\n';
 							rows += '<td>' + name + '</td>\n';
 							rows += '<td>' + role + '</td>\n';
-							rows += '<td>' + start_date + '</td>\n';
-							rows += '<td>' + first_date_of_work + '</td>\n';
-							rows += '<td>' + totalhours + '</td>\n';
+							rows += '<td>' + getDbFormat(start_date) + '</td>\n';
+							rows += '<td>' + getDbFormat(first_date_of_work) + '</td>\n';
+							rows += '<td>' + parseInt(totalhours) + '</td>\n';
 
 							rows += ' </tr>\n';
 						}
