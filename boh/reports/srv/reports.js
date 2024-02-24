@@ -370,7 +370,8 @@ function EmployeeReport(res, shopId, employeeid) {
 		connection.query(sql, [shopId, employeeid], function(err, result) {
 			done();
 
-			console.log(result);
+			console.log('result1' + result);
+			console.log('err1' + err);
 
 			if (result && result.rowCount == 1) {
 				var name = result.rows[0].name;
