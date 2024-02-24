@@ -364,7 +364,7 @@ function EmployeeReport(res, shopId, employeeid) {
 
 	var sql = "select espresso.employee.name, espresso.employee.start_date, espresso.role.name as role from espresso.employee";
 	sql += " join espresso.role on espresso.role.id = espresso.employee.job_title"
-	sql += " where espresso.employee.id = $2 and espresso.employee.shopid = = $1"
+	sql += " where espresso.employee.id = $2 and espresso.employee.shopid = $1"
 
 	pool.connect(function(err, connection, done) {
 		connection.query(sql, [shopId, employeeid], function(err, result) {
