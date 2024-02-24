@@ -382,7 +382,7 @@ function EmployeeReport(res, shopId, employeeid) {
 				sql += " from espresso.start_finish where employeeid = $1 order by starttime"
 
 				pool.connect(function(err, connection, done) {
-					connection.query(tasksql, [employeeid], function(err, result) {
+					connection.query(sql, [employeeid], function(err, result) {
 						done();
 
 						console.log(result);
