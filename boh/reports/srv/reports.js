@@ -385,13 +385,13 @@ function EmployeeReport(res, shopId, employeeid) {
 					connection.query(sql, [employeeid], function(err, result) {
 						done();
 
-						console.log(result);
-
 						if (result && result.rowCount > 0) {
 							var first_date_of_work = result.rows[0].starttime;
 							var totalhours = 0;
 
 							for(var i = 0; i < result.rowCount; i++) {
+								console.log(result.rows[i].hours);
+								console.log(parseFloat(result.rows[i].hours));
 								totalhours += parseFloat(result.rows[i].hours);
 							}
 
@@ -406,8 +406,8 @@ function EmployeeReport(res, shopId, employeeid) {
 							rows += '<tr>\n';
 							rows += '<td>' + name + '</td>\n';
 							rows += '<td>' + role + '</td>\n';
-							rows += '<td>' + dateHelper.getDbFormat(start_date) + '</td>\n';
-							rows += '<td>' + dateHelper.getDbFormat(first_date_of_work) + '</td>\n';
+							rows += '<td>' + dateHelper.formatDate(start_date) + '</td>\n';
+							rows += '<td>' + dateHelper.formatDate(first_date_of_work) + '</td>\n';
 							rows += '<td>' + parseInt(totalhours) + '</td>\n';
 
 							rows += ' </tr>\n';
