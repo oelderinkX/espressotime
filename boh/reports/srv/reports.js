@@ -390,9 +390,9 @@ function EmployeeReport(res, shopId, employeeid) {
 							var totalhours = 0;
 
 							for(var i = 0; i < result.rowCount; i++) {
-								console.log(result.rows[i].hours);
-								console.log(parseFloat(result.rows[i].hours));
-								totalhours += parseFloat(result.rows[i].hours);
+								if (result.rows[i].hours) {
+									totalhours += parseFloat(result.rows[i].hours);
+								}
 								console.log(totalhours);
 							}
 
