@@ -406,8 +406,8 @@ function EmployeeReport(res, shopId, employeeid) {
 							rows += '<tr>\n';
 							rows += '<td>' + name + '</td>\n';
 							rows += '<td>' + role + '</td>\n';
-							rows += '<td>' + getDbFormat(start_date) + '</td>\n';
-							rows += '<td>' + getDbFormat(first_date_of_work) + '</td>\n';
+							rows += '<td>' + dateHelper.getDbFormat(start_date) + '</td>\n';
+							rows += '<td>' + dateHelper.getDbFormat(first_date_of_work) + '</td>\n';
 							rows += '<td>' + parseInt(totalhours) + '</td>\n';
 
 							rows += ' </tr>\n';
