@@ -393,6 +393,7 @@ function EmployeeReport(res, shopId, employeeid) {
 								console.log(result.rows[i].hours);
 								console.log(parseFloat(result.rows[i].hours));
 								totalhours += parseFloat(result.rows[i].hours);
+								console.log(totalhours);
 							}
 
 							var headings = '<th scope="col">Name</th>\n';
@@ -443,9 +444,6 @@ module.exports = function(app) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var request = req.body.request;
 		var report = JSON.parse(request);
-
-		console.log(request);
-		console.log(report);
 
 		if (report.id == 'assetreport') {
 			AssetReport(res, shopId)
