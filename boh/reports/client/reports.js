@@ -102,7 +102,7 @@ var reports = [
 */
 
 function loadReport() {
-    sendPost("/admin_getemployees", '{ "showEx": ' + false + ' }', function(response) {
+    sendPost("/admin_getemployees", '{ "showEx": false }', function(response) {
         employees = JSON.parse(response);
 
         var reportselect = document.getElementById('reportselect');
@@ -115,7 +115,7 @@ function loadReport() {
             option.innerHTML = report.name;
             reportselect.appendChild(option);
         } 
-    }
+    });
 }
 
 function getReport(id) {
