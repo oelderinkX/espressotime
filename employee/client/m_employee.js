@@ -277,10 +277,10 @@ function addTimeOffRow(table, labelbackground, labeltext, valuebackground, value
 function addTimeOffSpace(table) {
   var row = document.createElement('tr');
   var label = document.createElement('td');
-  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px;');
+  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px; border-left-style: hidden; border-right-style: hidden;');
   label.innerText = ' ';
   var value = document.createElement('td');
-  value.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px;');
+  value.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px; border-left-style: hidden; border-right-style: hidden;');
   value.innerText = ' ';
 
   row.appendChild(label);
@@ -292,14 +292,18 @@ function addTimeOffSpace(table) {
 function addTimeOffEdit(table, id) {
   var row = document.createElement('tr');
   var label = document.createElement('td');
-  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 60px; width: 160px;');
+  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; border-left-style: hidden; border-right-style: hidden;');
   label.innerText = ' ';
   var value = document.createElement('td');
-  value.setAttribute('style', 'text-align: right; vertical-align: top; height: 60px; width: 160px;');
-  value.innerHTML = '<button type="button" onclick="alert(\'Hello! ' + id + '\'">Edit</button>';
+  value.setAttribute('style', 'text-align: right; vertical-align: top; height: 40px; width: 160px; border-left-style: hidden; border-right-style: hidden; padding: 5px');
+  value.innerHTML = '<button type="button" onclick="editTimeOff(' + id + ');">Edit</button>';
 
   row.appendChild(label);
   row.appendChild(value);
 
   table.appendChild(row);
+}
+
+function editTimeOff(id) {
+  alert('hello! ' + id);
 }
