@@ -236,21 +236,26 @@ function loadTimeOff() {
     addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', 'Yes');
     addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', 'Undecided');
     addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', 'No cover for the day');
-    addTimeOffSpace(unapproved);
+    addTimeOffEdit(unapproved, i);
   }
 
   for(var i = 0; i < 2; i++) {
     addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
     addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
     addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
-    addTimeOffSpace(sickdays);
+    if (i+1 < 2) {
+      addTimeOffSpace(sickdays);
+    }
   }
 
   for(var i = 0; i < 2; i++) {
     addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', '26/05/2024');
     addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', '29/05/2024');
     addTimeOffRow(timeoff, 'DodgerBlue', 'Paid', 'white', 'Yes');
-    addTimeOffSpace(timeoff);
+
+    if (i+1 < 2) {
+      addTimeOffSpace(timeoff);
+    }
   }
 }
 
@@ -272,11 +277,26 @@ function addTimeOffRow(table, labelbackground, labeltext, valuebackground, value
 function addTimeOffSpace(table) {
   var row = document.createElement('tr');
   var label = document.createElement('td');
-  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
+  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px;');
   label.innerText = ' ';
   var value = document.createElement('td');
-  value.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px;');
+  value.setAttribute('style', 'text-align: center; vertical-align: middle; height: 20px; width: 160px;');
   value.innerText = ' ';
+
+  row.appendChild(label);
+  row.appendChild(value);
+
+  table.appendChild(row);
+}
+
+function addTimeOffEdit(table, id) {
+  var row = document.createElement('tr');
+  var label = document.createElement('td');
+  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 60px; width: 160px;');
+  label.innerText = ' ';
+  var value = document.createElement('td');
+  value.setAttribute('style', 'text-align: right; vertical-align: top; height: 60px; width: 160px;');
+  value.innerHTML = '<button type="button" onclick="alert(\'Hello! ' + id + '\'">Edit</button>';
 
   row.appendChild(label);
   row.appendChild(value);
