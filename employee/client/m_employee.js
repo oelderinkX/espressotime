@@ -232,6 +232,7 @@ function loadTimeOff() {
 
   for(var i = 0; i < 2; i++) {
     var tbody = document.createElement('tbody');
+    tbody.setAttribute('style', 'border-spacing: 0 5px;');
     addTimeOffRow(tbody, 'lightgray', 'Start', 'white', '26/05/2024');
     addTimeOffRow(tbody, 'lightgray', 'End', 'white', '29/05/2024');
     addTimeOffRow(tbody, 'lightgray', 'Paid', 'white', 'Yes');
@@ -242,6 +243,7 @@ function loadTimeOff() {
 
   for(var i = 0; i < 2; i++) {
     var tbody = document.createElement('tbody');
+    tbody.setAttribute('style', 'border-spacing: 0 5px;');
     addTimeOffRow(tbody, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
     addTimeOffRow(tbody, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
     addTimeOffRow(tbody, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
@@ -250,10 +252,11 @@ function loadTimeOff() {
 
   for(var i = 0; i < 2; i++) {
     var tbody = document.createElement('tbody');
+    tbody.setAttribute('style', 'border-spacing: 0 5px;');
     addTimeOffRow(tbody, 'DodgerBlue', 'Start', 'white', '26/05/2024');
     addTimeOffRow(tbody, 'DodgerBlue', 'End', 'white', '29/05/2024');
     addTimeOffRow(tbody, 'DodgerBlue', 'Paid', 'white', 'Yes');
-    timeoff.appendChild(timeoff);
+    timeoff.appendChild(tbody);
   }
 }
 
