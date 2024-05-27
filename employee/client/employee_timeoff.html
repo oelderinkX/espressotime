@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Espresso Time - Breaks</title>
+    <title>Espresso Time - Time Off</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -20,14 +20,23 @@
 
     <center>
         <div class="container">
-            <h3>Breaks</h3>
+            <h3>Time Off</h3>
             <br/>
-            <table border="0" id="breaks">
+            <h5>Unapproved</h5>
+            <table border="0" id="unapproved">
+            </table>
+            <br/>
+            <h5>Sick days</h5>
+            <table border="0" id="sickdays">
+            </table>
+            <br/>
+            <h5>Time off</h5>
+            <table border="0" id="timeoff">
             </table>
         </div>
     </center>
     <script>
-        loadBreaks();
+        loadTimeOff();
     </script>
 </body>
 </html>

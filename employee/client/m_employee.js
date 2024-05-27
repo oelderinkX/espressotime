@@ -221,3 +221,40 @@ function showHelp(id) {
     }
   }  
 }
+
+function loadTimeOff() {
+  var unapproved = document.getElementById('unapproved');
+  var sickdays = document.getElementById('sickdays');
+  var timeoff = document.getElementById('timeoff');
+  unapproved.innerHTML = '';
+  sickdays.innerHTML = '';
+  timeoff.innerHTML = '';
+  
+  for(var i = 0; i < 1; i++) {
+      var unapproveline  = document.createElement('tr');
+      unapproveline.setAttribute('onclick', "alert('you can edit!');");
+
+      var unapprove_startdate  = document.createElement('td');
+      unapprove_startdate.innerText = '27/05/2024';
+
+      var unapprove_enddate  = document.createElement('td');
+      unapprove_enddate.innerText = '28/05/2024';
+
+      var unapprove_paid  = document.createElement('td');
+      unapprove_paid.innerText = 'Yes';
+
+      var unapprove_status  = document.createElement('td');
+      unapprove_status.innerText = 'Undecided';
+
+      var unapprove_reason  = document.createElement('td');
+      unapprove_reason.innerText = 'No cover for that day';
+
+      unapproveline.appendChild(unapprove_startdate);
+      unapproveline.appendChild(unapprove_enddate);
+      unapproveline.appendChild(unapprove_paid);
+      unapproveline.appendChild(unapprove_status);
+      unapproveline.appendChild(unapprove_reason);
+
+      unapproved.appendChild(unapproveline);
+  }
+}
