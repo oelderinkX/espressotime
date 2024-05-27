@@ -12,6 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
 	var employeePage = fs.readFileSync(__dirname + "/../client/employee.html", "utf8");
+	var timeOffPage = fs.readFileSync(__dirname + "/../client/employee_timeoff.html", "utf8");
 	var rosterPage = fs.readFileSync(__dirname + "/../client/employee_roster.html", "utf8");
 	var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
 	var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
@@ -38,6 +39,16 @@ module.exports = function(app) {
 			res.send(employeePage);
 		} else {
 			res.redirect(common.getLoginUrl('/employee'));
+		}
+	});
+
+	app.get('/employee_timeoff', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(timeOffPage);
+		} else {
+			res.redirect(common.getLoginUrl('/employee_timeoff'));
 		}
 	});
 
