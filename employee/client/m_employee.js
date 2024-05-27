@@ -307,3 +307,7 @@ function addTimeOffEdit(table, id) {
 function editTimeOff(id) {
   alert('hello! ' + id);
 }
+
+function requestTimeOff() {
+  alert('No!');
+}
