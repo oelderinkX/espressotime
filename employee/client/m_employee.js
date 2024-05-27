@@ -230,61 +230,50 @@ function loadTimeOff() {
   sickdays.innerHTML = '';
   timeoff.innerHTML = '';
 
-  for(var i = 0; i < 1; i++) {
-    var unapprove_startdate_row = document.createElement('tr');
-    var unapprove_startdate_label = document.createElement('td');
-    unapprove_startdate_label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: lightgray;');
-    unapprove_startdate_label.innerText = 'Start';   
-    var unapprove_startdate = document.createElement('td');
-    unapprove_startdate.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-    unapprove_startdate.innerText = '27/05/2024';
-    unapprove_startdate_row.appendChild(unapprove_startdate_label);
-    unapprove_startdate_row.appendChild(unapprove_startdate);
-
-    var unapprove_enddate_row = document.createElement('tr');
-    var unapprove_enddate_label = document.createElement('td');
-    unapprove_enddate_label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: lightgray;');
-    unapprove_enddate_label.innerText = 'End';
-    var unapprove_enddate = document.createElement('td');
-    unapprove_enddate.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-    unapprove_enddate.innerText = '28/05/2024';
-    unapprove_enddate_row.appendChild(unapprove_enddate_label);
-    unapprove_enddate_row.appendChild(unapprove_enddate);
-
-    var unapprove_paid_row = document.createElement('tr');
-    var unapprove_paid_label = document.createElement('td');
-    unapprove_paid_label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: lightgray;');
-    unapprove_paid_label.innerText = 'Paid';
-    var unapprove_paid = document.createElement('td');
-    unapprove_paid.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-    unapprove_paid.innerText = 'Yes';
-    unapprove_paid_row.appendChild(unapprove_paid_label);
-    unapprove_paid_row.appendChild(unapprove_paid);
-
-    var unapprove_status_row = document.createElement('tr');
-    var unapprove_status_label = document.createElement('td');
-    unapprove_status_label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: lightgray;');
-    unapprove_status_label.innerText = 'Status';
-    var unapprove_status = document.createElement('td');
-    unapprove_status.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-    unapprove_status.innerText = 'Undecided';
-    unapprove_status_row.appendChild(unapprove_status_label);
-    unapprove_status_row.appendChild(unapprove_status);
-
-    var unapprove_reason_row = document.createElement('tr');
-    var unapprove_reason_label = document.createElement('td');
-    unapprove_reason_label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: lightgray;');
-    unapprove_reason_label.innerText = 'Unapprove Reason';
-    var unapprove_reason = document.createElement('td');
-    unapprove_reason.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: white;');
-    unapprove_reason.innerText = 'No cover for that day';
-    unapprove_reason_row.appendChild(unapprove_reason_label);
-    unapprove_reason_row.appendChild(unapprove_reason);
-
-    unapproved.appendChild(unapprove_startdate_row);
-    unapproved.appendChild(unapprove_enddate_row);
-    unapproved.appendChild(unapprove_paid_row);
-    unapproved.appendChild(unapprove_status_row);
-    unapproved.appendChild(unapprove_reason_row);
+  for(var i = 0; i < 2; i++) {
+    addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(unapproved, 'lightgray', 'End', 'white', '29/05/2024');
+    addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', 'Yes');
+    addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', 'Undecided');
+    addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', 'No cover for the day');
+    addTimeOffSpace(unapproved);
   }
+
+  for(var i = 0; i < 2; i++) {
+    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
+    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
+    addTimeOffSpace(sickdays);
+  }
+
+  for(var i = 0; i < 2; i++) {
+    addTimeOffRow(timeoff, 'timeoff', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(timeoff, 'timeoff', 'End', 'white', '29/05/2024');
+    addTimeOffRow(timeoff, 'timeoff', 'Paid', 'white', 'Yes');
+    addTimeOffSpace(timeoff);
+  }
+}
+
+function addTimeOffRow(table, labelbackground, labeltext, valuebackground, valuetext) {
+  var row = document.createElement('tr');
+  var label = document.createElement('td');
+  label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: ' + labelbackground + ';');
+  label.innerText = labeltext;
+  var value = document.createElement('td');
+  value.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: ' + valuebackground + ';');
+  value.innerText = valuetext;
+
+  row.appendChild(label);
+  row.appendChild(value);
+
+  table.appendChild(row);
+}
+
+function addTimeOffSpace(table) {
+  var row = document.createElement('tr');
+  var label = document.createElement('td');
+  var value = document.createElement('td');
+  row.appendChild(label);
+  row.appendChild(value);
+  table.appendChild(row);
 }
