@@ -231,30 +231,33 @@ function loadTimeOff() {
   timeoff.innerHTML = '';
 
   for(var i = 0; i < 2; i++) {
-    addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(unapproved, 'lightgray', 'End', 'white', '29/05/2024');
-    addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', 'Yes');
-    addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', 'Undecided');
-    addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', 'No cover for the day');
-    addTimeOffSpace(unapproved);
+    var tbody = document.createElement('tbody');
+    addTimeOffRow(tbody, 'lightgray', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(tbody, 'lightgray', 'End', 'white', '29/05/2024');
+    addTimeOffRow(tbody, 'lightgray', 'Paid', 'white', 'Yes');
+    addTimeOffRow(tbody, 'lightgray', 'Status', 'white', 'Undecided');
+    addTimeOffRow(tbody, 'lightgray', 'Unapprove Reason', 'white', 'No cover for the day');
+    unapproved.appendChild(tbody);
   }
 
   for(var i = 0; i < 2; i++) {
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
-    addTimeOffSpace(sickdays);
+    var tbody = document.createElement('tbody');
+    addTimeOffRow(tbody, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(tbody, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
+    addTimeOffRow(tbody, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
+    sickdays.appendChild(tbody);
   }
 
   for(var i = 0; i < 2; i++) {
-    addTimeOffRow(timeoff, 'timeoff', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(timeoff, 'timeoff', 'End', 'white', '29/05/2024');
-    addTimeOffRow(timeoff, 'timeoff', 'Paid', 'white', 'Yes');
-    addTimeOffSpace(timeoff);
+    var tbody = document.createElement('tbody');
+    addTimeOffRow(tbody, 'DodgerBlue', 'Start', 'white', '26/05/2024');
+    addTimeOffRow(tbody, 'DodgerBlue', 'End', 'white', '29/05/2024');
+    addTimeOffRow(tbody, 'DodgerBlue', 'Paid', 'white', 'Yes');
+    timeoff.appendChild(timeoff);
   }
 }
 
-function addTimeOffRow(table, labelbackground, labeltext, valuebackground, valuetext) {
+function addTimeOffRow(tablebody, labelbackground, labeltext, valuebackground, valuetext) {
   var row = document.createElement('tr');
   var label = document.createElement('td');
   label.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 160px; background: ' + labelbackground + ';');
@@ -266,14 +269,5 @@ function addTimeOffRow(table, labelbackground, labeltext, valuebackground, value
   row.appendChild(label);
   row.appendChild(value);
 
-  table.appendChild(row);
-}
-
-function addTimeOffSpace(table) {
-  var row = document.createElement('tr');
-  var label = document.createElement('td');
-  var value = document.createElement('td');
-  row.appendChild(label);
-  row.appendChild(value);
-  table.appendChild(row);
+  tablebody.appendChild(row);
 }
