@@ -250,7 +250,7 @@ function loadTimeOff() {
     for(var i = 0; i < allTimeOff.length; i++) {
       if (allTimeOff[i].approved == 0) {
         unapprovedItems.push(allTimeOff[i]);
-      } else if (allTimeOff[i].role.toLowerCase().contains('sick') && allTimeOff[i].approved == 1) {
+      } else if (allTimeOff[i].role.toLowerCase().includes('sick') && allTimeOff[i].approved == 1) {
         sickItems.push(allTimeOff[i]);
       } else if (allTimeOff[i].approved == 1) {
         timeoffItems.push(allTimeOff[i]);
