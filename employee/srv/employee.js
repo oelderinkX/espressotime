@@ -178,7 +178,7 @@ module.exports = function(app) {
 		var timeoff = [];
 
 		sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
-		sql += "where employeeid = $1 and start_date < ('now'::timestamp - '12 month'::interval)";
+		sql += "where employee_id = $1 and  (('now'::timestamp - '12 month'::interval) < start_date)";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid], function(err, result) {
