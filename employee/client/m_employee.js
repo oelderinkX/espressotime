@@ -230,9 +230,9 @@ function loadTimeOff() {
   var unapproved_table = document.getElementById('unapproved_table');
   var sickdays_table = document.getElementById('sickdays_table');
   var timeoff_table = document.getElementById('timeoff_table');
-  unapproved.innerHTML = '';
-  sickdays.innerHTML = '';
-  timeoff.innerHTML = '';
+  unapproved_table.innerHTML = '';
+  sickdays_table.innerHTML = '';
+  timeoff_table.innerHTML = '';
 
   unapproved_title.style = "display: none";
   sickdays_title.style = "display: none";
