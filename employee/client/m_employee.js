@@ -223,12 +223,20 @@ function showHelp(id) {
 }
 
 function loadTimeOff() {
-  var unapproved = document.getElementById('unapproved');
-  var sickdays = document.getElementById('sickdays');
-  var timeoff = document.getElementById('timeoff');
+  var unapproved_title = document.getElementById('unapproved_title');
+  var sickdays_title = document.getElementById('sickdays_title');
+  var timeoff_title = document.getElementById('timeoff_title');
+
+  var unapproved_table = document.getElementById('unapproved_table');
+  var sickdays_table = document.getElementById('sickdays_table');
+  var timeoff_table = document.getElementById('timeoff_table');
   unapproved.innerHTML = '';
   sickdays.innerHTML = '';
   timeoff.innerHTML = '';
+
+  unapproved_title.style = "display: none";
+  sickdays_title.style = "display: none";
+  timeoff_title.style = "display: none";
 
   var request = {};
 
@@ -250,31 +258,34 @@ function loadTimeOff() {
     }
 
     for(var i = 0; i < unapprovedItems.length; i++) {
-        addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', new Date(unapprovedItems[i].start_date).toDateString());
-        addTimeOffRow(unapproved, 'lightgray', 'End', 'white', new Date(unapprovedItems[i].end_date).toDateString());
-        addTimeOffRow(unapproved, 'lightgray', 'Type', 'white', unapprovedItems[i].role);
-        addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
-        addTimeOffRow(unapproved, 'lightgray', 'Reason', 'white', unapprovedItems[i].reason);
-        addTimeOffEdit(unapproved, i);
+        unapproved_title.style = "display: inline";
+        addTimeOffRow(unapproved_table, 'lightgray', 'Start', 'white', new Date(unapprovedItems[i].start_date).toDateString());
+        addTimeOffRow(unapproved_table, 'lightgray', 'End', 'white', new Date(unapprovedItems[i].end_date).toDateString());
+        addTimeOffRow(unapproved_table, 'lightgray', 'Type', 'white', unapprovedItems[i].role);
+        addTimeOffRow(unapproved_table, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
+        addTimeOffRow(unapproved_table, 'lightgray', 'Reason', 'white', unapprovedItems[i].reason);
+        addTimeOffEdit(unapproved_table, i);
     }
 
     for(var i = 0; i < sickItems.length; i++) {
-        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', new Date(sickItems[i].start_date).toDateString());
-        addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', new Date(sickItems[i].end_date).toDateString());
-        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', sickItems[i].paid);
+        sickdays_title.style = "display: inline";
+        addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'Start', 'white', new Date(sickItems[i].start_date).toDateString());
+        addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'End', 'white', new Date(sickItems[i].end_date).toDateString());
+        addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'Paid', 'white', sickItems[i].paid);
         addTimeOffRow(unapproved, 'lightgray', 'Reason', 'white', sickItems[i].reason);
         if (i+1 < sickItems.length) {
-          addTimeOffSpace(sickdays);
+          addTimeOffSpace(sickdays_table);
         }
     }
 
     for(var i = 0; i < timeoffItems.length; i++) {
-      addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', new Date(timeoffItems[i].start_date).toDateString());
-      addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', new Date(timeoffItems[i].end_date).toDateString());
-      addTimeOffRow(timeoff, 'DodgerBlue', 'Paid', 'white', timeoffItems[i].paid);
+      timeoff_title.style = "display: inline";
+      addTimeOffRow(timeoff_table, 'DodgerBlue', 'Start', 'white', new Date(timeoffItems[i].start_date).toDateString());
+      addTimeOffRow(timeoff_table, 'DodgerBlue', 'End', 'white', new Date(timeoffItems[i].end_date).toDateString());
+      addTimeOffRow(timeoff_table, 'DodgerBlue', 'Paid', 'white', timeoffItems[i].paid);
 
       if (i+1 < timeoffItems.length) {
-        addTimeOffSpace(timeoff);
+        addTimeOffSpace(timeoff_table);
       }
     }
   });
