@@ -250,26 +250,27 @@ function loadTimeOff() {
     }
 
     for(var i = 0; i < unapprovedItems.length; i++) {
-        addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', unapprovedItems[i].start_date);
-        addTimeOffRow(unapproved, 'lightgray', 'End', 'white', unapprovedItems[i].end_date);
+        addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', new Date(unapprovedItems[i].start_date).toDateString());
+        addTimeOffRow(unapproved, 'lightgray', 'End', 'white', new Date(unapprovedItems[i].end_date).toDateString());
+        addTimeOffRow(unapproved, 'lightgray', 'Type', 'white', unapprovedItems[i].role);
         addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
-        addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', unapprovedItems[i].approved);
-        addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', unapprovedItems[i].unapproved_reason);
+        addTimeOffRow(unapproved, 'lightgray', 'Reason', 'white', unapprovedItems[i].reason);
         addTimeOffEdit(unapproved, i);
     }
 
     for(var i = 0; i < sickItems.length; i++) {
-        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', sickItems[i].start_date);
-        addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', sickItems[i].end_date);
+        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', new Date(sickItems[i].start_date).toDateString());
+        addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', new Date(sickItems[i].end_date).toDateString());
         addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', sickItems[i].paid);
+        addTimeOffRow(unapproved, 'lightgray', 'Reason', 'white', sickItems[i].reason);
         if (i+1 < sickItems.length) {
           addTimeOffSpace(sickdays);
         }
     }
 
     for(var i = 0; i < timeoffItems.length; i++) {
-      addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', timeoffItems[i].start_date);
-      addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', timeoffItems[i].end_date);
+      addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', new Date(timeoffItems[i].start_date).toDateString());
+      addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', new Date(timeoffItems[i].end_date).toDateString());
       addTimeOffRow(timeoff, 'DodgerBlue', 'Paid', 'white', timeoffItems[i].paid);
 
       if (i+1 < timeoffItems.length) {
