@@ -230,33 +230,53 @@ function loadTimeOff() {
   sickdays.innerHTML = '';
   timeoff.innerHTML = '';
 
-  for(var i = 0; i < 2; i++) {
-    addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(unapproved, 'lightgray', 'End', 'white', '29/05/2024');
-    addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', 'Yes');
-    addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', 'Undecided');
-    addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', 'No cover for the day');
-    addTimeOffEdit(unapproved, i);
-  }
+  var request = {};
 
-  for(var i = 0; i < 2; i++) {
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', '29/05/2024');
-    addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', 'Yes');
-    if (i+1 < 2) {
-      addTimeOffSpace(sickdays);
+  sendPost("/employee_timeoff", JSON.stringify(request), function(response) {
+    var allTimeOff =  JSON.parse(response);
+
+    var unapprovedItems = [];
+    var sickItems = [];
+    var timeoffItems = [];
+
+    for(var i = 0; i < allTimeOff.length; i++) {
+      if (allTimeOff[i].approved == 0) {
+        unapprovedItems.push(allTimeOff[i]);
+      } else if (allTimeOff[i].role.toLowerCase().contains('sick') && allTimeOff[i].approved == 1) {
+        sickItems.push(allTimeOff[i]);
+      } else if (allTimeOff[i].approved == 1) {
+        timeoffItems.push(allTimeOff[i]);
+      }
     }
-  }
 
-  for(var i = 0; i < 2; i++) {
-    addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', '26/05/2024');
-    addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', '29/05/2024');
-    addTimeOffRow(timeoff, 'DodgerBlue', 'Paid', 'white', 'Yes');
-
-    if (i+1 < 2) {
-      addTimeOffSpace(timeoff);
+    for(var i = 0; i < unapprovedItems.length; i++) {
+        addTimeOffRow(unapproved, 'lightgray', 'Start', 'white', unapprovedItems[i].start_date);
+        addTimeOffRow(unapproved, 'lightgray', 'End', 'white', unapprovedItems[i].end_date);
+        addTimeOffRow(unapproved, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
+        addTimeOffRow(unapproved, 'lightgray', 'Status', 'white', unapprovedItems[i].approved);
+        addTimeOffRow(unapproved, 'lightgray', 'Unapprove Reason', 'white', unapprovedItems[i].unapproved_reason);
+        addTimeOffEdit(unapproved, i);
     }
-  }
+
+    for(var i = 0; i < sickItems.length; i++) {
+        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Start', 'white', sickItems[i].start_date);
+        addTimeOffRow(sickdays, 'MediumSeaGreen', 'End', 'white', sickItems[i].end_date);
+        addTimeOffRow(sickdays, 'MediumSeaGreen', 'Paid', 'white', sickItems[i].paid);
+        if (i+1 < sickItems.length) {
+          addTimeOffSpace(sickdays);
+        }
+    }
+
+    for(var i = 0; i < timeoffItems.length; i++) {
+      addTimeOffRow(timeoff, 'DodgerBlue', 'Start', 'white', timeoffItems[i].start_date);
+      addTimeOffRow(timeoff, 'DodgerBlue', 'End', 'white', timeoffItems[i].end_date);
+      addTimeOffRow(timeoff, 'DodgerBlue', 'Paid', 'white', timeoffItems[i].paid);
+
+      if (i+1 < timeoffItems.length) {
+        addTimeOffSpace(timeoff);
+      }
+    }
+  });
 }
 
 function addTimeOffRow(table, labelbackground, labeltext, valuebackground, valuetext) {
