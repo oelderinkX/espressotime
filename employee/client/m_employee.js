@@ -272,7 +272,7 @@ function loadTimeOff() {
         addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'Start', 'white', new Date(sickItems[i].start_date).toDateString());
         addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'End', 'white', new Date(sickItems[i].end_date).toDateString());
         addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'Paid', 'white', sickItems[i].paid);
-        addTimeOffRow(unapproved, 'lightgray', 'Reason', 'white', sickItems[i].reason);
+        addTimeOffRow(sickdays_table, 'lightgray', 'Reason', 'white', sickItems[i].reason);
         if (i+1 < sickItems.length) {
           addTimeOffSpace(sickdays_table);
         }
