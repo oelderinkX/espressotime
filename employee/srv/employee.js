@@ -189,8 +189,8 @@ module.exports = function(app) {
 						timeoff.push({
 							id: result.rows[i].id,
 							employee_id: result.rows[i].employee_id,
-							start_date: result.rows[i].start_date,
-							end_date: result.rows[i].end_date,
+							start_date: dateHelper.formatDate(result.rows[i].start_date),
+							end_date: dateHelper.formatDate(result.rows[i].end_date),
 							role: result.rows[i].role,
 							paid: result.rows[i].paid,
 							reason: result.rows[i].reason,
