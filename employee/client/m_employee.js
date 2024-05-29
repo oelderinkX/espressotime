@@ -352,7 +352,7 @@ function loadRequestTimeOff() {
   request_table.innerHTML = '';
 
   var date7days = new Date();
-  date7days.setDate(oneWeekAfter.getDate() + 7);
+  date7days.setDate(date7days.getDate() + 7);
 
   var isoDate = date7days.toISOString();
   var oneWeekAfter = isoDate.split('T')[0];
