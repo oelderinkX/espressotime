@@ -343,3 +343,7 @@ function editTimeOff(id) {
 function requestTimeOff() {
   alert('No!');
 }
+
+function loadRequestTimeOff() {
+  
+}
