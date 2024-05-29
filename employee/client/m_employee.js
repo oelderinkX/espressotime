@@ -304,6 +304,8 @@ function addTimeOffRow(table, labelbackground, labeltext, valuebackground, value
   row.appendChild(value);
 
   table.appendChild(row);
+
+  return value;
 }
 
 function addTimeOffSpace(table) {
@@ -345,5 +347,38 @@ function requestTimeOff() {
 }
 
 function loadRequestTimeOff() {
+  var id = document.getElementById('id');
+  var request_table = document.getElementById('request_table');
+  request_table.innerHTML = '';
 
+  var rowValue = addTimeOffRow(request_table, 'Teal', 'Start Date', 'white', '');
+  var startDate = document.createElement('input');  
+  startDate.type = 'date';
+  rowValue.appendChild(startDate);
+
+  rowValue = addTimeOffRow(request_table, 'Teal', 'End Date', 'white', '');
+  var endDate = document.createElement('input');  
+  endDate.type = 'date';
+  rowValue.appendChild(endDate);
+
+  rowValue = addTimeOffRow(request_table, 'Teal', 'Type', 'white', '');
+// more!!
+
+  rowValue = addTimeOffRow(request_table, 'Teal', 'Paid', 'white', '');
+  var paid = document.createElement('input');  
+  paid.type = 'checkbox';
+  rowValue.appendChild(paid);
+
+  rowValue = addTimeOffRow(request_table, 'Teal', 'Reason', 'white', '');
+  var reason = document.createElement('input');  
+  reason.type = 'text';
+  rowValue.appendChild(reason);
+
+  if (id.value  > 0) {
+    var request = { id: id.value };
+    sendPost("/employee_gettimeoffquest", JSON.stringify(request), function(response) {
+      var timeoffRequest =  JSON.parse(response);
+      //timeoffRequest
+    });
+  }
 }
