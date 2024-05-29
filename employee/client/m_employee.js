@@ -396,8 +396,7 @@ function loadRequestTimeOff() {
   rowValue.appendChild(paid);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Reason', 'white', '');
-  var reason = document.createElement('input');  
-  reason.type = 'textarea';
+  var reason = document.createElement('textarea');  
   reason.setAttribute('style', 'border: none; outline: none;');
   reason.setAttribute('rows', '2');
   reason.setAttribute('cols', '20');
@@ -411,4 +410,9 @@ function loadRequestTimeOff() {
       //timeoffRequest
     });
   }
+}
+
+function saveLeaveRequests()
+{
+  window.location.href = '/employee_timeoff';
 }
