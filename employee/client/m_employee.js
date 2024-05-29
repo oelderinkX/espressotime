@@ -337,13 +337,13 @@ function addTimeOffEdit(table, id) {
 }
 
 function editTimeOff(id) {
-  alert('hello! ' + id);
+  window.location.href = '/employee_request_timeoff?id=' + id;
 }
 
 function requestTimeOff() {
-  alert('No!');
+  window.location.href = '/employee_request_timeoff?id=0';
 }
 
 function loadRequestTimeOff() {
-  
+
 }
