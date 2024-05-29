@@ -264,7 +264,7 @@ function loadTimeOff() {
         addTimeOffRow(unapproved_table, 'lightgray', 'Type', 'white', unapprovedItems[i].role);
         addTimeOffRow(unapproved_table, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
         addTimeOffRow(unapproved_table, 'lightgray', 'Reason', 'white', unapprovedItems[i].reason);
-        addTimeOffEdit(unapproved_table, i);
+        addTimeOffEdit(unapproved_table, unapprovedItems[i].id);
     }
 
     for(var i = 0; i < sickItems.length; i++) {
@@ -351,27 +351,38 @@ function loadRequestTimeOff() {
   var request_table = document.getElementById('request_table');
   request_table.innerHTML = '';
 
-  var rowValue = addTimeOffRow(request_table, 'Teal', 'Start Date', 'white', '');
+  var date7days = new Date();
+  date7days.setDate(oneWeekAfter.getDate() + 7);
+
+  var isoDate = date7days.toISOString();
+  var oneWeekAfter = isoDate.split('T')[0];
+
+  var rowValue = addTimeOffRow(request_table, 'yellow', 'Start Date', 'white', '');
   var startDate = document.createElement('input');  
   startDate.type = 'date';
+  startDate.value = oneWeekAfter;
+  startDate.setAttribute('min', oneWeekAfter);
   rowValue.appendChild(startDate);
 
-  rowValue = addTimeOffRow(request_table, 'Teal', 'End Date', 'white', '');
+  rowValue = addTimeOffRow(request_table, 'yellow', 'End Date', 'white', '');
   var endDate = document.createElement('input');  
   endDate.type = 'date';
+  endDate.value = oneWeekAfter;
+  endDate.setAttribute('min', oneWeekAfter);
   rowValue.appendChild(endDate);
 
-  rowValue = addTimeOffRow(request_table, 'Teal', 'Type', 'white', '');
+  rowValue = addTimeOffRow(request_table, 'yellow', 'Type', 'white', '');
 // more!!
 
-  rowValue = addTimeOffRow(request_table, 'Teal', 'Paid', 'white', '');
+  rowValue = addTimeOffRow(request_table, 'yellow', 'Paid', 'white', '');
   var paid = document.createElement('input');  
   paid.type = 'checkbox';
   rowValue.appendChild(paid);
 
-  rowValue = addTimeOffRow(request_table, 'Teal', 'Reason', 'white', '');
+  rowValue = addTimeOffRow(request_table, 'yellow', 'Reason', 'white', '');
   var reason = document.createElement('input');  
   reason.type = 'text';
+  reason.setAttribute('style', 'border: none; outline: none;');
   rowValue.appendChild(reason);
 
   if (id.value  > 0) {
