@@ -372,7 +372,23 @@ function loadRequestTimeOff() {
   rowValue.appendChild(endDate);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Type', 'white', '');
-// more!!
+  var select = document.createElement('select');
+  var option1 = document.createElement('option');
+  option1.setAttribute('value', 'Annual Leave');
+  option1.innerHTML = 'Annual Leave';
+  select.appendChild(option1);
+
+  var option2 = document.createElement('option');
+  option2.setAttribute('value', 'Time off');
+  option2.innerHTML = 'Time off';
+  select.appendChild(option2);
+
+  var option3 = document.createElement('option');
+  option3.setAttribute('value', 'Sick');
+  option3.innerHTML = 'Sick';
+  select.appendChild(option3);
+
+  rowValue.appendChild(select);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Paid', 'white', '');
   var paid = document.createElement('input');  
@@ -381,8 +397,11 @@ function loadRequestTimeOff() {
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Reason', 'white', '');
   var reason = document.createElement('input');  
-  reason.type = 'text';
+  reason.type = 'textarea';
   reason.setAttribute('style', 'border: none; outline: none;');
+  reason.setAttribute('rows', '2');
+  reason.setAttribute('cols', '20');
+  reason.setAttribute('wrap', 'soft');
   rowValue.appendChild(reason);
 
   if (id.value  > 0) {
