@@ -218,4 +218,36 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/employee_gettimeoffquest', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var timeoff = [];
+		var id = req.body.id;
+
+		sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
+		sql += "where employee_id = $1 and id = $2 limit 1";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [employeeid, id], function(err, result) {
+				done();
+
+				if (result && result.rowCount > 0) {
+					timeoff.push({
+						id: result.rows[0].id,
+						employee_id: result.rows[0].employee_id,
+						start_date: result.rows[0].start_date,
+						end_date: result.rows[0].end_date,
+						role: result.rows[0].role,
+						paid: result.rows[0].paid,
+						reason: result.rows[0].reason,
+						approved: result.rows[0].approved,
+						unapproved_reason: result.rows[0].unapproved_reason
+					});
+				}
+					
+				res.send(timeoff);
+			});
+		});
+	});
 }
