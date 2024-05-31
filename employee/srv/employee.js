@@ -270,7 +270,7 @@ module.exports = function(app) {
             values = [employeeid, start_date, end_date, role, paid, reason];
         } else {
             console.log('update');
-            sql = "UPDATE espresso.employee SET start_date = $2, end_date = $3, role = $4, paid = $5,";
+            sql = "UPDATE espresso.timeoff SET start_date = $2, end_date = $3, role = $4, paid = $5,";
 			sql += " reason = $6";
             sql += " WHERE id = $1";
             values = [id, start_date, end_date, role, paid, reason];
