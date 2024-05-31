@@ -413,8 +413,8 @@ function loadRequestTimeOff() {
     var request = { id: id.value };
     sendPost("/employee_gettimeoffquest", JSON.stringify(request), function(response) {
       var timeoffRequest =  JSON.parse(response);
-      startDate.value = new Date(timeoffRequest[0].start_date);
-      endDate.value = new Date(timeoffRequest[0].end_date);
+      startDate.valueAsDate = new Date(timeoffRequest[0].start_date);
+      endDate.valueAsDate = new Date(timeoffRequest[0].end_date);
       select.value = timeoffRequest[0].role;
       paid.checked = timeoffRequest[0].paid;
       reason.value = timeoffRequest[0].reason;
@@ -437,8 +437,8 @@ function saveLeaveRequests()
 
   var request = {
     id: id.value,
-    start_date: startDate.value,
-    end_date: endDate.value,
+    start_date: startDate.valueAsDate,
+    end_date: endDate.valueAsDate,
     role: role.value,
     paid: paid.checked,
     reason: reason.value
