@@ -170,3 +170,11 @@ function replaceAll(str,find,replaceWith) {
   }
   return str;
 }
+
+function YesOrNo(yesOrNo) {
+  if (yesOrNo) {
+    return "Yes"
+  } else {
+    return "No"
+  }
+}

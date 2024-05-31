@@ -262,7 +262,7 @@ function loadTimeOff() {
         addTimeOffRow(unapproved_table, 'lightgray', 'Start', 'white', new Date(unapprovedItems[i].start_date).toDateString());
         addTimeOffRow(unapproved_table, 'lightgray', 'End', 'white', new Date(unapprovedItems[i].end_date).toDateString());
         addTimeOffRow(unapproved_table, 'lightgray', 'Type', 'white', unapprovedItems[i].role);
-        addTimeOffRow(unapproved_table, 'lightgray', 'Paid', 'white', unapprovedItems[i].paid);
+        addTimeOffRow(unapproved_table, 'lightgray', 'Paid', 'white', YesOrNo(unapprovedItems[i].paid));
         addTimeOffRow(unapproved_table, 'lightgray', 'Reason', 'white', unapprovedItems[i].reason);
         addTimeOffEdit(unapproved_table, unapprovedItems[i].id);
     }
