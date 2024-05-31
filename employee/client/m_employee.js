@@ -413,8 +413,8 @@ function loadRequestTimeOff() {
     var request = { id: id.value };
     sendPost("/employee_gettimeoffquest", JSON.stringify(request), function(response) {
       var timeoffRequest =  JSON.parse(response);
-      startDate.valueAsDate = timeoffRequest[0].start_date;
-      endDate.valueAsDate = timeoffRequest[0].end_date;
+      startDate.value = new Date(timeoffRequest[0].start_date);
+      endDate.value = new Date(timeoffRequest[0].end_date);
       select.value = timeoffRequest[0].role;
       paid.checked = timeoffRequest[0].paid;
       reason.value = timeoffRequest[0].reason;
