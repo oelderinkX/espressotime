@@ -440,7 +440,7 @@ function saveLeaveRequests()
     start_date: startDate.value,
     end_date: endDate.value,
     role: role.value,
-    paid: paid.value,
+    paid: paid.checked,
     reason: reason.value
   };
 
