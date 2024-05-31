@@ -250,4 +250,49 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/employee_timeoff_update', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var id = req.body.id;
+		var start_date = req.body.start_date;
+		var end_date = req.body.end_date;
+		var role = req.body.role;
+		var paid = req.body.paid;
+		var reason = req.body.reason;
+
+        var values = [];
+
+        if (id == 0) {
+            console.log('insert');
+            sql = "INSERT INTO espresso.timeoff (employee_id, start_date, end_date, role, paid, reason, approved)";
+            sql += " values ($1, $2, $3, $4, $5, $6, 0) returning id";
+            values = [employeeid, start_date, end_date, role, paid, reason];
+        } else {
+            console.log('update');
+            sql = "UPDATE espresso.employee SET start_date = $2, end_date = $3, role = $4, paid = $5,";
+			sql += " reason = $6";
+            sql += " WHERE id = $1";
+            values = [id, start_date, end_date, role, paid, reason];
+        }
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+					res.send({ result: 'fail', "error": err });
+				} else if (result && result.rowCount == 1) {
+					if (id == 0) {
+						id = result.rows[0].id;
+					}
+					res.send({ result: 'success', id: id });
+				} else {
+					res.send({ result: 'fail', "error": "unknown error ?!?" });
+				}
+			});
+		});
+	});
 }

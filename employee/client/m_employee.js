@@ -363,6 +363,7 @@ function loadRequestTimeOff() {
   startDate.type = 'date';
   startDate.value = oneWeekAfter;
   startDate.setAttribute('min', oneWeekAfter);
+  startDate.setAttribute('id', 'startDate');
   rowValue.appendChild(startDate);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'End Date', 'white', '');
@@ -370,10 +371,12 @@ function loadRequestTimeOff() {
   endDate.type = 'date';
   endDate.value = oneWeekAfter;
   endDate.setAttribute('min', oneWeekAfter);
+  endDate.setAttribute('id', 'endDate');
   rowValue.appendChild(endDate);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Type', 'white', '');
   var select = document.createElement('select');
+  select.setAttribute('id', 'role');
   var option1 = document.createElement('option');
   option1.setAttribute('value', 'Annual Leave');
   option1.innerHTML = 'Annual Leave';
@@ -394,6 +397,7 @@ function loadRequestTimeOff() {
   rowValue = addTimeOffRow(request_table, 'yellow', 'Paid', 'white', '');
   var paid = document.createElement('input');  
   paid.type = 'checkbox';
+  paid.setAttribute('id', 'paid');
   rowValue.appendChild(paid);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'Reason', 'white', '');
@@ -402,6 +406,7 @@ function loadRequestTimeOff() {
   reason.setAttribute('rows', '2');
   reason.setAttribute('cols', '20');
   reason.setAttribute('wrap', 'soft');
+  reason.setAttribute('id', 'reason');
   rowValue.appendChild(reason);
 
   if (id.value  > 0) {
@@ -423,5 +428,23 @@ function loadRequestTimeOff() {
 
 function saveLeaveRequests()
 {
-  window.location.href = '/employee_timeoff';
+  var id = document.getElementById('id');
+  var startDate = document.getElementById('startDate');
+  var endDate = document.getElementById('endDate');
+  var role = document.getElementById('role');
+  var paid = document.getElementById('paid');
+  var reason = document.getElementById('reason');
+
+  var request = {
+    id: id.value,
+    start_date: startDate.value,
+    end_date: endDate.value,
+    role: role.value,
+    paid: paid.value,
+    reason: reason.value
+  };
+
+  sendPost("/employee_timeoff_update", JSON.stringify(request), function(response) {
+    window.location.href = '/employee_timeoff';
+  }); 
 }
