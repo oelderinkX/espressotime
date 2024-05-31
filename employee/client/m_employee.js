@@ -350,6 +350,7 @@ function loadRequestTimeOff() {
   var id = document.getElementById('id');
   var request_table = document.getElementById('request_table');
   request_table.innerHTML = '';
+  request_table.style("display: none");
 
   var date7days = new Date();
   date7days.setDate(date7days.getDate() + 7);
@@ -412,8 +413,12 @@ function loadRequestTimeOff() {
       select.value = timeoffRequest[0].role;
       paid.checked = timeoffRequest[0].paid;
       reason.value = timeoffRequest[0].reason;
+      request_table.style("display: inline");
     });
+  } else {
+    request_table.style("display: inline");
   }
+
 }
 
 function saveLeaveRequests()
