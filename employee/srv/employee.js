@@ -339,8 +339,8 @@ module.exports = function(app) {
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
 						namephone.push({
-							name: result.rows[0].name,
-							contact: result.rows[0].contact
+							name: result.rows[i].name,
+							contact: result.rows[i].contact
 						});
 					}
 				}
