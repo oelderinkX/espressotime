@@ -460,6 +460,7 @@ function loadContacts()
 
     var heading = document.createElement('th');
     heading.setAttribute('style', 'border-bottom: 1pt solid black;');
+
     var name = document.createElement('td');
     name.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 200px; padding: 5px;');
     name.innerText = 'Name';
@@ -471,12 +472,12 @@ function loadContacts()
     heading.appendChild(contact);
 
     var call = document.createElement('td');
-    call.innerText = '';
+    call.innerText = ' ';
     call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 5px;');
     heading.appendChild(call);
 
     var txt = document.createElement('td');
-    txt.innerText = '';
+    txt.innerText = ' ';
     txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 5px;');
     heading.appendChild(txt);
 
@@ -511,5 +512,4 @@ function loadContacts()
       contacts.appendChild(row);
     }
   });
-
 }
