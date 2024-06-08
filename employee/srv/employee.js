@@ -26,6 +26,8 @@ module.exports = function(app) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
 
+		console.log('employeeDetails: ' + employeeDetails);
+
 		if (employeeid && employeeid != -1) {
 			var formatted = employeePage;
 
@@ -103,7 +105,6 @@ module.exports = function(app) {
 			res.redirect(common.getLoginUrl('/employee_help'));
 		}
 	});
-
 
 	app.get('/employee_shopdetails', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
