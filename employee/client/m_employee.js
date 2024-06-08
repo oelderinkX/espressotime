@@ -462,19 +462,23 @@ function loadContacts()
       var row = document.createElement('tr');
 
       var name = document.createElement('td');
+      name.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px; padding: 5px;');
       name.innerText = namephone[i].name;
       row.appendChild(name);
 
       var contact = document.createElement('td');
       contact.innerText = namephone[i].contact;
+      contact.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px; padding: 5px;');
       row.appendChild(contact);
 
       var call = document.createElement('td');
       call.innerHTML = '<a class="ah3" href="tel:' + namephone[i].contact + '">Call</a>';
+      call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px; padding: 5px;');
       row.appendChild(call);
 
       var txt = document.createElement('td');
       txt.innerHTML = '<a class="ah3" href="sms:' + namephone[i].contact + '">Txt</a>';
+      txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px; padding: 5px;');
       row.appendChild(txt);
 
       contacts.appendChild(row);

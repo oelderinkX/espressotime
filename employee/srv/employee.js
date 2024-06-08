@@ -337,10 +337,12 @@ module.exports = function(app) {
 				done();
 
 				if (result && result.rowCount > 0) {
-					namephone.push({
-						name: result.rows[0].name,
-						contact: result.rows[0].contact
-					});
+					for(var i = 0; i < result.rowCount; i++) {
+						namephone.push({
+							name: result.rows[0].name,
+							contact: result.rows[0].contact
+						});
+					}
 				}
 					
 				res.send(namephone);
