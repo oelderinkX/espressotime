@@ -448,3 +448,37 @@ function saveLeaveRequests()
     window.location.href = '/employee_timeoff';
   }); 
 }
+
+function loadContacts()
+{
+  var contacts = document.getElementById('contacts');
+
+  var request = { };
+
+  sendPost("/employee_name_contact", JSON.stringify(request), function(response) {
+    var namephone =  JSON.parse(response);
+
+    for(var i = 0; i < namephone.length; i++) {
+      var row = document.createElement('tr');
+
+      var name = document.createElement('td');
+      name.innerText = namephone[i].name;
+      row.appendChild(name);
+
+      var contact = document.createElement('td');
+      contact.innerText = namephone[i].contact;
+      row.appendChild(contact);
+
+      var call = document.createElement('td');
+      call.innerHTML = '<a class="ah3" href="tel:' + namephone[i].contact + '">Call</a>';
+      row.appendChild(call);
+
+      var txt = document.createElement('td');
+      txt.innerHTML = '<a class="ah3" href="sms:' + namephone[i].contact + '">Txt</a>';
+      row.appendChild(txt);
+
+      contacts.appendChild(row);
+    }
+  });
+
+}

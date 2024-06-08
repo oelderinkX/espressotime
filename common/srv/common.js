@@ -59,6 +59,16 @@ function getEmployeeId(identifier) {
 }
 module.exports.getEmployeeId = getEmployeeId;
 
+function getEmployeeDetails(identifier) {
+  if (identifier) {
+    var decode =  Buffer.from(identifier, 'base64').toString('utf-8');
+    var jsonStr = decode.split(';17122011;')[3];
+    return JSON.parse(jsonStr);
+  }
+  return {};
+}
+module.exports.getEmployeeDetails = getEmployeeDetails;
+
 function getLoginUrl(path) {
   return 'https://espressotime-login.herokuapp.com?redirect=' + path;
 }

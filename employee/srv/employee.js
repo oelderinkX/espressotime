@@ -18,14 +18,22 @@ module.exports = function(app) {
 	var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
 	var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
 	var shopDetailsPage = fs.readFileSync(__dirname + "/../client/employee_shopdetails.html", "utf8");
+	var employeeContactsPage = fs.readFileSync(__dirname + "/../client/employee_contacts.html", "utf8");
 
 	app.use('/scripts/m_employee.js', express.static(__dirname + '"/../client/m_employee.js'));
 
 	app.get('/employee', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
-		
+		var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
+
 		if (employeeid && employeeid != -1) {
-			res.send(employeePage);
+			var formatted = employeePage;
+
+			if (employeeDetails && employeeDetails.job_title && employeeDetails.job_title == 9) {
+				formatted = formatted.replace('display: none', 'display: inline');
+			}
+
+			res.send(formatted);
 		} else {
 			res.redirect(common.getLoginUrl('/employee'));
 		}
@@ -104,6 +112,16 @@ module.exports = function(app) {
 			res.send(shopDetailsPage);
 		} else {
 			res.redirect(common.getLoginUrl('/employee_shopdetails'));
+		}
+	});
+
+	app.get('/employee_contacts', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(employeeContactsPage);
+		} else {
+			res.redirect(common.getLoginUrl('/employee_contacts'));
 		}
 	});
 
@@ -292,6 +310,30 @@ module.exports = function(app) {
 				} else {
 					res.send({ result: 'fail', "error": "unknown error ?!?" });
 				}
+			});
+		});
+	});
+
+	app.post('/employee_name_contact', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var namephone = [];
+
+		sql = "select name, contact from espresso.employee ";
+		sql += "where shopid = (select shopid from espresso.employee where id = $1) and ex = false order by name";
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [employeeid], function(err, result) {
+				done();
+
+				if (result && result.rowCount > 0) {
+					namephone.push({
+						name: result.rows[0].name,
+						contact: result.rows[0].contact
+					});
+				}
+					
+				res.send(namephone);
 			});
 		});
 	});
