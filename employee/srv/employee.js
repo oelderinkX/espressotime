@@ -49,8 +49,7 @@ module.exports = function(app) {
 
 			var employeeDetails = common.getEmployeeDetails(identifier);
 
-			console.log('employeeDetails2: ' + employeeDetails);
-			console.log('employeeDetails3: ' + employeeDetails.job_title);
+			console.log('employeeDetails2: ' + JSON.stringify(employeeDetails));
 
 			var formatted = employeePage;
 
