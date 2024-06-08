@@ -46,7 +46,17 @@ module.exports = function(app) {
 
 		if (identifier) {
 			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
-			res.send(employeePage);
+
+			var employeeDetails = common.getEmployeeDetails(identifier);
+			console.log('employeeDetails2: ' + employeeDetails);
+
+			var formatted = employeePage;
+
+			if (employeeDetails && employeeDetails.job_title && employeeDetails.job_title == 9) {
+				formatted = formatted.replace('display: none', 'display: inline');
+			}
+
+			res.send(formatted);
 		} else {
 			res.redirect(common.getLoginUrl('/employee'));
 		}
