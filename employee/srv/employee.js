@@ -48,7 +48,9 @@ module.exports = function(app) {
 			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
 
 			var employeeDetails = common.getEmployeeDetails(identifier);
+
 			console.log('employeeDetails2: ' + employeeDetails);
+			console.log('employeeDetails3: ' + employeeDetails.job_title);
 
 			var formatted = employeePage;
 
