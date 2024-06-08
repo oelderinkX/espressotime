@@ -31,7 +31,7 @@ module.exports = function(app) {
 		if (employeeid && employeeid != -1) {
 			var formatted = employeePage;
 
-			if (employeeDetails && employeeDetails.job_title && employeeDetails.job_title == 9) {
+			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
 				formatted = formatted.replace('display: none', 'display: inline');
 			}
 
@@ -46,14 +46,12 @@ module.exports = function(app) {
 
 		if (identifier) {
 			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
-
 			var employeeDetails = common.getEmployeeDetails(identifier);
-
-			console.log('employeeDetails2: ' + JSON.stringify(employeeDetails));
 
 			var formatted = employeePage;
 
-			if (employeeDetails && employeeDetails.job_title && employeeDetails.job_title == 9) {
+			// if manager/owner then display contacts!
+			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
 				formatted = formatted.replace('display: none', 'display: inline');
 			}
 
