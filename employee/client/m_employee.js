@@ -465,23 +465,23 @@ function loadContacts()
       }      
 
       var name = document.createElement('td');
-      name.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 200px; padding: 5px;');
+      name.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 200px; padding: 4px;');
       name.innerText = namephone[i].name;
       row.appendChild(name);
 
       var contact = document.createElement('td');
       contact.innerText = namephone[i].contact;
-      contact.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 100px; padding: 5px;');
+      contact.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 100px; padding: 4px;');
       row.appendChild(contact);
 
       var call = document.createElement('td');
-      call.innerHTML = '<a class="ah3" href="tel:' + namephone[i].contact + '">Call</a>';
-      call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 5px;');
+      call.innerHTML = '<a style="font-size:25px;" class="ah3" href="tel:' + namephone[i].contact + '">&#128222;</a>';
+      call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
       row.appendChild(call);
 
       var txt = document.createElement('td');
-      txt.innerHTML = '<a class="ah3" href="sms:' + namephone[i].contact + '">Txt</a>';
-      txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 5px;');
+      txt.innerHTML = '<a style="font-size:25px;" class="ah3" href="sms:' + namephone[i].contact + '">&#128221;</a>';
+      txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
       row.appendChild(txt);
 
       contacts.appendChild(row);
