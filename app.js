@@ -65,6 +65,9 @@ require('./boh/tools/srv/tools.js')(app);
 console.log('loading employee.js');
 require('./employee/srv/employee.js')(app);
 
+console.log('loading manager.js');
+require('./employee/srv/manager.js')(app);
+
 console.log('loading how.js');
 require('./foh/help/srv/how.js')(app);
 
