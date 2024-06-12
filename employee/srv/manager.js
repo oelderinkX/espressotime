@@ -13,6 +13,7 @@ var pool = new pg.Pool(common.postgresConfig());
 module.exports = function(app) {
 	var managerContactsPage = fs.readFileSync(__dirname + "/../client/manager_contacts.html", "utf8");
 	var managerRosterPage = fs.readFileSync(__dirname + "/../client/manager_roster.html", "utf8");
+	var managerSignInOutPage = fs.readFileSync(__dirname + "/../client/manager_signinout.html", "utf8");
 
 	app.use('/scripts/m_manager.js', express.static(__dirname + '"/../client/m_manager.js'));
 
@@ -33,6 +34,16 @@ module.exports = function(app) {
 			res.send(managerRosterPage);
 		} else {
 			res.redirect(common.getLoginUrl('/manager_roster'));
+		}
+	});
+
+	app.get('/manager_signinout', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(managerSignInOutPage);
+		} else {
+			res.redirect(common.getLoginUrl('/manager_signinout'));
 		}
 	});
 

@@ -289,3 +289,8 @@ function getEmployeeTimes() {
       loading.innerHTML = '';
   });
 }
+
+function loadSignInOut() {
+  var signinout = document.getElementById('signinout');
+  signinout.innerHTML = 'IN DEVELOPMENT';
+}
