@@ -25,13 +25,11 @@ module.exports = function(app) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
 
-		console.log('employeeDetails: ' + employeeDetails);
-
 		if (employeeid && employeeid != -1) {
 			var formatted = employeePage;
 
 			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
-				if (formatted.includes('display: none')) {
+				while (formatted.includes('display: none')) {
 					formatted = formatted.replace('display: none', 'display: inline');
 				}
 			}
@@ -53,7 +51,9 @@ module.exports = function(app) {
 
 			// if manager/owner then display contacts!
 			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
-				formatted = formatted.replace('display: none', 'display: inline');
+				while (formatted.includes('display: none')) {
+					formatted = formatted.replace('display: none', 'display: inline');
+				}
 			}
 
 			res.send(formatted);

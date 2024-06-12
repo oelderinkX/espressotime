@@ -12,7 +12,7 @@ var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
 	var managerContactsPage = fs.readFileSync(__dirname + "/../client/manager_contacts.html", "utf8");
-	var managerRosterPage = fs.readFileSync(__dirname + "/../client/manager_contacts.html", "utf8");
+	var managerRosterPage = fs.readFileSync(__dirname + "/../client/manager_roster.html", "utf8");
 
 	app.use('/scripts/m_manager.js', express.static(__dirname + '"/../client/m_manager.js'));
 
