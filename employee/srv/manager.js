@@ -11,19 +11,32 @@ var jsonParser = bodyParser.json();
 var pool = new pg.Pool(common.postgresConfig());
 
 module.exports = function(app) {
-	var employeeContactsPage = fs.readFileSync(__dirname + "/../client/employee_contacts.html", "utf8");
+	var managerContactsPage = fs.readFileSync(__dirname + "/../client/manager_contacts.html", "utf8");
+	var managerRosterPage = fs.readFileSync(__dirname + "/../client/manager_contacts.html", "utf8");
 
-	app.get('/employee_contacts', urlencodedParser, function(req, res) {
+	app.use('/scripts/m_manager.js', express.static(__dirname + '"/../client/m_manager.js'));
+
+	app.get('/manager_contacts', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		
 		if (employeeid && employeeid != -1) {
-			res.send(employeeContactsPage);
+			res.send(managerContactsPage);
 		} else {
-			res.redirect(common.getLoginUrl('/employee_contacts'));
+			res.redirect(common.getLoginUrl('/manager_contacts'));
 		}
 	});
 
-	app.post('/employee_name_contact', jsonParser, function(req, res) {
+	app.get('/manager_roster', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(managerRosterPage);
+		} else {
+			res.redirect(common.getLoginUrl('/manager_roster'));
+		}
+	});
+
+	app.post('/manager_name_contact', jsonParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 
 		var namephone = [];

@@ -8,7 +8,7 @@ function loadContacts()
 
   var request = { };
 
-  sendPost("/employee_name_contact", JSON.stringify(request), function(response) {
+  sendPost("/manager_name_contact", JSON.stringify(request), function(response) {
     var namephone =  JSON.parse(response);
 
     for(var i = 0; i < namephone.length; i++) {
