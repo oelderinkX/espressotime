@@ -31,7 +31,9 @@ module.exports = function(app) {
 			var formatted = employeePage;
 
 			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
-				formatted = formatted.replace('display: none', 'display: inline');
+				if (formatted.includes('display: none')) {
+					formatted = formatted.replace('display: none', 'display: inline');
+				}
 			}
 
 			res.send(formatted);
