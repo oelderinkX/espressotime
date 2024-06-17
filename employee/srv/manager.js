@@ -303,7 +303,7 @@ module.exports = function(app) {
 									console.log('sql_break breakduration: ' + result.rows[i].breakduration);
 									for(var x = 0; x < signinout.length; x++) {
 										if (signinout[x].id == result.rows[i].employeeid) {
-											signinout[x].breaks.push({ duration: result.rows[i].breakduration, breaktype: result.rows[i].breaktype });
+											signinout[x].breaks.push({ duration: result.rows[i].breakduration.minutes, breaktype: result.rows[i].breaktype });
 										}
 									}
 								}

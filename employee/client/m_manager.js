@@ -291,11 +291,57 @@ function getEmployeeTimes() {
 }
 
 function loadSignInOut() {
-  var signinout = document.getElementById('signinout');
-  signinout.innerHTML = 'IN DEVELOPMENT';
+  var table = document.getElementById('signinout');
+  table.innerHTML = '';
 
   var request = { date: getDbFormat() }
   sendPost("/manager_signinout", JSON.stringify(request), function(response) {
     var response =  JSON.parse(response);
+
+    var headingRow = document.createElement('tr');
+    var nameH = document.createElement('th');
+    nameH.innerText = 'Name';
+    var startH = document.createElement('th');
+    startH.innerText = 'Start';
+    var finishH = document.createElement('th');
+    finishH.innerText = 'Finish';
+
+    headingRow.appendChild(nameH);
+    headingRow.appendChild(startH);
+    headingRow.appendChild(finishH);
+
+    table.appendChild(headingRow);
+
+    for(var i=0; i < response.length; i++) {
+      var row = document.createElement('tr');
+
+      var name = document.createElement('td');
+      name.innerText = response[i].name;
+      if (response[i].roster_start.length > 0) {
+        name.setAttribute('onclick', "alert('" + response[i].name + " should start at " + formatAMPM(getTime(response[i].roster_start)) + " and finish at " + formatAMPM(getTime(response[i].roster_finish)) + "');");
+      } else {
+        name.setAttribute('onclick', "alert('" + response[i].name + " is not rostered for today');");
+      }
+       
+      var start = document.createElement('td');
+      if (response[i].starttime.length > 0) {
+        start.innerText = formatAMPM(getTime(response[i].starttime));
+      } else {
+        start.innerText = '-';
+      }
+
+      var finish = document.createElement('td');
+      if (response[i].finishtime.length > 0) {
+        finish.innerText = formatAMPM(getTime(response[i].finishtime));
+      } else {
+        finish.innerText = '-';
+      }
+
+      row.appendChild(name);
+      row.appendChild(start);
+      row.appendChild(finish);
+
+      table.appendChild(row);
+    }
   });
 }
