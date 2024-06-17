@@ -269,7 +269,7 @@ module.exports = function(app) {
 										breaks: []
 									});
 								} else {
-									for(var x = 0; x < signinout; x++) {
+									for(var x = 0; x < signinout.length; x++) {
 										if (signinout[x].id == result.rows[i].employeeid) {
 											signinout[x].roster_start = result.rows[i].start;
 											signinout[x].roster_finish = result.rows[i].finish;
@@ -302,7 +302,7 @@ module.exports = function(app) {
 								for(var i = 0; i < result.rowCount; i++) {
 									console.log('sql_break breakduration: ' + result.rows[i].breakduration);
 									for(var x = 0; x < signinout.length; x++) {
-										if (signinout[x].id == employees[i].id) {
+										if (signinout[x].id == result.rows[i].employeeid) {
 											signinout[x].breaks.push({ duration: result.rows[i].breakduration, breaktype: result.rows[i].breaktype });
 										}
 									}
