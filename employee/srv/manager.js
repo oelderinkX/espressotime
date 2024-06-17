@@ -237,7 +237,7 @@ module.exports = function(app) {
 						}
 					}
 
-					connection.query(sql_roster, [shopid], function(err, result) {
+					connection.query(sql_roster, [employeeids], function(err, result) {
 						done();
 
 						if (result && result.rowCount > 0) {
