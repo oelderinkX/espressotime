@@ -181,4 +181,126 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+
+	app.post('/manager_signinout', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		var date = req.body.date;
+
+		var sql_employee = 'select name, id from espresso.employee where ex = false';
+		sql_employee += ' and shopid = (select shopid from espresso.employee where id = $1)';
+
+		var sql_start_finish = "select employeeid, starttime, finishtime from espresso.start_finish";
+		sql_start_finish += " where starttime >= '" + date + " 00:00:00' and employeeid in ($1)";
+		console.log(sql_start_finish);
+
+		var sql_roster = "select employeeid, start, finish, role from espresso.roster";
+		sql_roster += " where date = '" + date + "' and shopid = (select shopid from espresso.employee where id = $1)";
+		console.log(sql_roster);
+
+		var sql_break = "select employeeid, finishtime-starttime as breakduration, breaktype from espresso.break";
+		sql_break += " where starttime >= '" + date + " 00:00:00' and starttime <= '" + date + " 23:59:59' and employeeid in ($1)";
+		console.log(sql_break);
+
+		var signinout = [];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql_employee, [employeeid], function(err, result) {
+				done();
+
+				var employees = [];
+				var employeeids = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						employees.push({ id: result.rows[i].id,
+									 name: result.rows[i].name
+						});
+						employeeids.push(result.rows[i].id);
+					}
+				}
+
+				connection.query(sql_start_finish, [employeeids], function(err, result) {
+					done();
+
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							signinout.push({
+								id: result.rows[i].employeeid,
+								name: '',
+								starttime: result.rows[i].starttime,
+								finishtime: result.rows[i].finishtime,
+								roster_start: '',
+								roster_finish: '',
+								breaks: []
+							});
+						}
+					}
+
+					connection.query(sql_roster, [shopid], function(err, result) {
+						done();
+
+						if (result && result.rowCount > 0) {
+							for(var i = 0; i < result.rowCount; i++) {
+								var alreadyExists = false;
+								for(var x = 0; x < signinout.length; x++) {
+									if (signinout[x].id == result.rows[i].employeeid) {
+										alreadyExists = true;
+									}
+								}
+
+								if (!alreadyExists) {
+									signinout.push({
+										id: result.rows[i].employeeid,
+										name: '',
+										starttime: '',
+										finishtime: '',
+										roster_start: result.rows[i].start,
+										roster_finish: result.rows[i].finish,
+										breaks: []
+									});
+								} else {
+									for(var x = 0; x < signinout; x++) {
+										if (signinout[x].id == result.rows[i].employeeid) {
+											signinout[x].roster_start = result.rows[i].start;
+											signinout[x].roster_finish = result.rows[i].finish;
+										}
+									}
+								}
+							}
+						}
+
+						// add all names
+						for(var i = 0; i < employees.length; i++) {
+							for(var x = 0; x < signinout; x++) {
+								if (signinout[x].id == employees[i].id) {
+									signinout[x].name = employees[i].name;
+								}
+							}
+						}
+
+
+						connection.query(sql_break, [employeeids], function(err, result) {
+							done();
+
+							//employeeid, finishtime-starttime as breakduration, breaktype
+							if (result && result.rowCount > 0) {
+								for(var i = 0; i < result.rowCount; i++) {
+									for(var x = 0; x < signinout; x++) {
+										if (signinout[x].id == employees[i].id) {
+											signinout[x].breaks.push({ duration: result.rows[i].breakduration, breaktype: result.rows[i].breaktype });
+										}
+									}
+								}
+							}
+
+							res.send(signinout);
+						});
+					})
+
+					
+				});				
+			});
+		});
+	});
 }

@@ -293,4 +293,9 @@ function getEmployeeTimes() {
 function loadSignInOut() {
   var signinout = document.getElementById('signinout');
   signinout.innerHTML = 'IN DEVELOPMENT';
+
+  var request = { date: getDbFormat() }
+  sendPost("/manager_signinout", JSON.stringify(request), function(response) {
+    var response =  JSON.parse(response);
+  });
 }
