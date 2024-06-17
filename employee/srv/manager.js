@@ -236,6 +236,7 @@ module.exports = function(app) {
 								finishtime: result.rows[i].finishtime,
 								roster_start: '',
 								roster_finish: '',
+								role: '',
 								breaks: []
 							});
 						}
@@ -266,6 +267,7 @@ module.exports = function(app) {
 										finishtime: '',
 										roster_start: result.rows[i].start,
 										roster_finish: result.rows[i].finish,
+										role: result.rows[i].role,
 										breaks: []
 									});
 								} else {
@@ -273,6 +275,7 @@ module.exports = function(app) {
 										if (signinout[x].id == result.rows[i].employeeid) {
 											signinout[x].roster_start = result.rows[i].start;
 											signinout[x].roster_finish = result.rows[i].finish;
+											signinout[x].role = result.rows[i].role;
 										}
 									}
 								}

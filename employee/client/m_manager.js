@@ -294,54 +294,68 @@ function loadSignInOut() {
   var table = document.getElementById('signinout');
   table.innerHTML = '';
 
-  var request = { date: getDbFormat() }
-  sendPost("/manager_signinout", JSON.stringify(request), function(response) {
-    var response =  JSON.parse(response);
+  var request = {};
+  sendPost("/manager_getroles", JSON.stringify(request), function(response) {
+    roles =  JSON.parse(response);
+    var request = { date: getDbFormat() }
+    sendPost("/manager_signinout", JSON.stringify(request), function(response) {
+      var response =  JSON.parse(response);
+  
+      var headingRow = document.createElement('tr');
+      var nameH = document.createElement('th');     
+      nameH.innerText = 'Name';
+      nameH.setAttribute('style', 'text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 2px;');
 
-    var headingRow = document.createElement('tr');
-    var nameH = document.createElement('th');
-    nameH.innerText = 'Name';
-    var startH = document.createElement('th');
-    startH.innerText = 'Start';
-    var finishH = document.createElement('th');
-    finishH.innerText = 'Finish';
+      var startH = document.createElement('th');
+      startH.innerText = 'Start';
+      startH.setAttribute('style', 'text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 2px;');
 
-    headingRow.appendChild(nameH);
-    headingRow.appendChild(startH);
-    headingRow.appendChild(finishH);
-
-    table.appendChild(headingRow);
-
-    for(var i=0; i < response.length; i++) {
-      var row = document.createElement('tr');
-
-      var name = document.createElement('td');
-      name.innerText = response[i].name;
-      if (response[i].roster_start.length > 0) {
-        name.setAttribute('onclick', "alert('" + response[i].name + " should start at " + formatAMPM(getTime(response[i].roster_start)) + " and finish at " + formatAMPM(getTime(response[i].roster_finish)) + "');");
-      } else {
-        name.setAttribute('onclick', "alert('" + response[i].name + " is not rostered for today');");
+      var finishH = document.createElement('th');
+      finishH.innerText = 'Finish';
+      finishH.setAttribute('style', 'text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 2px;');
+  
+      headingRow.appendChild(nameH);
+      headingRow.appendChild(startH);
+      headingRow.appendChild(finishH);
+  
+      table.appendChild(headingRow);
+  
+      for(var i=0; i < response.length; i++) {
+        var row = document.createElement('tr');
+  
+        var name = document.createElement('td');
+        name.innerText = response[i].name;
+        if (response[i].roster_start.length > 0) {
+          name.setAttribute('onclick', "alert('" + response[i].name + " should start at " + formatAMPM(getTime(response[i].roster_start)) + " and finish at " + formatAMPM(getTime(response[i].roster_finish)) + "');");
+        } else {
+          name.setAttribute('onclick', "alert('" + response[i].name + " is not rostered for today');");
+        }
+        var roleBg = getRoleColour(response[i].role);
+        var roleTxt = getRoleTextColour(response[i].role);
+        name.setAttribute('style', 'text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 2px; background: ' + roleBg + '; color: ' + roleTxt + ';');
+         
+        var start = document.createElement('td');
+        if (response[i].starttime.length > 0) {
+          start.innerText = formatAMPM(getTime(response[i].starttime));
+        } else {
+          start.innerText = '-';
+        }
+        start.setAttribute('style', 'text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 2px;');
+  
+        var finish = document.createElement('td');
+        if (response[i].finishtime.length > 0) {
+          finish.innerText = formatAMPM(getTime(response[i].finishtime));
+        } else {
+          finish.innerText = '-';
+        }
+        finish.setAttribute('style', 'text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 2px;');
+  
+        row.appendChild(name);
+        row.appendChild(start);
+        row.appendChild(finish);
+  
+        table.appendChild(row);
       }
-       
-      var start = document.createElement('td');
-      if (response[i].starttime.length > 0) {
-        start.innerText = formatAMPM(getTime(response[i].starttime));
-      } else {
-        start.innerText = '-';
-      }
-
-      var finish = document.createElement('td');
-      if (response[i].finishtime.length > 0) {
-        finish.innerText = formatAMPM(getTime(response[i].finishtime));
-      } else {
-        finish.innerText = '-';
-      }
-
-      row.appendChild(name);
-      row.appendChild(start);
-      row.appendChild(finish);
-
-      table.appendChild(row);
-    }
+    });
   });
 }
