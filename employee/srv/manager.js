@@ -192,15 +192,12 @@ module.exports = function(app) {
 
 		var sql_start_finish = "select employeeid, starttime, finishtime from espresso.start_finish";
 		sql_start_finish += " where starttime >= '" + date + " 00:00:00' and employeeid in ($1)";
-		console.log(sql_start_finish);
 
 		var sql_roster = "select employeeid, start, finish, role from espresso.roster";
 		sql_roster += " where date = '" + date + "' and shopid = (select shopid from espresso.employee where id = $1)";
-		console.log(sql_roster);
 
 		var sql_break = "select employeeid, finishtime-starttime as breakduration, breaktype from espresso.break";
 		sql_break += " where starttime >= '" + date + " 00:00:00' and starttime <= '" + date + " 23:59:59' and employeeid in ($1)";
-		console.log(sql_break);
 
 		var signinout = [];
 
@@ -283,10 +280,13 @@ module.exports = function(app) {
 						}
 
 						// add all names
+						console.log('employeees.length: ' + employees.length);
 						for(var i = 0; i < employees.length; i++) {
 							for(var x = 0; x < signinout; x++) {
 								if (signinout[x].id == employees[i].id) {
 									signinout[x].name = employees[i].name;
+								} else {
+									console.log('signinout id (' + signinout[x].id + ') != (' + employees[i].id + ') - employee id');
 								}
 							}
 						}
