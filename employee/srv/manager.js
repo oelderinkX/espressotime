@@ -282,7 +282,7 @@ module.exports = function(app) {
 						// add all names
 						console.log('employeees.length: ' + employees.length);
 						for(var i = 0; i < employees.length; i++) {
-							for(var x = 0; x < signinout; x++) {
+							for(var x = 0; x < signinout.length; x++) {
 								if (signinout[x].id == employees[i].id) {
 									signinout[x].name = employees[i].name;
 								} else {
@@ -301,7 +301,7 @@ module.exports = function(app) {
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									console.log('sql_break breakduration: ' + result.rows[i].breakduration);
-									for(var x = 0; x < signinout; x++) {
+									for(var x = 0; x < signinout.length; x++) {
 										if (signinout[x].id == employees[i].id) {
 											signinout[x].breaks.push({ duration: result.rows[i].breakduration, breaktype: result.rows[i].breaktype });
 										}
