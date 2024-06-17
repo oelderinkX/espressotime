@@ -220,8 +220,12 @@ module.exports = function(app) {
 						employeeids.push(result.rows[i].id);
 					}
 				}
+				var employeeidsComma = employeeids.join(',');
 
-				connection.query(sql_start_finish, [employeeids], function(err, result) {
+				sql_start_finish = sql_start_finish.replace('$1', employeeidsComma);
+				console.log(sql_start_finish);
+
+				connection.query(sql_start_finish, function(err, result) {
 					done();
 
 					if (result && result.rowCount > 0) {
@@ -240,7 +244,10 @@ module.exports = function(app) {
 						}
 					}
 
-					connection.query(sql_roster, [employeeids], function(err, result) {
+					// sql_roster = sql_roster.replace('$1', employeeidsComma);
+					// console.log(sql_roster);
+
+					connection.query(sql_roster, [employeeid], function(err, result) {
 						done();
 
 						if (result && result.rowCount > 0) {
@@ -284,8 +291,10 @@ module.exports = function(app) {
 							}
 						}
 
+						sql_break = sql_break.replace('$1', employeeidsComma);
+						console.log(sql_break);
 
-						connection.query(sql_break, [employeeids], function(err, result) {
+						connection.query(sql_break, function(err, result) {
 							done();
 
 							//employeeid, finishtime-starttime as breakduration, breaktype
@@ -302,9 +311,7 @@ module.exports = function(app) {
 
 							res.send(signinout);
 						});
-					})
-
-					
+					})				
 				});				
 			});
 		});
