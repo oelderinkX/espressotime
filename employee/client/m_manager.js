@@ -304,15 +304,15 @@ function loadSignInOut() {
       var headingRow = document.createElement('tr');
       var nameH = document.createElement('th');     
       nameH.innerText = 'Name';
-      nameH.setAttribute('style', 'font-size:35px; text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 3px;');
+      nameH.setAttribute('style', 'font-size:30px; text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 3px;');
 
       var startH = document.createElement('th');
       startH.innerText = 'Start';
-      startH.setAttribute('style', 'font-size:35px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
+      startH.setAttribute('style', 'font-size:30px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
 
       var finishH = document.createElement('th');
       finishH.innerText = 'Finish';
-      finishH.setAttribute('style', 'font-size:35px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
+      finishH.setAttribute('style', 'font-size:30px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
   
       headingRow.appendChild(nameH);
       headingRow.appendChild(startH);
@@ -332,7 +332,7 @@ function loadSignInOut() {
         }
         var roleBg = getRoleColour(response[i].role);
         var roleTxt = getRoleTextColour(response[i].role);
-        name.setAttribute('style', 'font-size:35px; text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 3px; background: ' + roleBg + '; color: ' + roleTxt + ';');
+        name.setAttribute('style', 'font-size:30px; text-align: left; vertical-align: middle; height: 30px; width: 120px; padding: 3px; background: ' + roleBg + '; color: ' + roleTxt + ';');
          
         var start = document.createElement('td');
         if (response[i].starttime.length > 0) {
@@ -340,7 +340,7 @@ function loadSignInOut() {
         } else {
           start.innerText = '-';
         }
-        start.setAttribute('style', 'font-size:35px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
+        start.setAttribute('style', 'font-size:30px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
   
         var finish = document.createElement('td');
         if (response[i].finishtime.length > 0) {
@@ -348,7 +348,7 @@ function loadSignInOut() {
         } else {
           finish.innerText = '-';
         }
-        finish.setAttribute('style', 'font-size:35px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
+        finish.setAttribute('style', 'font-size:30px; text-align: center; vertical-align: middle; height: 30px; width: 70px; padding: 3px;');
   
         row.appendChild(name);
         row.appendChild(start);
