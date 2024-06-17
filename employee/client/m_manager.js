@@ -343,7 +343,7 @@ function loadSignInOut() {
         start.setAttribute('style', 'font-size:15px; text-align: center; vertical-align: middle; height: 30px; width: 90px; padding: 3px;');
   
         var finish = document.createElement('td');
-        if (response[i].finishtime.length > 0) {
+        if (response[i].finishtime && response[i].finishtime.length > 0) {
           finish.innerText = formatAMPM(getTime(response[i].finishtime));
         } else {
           finish.innerText = '-';
