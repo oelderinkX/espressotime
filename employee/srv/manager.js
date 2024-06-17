@@ -213,6 +213,7 @@ module.exports = function(app) {
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
+						console.log('sql_employee name: ' + result.rows[i].name);
 						employees.push({ id: result.rows[i].id,
 									 name: result.rows[i].name
 						});
@@ -225,6 +226,8 @@ module.exports = function(app) {
 
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
+							console.log('sql_start_finish employeeid: ' + result.rows[i].employeeid);
+
 							signinout.push({
 								id: result.rows[i].employeeid,
 								name: '',
@@ -242,6 +245,8 @@ module.exports = function(app) {
 
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
+								console.log('sql_roster employeeid: ' + result.rows[i].employeeid);
+
 								var alreadyExists = false;
 								for(var x = 0; x < signinout.length; x++) {
 									if (signinout[x].id == result.rows[i].employeeid) {
@@ -286,6 +291,7 @@ module.exports = function(app) {
 							//employeeid, finishtime-starttime as breakduration, breaktype
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
+									console.log('sql_break breakduration: ' + result.rows[i].breakduration);
 									for(var x = 0; x < signinout; x++) {
 										if (signinout[x].id == employees[i].id) {
 											signinout[x].breaks.push({ duration: result.rows[i].breakduration, breaktype: result.rows[i].breaktype });
