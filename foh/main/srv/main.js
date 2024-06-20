@@ -131,7 +131,9 @@ module.exports = function(app) {
 
 										if (notesResult && notesResult.rowCount > 0) {
 											employee.notes = notesResult.rows[0].notes;
-										} else {
+										} 
+
+										if (err) {
 											console.log('Error getting sql notes: ' + err);
 										}
 

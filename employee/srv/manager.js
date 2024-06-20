@@ -210,7 +210,6 @@ module.exports = function(app) {
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						console.log('sql_employee name: ' + result.rows[i].name);
 						employees.push({ id: result.rows[i].id,
 									 name: result.rows[i].name
 						});
@@ -227,8 +226,6 @@ module.exports = function(app) {
 
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
-							console.log('sql_start_finish employeeid: ' + result.rows[i].employeeid);
-
 							signinout.push({
 								id: result.rows[i].employeeid,
 								name: '',
@@ -242,15 +239,11 @@ module.exports = function(app) {
 						}
 					}
 
-					// sql_roster = sql_roster.replace('$1', employeeidsComma);
-					// console.log(sql_roster);
-
 					connection.query(sql_roster, [employeeid], function(err, result) {
 						done();
 
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
-								console.log('sql_roster employeeid: ' + result.rows[i].employeeid);
 
 								var alreadyExists = false;
 								for(var x = 0; x < signinout.length; x++) {
@@ -288,8 +281,6 @@ module.exports = function(app) {
 							for(var x = 0; x < signinout.length; x++) {
 								if (signinout[x].id == employees[i].id) {
 									signinout[x].name = employees[i].name;
-								} else {
-									console.log('signinout id (' + signinout[x].id + ') != (' + employees[i].id + ') - employee id');
 								}
 							}
 						}
