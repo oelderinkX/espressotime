@@ -23,9 +23,10 @@ module.exports = function(app) {
 
 	app.get('/employee', urlencodedParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
-		var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
 
 		if (employeeid && employeeid != -1) {
+			var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
+			
 			var formatted = employeePage;
 
 			if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
