@@ -70,7 +70,7 @@ function getEmployeeDetails(identifier) {
 module.exports.getEmployeeDetails = getEmployeeDetails;
 
 function getLoginUrl(path) {
-  return 'https://espressotime-login.herokuapp.com?redirect=' + path;
+  return 'https://login.managemycafe.com/?redirect=' + path;
 }
 module.exports.getLoginUrl = getLoginUrl;
 
