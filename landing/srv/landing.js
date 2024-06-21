@@ -1,6 +1,6 @@
 var pg = require('pg');
 var express = require('express');
-var common = require('../../../common/srv/common.js');
+var common = require('../../common/srv/common.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
 
