@@ -83,5 +83,8 @@ require('./foh/roster/srv/foh_roster.js')(app);
 console.log('loading booking.js');
 require('./foh/booking/srv/booking.js')(app);
 
+console.log('loading landing.js');
+require('./landing/srv/landing.js')(app);
+
 console.log('loading api.js');
 require('./api.js')(app);
