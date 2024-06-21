@@ -294,10 +294,20 @@ module.exports = function(app) {
 							//employeeid, finishtime-starttime as breakduration, breaktype
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
-									console.log('sql_break breakduration: ' + result.rows[i].breakduration);
 									for(var x = 0; x < signinout.length; x++) {
 										if (signinout[x].id == result.rows[i].employeeid) {
-											signinout[x].breaks.push({ duration: result.rows[i].breakduration.minutes, breaktype: result.rows[i].breaktype });
+											var minutes;
+											var breaktype;
+
+											if (result.rows[i].breakduration && result.rows[i].breakduration.minutes) {
+												minutes = result.rows[i].breakduration.minutes;
+											}
+
+											if (result.rows[i].breaktype) {
+												breaktype = result.rows[i].breaktype;
+											}
+
+											signinout[x].breaks.push({ duration: minutes, breaktype: breaktype });
 										}
 									}
 								}
