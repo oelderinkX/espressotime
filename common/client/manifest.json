@@ -13,7 +13,7 @@
         "sizes": "512x512"
       }
     ],
-    "start_url": "/",
+    "start_url": "/device",
     "background_color": "#ac9175",
     "display": "standalone",
     "scope": "/",

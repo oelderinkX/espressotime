@@ -14,17 +14,17 @@ module.exports = function(app) {
 	var mainPage = fs.readFileSync(__dirname + "/../client/main.html", "utf8");
 	app.use('/scripts/employee.js', express.static(__dirname + '/../client/employee.js'));
 
-	app.get('/', urlencodedParser, function(req, res) {
+	app.get('/device', urlencodedParser, function(req, res) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
 			res.send(mainPage);
 		} else {
-			res.redirect(common.getLoginUrl('/'));
+			res.redirect(common.getLoginUrl('/device'));
 		}
 	});	
 
-	app.post('/', urlencodedParser, function(req, res) {
+	app.post('/device', urlencodedParser, function(req, res) {
 		var identifier = req.body.identifier;
 		var redirect = req.body.redirect;
 		
@@ -37,7 +37,7 @@ module.exports = function(app) {
 				res.send(mainPage);
 			}
 		} else {
-			res.redirect(common.getLoginUrl('/'));
+			res.redirect(common.getLoginUrl('/device'));
 		}
 	});	
 	

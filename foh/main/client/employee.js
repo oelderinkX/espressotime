@@ -271,7 +271,7 @@ function getEmployeeDetails(employeeId) {
         if (employeeId != 0) {
             window.clearTimeout(backToMainTimer);
             backToMainTimer = window.setTimeout(function() {
-                window.location.href = "/";
+                window.location.href = "/device";
               }, 120000);
         } else {
             sendPost("/allemployeestatus", '{ "starttime": "' + date + ' 00:00:00' + '" }', function(response) {
