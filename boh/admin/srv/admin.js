@@ -35,7 +35,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/logout', urlencodedParser, function(req, res) {
-		res.cookie('identifier', identifier, { maxAge: 0, httpOnly: true });
+		res.cookie('identifier', '', { maxAge: 0, httpOnly: true });
 		res.clearCookie('identifier');
 		res.redirect(common.getLoginUrl());
 	});
