@@ -76,7 +76,4 @@ function getLoginUrl(path) {
     return 'https://login.managemycafe.com';
   }
 }
-
-
 module.exports.getLoginUrl = getLoginUrl;
-
