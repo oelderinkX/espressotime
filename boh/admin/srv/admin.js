@@ -33,4 +33,10 @@ module.exports = function(app) {
 			res.redirect(common.getLoginUrl('/admin'));
 		}
 	});
+
+	app.get('/logout', urlencodedParser, function(req, res) {
+		res.cookie('identifier', identifier, { maxAge: 0, httpOnly: true });
+		res.clearCookie('identifier');
+		res.redirect(common.getLoginUrl());
+	});
 }

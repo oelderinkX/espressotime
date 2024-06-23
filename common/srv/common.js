@@ -70,7 +70,13 @@ function getEmployeeDetails(identifier) {
 module.exports.getEmployeeDetails = getEmployeeDetails;
 
 function getLoginUrl(path) {
-  return 'https://login.managemycafe.com/?redirect=' + path;
+  if (path) {
+    return 'https://login.managemycafe.com/?redirect=' + path;
+  } else {
+    return 'https://login.managemycafe.com';
+  }
 }
+
+
 module.exports.getLoginUrl = getLoginUrl;
 
