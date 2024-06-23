@@ -23,10 +23,12 @@ module.exports = function(app) {
 
     app.get('/employee', urlencodedParser, function(req, res) {
         var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		console.log('get /employee, employeeid: ' + employeeid);
 
         if (employeeid && employeeid != -1) {
             var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
-            
+            console.log('get /employee, employeeDetails: ' + employeeDetails);
+
             var formatted = employeePage;
 
             if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
@@ -43,6 +45,7 @@ module.exports = function(app) {
 
 	app.post('/employee', urlencodedParser, function(req, res) {
 		var identifier = req.body.identifier;
+		console.log('post /employee, identifier: ' + identifier);
 
 		if (identifier) {
 			res.cookie('identifier', identifier, { maxAge: 1000 * 60 * 60 * 24 * 365, httpOnly: true });
