@@ -21,7 +21,27 @@ module.exports = function(app) {
 
 	app.use('/scripts/m_employee.js', express.static(__dirname + '"/../client/m_employee.js'));
 
-	app.all('/employee', urlencodedParser, function(req, res) {
+    app.get('/employee', urlencodedParser, function(req, res) {
+        var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+        if (employeeid && employeeid != -1) {
+            var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
+            
+            var formatted = employeePage;
+
+            if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
+                while (formatted.includes('display: none')) {
+                    formatted = formatted.replace('display: none', 'display: inline');
+                }
+            }
+
+            res.send(formatted);
+        } else {
+            res.redirect(common.getLoginUrl('/employee'));
+        }
+    });
+
+	app.post('/employee', urlencodedParser, function(req, res) {
 		var identifier = req.body.identifier;
 
 		if (identifier) {
