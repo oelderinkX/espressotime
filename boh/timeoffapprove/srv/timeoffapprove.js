@@ -44,7 +44,7 @@ module.exports = function(app) {
 					}
 				}
 
-                var sql = 'select employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason '
+                var sql = 'select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason '
                 sql += 'from espresso.timeoff ';
                 sql += 'where employee_id in (select id from espresso.employee where shopid = $1)';
 
@@ -56,7 +56,8 @@ module.exports = function(app) {
 
                         if (result && result.rowCount > 0) {
                             for(var i = 0; i < result.rowCount; i++) {
-                                timeoff.push({ employee_id: result.rows[i].employee_id,
+                                timeoff.push({ id: result.rows[i].id,
+                                    employee_id: result.rows[i].employee_id,
                                     start_date: result.rows[i].start_date,
                                     end_date: result.rows[i].end_date,
                                     role: result.rows[i].role,

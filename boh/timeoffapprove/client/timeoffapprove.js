@@ -1,7 +1,18 @@
 var timeoffs = { };
 
+function getEmployeeNameById(id) {
+    if (timeoffs && timeoffs.employee) {
+        for(var i = 0; i < timeoffs.employee.length; ii++) {
+            if (timeoffs.employee[i].employee_id == id) {
+                return timeoffs.employee[i].name;
+            }
+        }
+    }
+
+    return 'unknown employee';
+}
+
 function loadTimeOffs() {
-    // hide everything!!!
     var timeoffapproval =  document.getElementById('timeoffapproval');
     timeoffapproval.style = "display: none";
 
@@ -84,19 +95,19 @@ function displayAllTimeoffs() {
                 var row = document.createElement('tr');
 
                 var column = document.createElement('td');
-                column.innerText = timeoffs.timeoff[i].id;  // get name from id!!
+                column.innerText = getEmployeeNameById(timeoffs.timeoff[i].employee_id);
                 row.appendChild(column);
             
                 var column = document.createElement('td');
-                column.innerText =  timeoffs.timeoff[i].id;
+                column.innerText =  timeoffs.timeoff[i].start_date;
                 row.appendChild(column);
             
                 var column = document.createElement('td');
-                column.innerText =  timeoffs.timeoff[i].type;
+                column.innerText =  timeoffs.timeoff[i].role;
                 row.appendChild(column);
             
                 var column = document.createElement('td');
-                column.innerText =  timeoffs.timeoff[i].paid;
+                column.innerText =  YesOrNo(timeoffs.timeoff[i].paid);
                 row.appendChild(column);
             
                 var column = document.createElement('td');
@@ -104,7 +115,15 @@ function displayAllTimeoffs() {
                 row.appendChild(column);
             
                 var column = document.createElement('td');
-                column.innerText =  timeoffs.timeoff[i].status;  // add buttons with calls!
+
+                if (timeoffs.timeoff[i].approved == 0) {
+                    column.innerHTML =  'Pending <input type="button" onclick="alert(\'Approve id ' + timeoffs.timeoff[i].id + ' employee ' + timeoffs.timeoff[i].employee_id + '\');">Approve</button>';
+                } else if (timeoffs.timeoff[i].approved == 1) {
+                    column.innerText =  'Approved';
+                } else if (timeoffs.timeoff[i].approved == 2) {
+                    column.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
+                }
+
                 row.appendChild(column);
             
                 timeoffs_table.appendChild(row);
