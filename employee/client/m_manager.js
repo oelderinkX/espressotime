@@ -301,6 +301,19 @@ function loadSignInOut() {
     sendPost("/manager_signinout", JSON.stringify(request), function(response) {
       var response =  JSON.parse(response);
   
+      // sort by start time!  not sure what it will do with undefined
+      response = response.sort((a, b) => {
+        var n1 = a.roster_start;
+        var n2 = b.roster_start;
+        if (n1 > n2) {
+            return 1;
+        } else if (n1 < n2) {
+            return - 1;
+        } else {
+            return 0;
+        }
+      });
+
       var headingRow = document.createElement('tr');
       var nameH = document.createElement('th');     
       nameH.innerText = 'Name';

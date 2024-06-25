@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Espresso Time - Time off Approval</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/timeoffapprove.js"></script>
+</head>
+<html>
+<body>
+    <span style="float: top;">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/admin';">Back</button>
+    </span>
+    <h1>Time off Approval</h1>
+    <table width="100%" id="timeoffapproval">
+        <tr>
+            <td>
+                Status:
+                <select id="status">
+                    <option value="-1">--- All ---</option>
+                    <option value="0" selected="selected">Pending</option>
+                    <option value="1">Approved</option>
+                    <option value="2">Unapproved</option>
+                </select>
+                <div>
+                    <input type="checkbox" id="ex" name="ex" />
+                    <label for="ex">Include Ex Employees</label>
+                </div>
+                Employee:
+                <select id="employees">
+                </select>
+            </td>
+            <td>
+                <table id="timeoffs" border=1 width="100%">
+                    <tr>
+                        <th>Employee name</th>
+                        <th>Time off</th>
+                        <th>Type</th>
+                        <th>Paid</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Jared</td>
+                        <td>2024-10-20 to 2024-10-21 (1 day)</td>
+                        <td>Sick</td>
+                        <td>Yes</td>
+                        <td>Sore stomach</td>
+                        <td>Apporved</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>        
+    </table>
+</body>
+<script>
+    loadTimeOffs();
+</script>
+</html>
