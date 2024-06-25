@@ -58,6 +58,9 @@ require('./boh/roster/srv/roster.js')(app);
 console.log('loading daily reconciliation.js');
 require('./boh/dailyreconciliation/srv/dailyreconciliation.js')(app);
 
+console.log('loading timeoffapprove.js');
+require('./boh/timeoffapprove/srv/timeoffapprove.js')(app);
+
 // this might need to be deleted or updated!
 console.log('loading tools.js');
 require('./boh/tools/srv/tools.js')(app);
