@@ -80,4 +80,25 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+    app.post('/updateapprove', jsonParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+        var id = req.body.id;
+        var employeeid = req.body.employeeid;
+        var approved = req.body.approved;
+
+		var sql = 'update espresso.timeoff set approved = $1 where id = $2 and employee_id = $3';
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, [approved, id, employeeid], function(err, result) {
+				done();
+
+                if (err) {
+                    console.log(err);
+                }
+       
+                res.send({});
+			});
+		});
+	});
 }
