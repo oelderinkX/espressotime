@@ -19,7 +19,6 @@ function loadTimeOffs() {
     var request = {};
     sendPost("/gettimeoffs", JSON.stringify(request), function(response) {
         timeoffs  = JSON.parse(response);
-        
     
         var status = document.getElementById('status');
         status.value = 0;

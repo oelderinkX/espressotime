@@ -20,8 +20,8 @@
     <table width="100%" id="timeoffapproval">
         <tr>
             <td style="text-align:left; vertical-align:top; padding: 20px;">
-                <label for="status">Status:</label>
-                <select id="status" name="status" size="5" onchange="loadTimeOffs();">
+                <label for="status">Status:</label><br/>
+                <select id="status" name="status" size="5" onchange="displayAllTimeoffs();">
                     <option value="-1">--- All ---</option>
                     <option value="0">Pending</option>
                     <option value="1">Approved</option>
@@ -34,8 +34,8 @@
                     <label for="ex">Include Ex Employees</label>
                 </div>
                 <br/>              
-                <label for="employees">Employee:</label>
-                <select id="employees" name="employees" size="25" onchange="loadTimeOffs();">
+                <label for="employees">Employee:</label><br/>
+                <select id="employees" name="employees" size="25" onchange="displayAllTimeoffs();">
                 </select>
             </td>
             <td style="text-align:left; vertical-align:top; padding: 20px;">
