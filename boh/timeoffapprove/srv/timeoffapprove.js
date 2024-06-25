@@ -33,11 +33,11 @@ module.exports = function(app) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
-				var employees = [];
+				var employee = [];
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						employees.push({ id: result.rows[i].id,
+						employee.push({ id: result.rows[i].id,
 									 name: result.rows[i].name,
                                      ex: result.rows[i].ex
 						});
@@ -69,7 +69,7 @@ module.exports = function(app) {
                         }
 
                         var timeoffs = {
-                            employees: employees,
+                            employee: employee,
                             timeoff: timeoff
                         };
         
