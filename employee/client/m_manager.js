@@ -303,8 +303,8 @@ function loadSignInOut() {
   
       // sort by start time!  not sure what it will do with undefined
       response = response.sort((a, b) => {
-        var n1 = a.roster_start;
-        var n2 = b.roster_start;
+        var n1 = new Date(a.roster_start);
+        var n2 = new Date(b.roster_start);
         if (n1 > n2) {
             return 1;
         } else if (n1 < n2) {
