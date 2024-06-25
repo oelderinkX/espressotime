@@ -28,7 +28,7 @@ function loadTimeOffs() {
 
         displayAllTimeoffs();
 
-        timeoffapproval.style = "display: inline";
+        timeoffapproval.style = "display: table;";
     });
 }
 
@@ -117,7 +117,7 @@ function displayAllTimeoffs() {
                 var column = document.createElement('td');
 
                 if (timeoffs.timeoff[i].approved == 0) {
-                    column.innerHTML =  'Pending <button type="button onclick="alert(\'Approve id ' + timeoffs.timeoff[i].id + ' employee ' + timeoffs.timeoff[i].employee_id + '\');">Approve</button>';
+                    column.innerHTML =  'Pending <button type="button onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ');">Approve</button>';
                 } else if (timeoffs.timeoff[i].approved == 1) {
                     column.innerText =  'Approved';
                 } else if (timeoffs.timeoff[i].approved == 2) {
@@ -130,4 +130,8 @@ function displayAllTimeoffs() {
             }
         }
     }
+}
+
+function update(id, employeeid) {
+    alert('approve id: ' + id + ' employee id: ' + employeeid);
 }

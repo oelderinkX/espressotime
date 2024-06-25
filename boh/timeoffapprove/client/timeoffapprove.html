@@ -16,25 +16,29 @@
         <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/admin';">Back</button>
     </span>
     <h1>Time off Approval</h1>
+    <br/>
     <table width="100%" id="timeoffapproval">
         <tr>
-            <td>
+            <td style="text-align:left; vertical-align:top; padding: 20px;">
                 Status:
-                <select id="status">
+                <select id="status" onclick="loadTimeOffs();">
                     <option value="-1">--- All ---</option>
                     <option value="0">Pending</option>
                     <option value="1">Approved</option>
                     <option value="2">Unapproved</option>
                 </select>
+                <br/>
+                <br/>
                 <div>
-                    <input type="checkbox" id="ex" name="ex" />
+                    <input type="checkbox" id="ex" name="ex" onclick="loadEmployees();"/>
                     <label for="ex">Include Ex Employees</label>
                 </div>
+                <br/>
                 Employee:
-                <select id="employees">
+                <select id="employees" onclick="loadTimeOffs();">
                 </select>
             </td>
-            <td>
+            <td style="text-align:left; vertical-align:top; padding: 20px;">
                 <table id="timeoffs" border=1 width="100%">
                 </table>
             </td>
