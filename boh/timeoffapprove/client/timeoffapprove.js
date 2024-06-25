@@ -33,7 +33,7 @@ function loadEmployees() {
     employees.appendChild(option);
 
     for(var i = 0; i < timeoffs.employee.length; i++) {
-        if (timeoffs.employee[i].ex == true || displayExEmployees == true) {
+        if (timeoffs.employee[i].ex == false || displayExEmployees == true) {
             var option = document.createElement('option');
             option.value = timeoffs.employee[i].id;
             option.innerText = timeoffs.employee[i].name;
@@ -79,8 +79,8 @@ function displayAllTimeoffs() {
     timeoffs_table.appendChild(row);
 
     for(var i = 0; i < timeoffs.timeoff.length; i++) {
-        if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employeeid) {
-            if (status.value == -1 || status.value == timeoffs.timeoff[i].status) {
+        if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employee_id) {
+            if (status.value == -1 || status.value == timeoffs.timeoff[i].approved) {
                 var row = document.createElement('tr');
 
                 var column = document.createElement('td');
