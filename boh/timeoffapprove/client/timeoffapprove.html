@@ -20,8 +20,8 @@
     <table width="100%" id="timeoffapproval">
         <tr>
             <td style="text-align:left; vertical-align:top; padding: 20px;">
-                Status:
-                <select id="status" onclick="loadTimeOffs();">
+                <label for="status">Status:</label>
+                <select id="status" name="status" size="5" onchange="loadTimeOffs();">
                     <option value="-1">--- All ---</option>
                     <option value="0">Pending</option>
                     <option value="1">Approved</option>
@@ -33,9 +33,9 @@
                     <input type="checkbox" id="ex" name="ex" onclick="loadEmployees();"/>
                     <label for="ex">Include Ex Employees</label>
                 </div>
-                <br/>
-                Employee:
-                <select id="employees" onclick="loadTimeOffs();">
+                <br/>              
+                <label for="employees">Employee:</label>
+                <select id="employees" name="employees" size="25" onchange="loadTimeOffs();">
                 </select>
             </td>
             <td style="text-align:left; vertical-align:top; padding: 20px;">
