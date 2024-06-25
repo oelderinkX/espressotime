@@ -9,6 +9,10 @@ function loadTimeOffs() {
     sendPost("/gettimeoffs", JSON.stringify(request), function(response) {
         timeoffs  = JSON.parse(response);
         
+    
+        var status = document.getElementById('status');
+        status.value = 0;
+
         loadEmployees();
 
         displayAllTimeoffs();
@@ -26,7 +30,6 @@ function loadEmployees() {
     var option = document.createElement('option');
     option.value = '0';
     option.innerText = '--- All ---';
-    option.setAttribute('selected', 'selected');
     employees.appendChild(option);
 
     for(var i = 0; i < timeoffs.employee.length; i++) {
@@ -37,6 +40,7 @@ function loadEmployees() {
             employees.appendChild(option);
         }
     }
+    employees.value = 0;
 }
 
 function displayAllTimeoffs() {
