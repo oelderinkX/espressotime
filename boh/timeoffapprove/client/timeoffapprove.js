@@ -2,7 +2,7 @@ var timeoffs = { };
 
 function getEmployeeNameById(id) {
     if (timeoffs && timeoffs.employee) {
-        for(var i = 0; i < timeoffs.employee.length; ii++) {
+        for(var i = 0; i < timeoffs.employee.length; i++) {
             if (timeoffs.employee[i].employee_id == id) {
                 return timeoffs.employee[i].name;
             }
