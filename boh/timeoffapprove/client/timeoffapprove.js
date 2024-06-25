@@ -3,7 +3,7 @@ var timeoffs = { };
 function getEmployeeNameById(id) {
     if (timeoffs && timeoffs.employee) {
         for(var i = 0; i < timeoffs.employee.length; i++) {
-            if (timeoffs.employee[i].employee_id == id) {
+            if (timeoffs.employee[i].id == id) {
                 return timeoffs.employee[i].name;
             }
         }
@@ -117,7 +117,7 @@ function displayAllTimeoffs() {
                 var column = document.createElement('td');
 
                 if (timeoffs.timeoff[i].approved == 0) {
-                    column.innerHTML =  'Pending <input type="button" onclick="alert(\'Approve id ' + timeoffs.timeoff[i].id + ' employee ' + timeoffs.timeoff[i].employee_id + '\');">Approve</button>';
+                    column.innerHTML =  'Pending <button type="button onclick="alert(\'Approve id ' + timeoffs.timeoff[i].id + ' employee ' + timeoffs.timeoff[i].employee_id + '\');">Approve</button>';
                 } else if (timeoffs.timeoff[i].approved == 1) {
                     column.innerText =  'Approved';
                 } else if (timeoffs.timeoff[i].approved == 2) {
