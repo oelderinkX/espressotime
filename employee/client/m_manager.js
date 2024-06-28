@@ -378,6 +378,7 @@ function loadSignInOut() {
 
         if (response[i].breaks) {
           for(var x = 0; response[i].breaks.length; x++) {
+            console.log('i = ' + i + ' x = ' + x);
             if (response[i].breaks[x]) {
               if (response[i].breaks[x].breaktype == "30") {
                 thirtysTotal += response[i].breaks[x].duration;
@@ -395,6 +396,7 @@ function loadSignInOut() {
           tens.innerText = tensTotal;
         }
         tens.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+        console.log('what 1');
 
         var thirtys = document.createElement('td');
         if (thirtysTotal == 0) {
@@ -403,10 +405,13 @@ function loadSignInOut() {
           thirtys.innerText = thirtysTotal;
         }
         thirtys.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+        console.log('what 2');
 
         row.appendChild(name);
         row.appendChild(start);
         row.appendChild(finish);
+        row.appendChild(tens);
+        row.appendChild(thirtys);
   
         table.appendChild(row);
       }
