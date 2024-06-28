@@ -377,7 +377,7 @@ function loadSignInOut() {
         var thirtysTotal = 0;
 
         if (response[i].breaks) {
-          for(var x = 0; response[i].breaks.length; x++) {
+          for(var x = 0; x < response[i].breaks.length; x++) {
             console.log('i = ' + i + ' x = ' + x);
             if (response[i].breaks[x]) {
               if (response[i].breaks[x].breaktype == "30") {
