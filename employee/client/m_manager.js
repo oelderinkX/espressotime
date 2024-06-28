@@ -317,16 +317,25 @@ function loadSignInOut() {
       var headingRow = document.createElement('tr');
       var nameH = document.createElement('th');     
       nameH.innerText = 'Name';
-      nameH.setAttribute('style', 'font-size:15px; text-align: left; vertical-align: middle; height: 30px; width: 160px; padding: 3px;');
+      nameH.setAttribute('style', 'font-size:13px; text-align: left; vertical-align: middle; height: 33px; width: 160px; padding: 3px;');
 
       var startH = document.createElement('th');
       startH.innerText = 'Start';
-      startH.setAttribute('style', 'font-size:15px; text-align: center; vertical-align: middle; height: 30px; width: 90px; padding: 3px;');
+      startH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
 
       var finishH = document.createElement('th');
       finishH.innerText = 'Finish';
-      finishH.setAttribute('style', 'font-size:15px; text-align: center; vertical-align: middle; height: 30px; width: 90px; padding: 3px;');
-  
+      finishH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+
+      var tensH = document.createElement('th');
+      tensH.innerText = '10s';
+      tensH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+
+      var thirtysH = document.createElement('th');
+      thirtysH.innerText = '30s';
+      thirtysH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+
+
       headingRow.appendChild(nameH);
       headingRow.appendChild(startH);
       headingRow.appendChild(finishH);
@@ -345,7 +354,7 @@ function loadSignInOut() {
         }
         var roleBg = getRoleColour(response[i].role);
         var roleTxt = getRoleTextColour(response[i].role);
-        name.setAttribute('style', 'font-size:15px; text-align: left; vertical-align: middle; height: 30px; width: 160px; padding: 3px; background: ' + roleBg + '; color: ' + roleTxt + ';');
+        name.setAttribute('style', 'font-size:13px; text-align: left; vertical-align: middle; height: 33px; width: 160px; padding: 3px; background: ' + roleBg + '; color: ' + roleTxt + ';');
          
         var start = document.createElement('td');
         if (response[i].starttime.length > 0) {
@@ -353,7 +362,7 @@ function loadSignInOut() {
         } else {
           start.innerText = '-';
         }
-        start.setAttribute('style', 'font-size:15px; text-align: center; vertical-align: middle; height: 30px; width: 90px; padding: 3px;');
+        start.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
         var finish = document.createElement('td');
         if (response[i].finishtime && response[i].finishtime.length > 0) {
@@ -361,8 +370,40 @@ function loadSignInOut() {
         } else {
           finish.innerText = '-';
         }
-        finish.setAttribute('style', 'font-size:15px; text-align: center; vertical-align: middle; height: 30px; width: 90px; padding: 3px;');
+        finish.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
+
+        var tensTotal = 0;
+        var thirtysTotal = 0;
+
+        if (response[i].breaks) {
+          for(var x = 0; response[i].breaks.length; x++) {
+            if (response[i].breaks[x]) {
+              if (response[i].breaks[x].breaktype == "30") {
+                thirtysTotal += response[i].breaks[x].duration;
+              } else if (response[i].breaks[x].breaktype == "10") {
+                tensTotal += response[i].breaks[x].duration;
+              }
+            }
+          }
+        }
+
+        var tens = document.createElement('td');
+        if (tensTotal == 0) {
+          tens.innerText = '-';
+        } else {
+          tens.innerText = tensTotal;
+        }
+        tens.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+
+        var thirtys = document.createElement('td');
+        if (thirtysTotal == 0) {
+          thirtys.innerText = '-';
+        } else {
+          thirtys.innerText = thirtysTotal;
+        }
+        thirtys.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+
         row.appendChild(name);
         row.appendChild(start);
         row.appendChild(finish);
