@@ -299,8 +299,13 @@ module.exports = function(app) {
 											var minutes;
 											var breaktype;
 
-											if (result.rows[i].breakduration && result.rows[i].breakduration.minutes) {
-												minutes = result.rows[i].breakduration.minutes;
+											if (result.rows[i].breakduration) {
+												if (result.rows[i].breakduration.minutes) {
+													minutes = result.rows[i].breakduration.minutes;
+												}
+												if (result.rows[i].breakduration.hours) {
+													minutes += (result.rows[i].breakduration.hours*60);
+												}
 											}
 
 											if (result.rows[i].breaktype) {
