@@ -329,16 +329,18 @@ function loadSignInOut() {
 
       var tensH = document.createElement('th');
       tensH.innerText = '10s';
-      tensH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+      tensH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
       var thirtysH = document.createElement('th');
       thirtysH.innerText = '30s';
-      thirtysH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
+      thirtysH.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
 
       headingRow.appendChild(nameH);
       headingRow.appendChild(startH);
       headingRow.appendChild(finishH);
+      headingRow.appendChild(tensH);
+      headingRow.appendChild(thirtysH);
   
       table.appendChild(headingRow);
   
@@ -378,7 +380,6 @@ function loadSignInOut() {
 
         if (response[i].breaks) {
           for(var x = 0; x < response[i].breaks.length; x++) {
-            console.log('i = ' + i + ' x = ' + x);
             if (response[i].breaks[x]) {
               if (response[i].breaks[x].breaktype == "30") {
                 thirtysTotal += response[i].breaks[x].duration;
@@ -395,8 +396,7 @@ function loadSignInOut() {
         } else {
           tens.innerText = tensTotal;
         }
-        tens.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
-        console.log('what 1');
+        tens.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
         var thirtys = document.createElement('td');
         if (thirtysTotal == 0) {
@@ -404,8 +404,7 @@ function loadSignInOut() {
         } else {
           thirtys.innerText = thirtysTotal;
         }
-        thirtys.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
-        console.log('what 2');
+        thirtys.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
         row.appendChild(name);
         row.appendChild(start);
