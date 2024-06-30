@@ -14,6 +14,18 @@ function s4() {
 }
 
 function postgresConfig() {
+	var config = {
+		connectionString: process.env.DATABASE_URL,
+		ssl: {
+			rejectUnauthorized: false
+		}
+	};
+
+	return config;
+}
+module.exports.postgresConfig = postgresConfig;
+
+function postgresConfig2() {
   var config = {
     user: auth[0],
     password: auth[1],
@@ -25,7 +37,7 @@ function postgresConfig() {
   
   return config;
 }
-module.exports.postgresConfig = postgresConfig;
+module.exports.postgresConfig2 = postgresConfig2;
 
 function replaceAll(str, searchValue, replaceWith) {
 	if (searchValue == replaceWith) {
