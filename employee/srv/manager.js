@@ -204,7 +204,7 @@ module.exports = function(app) {
 		pool.connect(function(err, connection, done) {
 			connection.query(sql_employee, [employeeid], function(err, result) {
 				console.log('sql_employee: ' + err);
-				done();
+				//done();
 
 				var employees = [];
 				var employeeids = [];
@@ -224,7 +224,7 @@ module.exports = function(app) {
 
 				connection.query(sql_start_finish, function(err, result) {
 					console.log('sql_start_finish: ' + err);
-					done();
+					//done();
 
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
@@ -242,7 +242,7 @@ module.exports = function(app) {
 					}
 
 					connection.query(sql_roster, [employeeid], function(err, result) {
-						done();
+						//done();
 
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
