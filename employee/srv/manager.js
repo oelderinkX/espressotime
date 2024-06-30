@@ -222,6 +222,7 @@ module.exports = function(app) {
 				console.log(sql_start_finish);
 
 				connection.query(sql_start_finish, function(err, result) {
+					console.log(err);
 					done();
 
 					if (result && result.rowCount > 0) {
