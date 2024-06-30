@@ -203,6 +203,7 @@ module.exports = function(app) {
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql_employee, [employeeid], function(err, result) {
+				console.log('sql_employee: ' + err);
 				done();
 
 				var employees = [];
@@ -222,7 +223,7 @@ module.exports = function(app) {
 				console.log(sql_start_finish);
 
 				connection.query(sql_start_finish, function(err, result) {
-					console.log(err);
+					console.log('sql_start_finish: ' + err);
 					done();
 
 					if (result && result.rowCount > 0) {
