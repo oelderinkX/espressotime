@@ -203,9 +203,6 @@ module.exports = function(app) {
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql_employee, [employeeid], function(err, result) {
-				console.log('sql_employee: ' + err);
-				//done();
-
 				var employees = [];
 				var employeeids = [];
 
@@ -223,9 +220,6 @@ module.exports = function(app) {
 				console.log(sql_start_finish);
 
 				connection.query(sql_start_finish, function(err, result) {
-					console.log('sql_start_finish: ' + err);
-					//done();
-
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
 							signinout.push({
@@ -242,8 +236,6 @@ module.exports = function(app) {
 					}
 
 					connection.query(sql_roster, [employeeid], function(err, result) {
-						//done();
-
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
 
@@ -293,7 +285,6 @@ module.exports = function(app) {
 						connection.query(sql_break, function(err, result) {
 							done();
 
-							//employeeid, finishtime-starttime as breakduration, breaktype
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									for(var x = 0; x < signinout.length; x++) {
