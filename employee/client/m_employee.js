@@ -263,7 +263,7 @@ function loadBreaks() {
 
     if (isOnBreak) {
       updateTimeRemaining();
-      breakFinishTimeId = setTimeout(updateTimeRemaining, 30000);
+      breakFinishTimeId = window.setTimeout(function() { updateTimeRemaining() }, 30000);
     } else {
       var timeremaining = document.getElementById('timeremaining');
       timeremaining.innerHTML = '';
