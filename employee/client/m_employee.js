@@ -15,6 +15,7 @@ var roles = [
 var rosterStart = new Date(); // GLOBAL
 
 var expectedBreakFinishTime = new Date();
+var breakFinishTimeId;
 
 function getRoleColour(role) {
   for(var i = 0; i < roles.length; i++) {
@@ -261,23 +262,28 @@ function loadBreaks() {
     }
 
     if (isOnBreak) {
-      setTimeout(function() {
-        var timeremaining = document.getElementById('timeremaining');
-
-        var now = new Date();
-        totalTimeRemaining = calculateMinutes(now, expectedBreakFinishTime);
-        if (now > expectedBreakFinishTime) {
-          totalTimeRemaining = totalTimeRemaining * -1;
-        }
-
-        if (totalTimeRemaining >= 0) {
-          timeremaining.innerHTML = 'You have ' + totalTimeRemaining + ' mins left on your break';
-        } else {
-          timeremaining.innerHTML = 'Your break is finished.  Please clock back in';
-        }
-      }, 30000);
+      updateTimeRemaining();
+      const breakFinishTimeId = setTimeout(updateTimeRemaining(), 30000);
     }
   });
+}
+
+function updateTimeRemaining() {
+  var timeremaining = document.getElementById('timeremaining');
+
+  var now = new Date();
+  var totalTimeRemaining = calculateMinutes(now, expectedBreakFinishTime);
+  
+  if (now > expectedBreakFinishTime) {
+    totalTimeRemaining = totalTimeRemaining * -1;
+  }
+
+  if (totalTimeRemaining >= 0) {
+    timeremaining.innerHTML = 'You have ' + totalTimeRemaining + ' mins left on your break';
+  } else {
+    timeremaining.innerHTML = 'Your break is finished.  Please clock back in';
+    clearTimeout(breakFinishTimeId);
+  }
 }
 
 function loadHelps() {
