@@ -263,7 +263,7 @@ function loadBreaks() {
 
     if (isOnBreak) {
       updateTimeRemaining();
-      const breakFinishTimeId = setTimeout(updateTimeRemaining(), 30000);
+      const breakFinishTimeId = setTimeout(updateTimeRemaining, 30000);
     }
   });
 }
