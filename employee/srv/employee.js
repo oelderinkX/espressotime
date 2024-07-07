@@ -180,13 +180,13 @@ module.exports = function(app) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 
 		var date = req.body.date;
+		var employee_breaks = {};
 		var breaks = [];
 
-		sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2";
+		var sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime desc";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid, date], function(err, result) {
-				done();
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
@@ -199,12 +199,27 @@ module.exports = function(app) {
 						breaks.push({
 							starttime: result.rows[i].starttime,
 							breaktype: result.rows[i].breaktype,
-							finishtime: finishtime
+							finishtime: finishtime,
 						});
 					}
 				}
-					
-				res.send(breaks);
+				
+				employee_breaks.breaks = breaks;
+
+				sql = "select start, finish from espresso.roster where employeeid = $1 and start::date = $2";
+
+				connection.query(sql, [employeeid, date], function(err, result) {
+					done();
+
+					var roster = {};
+					if (result && result.rowCount == 1) {
+							roster.start = result.rows[0].start;
+							roster.finish = result.rows[0].finish;
+					}
+					employee_breaks.roster = roster;
+
+					res.send(employee_breaks);
+				});			
 			});
 		});
 	});

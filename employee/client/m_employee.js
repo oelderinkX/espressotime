@@ -136,50 +136,49 @@ function loadBreaks() {
   var breakstable = document.getElementById('breaks');
   breakstable.innerHTML = '';
 
-  breaks = [];
   var today = new Date();
   var request = { date: getDbFormat(today) };
 
   sendPost("/employee_breaks", JSON.stringify(request), function(response) {
-      breaks =  JSON.parse(response);
+    var employee_breaks =  JSON.parse(response);
 
-      for(var i = 0; i < breaks.length; i++) {
-        var tr = document.createElement('tr');
+    for(var i = 0; i < employee_breaks.breaks.length; i++) {
+      var tr = document.createElement('tr');
 
-        var breaktype = document.createElement('td');
-        breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
+      var breaktype = document.createElement('td');
+      breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
 
-        var breaktypeicon = '';
-        if (breaks[i].breaktype == '10') {
-          breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
-        } else {
-          breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
-        }
-        breaktype.innerHTML = breaktypeicon;
+      var breaktypeicon = '';
+      if (employee_breaks.breaks[i].breaktype == '10') {
+        breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
+      } else {
+        breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
+      }
+      breaktype.innerHTML = breaktypeicon;
 
-        var startbreak = document.createElement('td');
-        startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
-        startbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].starttime)) + '</h4>';
+      var startbreak = document.createElement('td');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.innerHTML = '<h4>' + formatAMPM(formatTime(employee_breaks.breaks[i].starttime)) + '</h4>';
 
-        var sep = document.createElement('td');
-        sep.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
-        sep.innerHTML = '-';
+      var sep = document.createElement('td');
+      sep.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
+      sep.innerHTML = '-';
 
-        var endbreak = document.createElement('td');
-        endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
-        if (breaks[i].finishtime == '-') {
-          endbreak.innerHTML = '';
-        } else {
-          endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
-        }
-        
-        tr.appendChild(breaktype);
-        tr.appendChild(startbreak);
-        tr.appendChild(sep);
-        tr.appendChild(endbreak);
+      var endbreak = document.createElement('td');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      if (employee_breaks.breaks[i].finishtime == '-') {
+        endbreak.innerHTML = '';
+      } else {
+        endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
+      }
+      
+      tr.appendChild(breaktype);
+      tr.appendChild(startbreak);
+      tr.appendChild(sep);
+      tr.appendChild(endbreak);
 
-        breakstable.appendChild(tr);
-      }  
+      breakstable.appendChild(tr);
+    }  
   });
 }
 
