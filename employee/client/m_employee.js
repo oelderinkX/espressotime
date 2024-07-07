@@ -283,7 +283,6 @@ function updateTimeRemaining() {
 
   if (totalTimeRemaining >= 0) {
     timeremaining.innerHTML = 'You have ' + totalTimeRemaining + ' mins left on your break';
-    clearTimeout(breakFinishTimeId);
     breakFinishTimeId = window.setTimeout(function() { updateTimeRemaining() }, 30000);
   } else {
     timeremaining.innerHTML = 'Your break is finished.  Please clock back in';
