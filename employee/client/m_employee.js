@@ -201,7 +201,8 @@ function loadBreaks() {
       endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       if (employee_breaks.breaks[i].finishtime == '-') {
         endbreak.innerHTML = '<h4> - </h4>';
-        totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
+        //totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
+        totalTimeRemaining = calculateMinutes(expectedFinishTime, new Date());
         isOnBreak = true;
       } else {
         endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
@@ -257,7 +258,7 @@ function loadBreaks() {
     }
 
     if (isOnBreak) {
-      timeremaining.innertText = 'Time remaining for your break: ' + totalTimeRemaining + ' mins';
+      timeremaining.innerHTML = 'Time remaining for your break: ' + totalTimeRemaining + ' mins';
     }
   });
 }
