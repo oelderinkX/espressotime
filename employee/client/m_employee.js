@@ -181,23 +181,23 @@ function loadBreaks() {
       var breaktypeicon = '';
       if (employee_breaks.breaks[i].breaktype == '10') {
         expected10Count--;
-        var st = new Date(employee_breaks.breaks[i].starttime);
+        var st = new Date(removeZuluTime(employee_breaks.breaks[i].starttime));
         expectedFinishTime = new Date(st.getTime() + 10*60000);
         breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
       } else {
         expected30Count--;
         breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
-        var st = new Date(employee_breaks.breaks[i].starttime);
+        var st = new Date(removeZuluTime(employee_breaks.breaks[i].starttime));
         expectedFinishTime = new Date(st.getTime() + 30*60000);
       }
       breaktype.innerHTML = breaktypeicon;
 
       var startbreak = document.createElement('td');
-      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       startbreak.innerHTML = '<h4>' + formatAMPM(formatTime(employee_breaks.breaks[i].starttime)) + '</h4>';
 
       var endbreak = document.createElement('td');
-      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       if (employee_breaks.breaks[i].finishtime == '-') {
         endbreak.innerHTML = '<h4> - </h4>';
         totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
@@ -219,11 +219,11 @@ function loadBreaks() {
       breaktype.innerHTML = '<span class="glyphicon glyphicon-time"></span>';
 
       var startbreak = document.createElement('td');
-      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       startbreak.innerHTML = '<h4> - </h4>';
 
       var endbreak = document.createElement('td');
-      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       endbreak.innerHTML = '<h4> - </h4>';
 
       tr.appendChild(breaktype);
@@ -240,11 +240,11 @@ function loadBreaks() {
       breaktype.innerHTML = '<span class="glyphicon glyphicon-cutlery"></span>';
 
       var startbreak = document.createElement('td');
-      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       startbreak.innerHTML = '<h4> - </h4>';
 
       var endbreak = document.createElement('td');
-      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       endbreak.innerHTML = '<h4> - </h4>';
 
       tr.appendChild(breaktype);
