@@ -143,7 +143,8 @@ function loadBreaks() {
   var expected10Count = 0;
   var expected30Count = 0;
   var totalRosteredMinutes = 0;
-  var totalTimeRemaining;
+  var totalTimeRemaining = 0;
+  var isOnBreak = false;
 
   sendPost("/employee_breaks", JSON.stringify(request), function(response) {
     var employee_breaks =  JSON.parse(response);
@@ -201,6 +202,7 @@ function loadBreaks() {
       if (employee_breaks.breaks[i].finishtime == '-') {
         endbreak.innerHTML = '<h4> - </h4>';
         totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
+        isOnBreak = true;
       } else {
         endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
       }
@@ -254,7 +256,7 @@ function loadBreaks() {
       breakstable.appendChild(tr);      
     }
 
-    if (totalTimeRemaining) {
+    if (isOnBreak) {
       timeremaining.innertText = 'Time remaining for your break: ' + totalTimeRemaining + ' mins';
     }
   });
