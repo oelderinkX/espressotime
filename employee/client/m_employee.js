@@ -14,6 +14,8 @@ var roles = [
 
 var rosterStart = new Date(); // GLOBAL
 
+var expectedBreakFinishTime = new Date();
+
 function getRoleColour(role) {
   for(var i = 0; i < roles.length; i++) {
     if (roles[i].name.toLowerCase() == role.toLowerCase()) {
@@ -134,7 +136,6 @@ function getTimeByDate(employeestimes, date) {
 
 function loadBreaks() {
   var breakstable = document.getElementById('breaks');
-  var timeremaining = document.getElementById('timeremaining');
   breakstable.innerHTML = '';
 
   var today = new Date();
@@ -178,18 +179,17 @@ function loadBreaks() {
       var breaktype = document.createElement('td');
       breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
 
-      var expectedFinishTime = new Date();
       var breaktypeicon = '';
       if (employee_breaks.breaks[i].breaktype == '10') {
         expected10Count--;
         var st = new Date(removeZuluTime(employee_breaks.breaks[i].starttime));
-        expectedFinishTime = new Date(st.getTime() + 10*60000);
+        expectedBreakFinishTime = new Date(st.getTime() + 10*60000);
         breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
       } else {
         expected30Count--;
         breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
         var st = new Date(removeZuluTime(employee_breaks.breaks[i].starttime));
-        expectedFinishTime = new Date(st.getTime() + 30*60000);
+        expectedBreakFinishTime = new Date(st.getTime() + 30*60000);
       }
       breaktype.innerHTML = breaktypeicon;
 
@@ -201,8 +201,11 @@ function loadBreaks() {
       endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 100px;');
       if (employee_breaks.breaks[i].finishtime == '-') {
         endbreak.innerHTML = '<h4> - </h4>';
-        //totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
-        totalTimeRemaining = calculateMinutes(expectedFinishTime, new Date());
+        var now = new Date();
+        totalTimeRemaining = calculateMinutes(now, expectedBreakFinishTime);
+        if (now > expectedBreakFinishTime) {
+          totalTimeRemaining = totalTimeRemaining * -1;
+        }
         isOnBreak = true;
       } else {
         endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
@@ -258,7 +261,21 @@ function loadBreaks() {
     }
 
     if (isOnBreak) {
-      timeremaining.innerHTML = 'Time remaining for your break: ' + totalTimeRemaining + ' mins';
+      setTimeout(function() {
+        var timeremaining = document.getElementById('timeremaining');
+
+        var now = new Date();
+        totalTimeRemaining = calculateMinutes(now, expectedBreakFinishTime);
+        if (now > expectedBreakFinishTime) {
+          totalTimeRemaining = totalTimeRemaining * -1;
+        }
+
+        if (totalTimeRemaining >= 0) {
+          timeremaining.innerHTML = 'You have ' + totalTimeRemaining + ' mins left on your break';
+        } else {
+          timeremaining.innerHTML = 'Your break is finished.  Please clock back in';
+        }
+      }, 30000);
     }
   });
 }
