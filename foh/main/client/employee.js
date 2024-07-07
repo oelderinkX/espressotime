@@ -83,7 +83,6 @@ function getEmployeeDetails(employeeId) {
     var date = getDbFormat();
 
     var employeename = document.getElementById("employeename");
-    var contact = document.getElementById("contact");
     var starttime = document.getElementById("starttime");
     var finishtime = document.getElementById("finishtime");
     var breaks = document.getElementById("breaks");
@@ -95,7 +94,6 @@ function getEmployeeDetails(employeeId) {
     var shiftnotesarea = document.getElementById("shiftnotesarea");
     var allemployeestatus = document.getElementById("allemployeestatus");
 
-    contact.classList.add("invisible");
     starttime.classList.add("invisible");
     finishtime.classList.add("invisible");
     breaks.classList.add("invisible");
@@ -121,16 +119,6 @@ function getEmployeeDetails(employeeId) {
 
         employeename.innerHTML = employee.name;
         
-        if (employee.contact && employee.contact.length > 0) {
-            if (isMobileDevice()) {
-                contact.innerHTML = 'Contact: <a class="ah3" href="tel:' + parseTelephone(employee.contact) + '">' + employee.contact + '</a>' ;
-            } else {
-                contact.innerHTML = 'Contact: ' + employee.contact;
-            }
-        } else {
-            contact.innerHTML = '';
-        }
-
         starttime.innerHTML = 'Start time: ' + formatTime(employee.starttime);
         finishtime.innerHTML = 'Finish time: ' + formatTime(employee.finishtime);
 
@@ -241,7 +229,6 @@ function getEmployeeDetails(employeeId) {
 
         if (employee.name) {
             employeename.classList.remove("invisible");
-            contact.classList.remove("invisible");
             starttime.classList.remove("invisible");
             finishtime.classList.remove("invisible");
             breaks.classList.remove("invisible");
