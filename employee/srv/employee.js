@@ -183,7 +183,7 @@ module.exports = function(app) {
 		var employee_breaks = {};
 		var breaks = [];
 
-		var sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime desc";
+		var sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime asc";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid, date], function(err, result) {
