@@ -134,6 +134,7 @@ function getTimeByDate(employeestimes, date) {
 
 function loadBreaks() {
   var breakstable = document.getElementById('breaks');
+  var timeremaining = document.getElementById('timeremaining');
   breakstable.innerHTML = '';
 
   var today = new Date();
@@ -142,6 +143,7 @@ function loadBreaks() {
   var expected10Count = 0;
   var expected30Count = 0;
   var totalRosteredMinutes = 0;
+  var totalTimeRemaining;
 
   sendPost("/employee_breaks", JSON.stringify(request), function(response) {
     var employee_breaks =  JSON.parse(response);
@@ -175,13 +177,18 @@ function loadBreaks() {
       var breaktype = document.createElement('td');
       breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
 
+      var expectedFinishTime = new Date();
       var breaktypeicon = '';
       if (employee_breaks.breaks[i].breaktype == '10') {
         expected10Count--;
+        var st = new Date(employee_breaks.breaks[i].starttime);
+        expectedFinishTime = new Date(st.getTime() + 10*60000);
         breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
       } else {
         expected30Count--;
         breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
+        var st = new Date(employee_breaks.breaks[i].starttime);
+        expectedFinishTime = new Date(st.getTime() + 30*60000);
       }
       breaktype.innerHTML = breaktypeicon;
 
@@ -193,6 +200,7 @@ function loadBreaks() {
       endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
       if (employee_breaks.breaks[i].finishtime == '-') {
         endbreak.innerHTML = '<h4> - </h4>';
+        totalTimeRemaining = calculateMinutes(new Date(), expectedFinishTime);
       } else {
         endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
       }
@@ -244,6 +252,10 @@ function loadBreaks() {
       tr.appendChild(endbreak);
 
       breakstable.appendChild(tr);      
+    }
+
+    if (totalTimeRemaining) {
+      timeremaining.innertText = 'Time remaining for your break: ' + totalTimeRemaining + ' mins';
     }
   });
 }
