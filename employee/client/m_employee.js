@@ -139,8 +139,35 @@ function loadBreaks() {
   var today = new Date();
   var request = { date: getDbFormat(today) };
 
+  var expected10Count = 0;
+  var expected30Count = 0;
+  var totalRosteredMinutes = 0;
+
   sendPost("/employee_breaks", JSON.stringify(request), function(response) {
     var employee_breaks =  JSON.parse(response);
+
+    if (employee_breaks.roster) {
+      totalRosteredMinutes = calculateMinutes(employee_breaks.roster.start, employee_breaks.roster.finish);
+
+      if (totalRosteredMinutes > 120 && totalRosteredMinutes <= 240) {
+        expected10Count = 1;
+      } else if (totalRosteredMinutes > 240 && totalRosteredMinutes <= 300) {
+        expected10Count = 1;
+        expected30Count = 1;
+      } else if (totalRosteredMinutes > 300 && totalRosteredMinutes <= 600) {
+        expected10Count = 2;
+        expected30Count = 1;
+      } else if (totalRosteredMinutes > 600 && totalRosteredMinutes <= 720) {
+        expected10Count = 3;
+        expected30Count = 1;
+      } else if (totalRosteredMinutes > 720 && totalRosteredMinutes <= 840) {
+        expected10Count = 3;
+        expected30Count = 2;
+      } else if (totalRosteredMinutes > 840 && totalRosteredMinutes <= 960) {
+        expected10Count = 4;
+        expected30Count = 2;
+      }
+    }
 
     for(var i = 0; i < employee_breaks.breaks.length; i++) {
       var tr = document.createElement('tr');
@@ -150,8 +177,10 @@ function loadBreaks() {
 
       var breaktypeicon = '';
       if (employee_breaks.breaks[i].breaktype == '10') {
+        expected10Count--;
         breaktypeicon = '<span class="glyphicon glyphicon-time"></span>';
       } else {
+        expected30Count--;
         breaktypeicon = '<span class="glyphicon glyphicon-cutlery"></span>';
       }
       breaktype.innerHTML = breaktypeicon;
@@ -160,25 +189,62 @@ function loadBreaks() {
       startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
       startbreak.innerHTML = '<h4>' + formatAMPM(formatTime(employee_breaks.breaks[i].starttime)) + '</h4>';
 
-      var sep = document.createElement('td');
-      sep.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 20px;');
-      sep.innerHTML = '-';
-
       var endbreak = document.createElement('td');
       endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
       if (employee_breaks.breaks[i].finishtime == '-') {
-        endbreak.innerHTML = '';
+        endbreak.innerHTML = '<h4> - </h4>';
       } else {
         endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
       }
       
       tr.appendChild(breaktype);
       tr.appendChild(startbreak);
-      tr.appendChild(sep);
       tr.appendChild(endbreak);
 
       breakstable.appendChild(tr);
-    }  
+    }
+
+    for(; expected10Count > 0; expected10Count--) {
+      var tr = document.createElement('tr');
+      var breaktype = document.createElement('td');
+      breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
+      breaktype.innerHTML = '<span class="glyphicon glyphicon-time"></span>';
+
+      var startbreak = document.createElement('td');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.innerHTML = '<h4> - </h4>';
+
+      var endbreak = document.createElement('td');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      endbreak.innerHTML = '<h4> - </h4>';
+
+      tr.appendChild(breaktype);
+      tr.appendChild(startbreak);
+      tr.appendChild(endbreak);
+
+      breakstable.appendChild(tr);      
+    }
+
+    for(; expected30Count > 0; expected30Count--) {
+      var tr = document.createElement('tr');
+      var breaktype = document.createElement('td');
+      breaktype.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 40px;');
+      breaktype.innerHTML = '<span class="glyphicon glyphicon-cutlery"></span>';
+
+      var startbreak = document.createElement('td');
+      startbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      startbreak.innerHTML = '<h4> - </h4>';
+
+      var endbreak = document.createElement('td');
+      endbreak.setAttribute('style', 'text-align: center; vertical-align: middle; height: 40px; width: 80px;');
+      endbreak.innerHTML = '<h4> - </h4>';
+
+      tr.appendChild(breaktype);
+      tr.appendChild(startbreak);
+      tr.appendChild(endbreak);
+
+      breakstable.appendChild(tr);      
+    }
   });
 }
 

@@ -213,10 +213,12 @@ module.exports = function(app) {
 
 					var roster = {};
 					if (result && result.rowCount == 1) {
-							roster.start = result.rows[0].start;
-							roster.finish = result.rows[0].finish;
+						roster.start = result.rows[0].start;
+						roster.finish = result.rows[0].finish;
+
+						employee_breaks.roster = roster;
 					}
-					employee_breaks.roster = roster;
+					
 
 					res.send(employee_breaks);
 				});			
