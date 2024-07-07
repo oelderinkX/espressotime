@@ -264,6 +264,9 @@ function loadBreaks() {
     if (isOnBreak) {
       updateTimeRemaining();
       const breakFinishTimeId = setTimeout(updateTimeRemaining, 30000);
+    } else {
+      var timeremaining = document.getElementById('timeremaining');
+      timeremaining.innerHTML = '';
     }
   });
 }
