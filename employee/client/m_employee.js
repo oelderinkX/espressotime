@@ -209,7 +209,7 @@ function loadBreaks() {
         }
         isOnBreak = true;
       } else {
-        endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(breaks[i].finishtime)) + '</h4>';
+        endbreak.innerHTML = '<h4>' + formatAMPM(formatTime(employee_breaks.breaks[i].finishtime)) + '</h4>';
       }
       
       tr.appendChild(breaktype);
@@ -273,7 +273,7 @@ function updateTimeRemaining() {
 
   var now = new Date();
   var totalTimeRemaining = calculateMinutes(now, expectedBreakFinishTime);
-  
+
   if (now > expectedBreakFinishTime) {
     totalTimeRemaining = totalTimeRemaining * -1;
   }
