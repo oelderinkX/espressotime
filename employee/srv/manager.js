@@ -290,8 +290,8 @@ module.exports = function(app) {
 									for(var x = 0; x < signinout.length; x++) {
 										if (signinout[x].id == result.rows[i].employeeid) {
 											signinout[x].breaks.push({ 
-												breaktype: result.rows[i].starttime,
-												breaktype: result.rows[i].finishtime,
+												starttime: result.rows[i].starttime,
+												finishtime: result.rows[i].finishtime,
 												breaktype: result.rows[i].breaktype
 											});
 										}
