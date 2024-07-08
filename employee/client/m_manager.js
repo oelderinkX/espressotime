@@ -381,9 +381,17 @@ function loadSignInOut() {
           for(var x = 0; x < response[i].breaks.length; x++) {
             if (response[i].breaks[x]) {
               if (response[i].breaks[x].breaktype == "30") {
-                thirtysTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
+                if (response[i].breaks[x].finishtime) {
+                  thirtysTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
+                } else {
+                  thirtysTotal = 'On Break';
+                }
               } else if (response[i].breaks[x].breaktype == "10") {
-                tensTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
+                if (response[i].breaks[x].finishtime) {
+                  tensTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
+                } else {
+                  tensTotal = 'On Break';
+                }
               }
             }
           }
