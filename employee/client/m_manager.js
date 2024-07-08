@@ -382,9 +382,9 @@ function loadSignInOut() {
           for(var x = 0; x < response[i].breaks.length; x++) {
             if (response[i].breaks[x]) {
               if (response[i].breaks[x].breaktype == "30") {
-                thirtysTotal += response[i].breaks[x].duration;
+                thirtysTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
               } else if (response[i].breaks[x].breaktype == "10") {
-                tensTotal += response[i].breaks[x].duration;
+                tensTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
               }
             }
           }

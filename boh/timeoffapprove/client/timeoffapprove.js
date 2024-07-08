@@ -99,7 +99,12 @@ function displayAllTimeoffs() {
                 row.appendChild(column);
             
                 var column = document.createElement('td');
-                column.innerText =  timeoffs.timeoff[i].start_date;
+                var startDate = new Date(removeZuluTime(timeoffs.timeoff[i].start_date));
+                var startDateDay = dayNames[startDate.getDay()];
+                var endDate = new Date(removeZuluTime(timeoffs.timeoff[i].end_date));
+                var endDateDay = dayNames[endDate.getDay()];
+                var timeOffDates = '' + getDbFormat(startDate) + ' (' + startDateDay + ') to ' + getDbFormat(endDate) + ' (' + endDateDay + ')';
+                column.innerText = timeOffDates; 
                 row.appendChild(column);
             
                 var column = document.createElement('td');
