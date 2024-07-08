@@ -196,7 +196,7 @@ module.exports = function(app) {
 		var sql_roster = "select employeeid, start, finish, role from espresso.roster";
 		sql_roster += " where date = '" + date + "' and shopid = (select shopid from espresso.employee where id = $1)";
 
-		var sql_break = "employeeid, starttime, finishtime, breaktype from espresso.break";
+		var sql_break = "select employeeid, starttime, finishtime, breaktype from espresso.break";
 		sql_break += " where starttime >= '" + date + " 00:00:00' and starttime <= '" + date + " 23:59:59' and employeeid in ($1)";
 
 		var signinout = [];

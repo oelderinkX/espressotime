@@ -374,7 +374,6 @@ function loadSignInOut() {
         }
         finish.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
-
         var tensTotal = 0;
         var thirtysTotal = 0;
 
