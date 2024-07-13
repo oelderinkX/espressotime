@@ -154,21 +154,21 @@ function loadBreaks() {
     if (employee_breaks.roster) {
       totalRosteredMinutes = calculateMinutes(employee_breaks.roster.start, employee_breaks.roster.finish);
 
-      if (totalRosteredMinutes > 120 && totalRosteredMinutes <= 240) {
+      if (totalRosteredMinutes > (2*60) && totalRosteredMinutes <= (4*60)) {
         expected10Count = 1;
-      } else if (totalRosteredMinutes > 240 && totalRosteredMinutes <= 300) {
+      } else if (totalRosteredMinutes > (4*60) && totalRosteredMinutes <= (6*60)) {
         expected10Count = 1;
         expected30Count = 1;
-      } else if (totalRosteredMinutes > 300 && totalRosteredMinutes <= 600) {
+      } else if (totalRosteredMinutes > (6*60) && totalRosteredMinutes <= (10*60)) {
         expected10Count = 2;
         expected30Count = 1;
-      } else if (totalRosteredMinutes > 600 && totalRosteredMinutes <= 720) {
+      } else if (totalRosteredMinutes > (10*60) && totalRosteredMinutes <= (12*60)) {
         expected10Count = 3;
         expected30Count = 1;
-      } else if (totalRosteredMinutes > 720 && totalRosteredMinutes <= 840) {
+      } else if (totalRosteredMinutes > (12*60) && totalRosteredMinutes <= (14*60)) {
         expected10Count = 3;
         expected30Count = 2;
-      } else if (totalRosteredMinutes > 840 && totalRosteredMinutes <= 960) {
+      } else if (totalRosteredMinutes > (14*60) && totalRosteredMinutes <= (16*60)) {
         expected10Count = 4;
         expected30Count = 2;
       }
