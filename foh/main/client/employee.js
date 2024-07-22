@@ -299,7 +299,7 @@ function getEmployeeDetails(employeeId) {
                 var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
 
                 if (randomPage == 1) {
-                    window.location.href = "/?refresh=" + refresh;
+                    window.location.href = "/device?refresh=" + refresh;
                 } else if (randomPage == 2) {
                     window.location.href = "/how?refresh=" + refresh;
                 } else if (randomPage == 3) {
