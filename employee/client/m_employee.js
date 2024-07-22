@@ -436,7 +436,10 @@ function addTimeOffEdit(table, id) {
   label.innerText = ' ';
   var value = document.createElement('td');
   value.setAttribute('style', 'text-align: right; vertical-align: top; height: 50px; width: 160px; border-left-style: hidden; border-right-style: hidden; border-bottom-style: hidden; padding: 5px');
-  value.innerHTML = '<button type="button" onclick="editTimeOff(' + id + ');">Edit</button>';
+
+  var innerHTML = '<div style="float:left;width:50%;"><button type="button" onclick="deleteTimeOff(' + id + ');">Delete</button></div>';
+  var innerHTML = '<div style="float:right;width:50%;"><button type="button" onclick="editTimeOff(' + id + ');">Edit</button></div>';
+  value.innerHTML = innerHTML;
 
   row.appendChild(label);
   row.appendChild(value);
@@ -446,6 +449,13 @@ function addTimeOffEdit(table, id) {
 
 function editTimeOff(id) {
   window.location.href = '/employee_request_timeoff?id=' + id;
+}
+
+function deleteTimeOff(id) {
+  if (id && id != 0) {
+    alert('sendPost to delete');
+    window.location.href = '/employee_timeoff';
+  }
 }
 
 function requestTimeOff() {
