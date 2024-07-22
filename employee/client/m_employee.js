@@ -453,7 +453,7 @@ function deleteTimeOff(id) {
   if (id && id != 0) {
 
     var request = {
-      id: id.value
+      id: id
     };
 
     sendPost("/employee_timeoff_delete", JSON.stringify(request), function(response) {
