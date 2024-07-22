@@ -335,4 +335,31 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/employee_timeoff_delete', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var id = req.body.id;
+
+        var values = [];
+
+		sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
+		values = [employeeid, id];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+
+				if (err) {
+					console.error(err);
+					var result = { "result": "fail", "error": err };
+					res.send({ result: 'fail', "error": err });
+				} else if (result && result.rowCount == 1) {
+					res.send({ result: 'success', id: id });
+				} else {
+					res.send({ result: 'fail', "error": "unknown error ?!?" });
+				}
+			});
+		});
+	});
 }
