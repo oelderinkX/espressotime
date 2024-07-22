@@ -432,7 +432,7 @@ function addTimeOffSpace(table) {
 function addTimeOffEdit(table, id) {
   var row = document.createElement('tr');
   var lefttd = document.createElement('td');
-  lefttd.setAttribute('style', 'text-align: left; vertical-align: top; height: 50px; width: 160px; border-left-style: hidden; border-right-style: hidden; border-bottom-style: hidden;');
+  lefttd.setAttribute('style', 'text-align: left; vertical-align: top; height: 50px; width: 160px; border-left-style: hidden; border-right-style: hidden; border-bottom-style: hidden; padding: 5px');
   lefttd.innerHTML = '<button type="button" onclick="deleteTimeOff(' + id + ');">Delete</button>';
 
   var righttd = document.createElement('td');
