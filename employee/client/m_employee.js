@@ -433,7 +433,7 @@ function addTimeOffEdit(table, id) {
   var row = document.createElement('tr');
   var lefttd = document.createElement('td');
   lefttd.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 160px; border-left-style: hidden; border-right-style: hidden; border-bottom-style: hidden;');
-  lefttd.innerText = '<div style="float:left;width:50%;"><button type="button" onclick="deleteTimeOff(' + id + ');">Delete</button></div>';
+  lefttd.innerHTML = '<div style="float:left;width:50%;"><button type="button" onclick="deleteTimeOff(' + id + ');">Delete</button></div>';
 
   var righttd = document.createElement('td');
   righttd.setAttribute('style', 'text-align: right; vertical-align: top; height: 50px; width: 160px; border-left-style: hidden; border-right-style: hidden; border-bottom-style: hidden; padding: 5px');
