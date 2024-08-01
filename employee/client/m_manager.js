@@ -362,7 +362,7 @@ function loadSignInOut() {
         if (response[i].starttime.length > 0) {
           start.innerText = formatAMPM(getTime(response[i].starttime));
         } else {
-          start.innerText = '-';
+          start.innerText = '';
         }
         start.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
@@ -370,7 +370,7 @@ function loadSignInOut() {
         if (response[i].finishtime && response[i].finishtime.length > 0) {
           finish.innerText = formatAMPM(getTime(response[i].finishtime));
         } else {
-          finish.innerText = '-';
+          finish.innerText = '';
         }
         finish.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
@@ -387,14 +387,14 @@ function loadSignInOut() {
                   thirtysTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
                 } else {
                   thirtysTotal = 'On Break';
-                  thirtysBreakStart = 'Break started at ' + response[i].breaks[x].starttime;
+                  thirtysBreakStart = 'Break started at ' + formatTime(response[i].breaks[x].starttime);
                 }
               } else if (response[i].breaks[x].breaktype == "10") {
                 if (response[i].breaks[x].finishtime) {
                   tensTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
                 } else {
                   tensTotal = 'On Break';
-                  tensBreakStart = 'Break started at ' + response[i].breaks[x].starttime;
+                  tensBreakStart = 'Break started at ' + formatTime(response[i].breaks[x].starttime);
                 }
               }
             }
