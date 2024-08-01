@@ -375,7 +375,9 @@ function loadSignInOut() {
         finish.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 80px; padding: 3px;');
   
         var tensTotal = 0;
+        var tensBreakStart = '';
         var thirtysTotal = 0;
+        var thirtysBreakStart = '';
 
         if (response[i].breaks) {
           for(var x = 0; x < response[i].breaks.length; x++) {
@@ -385,12 +387,14 @@ function loadSignInOut() {
                   thirtysTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
                 } else {
                   thirtysTotal = 'On Break';
+                  thirtysBreakStart = 'Break started at ' + response[i].breaks[x].starttime;
                 }
               } else if (response[i].breaks[x].breaktype == "10") {
                 if (response[i].breaks[x].finishtime) {
                   tensTotal += calculateMinutes(response[i].breaks[x].starttime, response[i].breaks[x].finishtime);
                 } else {
                   tensTotal = 'On Break';
+                  tensBreakStart = 'Break started at ' + response[i].breaks[x].starttime;
                 }
               }
             }
@@ -399,17 +403,23 @@ function loadSignInOut() {
 
         var tens = document.createElement('td');
         if (tensTotal == 0) {
-          tens.innerText = '-';
+          tens.innerText = '';
         } else {
           tens.innerText = tensTotal;
+          if (tensBreakStart.length > 0) {
+            tens.setAttribute('onclick', "alert('" + tensBreakStart + "');");
+          }
         }
         tens.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
         var thirtys = document.createElement('td');
         if (thirtysTotal == 0) {
-          thirtys.innerText = '-';
+          thirtys.innerText = '';
         } else {
           thirtys.innerText = thirtysTotal;
+          if (thirtysBreakStart.length > 0) {
+            thirtys.setAttribute('onclick', "alert('" + thirtysBreakStart + "');");
+          }
         }
         thirtys.setAttribute('style', 'font-size:13px; text-align: center; vertical-align: middle; height: 33px; width: 40px; padding: 3px;');
 
