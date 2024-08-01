@@ -121,7 +121,7 @@ function updateEmployee(id) {
     var pin = document.getElementById('pin' + id).value;
     var ex = document.getElementById('ex' + id).checked;
 
-    var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+    var json = '{ "employeeId": "' + id +  '", "employeeName": "' + name.trim() + '", "employeeContact": "' + contact + '", "employeePin": "' + pin.trim() + '", "employeeEx": ' + ex + ' }';
 
     sendPost("/updateemployee", json, function(response) {
         getEmployees();
@@ -137,7 +137,7 @@ function addEmployee() {
     if (name.length == 0 || contact.length == 0 || pin.length == 0) {
         alert('All new employees need a name, contact number and pin');
     } else {
-        var json = '{ "employeeName": "' + name + '", "employeeContact": "' + contact + '", "employeePin": "' + pin + '", "employeeEx": ' + ex + ' }';
+        var json = '{ "employeeName": "' + name.trim() + '", "employeeContact": "' + contact + '", "employeePin": "' + pin.trim() + '", "employeeEx": ' + ex + ' }';
 
         sendPost("/addemployee", json, function(response) {
             getEmployees();
