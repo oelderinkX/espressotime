@@ -124,7 +124,7 @@ function displayAllTimeoffs() {
                 if (timeoffs.timeoff[i].approved == 0) {
                     column.innerHTML =  'Pending... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 1' + ');">Approve</button>';
                 } else if (timeoffs.timeoff[i].approved == 1) {
-                    column.innerText =  'Approved';
+                    column.innerText =  'Approved... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 0' + ');">Reset Approval...</button>';
                 } else if (timeoffs.timeoff[i].approved == 2) {
                     column.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
                 }
