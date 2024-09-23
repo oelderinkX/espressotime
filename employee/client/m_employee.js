@@ -593,7 +593,8 @@ function loadEmployeeDetails() {
 function saveEmployeeDetails() { 
   var employee_contact =  document.getElementById('employee_contact');
   var employee_pin =  document.getElementById('employee_pin');
-
+  var save_button =  document.getElementById('savebutton');
+  
   if (employee_contact.value.length < 1) {
     alert('Please enter a contact number');
     return;
