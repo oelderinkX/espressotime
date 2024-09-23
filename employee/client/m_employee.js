@@ -569,3 +569,23 @@ function saveLeaveRequests()
     window.location.href = '/employee_timeoff';
   }); 
 }
+
+function loadEmployeeDetails() {
+  var request = {};
+  
+  var employee_name =  document.getElementById('employee_name');
+  var employee_contact =  document.getElementById('employee_contact');
+  var employee_pin =  document.getElementById('employee_pin');
+  
+  var save_button =  document.getElementById('savebutton');
+
+  sendPost("/employee_get_details", JSON.stringify(request), function(response) {
+      employee =  JSON.parse(response);
+
+      employee_name.value = employee.name;
+      employee_contact.value = employee.contact;
+      employee_pin.value = employee.pin;
+
+      save_button.disabled = false;
+  });
+}

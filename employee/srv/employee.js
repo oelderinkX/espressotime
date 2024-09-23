@@ -18,6 +18,7 @@ module.exports = function(app) {
 	var breaksPage = fs.readFileSync(__dirname + "/../client/employee_breaks.html", "utf8");
 	var helpPage = fs.readFileSync(__dirname + "/../client/employee_help.html", "utf8");
 	var shopDetailsPage = fs.readFileSync(__dirname + "/../client/employee_shopdetails.html", "utf8");
+	var employeeDetailsPage = fs.readFileSync(__dirname + "/../client/employee_details.html", "utf8");
 
 	app.use('/scripts/m_employee.js', express.static(__dirname + '"/../client/m_employee.js'));
 
@@ -107,6 +108,16 @@ module.exports = function(app) {
 			res.send(breaksPage);
 		} else {
 			res.redirect(common.getLoginUrl('/employee_breaks'));
+		}
+	});
+
+	app.get('/employee_details', urlencodedParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		
+		if (employeeid && employeeid != -1) {
+			res.send(employeeDetailsPage);
+		} else {
+			res.redirect(common.getLoginUrl('/employee_details'));
 		}
 	});
 
@@ -359,6 +370,28 @@ module.exports = function(app) {
 				} else {
 					res.send({ result: 'fail', "error": "unknown error ?!?" });
 				}
+			});
+		});
+	});
+
+	app.post('/employee_get_details', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		sql = "select name, contact, pin from espresso.employee where id = $1 limit 1";
+		values = [employeeid];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+
+				var employee = {};
+				if (result && result.rowCount > 0) {
+					employee.name = result.rows[0].name;
+					employee.contact = result.rows[0].contact;
+					employee.pin = result.rows[0].pin;
+				}
+					
+				res.send(employee);
 			});
 		});
 	});

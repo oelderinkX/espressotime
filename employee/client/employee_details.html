@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage My Cafe - Shop Details</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/m_employee.js"></script>
+</head>
+<html>
+<body>
+    <span style="float: top;">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/employee';">Back</button>
+    </span>
+
+    <center>
+        <div class="container">
+            <h3>My Personal Details</h3>
+            <br/>
+            <table border="0">
+                <tr>
+                    <td style="vertical-align: top; padding-bottom: 5px; padding-right: 10px;"><h4>Name:</h4></td>
+                    <td style="vertical-align: top; padding-bottom: 5px;"><h4 id="employee_name"></h4></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-bottom: 5px; padding-right: 10px;"><h4>Contact:</h4></td>
+                    <td style="vertical-align: top; padding-bottom: 5px;"><h4><input type="text" id="employee_contact"></h4></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-bottom: 5px; padding-right: 10px;"><h4>Pin:</h4></td>
+                    <td style="vertical-align: top; padding-bottom: 5px;"><h4><input type="text" id="employee_pin" maxlength="4"></h4></td>
+                </tr>
+            </table>
+        </div>
+    </center>
+    <script>
+        loadEmployeeDetails();
+    </script>
+</body>
+</html>
