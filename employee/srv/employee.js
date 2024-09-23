@@ -395,4 +395,26 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+	app.post('/employee_set_details', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var contact = req.body.contact;
+		var pin = req.body.pin;
+
+		sql = "UPDATE espresso.employee SET contact = $2, pin = $3 where id = $1";
+		values = [employeeid, contact, pin];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+					
+				if (err) {
+					res.send({ result: 'fail', "error": err })
+				} else {
+					res.send({ result: 'success' });
+				}
+			});
+		});
+	});
 }

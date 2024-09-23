@@ -589,3 +589,30 @@ function loadEmployeeDetails() {
       save_button.disabled = false;
   });
 }
+
+function saveEmployeeDetails() { 
+  var employee_contact =  document.getElementById('employee_contact');
+  var employee_pin =  document.getElementById('employee_pin');
+
+  if (employee_contact.value.length < 1) {
+    alert('Please enter a contact number');
+    return;
+  }
+
+  if (employee_pin.value.length != 4) {
+    alert('Please enter a pin with four numbers');
+    return;
+  }
+
+  var request = {
+    contact: employee_contact.value,
+    pin: employee_pin.value
+  };
+
+  save_button.disabled = true;
+  sendPost("/employee_set_details", JSON.stringify(request), function(response) {
+    employee =  JSON.parse(response);
+
+    save_button.disabled = false;
+  });
+}
