@@ -610,9 +610,11 @@ function saveEmployeeDetails() {
   };
 
   save_button.disabled = true;
+  save_button.innerText = 'Saving...';
   sendPost("/employee_set_details", JSON.stringify(request), function(response) {
     employee =  JSON.parse(response);
 
+    save_button.innerText = 'Saved!';
     save_button.disabled = false;
   });
 }
