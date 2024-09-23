@@ -582,7 +582,7 @@ function loadEmployeeDetails() {
   sendPost("/employee_get_details", JSON.stringify(request), function(response) {
       employee =  JSON.parse(response);
 
-      employee_name.value = employee.name;
+      employee_name.innerText = employee.name;
       employee_contact.value = employee.contact;
       employee_pin.value = employee.pin;
 
