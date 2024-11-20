@@ -27,7 +27,7 @@ module.exports = function(app) {
 		
 		if (shopid && shopid != -1) {
 			webpage = howPage;
-            webpage = common.replaceAll(webpage, 'var canSave = false; // UPDATE CAN SAVE VIA how.jsp', 'var canSave = true; // UPDATE CAN SAVE VIA how.jsp');
+            webpage = common.replaceAll(webpage, 'var canSave = false; // UPDATE CAN SAVE VIA how.js', 'var canSave = true; // UPDATE CAN SAVE VIA how.js');
 			res.send(webpage);
 		} else {
 			res.redirect(common.getLoginUrl('/howedit'));
