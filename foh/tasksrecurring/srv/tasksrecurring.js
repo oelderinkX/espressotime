@@ -44,8 +44,11 @@ module.exports = function(app) {
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {
-						tasks.push({name: result.rows[i].name,
-									starttime: result.rows[i].starttime,
+						tasks.push({id: result.rows[i].id,
+									name: result.rows[i].name,
+									description: result.rows[i].description,
+									recur: result.rows[i].recur,
+									inputtype: result.rows[i].inputtype,
 									completed: result.rows[i].completed
 						});
 					}
