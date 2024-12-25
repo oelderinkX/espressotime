@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage My Cafe - Roles</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/taskrecurringedit.js"></script>
+</head>
+<html>
+<body>
+    <span style="float: top;">
+        <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/admin';">Back</button>
+    </span>
+    <h1>Edit Recurring Tasks</h1>
+    <table width="100%" border=0>
+        <tr>
+            <td style="vertical-align:top;padding: 15px" width="400px">
+                <div class="list-group" id="tasklist">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding: 15px">
+                <input type="hidden" id="id" value="-1"/>
+                <label id="namelabel" for="name">Name:</label>
+                <input id="name" type="text" maxlength="63" class="form-control" style="font-size:16px" />
+                <br/>
+                <label id="descriptionlabel" for="description">Description (256):</label>
+                <textarea id="description" rows="2" columns="20" maxlength="255" class="form-control" style="font-size:16px"></textarea>
+                <br/>
+                <label id="recurlabelinput" for="input">Input:</label>
+                <select name="input" id="input">
+                    <option value="0">None</option>
+                    <option value="1">Text</option>
+                    <option value="2">Number</option>
+                </select>
+                <br/>
+                <label id="recurlabel" for="recur">Recur:</label>
+                <select name="recur" id="recur">
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="0">Sunday</option>
+                    <option value="9">Monthly</option>
+                    <option value="10">January</option>
+                    <option value="11">February</option>
+                    <option value="12">March</option>
+                    <option value="13">April</option>
+                    <option value="14">May</option>
+                    <option value="15">June</option>
+                    <option value="16">July</option>
+                    <option value="17">August</option>
+                    <option value="18">September</option>
+                    <option value="19">October</option>
+                    <option value="20">November</option>
+                    <option value="21">December</option>
+                    <option value="-1">Disabled</option>
+                </select>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <button id="savebutton" type="button" class="btn btn-success" onclick="save();">Save</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="addbutton" type="button" class="btn btn-success" onclick="addnew();">Add New Recurring Task</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script>
+    loadWeeklyTasks();
+</script>
+</html>

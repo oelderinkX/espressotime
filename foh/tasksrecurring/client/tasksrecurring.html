@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manage My Cafe - Tasks Recurring</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/branding.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <script src="/scripts/common.js"></script>
+    <script src="/scripts/tasksrecurring.js"></script>
+
+    <style>
+        .btn-em {
+            color: #f3f4e6 !important;
+            background-color: #1f1f1f !important;
+        }
+        .desc {
+            background-color: #f5f5f5 !important;
+        }
+        .li-em {
+            color: #f3f4e6 !important;
+            background-color: #1f1f1f !important;
+            padding-top: 20px;
+            border: solid 3px #ac9175;
+        }
+    </style>
+</head>
+<html>
+<body>
+  <span style="float: top;">
+    <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/device';"><span id="signin_icon" class="glyphicon glyphicon-check"></span> Sign in / out</button>
+    <button id="tasksbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasks';"><span id="task_icon" class="glyphicon glyphicon-list-alt"></span> Daily Tasks</button>
+    <button id="tasksrecurringbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasksrecurring';"><span id="task_icon" class="glyphicon glyphicon-list-alt"></span> Recurring Tasks</button>
+    <button id="bookingbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/bookings';"><span id="booking_icon" class="glyphicon glyphicon-book"></span> Bookings</button>
+    <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/foh_roster';"><span id="roster_icon" class="glyphicon glyphicon-th-list"></span> Roster</button>
+    <button type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/how';"><span id="help_icon" class="glyphicon glyphicon-info-sign"></span> Help</button>
+  </span>
+  <span style="float: right;">
+    <h1 id="time" class="text-right">00:00</h1>
+  </span>
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="form-outline">
+              <h1>
+                Tasks Recurring &nbsp;
+              </h1>
+            <span id="taskstatus"></span>
+            <ul class="list-group" id="tasksarea">
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-outline">
+            <h1 id="descriptiontitle" class="invisible">Description</h1>
+            <div style="background-color: #f5f5f5; padding: 5px" id="descriptionarea" class="invisible"></div>
+          </div>
+        </div>
+      </div>
+</body>
+<script>
+  clock();
+  loadEmployees();
+      
+  loadTasks();
+  getRecurrentTasks();
+</script>
+</html>
