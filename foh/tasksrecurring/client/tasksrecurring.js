@@ -1,6 +1,5 @@
 var refreshPageTimer;
 var employees = [];
-var alltasks = [];
 
 function clock() {
     var today = new Date();
@@ -36,18 +35,14 @@ function loadEmployees() {
     });
 }
 
-function loadTasks() {
-    sendPost("/getalltasksrecurring", '{ }', function(response) {
-        alltasks = JSON.parse(response);
-    });
-}
-
 function getRecurrentTasks() {
-    var time = getTime() + ':00';
-    var date = getDbFormat();
-    var request = {date: date, time: time};
+    var date = new Date();
 
-    sendPost("/getcurrentrecurringtasks", JSON.stringify(request), function(response) {
+    var month = parseInt(date.getMonth()) + 10;
+    var day = parseInt(date.getDay());
+    var request = {day: day, month: month};
+
+    sendPost("/getrecurringtasks", JSON.stringify(request), function(response) {
         var tasks = JSON.parse(response);
         var hasTasks = false;
 

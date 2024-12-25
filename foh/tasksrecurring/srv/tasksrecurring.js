@@ -24,22 +24,20 @@ module.exports = function(app) {
 		}
 	});
 
-	app.post('/getalltasksrecurring', jsonParser, function(req, res) {
+	app.post('/getrecurringtasks', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		var dayStart = req.body.date + ' 00:00:00';
-		var dayEnd = req.body.date + ' 23:59:59';
+		var day = req.body.day;
+		var month = req.body.month;
 
-		var sql = "select name, starttime,";
-		sql += " exists(select taskid from espresso.recurring_task_complete where timestamp > $1 and timestamp <= $2 and taskid = espresso.task.id) as completed";
-		sql += " from espresso.task";
-		sql += " where shopid = $3";
-		sql += " and starttime <> '00:00:00'";
-		sql += " order by starttime;";
+		var sql = "select id, name, description, recur, inputtype,";
+		sql += " exists(select taskid from espresso.recurring_task_complete where timestamp is not null) as completed";
+		sql += " from espresso.recurring_task";
+		sql += " where recur in (" + day + ", " + month + ") and shopid = " + shopId;
 
-		console.log('/getalltasksrecurring ' + sql);
+		console.log('/getrecurringtasks ' + sql);
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [dayStart, dayEnd, shopId], function(err, result) {
+			connection.query(sql, [], function(err, result) {
 				done();
 
 				var tasks = [];
@@ -49,40 +47,6 @@ module.exports = function(app) {
 						tasks.push({name: result.rows[i].name,
 									starttime: result.rows[i].starttime,
 									completed: result.rows[i].completed
-						});
-					}
-				}
-					
-				res.send(tasks);
-			});
-		});
-	});
-
-	app.post('/getcurrentrecurringtasks', jsonParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']);
-
-		var date = new Date();
-		var day = date.getDay();
-
-		var month = date.getMonth();
-		var monthly = 1;
-
-		var sql = "select id, name from espresso.recurring_task_complete";
-		sql += "  where starttime <> '00:00:00' and shopid = $1";
-		sql += " order by starttime";
-
-		console.log('/getcurrentrecurringtasks ' + sql);
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [shopId], function(err, result) {
-				done();
-
-				var tasks = [];
-
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						tasks.push({	name: result.rows[i].name,
-										id: result.rows[i].id
 						});
 					}
 				}
