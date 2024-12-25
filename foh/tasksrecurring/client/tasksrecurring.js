@@ -50,20 +50,22 @@ function getRecurrentTasks() {
         tasksarea.innerHTML = '';
 
         for(var t in tasks) {
-            hasTasks = true;
-            var task = document.createElement("li");
-            task.innerHTML = tasks[t].name;
-            task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-            var description = tasks[t].description;
-            description = replaceAll(description, '\n', '<br/>');
-            description = replaceAll(description, '\'', '&#39;');
-            var params = "'" + tasks[t].id + "',";
-            params += "'" + tasks[t].name + "',";
-            params += "'" + tasks[t].inputtype + "',";
-            params += "'" + description + "'";
-            task.setAttribute('onclick', 'showDescription(' + params + ');');
-
-            tasksarea.appendChild(task);
+            if (tasks[t].completed == false) {
+                hasTasks = true;
+                var task = document.createElement("li");
+                task.innerHTML = tasks[t].name;
+                task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
+                var description = tasks[t].description;
+                description = replaceAll(description, '\n', '<br/>');
+                description = replaceAll(description, '\'', '&#39;');
+                var params = "'" + tasks[t].id + "',";
+                params += "'" + tasks[t].name + "',";
+                params += "'" + tasks[t].inputtype + "',";
+                params += "'" + description + "'";
+                task.setAttribute('onclick', 'showDescription(' + params + ');');
+                
+                tasksarea.appendChild(task);
+            }
         }
 
         var taskstatus = document.getElementById("taskstatus");
