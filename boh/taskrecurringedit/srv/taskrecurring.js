@@ -25,7 +25,7 @@ module.exports = function(app) {
 		}
 	});	
 
-	app.post('/getrecurringtasks', jsonParser, function(req, res) {
+	app.post('/getallrecurringtasks', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		
 		var sql = 'select id, description, name, recur, inputtype from espresso.recur_task where shopid = $1 order by id'

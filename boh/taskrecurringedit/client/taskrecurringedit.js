@@ -28,7 +28,7 @@ function displayRecurringTask(id) {
 
 function loadRecurringTasks(id) {
     var request = {};
-    sendPost("/getrecurringtasks", JSON.stringify(request), function(response) {
+    sendPost("/getallrecurringtasks", JSON.stringify(request), function(response) {
         tasks  = JSON.parse(response);
 
         tasks = tasks.sort((a, b) => {
