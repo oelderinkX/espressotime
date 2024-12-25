@@ -49,8 +49,8 @@ require('./boh/shop/srv/shop.js')(app);
 console.log('loading taskedit.js');
 require('./boh/taskedit/srv/taskedit.js')(app);
 
-console.log('loading taskrecurringedit.js');
-require('./boh/taskrecurringedit/srv/taskrecurringedit.js')(app);
+console.log('loading taskrecurring.js');
+require('./boh/taskrecurringedit/srv/taskrecurring.js')(app);
 
 console.log('loading timesheet.js');
 require('./boh/timesheet/srv/timesheet.js')(app);
