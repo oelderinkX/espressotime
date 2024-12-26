@@ -1,29 +1,29 @@
 var tasks = [];
 
 function displayRecurringTask(id) {
-    for(var i = 0; i < roles.length; i++) {
-        if (roles[i].id == id) {
-            role = roles[i];
+    var task = {};
+
+    for(var i = 0; i < task.length; i++) {
+        if (task[i].id == id) {
+            task = task[i];
             break;
         }
     }
-    
+  
     var id = document.getElementById('id');
-    id.value = role.id;
+    id.value = task.id;
 
-    var name = document.getElementById('roleinput');
-    name.value = role.name;
+    var name = document.getElementById('name');
+    name.value = task.name;
 
-    var isjob = document.getElementById('isjob');
-    isjob.checked = role.isjob;
+    var description = document.getElementById('description');
+    description.value = task.description;
 
-    var colour = document.getElementById('colourinput');
-    colour.value = role.colour;
+    var input = document.getElementById('input');
+    input.selectedIndex = task.input;
 
-    var textcolour = document.getElementById('textcolourinput');
-    textcolour.value = role.textcolour;
-
-    showExample();
+    var recur = document.getElementById('recur');
+    recur.selectedIndex = task.recur;
 }
 
 function loadRecurringTasks(id) {
@@ -78,56 +78,36 @@ function loadTaskCombo(id) {
 
 function addnew() {
     var id = document.getElementById('id');
-    var name = document.getElementById('roleinput');
-    var colour = document.getElementById('colourinput');
-    var textcolour = document.getElementById('textcolourinput');
-    var isjob = document.getElementById('isjob');
+    var name = document.getElementById('name');
+    var description = document.getElementById('description');
+    var input = document.getElementById('input');
+    var recur = document.getElementById('recur');
 
     id.value = -1;
-    name.value = 'New Role';
-    colour.value = '#FFFFFF';
-    textcolour.value = '#000000';
-    isjob.checked = false;
-
-    showExample();
+    name.value = '';
+    description.value = '';
+    input.selectedIndex = 0;
+    recur.selectedIndex = 0;
 }
 
 function save() {
     var id = document.getElementById('id');
-    var name = document.getElementById('roleinput');
-    var colour = document.getElementById('colourinput');
-    var textcolour = document.getElementById('textcolourinput');
-    var isjob = document.getElementById('isjob');
+    var name = document.getElementById('name');
+    var description = document.getElementById('description');
+    var input = document.getElementById('input');
+    var recur = document.getElementById('recur');
 
-    var role = {
+    var task = {
         id: id.value,
         name: name.value,
-        colour: colour.value,
-        textcolour: textcolour.value,
-        isjob: isjob.checked,
-        rights: 0
+        description: description.value,
+        input: input.selectedIndex,
+        recur: recur.selectedIndex
     };
 
-    sendPost("/updaterecurringtask", JSON.stringify(role), function(response) {
+    sendPost("/updaterecurringtask", JSON.stringify(task), function(response) {
         var json  = JSON.parse(response);
-        loadRoles(json.roleid);
+        loadRecurringTasks(json.taskid);
         alert('Saved!');
     });
-}
-
-function disableRecurringTask() {
-    var id = document.getElementById('id');
-    var name = document.getElementById('roleinput');
-
-    var role = {
-        id: id.value,
-    };
-
-    var doDelete = confirm('Are you sure you want to DELETE "' + name.value + '"');
-
-    if (doDelete) {
-        sendPost("/disablerecurringtask", JSON.stringify(role), function(response) {
-            loadRoles();
-        });
-    }
 }

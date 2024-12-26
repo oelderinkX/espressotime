@@ -95,7 +95,7 @@ module.exports = function(app) {
 						id = result.rows[0].id;
 					}
 
-					res.send({ result: 'success', roleid: id });
+					res.send({ result: 'success', taskid: id });
 				}
 			});
 		});
