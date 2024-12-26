@@ -59,7 +59,7 @@ function loadTaskCombo(id) {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'list-group-item list-group-item-action');
-            button.setAttribute('onclick', 'disableRecurringTask(' + task.id + ');');
+            button.setAttribute('onclick', 'displayRecurringTask(' + task.id + ');');
             button.style = "font-size:16px";
             button.innerText = task.name;
 
@@ -69,9 +69,9 @@ function loadTaskCombo(id) {
 
     if (tasks.length > 1) {
         if (id) {
-            disableRecurringTask(id);
+            displayRecurringTask(id);
         } else {
-            disableRecurringTask(tasks[1].id);
+            displayRecurringTask(tasks[1].id);
         }
     }
 }
@@ -105,9 +105,13 @@ function save() {
         recur: recur.selectedIndex
     };
 
-    sendPost("/updaterecurringtask", JSON.stringify(task), function(response) {
-        var json  = JSON.parse(response);
-        loadRecurringTasks(json.taskid);
-        alert('Saved!');
-    });
+    if (task.name.length > 0 && task.description.length > 0) {
+        sendPost("/updaterecurringtask", JSON.stringify(task), function(response) {
+            var json  = JSON.parse(response);
+            loadRecurringTasks(json.taskid);
+            alert('Saved!');
+        });
+    } else {
+        alert('Please include a name and description');
+    }
 }
