@@ -64,7 +64,7 @@ module.exports = function(app) {
 		var name = req.body.name;
         var description = req.body.description;
 		var recur = req.body.recur;
-		var inputtype = req.body.inputtype;
+		var inputtype = req.body.input;
 
         var sql = 'select id, description, name, recur, inputtype from espresso.recurring_task where shopid = $1 order by id'
 
