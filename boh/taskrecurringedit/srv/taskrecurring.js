@@ -27,21 +27,20 @@ module.exports = function(app) {
 
 	app.post('/getallrecurringtasks', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
-		
-		var sql = 'select id, description, name, recur, inputtype from espresso.recur_task where shopid = $1 order by id'
+		var showdisabled = req.body.showdisabled;
+
+		var disabledsql = ' and recur <> -1 ';
+		if (showdisabled) {
+			disabledsql = ' ';
+		}
+
+		var sql = 'select id, description, name, recur, inputtype from espresso.recurring_task where shopid = $1' + disabledsql + 'order by id';
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
 				var tasks = [];
-				tasks.push({ id: 0, 
-                             name: '-', 
-                             description: '', 
-                             recur: -1, 
-                             inputtype: 0
-
-                });
 
 				if (result && result.rowCount > 0) {
 					for(var i = 0; i < result.rowCount; i++) {

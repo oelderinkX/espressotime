@@ -108,14 +108,14 @@ function save() {
         rights: 0
     };
 
-    sendPost("/updaterole", JSON.stringify(role), function(response) {
+    sendPost("/updaterecurringtask", JSON.stringify(role), function(response) {
         var json  = JSON.parse(response);
         loadRoles(json.roleid);
         alert('Saved!');
     });
 }
 
-function deleterole() {
+function disableRecurringTask() {
     var id = document.getElementById('id');
     var name = document.getElementById('roleinput');
 
@@ -126,7 +126,7 @@ function deleterole() {
     var doDelete = confirm('Are you sure you want to DELETE "' + name.value + '"');
 
     if (doDelete) {
-        sendPost("/deleterole", JSON.stringify(role), function(response) {
+        sendPost("/disablerecurringtask", JSON.stringify(role), function(response) {
             loadRoles();
         });
     }
