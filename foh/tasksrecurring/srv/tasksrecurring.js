@@ -91,13 +91,13 @@ module.exports = function(app) {
 		var taskid = req.body.taskid;
 		var timestamp = req.body.timestamp;
 		var by = req.body.by;
-		var value = req.body.value;
+		var inputvalue = req.body.value;
 		var notes = req.body.notes;
 
 		var sql = "INSERT INTO espresso.recurring_task_complete (taskid, timestamp, by, shopid, input, notes) VALUES ($1,$2,$3,$4,$5,$6);";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [taskid, timestamp, by, shopId, value, notes], function(err, result) {
+			connection.query(sql, [taskid, timestamp, by, shopId, inputvalue, notes], function(err, result) {
 				done();
 
 				if (err) {

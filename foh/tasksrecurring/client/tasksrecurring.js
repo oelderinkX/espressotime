@@ -131,12 +131,12 @@ function showDescription(taskid, name, inputtype, description) {
 function completeTask(taskid, by) {
     var timestamp = getDbFormat() + ' ' + getTime() + ':00';
 
-    var value = '';
+    var inputvalue = '';
     var notes = '';
 
     var valueelement = document.getElementById("input");
     if (valueelement) {
-        value = valueelement.value;
+        inputvalue = valueelement.value;
     }
 
     var noteselement = document.getElementById("extranotes");
@@ -144,9 +144,9 @@ function completeTask(taskid, by) {
         notes = noteselement.value;
     }
 
-    var request = { "taskid": taskid, "timestamp": timestamp, "by": by, "value": value, "notes": notes };
+    var request = { "taskid": taskid, "timestamp": timestamp, "by": by, "value": inputvalue, "notes": notes };
 
-    sendPost("/completetask", JSON.stringify(request), function(response) {
+    sendPost("/completerecurringtask", JSON.stringify(request), function(response) {
         var descriptionarea = document.getElementById('descriptionarea');
         descriptionarea.innerHTML = '';
         var desciptiontitle = document.getElementById('descriptiontitle');
