@@ -3,9 +3,9 @@ var tasks = [];
 function displayRecurringTask(id) {
     var task = {};
 
-    for(var i = 0; i < task.length; i++) {
-        if (task[i].id == id) {
-            task = task[i];
+    for(var i = 0; i < tasks.length; i++) {
+        if (tasks[i].id == id) {
+            task = tasks[i];
             break;
         }
     }
