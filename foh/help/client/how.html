@@ -68,7 +68,7 @@
                 } else {
                     window.clearTimeout(refreshPageTimer);
                     refreshPageTimer = window.setTimeout(function() {
-                        var randomPage = Math.floor(Math.random() * 4) + 1;
+                        var randomPage = Math.floor(Math.random() * 5) + 1;
                         var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
 
                         if (randomPage == 1) {
@@ -79,6 +79,8 @@
                             window.location.href = "/foh_roster?refresh=" + refresh;
                         } else if (randomPage == 4) {
                             window.location.href = "/tasks?refresh=" + refresh;
+                        } else if (randomPage == 5) {
+                            window.location.href = "/tasksrecurring?refresh=" + refresh;
                         }
                     }, 240000);
                 }
@@ -147,6 +149,7 @@
     <span style="float: top;">
         <button id="signinoutbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/device';"><span id="signin_icon" class="glyphicon glyphicon-check"></span> Sign in / out</button>
         <button id="tasksbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasks';"><span id="task_icon" class="glyphicon glyphicon-list-alt"></span> Daily Tasks</button>
+        <button id="tasksrecurringbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/tasksrecurring';"><span id="task_icon" class="glyphicon glyphicon-list-alt"></span> Recurring Tasks</button>
         <button id="bookingbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/bookings';"><span id="booking_icon" class="glyphicon glyphicon-book"></span> Bookings</button>
         <button id="rosterbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/foh_roster';"><span id="roster_icon" class="glyphicon glyphicon-th-list"></span> Roster</button>
         <button id="howbutton" type="button" style="margin:15px;color:#ffffff;background-color:#000000" class="btn btn-em" onclick="window.location.href='/how';"><span id="help_icon" class="glyphicon glyphicon-info-sign"></span> Help</button>   
