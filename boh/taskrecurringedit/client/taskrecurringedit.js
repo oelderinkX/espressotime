@@ -48,30 +48,30 @@ function loadRecurringTasks(id) {
 }
 
 function loadTaskCombo(id) {
-    var rolelist = document.getElementById('tasklist');
+    var tasklist = document.getElementById('tasklist');
 
-    rolelist.innerHTML = '';
+    tasklist.innerHTML = '';
 
-    for(var i = 0; i < roles.length; i++) {
-        var role = roles[i];
+    for(var i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
 
-        if (role.id != 0) {
+        if (task.id != 0) {
             var button = document.createElement('button');
             button.setAttribute('type', 'button');
             button.setAttribute('class', 'list-group-item list-group-item-action');
-            button.setAttribute('onclick', 'displayRole(' + role.id + ');');
+            button.setAttribute('onclick', 'disableRecurringTask(' + task.id + ');');
             button.style = "font-size:16px";
-            button.innerText = role.name;
+            button.innerText = task.name;
 
-            rolelist.appendChild(button);
+            tasklist.appendChild(button);
         }
     }
 
-    if (roles.length > 1) {
+    if (tasks.length > 1) {
         if (id) {
-            displayRole(id);
+            disableRecurringTask(id);
         } else {
-            displayRole(roles[1].id);
+            disableRecurringTask(tasks[1].id);
         }
     }
 }
