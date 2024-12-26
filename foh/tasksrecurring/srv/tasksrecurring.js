@@ -32,7 +32,7 @@ module.exports = function(app) {
 		var sql = "select id, name, description, recur, inputtype,";
 		sql += " exists(select taskid from espresso.recurring_task_complete where timestamp is not null) as completed";
 		sql += " from espresso.recurring_task";
-		sql += " where recur in (" + day + ", " + month + ") and shopid = " + shopId;
+		sql += " where recur in (9, " + day + ", " + month + ") and shopid = " + shopId;
 
 		console.log('/getrecurringtasks ' + sql);
 
