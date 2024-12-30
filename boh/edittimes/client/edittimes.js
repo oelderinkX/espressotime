@@ -111,6 +111,10 @@ function getStartFinishBreaks() {
         }
 
         for(var i = 0; i < startFinishAndBreaks.breaks.length; i++) {
+            if ( startFinishAndBreaks.breaks[i].startTime == null || startFinishAndBreaks.breaks[i].finishTime == null) {
+                continue;
+            }
+
             var inputGroup2 = document.createElement("div");
             inputGroup2.classList.add('input-group');
 
