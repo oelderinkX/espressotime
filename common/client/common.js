@@ -128,6 +128,10 @@ function calculateMinutes(d1, d2) {
   var start = new Date(d1);
   var finish = new Date(d2);
 
+  if (d1 == null || d2 == null) {
+    return 0;
+  }
+
   var diffInMilliseconds = Math.abs(start - finish);
   var minutes = Math.floor(diffInMilliseconds / 1000 / 60);
 
