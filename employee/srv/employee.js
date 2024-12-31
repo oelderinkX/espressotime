@@ -32,7 +32,7 @@ module.exports = function(app) {
 
             var formatted = employeePage;
 
-            if (employeeDetails && employeeDetails.rolename && employeeDetails.rolename.toLowerCase().includes('manager')) {
+            if (employeeDetails && employeeDetails.role && employeeDetails.role.toLowerCase().includes('manager')) {
                 while (formatted.includes('display: none')) {
                     formatted = formatted.replace('display: none', 'display: inline');
                 }
