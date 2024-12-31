@@ -28,11 +28,11 @@ module.exports = function(app) {
 
         if (employeeid && employeeid != -1) {
             var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
-            console.log('get /employee, employeeDetails: ' + employeeDetails);
+            console.log('get /employee, employeeDetails: ' + JSON.stringify(employeeDetails));
 
             var formatted = employeePage;
 
-            if (employeeDetails && employeeDetails.job_title_id && employeeDetails.job_title_id == 9) {
+            if (employeeDetails && employeeDetails.rolename && employeeDetails.rolename.toLowerCase().includes('manager')) {
                 while (formatted.includes('display: none')) {
                     formatted = formatted.replace('display: none', 'display: inline');
                 }

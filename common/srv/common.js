@@ -61,7 +61,6 @@ function getShopId(identifier) {
 }
 module.exports.getShopId = getShopId;
 
-
 function getEmployeeId(identifier) {
   if (identifier) {
     var decode =  Buffer.from(identifier, 'base64').toString('utf-8');
