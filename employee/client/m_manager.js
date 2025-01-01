@@ -290,7 +290,7 @@ function getEmployeeTimes() {
       drawTable();
 
       var loading = document.getElementById('loading');
-      loading.innerHTML = '';
+      loading.innerHTML = '<button type="button" style="margin:15px;color:#ffffff;background-color:#000000;" class="btn btn-em" onclick="copyRosterLink();">Copy Link</button>';
   });
 }
 
@@ -436,5 +436,16 @@ function loadSignInOut() {
         table.appendChild(row);
       }
     });
+  });
+}
+
+function copyRosterLink()
+{
+  var d = new Date(rosterStart);
+  d.setDate( d.getDate() - 7 );
+  var dateLink = getDbFormat(d);
+
+  window.navigator.clipboard.writeText(window.location.origin + '/manager_roster?date=' + dateLink).then(function(x) {
+    alert("Copied roster link");
   });
 }
