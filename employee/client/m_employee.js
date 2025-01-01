@@ -625,6 +625,8 @@ function loadShopDetails() {
   var address =  document.getElementById('shopaddress');
   var phone =  document.getElementById('shopphone');
 
+  var request = {};
+
   sendPost("/employee_get_shop_details", JSON.stringify(request), function(response) {
     var shop = JSON.parse(response);
 
