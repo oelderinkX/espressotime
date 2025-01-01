@@ -50,7 +50,6 @@ function getHeaderRow() {
     var dayHeader = createHeader('');
 
     var link = document.createElement('a');
-    //link.classList.add('hidden-print');
     link.setAttribute('href', 'roster?view=day&date="' + getDbFormat(headerDate) + '"');
     link.innerHTML = dayNames[headerDate.getDay()] + ' ' + headerDate.getDate();
     dayHeader.appendChild(link);
@@ -644,7 +643,11 @@ function copyLastWeek() {
 
 function copyRosterLink()
 {
-  window.navigator.clipboard.writeText('https://nz.managemycafe.com/manager_roster?date=2025-01-06').then(function(x) {
+  var d = new Date(rosterStart);
+  d.setDate( d.getDate() - 14 );
+  var dateLink = getDbFormat(d);
+
+  window.navigator.clipboard.writeText('https://nz.managemycafe.com/manager_roster?date=' + dateLink).then(function(x) {
     alert("Link copied to clipboard");
   });
 }
