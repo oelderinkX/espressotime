@@ -640,8 +640,15 @@ function loadShopDetails() {
 function loadEmployeeMenu() {
   var fullroster =  document.getElementById('fullroster');
 
+  var request = {};
+
   sendPost("/employee_get_shop_details", JSON.stringify(request), function(response) {
     var shop = JSON.parse(response);
-    fullroster.style = 'display: inline';
+
+    if (shop.options && shop.options.employeesSeeFullRoster) {
+      if (shop.options.employeesSeeFullRoster === true) {
+        fullroster.style = 'display: inline';
+      }
+    }
   });
 }
