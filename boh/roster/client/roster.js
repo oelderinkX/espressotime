@@ -641,3 +641,10 @@ function copyLastWeek() {
     });
   }
 }
+
+function copyRosterLink()
+{
+  clipboard.writeText('https://nz.managemycafe.com/manager_roster?date=2025-01-06').then(function(x) {
+    alert("Link copied to clipboard");
+  });
+}
