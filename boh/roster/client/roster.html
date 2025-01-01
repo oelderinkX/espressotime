@@ -26,6 +26,11 @@
         z-index:1;
         background: transparent;
   }
+  @media print {
+    a[href]:after {
+      content: none !important;
+    }
+  }
 </style>
 </head>
 <script>
