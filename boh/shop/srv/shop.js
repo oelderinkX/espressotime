@@ -50,8 +50,8 @@ module.exports = function(app) {
 	app.post('/saveshopdetails', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var options = req.body.options;
-		var options = req.body.phone;
-		var options = req.body.address;
+		var phone = req.body.phone;
+		var address = req.body.address;
 
 		var sql = "update espresso.shop set options = $2, set phone = $3, set address = $4 where id = $1";
 
