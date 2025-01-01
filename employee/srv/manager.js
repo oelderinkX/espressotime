@@ -34,7 +34,7 @@ module.exports = function(app) {
 			var formatted = managerRosterPage;
 
 			if (req.query.date) {
-				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + req.query.date + ');');
+				formatted = formatted.replace('loadRosterPage();', 'loadRosterPage(' + req.query.date + ');');
 			}
 			res.send(formatted);
 		} else {
