@@ -23,9 +23,9 @@ module.exports = function(app) {
 	});
 
 	app.post('/getshopdetails', jsonParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']); // not used, so a bit dangerous
+		var shopId = common.getShopId(req.cookies['identifier']);
 
-		var sql = "select name, options from espresso.shop where id = $1";
+		var sql = "select name, options, phone, address from espresso.shop where id = $1";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId], function(err, result) {
@@ -34,7 +34,12 @@ module.exports = function(app) {
 				var shop = {};
 
 				if (result && result.rowCount > 0) {
-					shop = { name: result.rows[0].name, options: result.rows[0].options };
+					shop = { 
+						name: result.rows[0].name,
+						options: result.rows[0].options,
+						phone: result.rows[0].phone,
+						address: result.rows[0].address
+					 };
 				}
 
 				res.send(shop);
@@ -45,11 +50,13 @@ module.exports = function(app) {
 	app.post('/saveshopdetails', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var options = req.body.options;
+		var options = req.body.phone;
+		var options = req.body.address;
 
-		var sql = "update espresso.shop set options = $1 where id = $2";
+		var sql = "update espresso.shop set options = $2, set phone = $3, set address = $4 where id = $1";
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [options, shopId], function(err, result) {
+			connection.query(sql, [shopId, options, phone, address], function(err, result) {
 				done();
 
 				res.send({success: true});

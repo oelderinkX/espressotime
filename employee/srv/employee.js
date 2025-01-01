@@ -147,7 +147,7 @@ module.exports = function(app) {
 		var date = req.body.date;
 		var employeestimes = [];
 
-		sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
+		var sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid], function(err, result) {
@@ -242,7 +242,7 @@ module.exports = function(app) {
 
 		var timeoff = [];
 
-		sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
+		var sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
 		sql += "where employee_id = $1 and  (('now'::timestamp - '12 month'::interval) < start_date) order by start_date";
 
 		pool.connect(function(err, connection, done) {
@@ -276,7 +276,7 @@ module.exports = function(app) {
 		var timeoff = [];
 		var id = req.body.id;
 
-		sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
+		var sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
 		sql += "where employee_id = $1 and id = $2 limit 1";
 
 		pool.connect(function(err, connection, done) {
@@ -354,8 +354,8 @@ module.exports = function(app) {
 
         var values = [];
 
-		sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
-		values = [employeeid, id];
+		var sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
+		var values = [employeeid, id];
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
@@ -377,8 +377,8 @@ module.exports = function(app) {
 	app.post('/employee_get_details', jsonParser, function(req, res) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 
-		sql = "select name, contact, pin from espresso.employee where id = $1 limit 1";
-		values = [employeeid];
+		var sql = "select name, contact, pin from espresso.employee where id = $1 limit 1";
+		var values = [employeeid];
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
@@ -402,8 +402,8 @@ module.exports = function(app) {
 		var contact = req.body.contact;
 		var pin = req.body.pin;
 
-		sql = "UPDATE espresso.employee SET contact = $2, pin = $3 where id = $1";
-		values = [employeeid, contact, pin];
+		var sql = "UPDATE espresso.employee SET contact = $2, pin = $3 where id = $1";
+		var values = [employeeid, contact, pin];
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
@@ -414,6 +414,30 @@ module.exports = function(app) {
 				} else {
 					res.send({ result: 'success' });
 				}
+			});
+		});
+	});
+
+
+	app.post('/employee_get_shop_details', jsonParser, function(req, res) {
+		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+
+		var sql = "select name, phone, address, options from espresso.shop where id = (select shopid from espresso.employee where id = $1);";
+		var values = [employeeid];
+
+		pool.connect(function(err, connection, done) {
+			connection.query(sql, values, function(err, result) {
+				done();
+					
+				var shop = {};
+				if (result && result.rowCount == 1) {
+					shop.name = result.rows[0].name;
+					shop.phone = result.rows[0].phone;
+					shop.address = result.rows[0].address;
+					shop.options = result.rows[0].options;
+				}
+					
+				res.send(shop);
 			});
 		});
 	});

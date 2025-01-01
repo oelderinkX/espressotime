@@ -619,3 +619,26 @@ function saveEmployeeDetails() {
     save_button.disabled = false;
   });
 }
+
+function loadShopDetails() {
+  var name =  document.getElementById('shopname');
+  var address =  document.getElementById('shopaddress');
+  var phone =  document.getElementById('shopphone');
+
+  sendPost("/employee_get_shop_details", JSON.stringify(request), function(response) {
+    var shop = JSON.parse(response);
+
+    name.innerText = shop.name;
+    address.innerText = shop.address;
+    phone.innerText = shop.phone;
+  });
+}
+
+function loadEmployeeMenu() {
+  var fullroster =  document.getElementById('fullroster');
+
+  sendPost("/employee_get_shop_details", JSON.stringify(request), function(response) {
+    var shop = JSON.parse(response);
+    fullroster.style = 'display: inline';
+  });
+}
