@@ -59,6 +59,10 @@ module.exports = function(app) {
 			connection.query(sql, [shopId, options, phone, address], function(err, result) {
 				done();
 
+				if(err) {
+					console.log(err);
+				}
+
 				res.send({success: true});
 			});
 		});
