@@ -17,6 +17,14 @@ var rosterStart = new Date(); // GLOBAL
 var expectedBreakFinishTime = new Date();
 var breakFinishTimeId;
 
+function loadEmployeeRosterFirstTime() {
+  var request = {};
+  sendPost("/manager_getroles", JSON.stringify(request), function(response) {
+    roles =  JSON.parse(response);
+    loadEmployeeRoster();
+  });
+}
+
 function getRoleColour(role) {
   for(var i = 0; i < roles.length; i++) {
     if (roles[i].name.toLowerCase() == role.toLowerCase()) {
