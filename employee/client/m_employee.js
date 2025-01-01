@@ -633,6 +633,7 @@ function loadShopDetails() {
     name.innerText = shop.name;
     address.innerText = shop.address;
     phone.innerText = shop.phone;
+    phone.setAttribute('href', 'tel:' + shop.phone);
   });
 }
 
