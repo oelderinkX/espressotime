@@ -43,12 +43,13 @@ function goRosterForward() {
   loadEmployeeRoster();
 }
 
+//"2022-03-04"
 function getRosterDates(newDate) {
   var employee_rosterdate = document.getElementById("employee_rosterdate");
 
   var d = new Date();
   if (newDate) {
-      d = new Date(newDate);
+      d = Date.parse(newDate);
   }
   var day = d.getDay();
 

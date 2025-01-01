@@ -31,7 +31,12 @@ module.exports = function(app) {
 		var employeeid = common.getEmployeeId(req.cookies['identifier']);
 		
 		if (employeeid && employeeid != -1) {
-			res.send(managerRosterPage);
+			var formatted = managerRosterPage;
+
+			if (req.query.date) {
+				formatted = formatted.replace('getRosterDates();', 'getRosterDates(' + req.query.date + ');');
+			}
+			res.send(formatted);
 		} else {
 			res.redirect(common.getLoginUrl('/manager_roster'));
 		}
