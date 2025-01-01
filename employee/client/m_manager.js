@@ -66,8 +66,12 @@ function drawTable() {
   roster_weekview.appendChild(table);
 }
 
-function loadRosterPage() {
-  setRosterDate(new Date());
+function loadRosterPage(newDate) {
+  var d = new Date();
+  if (newDate) {
+      d = Date.parse(newDate);
+  }
+  setRosterDate(d);
   var request = {};
   sendPost("/manager_getroles", JSON.stringify(request), function(response) {
     roles =  JSON.parse(response);
