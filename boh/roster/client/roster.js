@@ -50,6 +50,7 @@ function getHeaderRow() {
     var dayHeader = createHeader('');
 
     var link = document.createElement('a');
+    link.classList.add('hidden-print');
     link.setAttribute('href', 'roster?view=day&date="' + getDbFormat(headerDate) + '"');
     link.innerHTML = dayNames[headerDate.getDay()] + ' ' + headerDate.getDate();
     dayHeader.appendChild(link);
