@@ -53,7 +53,7 @@ module.exports = function(app) {
 		var phone = req.body.phone || '';
 		var address = req.body.address || '';
 
-		var sql = "update espresso.shop set options = $2, set phone = $3, set address = $4 where id = $1";
+		var sql = "update espresso.shop set options = $2, phone = $3, address = $4 where id = $1";
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, options, phone, address], function(err, result) {
