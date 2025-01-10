@@ -284,8 +284,6 @@ module.exports = function(app) {
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, starttime], function(err, result) {
-				done();
-
 				if (err) {
 					console.error(err);
 					var result = { "result": "fail", "error": err };
@@ -315,25 +313,24 @@ module.exports = function(app) {
 					if (ids.length > 0) {
 						var breaksql = 'select employeeid, starttime, breaktype, finishtime from espresso.break';
 						breaksql += ' where employeeid in (' + ids.join(',') + ') and espresso.break.starttime >= $1';
-						pool.connect(function(err, connection, done) {
-							connection.query(breaksql, [starttime], function(err, result) {
-								done();
 
-								for(var i = 0; i < result.rowCount; i++) {
-									var id = result.rows[i].employeeid;
-									var finishtime = result.rows[i].finishtime;
-			
-									for(var x = 0; x < working.length; x++) {
-										if (id == working[x].id) {
-											if (!finishtime) {
-												working[x].status = result.rows[i].breaktype;
-											}
+						connection.query(breaksql, [starttime], function(err, result) {
+							done();
+
+							for(var i = 0; i < result.rowCount; i++) {
+								var id = result.rows[i].employeeid;
+								var finishtime = result.rows[i].finishtime;
+		
+								for(var x = 0; x < working.length; x++) {
+									if (id == working[x].id) {
+										if (!finishtime) {
+											working[x].status = result.rows[i].breaktype;
 										}
 									}
 								}
+							}
 
-								res.send(working);
-							});
+							res.send(working);
 						});
 					} else {
 						res.send(working);
