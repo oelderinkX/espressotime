@@ -103,7 +103,7 @@ module.exports = function(app) {
 
 				//pool.connect(function(err, connection, done) {
 					connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
-						done();
+						//done();
 
 						if (startFinishResult && startFinishResult.rowCount > 0) {
 							employee.starttime = startFinishResult.rows[0].starttime;
