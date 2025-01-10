@@ -82,7 +82,7 @@ module.exports = function(app) {
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
-				done();
+				//done();
 
 				var employee = {};
 
@@ -101,7 +101,7 @@ module.exports = function(app) {
 				}
 
 
-				pool.connect(function(err, connection, done) {
+				//pool.connect(function(err, connection, done) {
 					connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
 						done();
 
@@ -115,9 +115,9 @@ module.exports = function(app) {
 							employee.finishtimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].finishtime });
 						}
 
-						pool.connect(function(err, connection, done) {
+						//pool.connect(function(err, connection, done) {
 							connection.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
-								done();
+								//done();
 
 								if (breaksResult && breaksResult.rowCount > 0) {
 									for(var i = 0; i < breaksResult.rowCount; i++) {
@@ -125,7 +125,7 @@ module.exports = function(app) {
 									}
 								}
 
-								pool.connect(function(err, connection, done) {
+								//pool.connect(function(err, connection, done) {
 									connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
 										done();
 
@@ -139,11 +139,11 @@ module.exports = function(app) {
 
 										res.send(employee);
 									});
-								});
+								//});
 							});
-						});
+						//});
 					});
-				});
+				//});
 			});
 		});
 	});

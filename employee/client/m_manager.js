@@ -442,7 +442,6 @@ function loadSignInOut() {
 function copyRosterLink()
 {
   var d = new Date(rosterStart);
-  //d.setDate( d.getDate() - 7 );
   var dateLink = getDbFormat(d);
 
   window.navigator.clipboard.writeText(window.location.origin + '/manager_roster?date=' + dateLink).then(function(x) {
