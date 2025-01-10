@@ -82,8 +82,6 @@ module.exports = function(app) {
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
-				//done();
-
 				var employee = {};
 
 				if (employeeResult && employeeResult.rowCount == 1) {
@@ -100,50 +98,39 @@ module.exports = function(app) {
 					};
 				}
 
+				connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
+					if (startFinishResult && startFinishResult.rowCount > 0) {
+						employee.starttime = startFinishResult.rows[0].starttime;
+						employee.finishtime = startFinishResult.rows[0].finishtime;
+					}
 
-				//pool.connect(function(err, connection, done) {
-					connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
-						//done();
+					for(var i = 0; i < startFinishResult.rows.length; i++) {
+						employee.starttimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].starttime });
+						employee.finishtimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].finishtime });
+					}
 
-						if (startFinishResult && startFinishResult.rowCount > 0) {
-							employee.starttime = startFinishResult.rows[0].starttime;
-							employee.finishtime = startFinishResult.rows[0].finishtime;
+					connection.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
+						if (breaksResult && breaksResult.rowCount > 0) {
+							for(var i = 0; i < breaksResult.rowCount; i++) {
+								employee.breaks.push({ id: breaksResult.rows[i].id, startTime: breaksResult.rows[i].starttime, finishTime: breaksResult.rows[i].finishtime, breakType: breaksResult.rows[i].breaktype });
+							}
 						}
 
-						for(var i = 0; i < startFinishResult.rows.length; i++) {
-							employee.starttimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].starttime });
-							employee.finishtimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].finishtime });
-						}
+						connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
+							done();
 
-						//pool.connect(function(err, connection, done) {
-							connection.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
-								//done();
+							if (notesResult && notesResult.rowCount > 0) {
+								employee.notes = notesResult.rows[0].notes;
+							} 
 
-								if (breaksResult && breaksResult.rowCount > 0) {
-									for(var i = 0; i < breaksResult.rowCount; i++) {
-										employee.breaks.push({ id: breaksResult.rows[i].id, startTime: breaksResult.rows[i].starttime, finishTime: breaksResult.rows[i].finishtime, breakType: breaksResult.rows[i].breaktype });
-									}
-								}
+							if (err) {
+								console.log('Error getting sql notes: ' + err);
+							}
 
-								//pool.connect(function(err, connection, done) {
-									connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
-										done();
-
-										if (notesResult && notesResult.rowCount > 0) {
-											employee.notes = notesResult.rows[0].notes;
-										} 
-
-										if (err) {
-											console.log('Error getting sql notes: ' + err);
-										}
-
-										res.send(employee);
-									});
-								//});
-							});
-						//});
+							res.send(employee);
+						});
 					});
-				//});
+				});
 			});
 		});
 	});
