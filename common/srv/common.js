@@ -25,19 +25,25 @@ function postgresConfig() {
 }
 module.exports.postgresConfig = postgresConfig;
 
-function postgresConfig2() {
-  var config = {
-    user: auth[0],
-    password: auth[1],
-    host: params.hostname,
-    port: params.port,
-    database: params.pathname.split('/')[1],
-    ssl: true	  
-  };
-  
-  return config;
+function logDbStats(pool) {
+  if (pool) {
+    console.log('');
+    console.log('pg.Pool.totalCount: ' + pool.totalCount);
+    console.log('pg.Pool.idleCount: ' + pool.idleCount);
+    console.log('pg.Pool.waitingCount: ' + pool.waitingCount);
+    console.log('');
+  }
 }
-module.exports.postgresConfig2 = postgresConfig2;
+module.exports.logDbStats = logDbStats;
+
+function logPoolConnect() {
+  if (pool) {
+    console.log('');
+    console.log('Connecting to Db Pool...');
+    console.log('');
+  }
+}
+module.exports.logPoolConnect = logPoolConnect;
 
 function replaceAll(str, searchValue, replaceWith) {
 	if (searchValue == replaceWith) {
