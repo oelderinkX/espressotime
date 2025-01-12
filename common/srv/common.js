@@ -20,7 +20,7 @@ function postgresConfig() {
 		ssl: {
 			rejectUnauthorized: false
 		},
-    max: 2
+    max: 1
 	};
 
 	return config;
