@@ -15,10 +15,12 @@ function s4() {
 
 function postgresConfig() {
 	var config = {
+    application_name: 'Manage My Cafe',
 		connectionString: process.env.DATABASE_URL,
 		ssl: {
 			rejectUnauthorized: false
-		}
+		},
+    max: 2
 	};
 
 	return config;
