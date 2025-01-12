@@ -37,11 +37,9 @@ function logDbStats(pool) {
 module.exports.logDbStats = logDbStats;
 
 function logPoolConnect() {
-  if (pool) {
-    console.log('');
-    console.log('Connecting to Db Pool...');
-    console.log('');
-  }
+  console.log('');
+  console.log('Connecting to Db Pool...');
+  console.log('');
 }
 module.exports.logPoolConnect = logPoolConnect;
 
