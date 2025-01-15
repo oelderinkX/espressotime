@@ -16,35 +16,34 @@ module.exports = function(app) {
 		var shopid = common.getShopId(req.cookies['identifier']);
 		
 		if (shopid && shopid != -1) {
-
             let css = getCachedBranding(shopid);
             if (css !== null) {
                 console.log('branding.css - Cache Used!');
                 res.type('text/css');
                 res.send(css);
-            }
+            } else {
+                var sql = 'select css from espresso.branding where shopid = $1';
 
-            var sql = 'select css from espresso.branding where shopid = $1';
+                pool.connect(function(err, connection, done) {
+                    connection.query(sql, [shopid], function(err, result) {
+                        done();
 
-            pool.connect(function(err, connection, done) {
-                connection.query(sql, [shopid], function(err, result) {
-                    done();
-
-                    if (result && result.rowCount == 1) {
-                        setCachedBranding(shopid, result.rows[0].css);
-                        res.type('text/css');
-                        res.send(result.rows[0].css);
-                    }  else {
-                        console.log('branding.css - using basic css');
-                        res.type('text/css');
-                        res.send(basic_css);
-                    }
+                        if (result && result.rowCount == 1) {
+                            setCachedBranding(shopid, result.rows[0].css);
+                            res.type('text/css');
+                            res.send(result.rows[0].css);
+                        }  else {
+                            console.log('branding.css - using basic css');
+                            res.type('text/css');
+                            res.send(basic_css);
+                        }
+                    });
                 });
-            });
-		} else {
+            }
+        } else {
             res.type('text/css');
-			res.send(basic_css);
-		}
+            res.send(basic_css);
+        }
 	});	
 }
 
