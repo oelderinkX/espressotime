@@ -17,8 +17,9 @@ module.exports = function(app) {
 		
 		if (shopid && shopid != -1) {
 
-            var css = getCachedBranding(shopid);
-            if (css) {
+            let css = getCachedBranding(shopid);
+            if (css != null) {
+                console.log('branding.css - Cache Used!');
                 res.type('text/css');
                 res.send(css);
             }
@@ -55,13 +56,12 @@ function getCachedBranding(shopid) {
     for(let i = 0; i < cache_css.length; i++ ) {
         if (cache_css[i].shopid === shopid) {
             if (now < cache_css[i].expire) {
-                console.log('branding.css - Cache Used!');
                 return cache_css.css;
             }
         }
     }
 
-    // lol, don't return for the undefine goodness!
+    return null;
 }
 
 function setCachedBranding(shopid, css) {
