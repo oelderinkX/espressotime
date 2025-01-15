@@ -34,6 +34,7 @@ module.exports = function(app) {
                         res.type('text/css');
                         res.send(result.rows[0].css);
                     }  else {
+                        console.log('branding.css - using basic css');
                         res.type('text/css');
                         res.send(basic_css);
                     }
@@ -68,7 +69,7 @@ function setCachedBranding(shopid, css) {
 
     // clear old cached css
     for(let i = 0; i < cache_css.length; i++ ) {
-        cache_css = cache_css.filter(cache_css.shopid !== shopid);
+        cache_css = cache_css.filter(c => c.shopid !== shopid);
     }
 
     let expire = new Date();
