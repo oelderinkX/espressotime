@@ -57,8 +57,8 @@ function getCachedBranding(shopid) {
         if (cache_css[i].shopid === shopid) {
             console.log('found shopid in cache, now: ' + now + ' expire: ' + cache_css[i].expire);
             if (now < cache_css[i].expire) {
-                console.log('branding.css - returning cache css: ' + css);
-                return cache_css.css;
+                console.log('branding.css - returning cache css: ' + cache_css[i].css);
+                return cache_css[i].css;
             }
         }
     }
