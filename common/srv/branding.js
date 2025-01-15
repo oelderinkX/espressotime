@@ -66,8 +66,9 @@ function setCachedBranding(shopid, css) {
         cache_css = cache_css.filter(c => c.shopid !== shopid);
     }
 
+    // cache expires after 30 minutes
     let expire = new Date();
-    expire.setMinutes(expire.getMinutes() + 3);
+    expire.setMinutes(expire.getMinutes() + 30);
 
     cache_css.push({
         shopid: shopid,
