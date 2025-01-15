@@ -18,7 +18,7 @@ module.exports = function(app) {
 		if (shopid && shopid != -1) {
 
             let css = getCachedBranding(shopid);
-            if (css != null) {
+            if (css !== null) {
                 console.log('branding.css - Cache Used!');
                 res.type('text/css');
                 res.send(css);
