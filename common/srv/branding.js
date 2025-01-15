@@ -57,7 +57,7 @@ function getCachedBranding(shopid) {
         if (cache_css[i].shopid === shopid) {
             console.log('found shopid in cache, now: ' + now + ' expire: ' + cache_css[i].expire);
             if (now < cache_css[i].expire) {
-                console.log('much better!')
+                console.log('branding.css - returning cache css: ' + css);
                 return cache_css.css;
             }
         }
@@ -76,6 +76,8 @@ function setCachedBranding(shopid, css) {
 
     let expire = new Date();
     expire.setMinutes(expire.getMinutes() + 3);
+
+    console.log('branding.css - setting cache css: ' + css);
 
     cache_css.push({
         shopid: shopid,
