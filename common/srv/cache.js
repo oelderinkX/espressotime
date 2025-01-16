@@ -10,6 +10,7 @@ function query(client, sql, values, callback) {
             callback(err, result);
         });
     } else {
+        let err;
         console.log('used cache');
         callback(err, result);
     }
