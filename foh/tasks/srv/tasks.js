@@ -170,7 +170,6 @@ module.exports = function(app) {
 		sql += "where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name";
 
 		pool.connect(function(err, connection, done) {
-			//connection.query(sql, [shopId], function(err, result) {
 			connection.query(sql, [shopId, date], function(err, result) {
 				done();
 
