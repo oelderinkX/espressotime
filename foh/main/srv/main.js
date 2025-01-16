@@ -1,6 +1,7 @@
 var express = require('express');
 var pg = require('pg');
 var common = require('../../../common/srv/common.js');
+var cache = require('../../../common/srv/cache.js');
 var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
@@ -405,10 +406,9 @@ module.exports = function(app) {
 
 		var sql = "SELECT options from espresso.shop where id = $1;"
 
-		common.logPoolConnect();
-		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
-			connection.query(sql, [shopId], function(err, result) {
+		pool.connect(function(err, client, done) {
+			//client.query(sql, [shopId], function(err, result) {
+			cache.query(client, sql, [shopid], function(err, result) {
 				done();
 
 				var options = {};
