@@ -407,8 +407,7 @@ module.exports = function(app) {
 		var sql = "SELECT options from espresso.shop where id = $1;"
 
 		pool.connect(function(err, client, done) {
-			//client.query(sql, [shopId], function(err, result) {
-			cache.query(client, sql, [shopId], function(err, result) {
+			client.query(sql, [shopId], function(err, result) {
 				done();
 
 				var options = {};

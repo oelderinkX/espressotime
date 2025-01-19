@@ -34,7 +34,6 @@ module.exports = function(app) {
 
 		pool.connect(function(err, client, done) {
 			client.query(sql, [shopId], function(err, result) {
-			//cache.query(client, sql, [shopId], function(err, result) {
 				done();
 
 				var roles = [];

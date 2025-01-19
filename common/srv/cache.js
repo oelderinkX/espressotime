@@ -1,5 +1,62 @@
 let sql_cache = [];
 
+let cache = [];
+
+const cacheName = {
+    shopoptions: 'shopoptions'
+}
+
+
+function hasCache(shopid, name) {
+    return getCache(shopid, name) !== null;
+}
+module.exports.hasCache = hasCache;
+
+// usage getCache(1, cacheName.shopoptions)
+function getCache(shopid, name) {
+    let value = null;
+    let now = new Date();
+
+    for(let i = 0; i < cache.length; i++ ) {
+        if (cache[i].shopid === shopid && cache[i].name === name) {
+            if (now < cache[i].expire) {
+                value = cache[i].value;
+                break;
+            }
+        }
+    }
+
+    return value;
+}
+module.exports.getCache = getCache;
+
+
+function clearCache(shopid, name) {
+    for(let i = 0; i < cache.length; i++ ) {
+        cache = cache.filter(c => c.shopid !== shopid && c.name !== name);
+    }
+}
+module.exports.clearCache = clearCache;
+
+
+function setCache(shopid, name, value, expireMinutes)
+{
+    clearCache(shopid, name);
+
+    let expire = new Date();
+    expire.setMinutes(expire.getMinutes() + expireMinutes);
+
+    cache.push({
+        shopid: shopid,
+        name: name,
+        value: value,
+        expire: expire
+    })
+}
+module.exports.setCache = setCache;
+
+
+// this need to go
 function query(client, sql, values, callback) {
     let result = getSql(sql, values);
 
@@ -17,6 +74,7 @@ function query(client, sql, values, callback) {
 }
 module.exports.query = query;
 
+//
 function getSql(sql, values) {
     console.log('getSql...');
     let now = new Date();
@@ -32,6 +90,7 @@ function getSql(sql, values) {
     return null;
 }
 
+//
 function setSql(sql, values, result) {
     console.log('setSql...');
 
