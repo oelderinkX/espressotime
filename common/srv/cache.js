@@ -100,9 +100,7 @@ function setSql(sql, values, result, expireMinutes) {
     }
 
     // clear old cached css
-    for(let i = 0; i < sql_cache.length; i++ ) {
-        sql_cache = sql_cache.filter(s => s.sql !== sql && JSON.stringify(s.values) !== JSON.stringify(values));
-    }
+    sql_cache = sql_cache.filter(s => !(s.sql === sql && JSON.stringify(s.values) === JSON.stringify(values)));
 
     for(let i = 0; i < sql_cache.length; i++ ) {
         console.log('sql2: ' + sql_cache[i].sql);
