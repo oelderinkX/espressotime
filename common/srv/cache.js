@@ -72,7 +72,6 @@ function query(client, sql, values, expireMinutes, callback) {
 }
 module.exports.query = query;
 
-//
 function getSql(sql, values) {
     console.log('getSql...');
     let now = new Date();
@@ -107,4 +106,11 @@ function setSql(sql, values, result, expireMinutes) {
         result: result,
         expire: expire
     })
+
+    console.log(JSON.stringify({
+        sql: sql,
+        values: values,
+        result: result,
+        expire: expire
+    }));
 }
