@@ -104,7 +104,7 @@ module.exports = function(app) {
 					};
 				}
 
-				connection.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
+				client.query(sqlStartTime, [employeeId, dateFrom, dateTo], function(err, startFinishResult) {
 					if (startFinishResult && startFinishResult.rowCount > 0) {
 						employee.starttime = startFinishResult.rows[0].starttime;
 						employee.finishtime = startFinishResult.rows[0].finishtime;
@@ -115,14 +115,14 @@ module.exports = function(app) {
 						employee.finishtimes.push({ id: startFinishResult.rows[i].id, time: startFinishResult.rows[i].finishtime });
 					}
 
-					connection.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
+					client.query(sqlBreaks, [employeeId, dateFrom, dateTo], function(err, breaksResult) {
 						if (breaksResult && breaksResult.rowCount > 0) {
 							for(var i = 0; i < breaksResult.rowCount; i++) {
 								employee.breaks.push({ id: breaksResult.rows[i].id, startTime: breaksResult.rows[i].starttime, finishTime: breaksResult.rows[i].finishtime, breakType: breaksResult.rows[i].breaktype });
 							}
 						}
 
-						connection.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
+						client.query(sqlNotes, [shopId, employeeId, dateFrom], function(err, notesResult) {
 							done();
 
 							if (notesResult && notesResult.rowCount > 0) {
