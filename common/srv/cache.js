@@ -93,9 +93,21 @@ function getSql(sql, values) {
 function setSql(sql, values, result, expireMinutes) {
     console.log('setSql...');
 
+    for(let i = 0; i < sql_cache.length; i++ ) {
+        console.log('sql: ' + sql_cache[i].sql);
+        console.log('values: ' + JSON.stringify(sql_cache[i].values));
+        console.log('');
+    }
+
     // clear old cached css
     for(let i = 0; i < sql_cache.length; i++ ) {
         sql_cache = sql_cache.filter(s => s.sql !== sql && JSON.stringify(s.values) !== JSON.stringify(values));
+    }
+
+    for(let i = 0; i < sql_cache.length; i++ ) {
+        console.log('sql: ' + sql_cache[i].sql);
+        console.log('values: ' + JSON.stringify(sql_cache[i].values));
+        console.log('');
     }
 
     // cache expires after (expireMinutes) minutes
