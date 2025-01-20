@@ -94,8 +94,8 @@ function setSql(sql, values, result, expireMinutes) {
     console.log('setSql...');
 
     for(let i = 0; i < sql_cache.length; i++ ) {
-        console.log('sql: ' + sql_cache[i].sql);
-        console.log('values: ' + JSON.stringify(sql_cache[i].values));
+        console.log('sql1: ' + sql_cache[i].sql);
+        console.log('values1: ' + JSON.stringify(sql_cache[i].values));
         console.log('');
     }
 
@@ -105,8 +105,8 @@ function setSql(sql, values, result, expireMinutes) {
     }
 
     for(let i = 0; i < sql_cache.length; i++ ) {
-        console.log('sql: ' + sql_cache[i].sql);
-        console.log('values: ' + JSON.stringify(sql_cache[i].values));
+        console.log('sql2: ' + sql_cache[i].sql);
+        console.log('values2: ' + JSON.stringify(sql_cache[i].values));
         console.log('');
     }
 
