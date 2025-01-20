@@ -77,6 +77,9 @@ function getSql(sql, values) {
     let now = new Date();
 
     for(let i = 0; i < sql_cache.length; i++ ) {
+        console.log(sql_cache[i].sql + ' === ' + sql);
+        console.log(JSON.stringify(sql_cache[i].values) + ' === ' + JSON.stringify(values));
+        console.log('');
         if (sql_cache[i].sql === sql && JSON.stringify(sql_cache[i].values) === JSON.stringify(values)) {
             if (now < sql_cache[i].expire) {
                 return sql_cache[i].result;
@@ -106,11 +109,4 @@ function setSql(sql, values, result, expireMinutes) {
         result: result,
         expire: expire
     })
-
-    console.log(JSON.stringify({
-        sql: sql,
-        values: values,
-        result: result,
-        expire: expire
-    }));
 }
