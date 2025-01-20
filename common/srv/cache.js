@@ -6,7 +6,6 @@ const cacheName = {
     shopoptions: 'shopoptions'
 }
 
-
 function hasCache(shopid, name) {
     return getCache(shopid, name) !== null;
 }
@@ -30,14 +29,10 @@ function getCache(shopid, name) {
 }
 module.exports.getCache = getCache;
 
-
 function clearCache(shopid, name) {
-    for(let i = 0; i < cache.length; i++ ) {
-        cache = cache.filter(c => c.shopid !== shopid && c.name !== name);
-    }
+    cache = cache.filter(c => c.shopid !== shopid && c.name !== name);
 }
 module.exports.clearCache = clearCache;
-
 
 function setCache(shopid, name, value, expireMinutes)
 {
@@ -78,9 +73,7 @@ function getSql(sql, values) {
 
     for(let i = 0; i < sql_cache.length; i++ ) {
         if (sql_cache[i].sql === sql && JSON.stringify(sql_cache[i].values) === JSON.stringify(values)) {
-            console.log('matching');
             if (now < sql_cache[i].expire) {
-                console.log('i think we found');
                 return sql_cache[i].result;
             }
         }
@@ -89,24 +82,11 @@ function getSql(sql, values) {
     return null;
 }
 
-//
 function setSql(sql, values, result, expireMinutes) {
     console.log('setSql...');
 
-    for(let i = 0; i < sql_cache.length; i++ ) {
-        console.log('sql1: ' + sql_cache[i].sql);
-        console.log('values1: ' + JSON.stringify(sql_cache[i].values));
-        console.log('');
-    }
-
     // clear old cached css
     sql_cache = sql_cache.filter(s => !(s.sql === sql && JSON.stringify(s.values) === JSON.stringify(values)));
-
-    for(let i = 0; i < sql_cache.length; i++ ) {
-        console.log('sql2: ' + sql_cache[i].sql);
-        console.log('values2: ' + JSON.stringify(sql_cache[i].values));
-        console.log('');
-    }
 
     // cache expires after (expireMinutes) minutes
     let expire = new Date();
