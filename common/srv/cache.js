@@ -1,4 +1,4 @@
-const sql_cache = [];
+let sql_cache = [];
 
 let cache = [];
 
