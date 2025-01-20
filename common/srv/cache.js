@@ -55,15 +55,13 @@ function setCache(shopid, name, value, expireMinutes)
 }
 module.exports.setCache = setCache;
 
-
-// this need to go
-function query(client, sql, values, callback) {
+function query(client, sql, values, expireMinutes, callback) {
     let result = getSql(sql, values);
 
     if (result === null) {
         console.log('no cache');
         client.query(sql, values, function(err, result) {
-            setSql(sql, values, result);
+            setSql(sql, values, result, expireMinutes);
             callback(err, result);
         });
     } else {
@@ -91,7 +89,7 @@ function getSql(sql, values) {
 }
 
 //
-function setSql(sql, values, result) {
+function setSql(sql, values, result, expireMinutes) {
     console.log('setSql...');
 
     // clear old cached css
@@ -99,9 +97,9 @@ function setSql(sql, values, result) {
         sql_cache = sql_cache.filter(s => s.sql !== sql && JSON.stringify(s.values) !== JSON.stringify(values));
     }
 
-    // cache expires after 30 minutes
+    // cache expires after (expireMinutes) minutes
     let expire = new Date();
-    expire.setMinutes(expire.getMinutes() + 30);
+    expire.setMinutes(expire.getMinutes() + expireMinutes);
 
     sql_cache.push({
         sql: sql,

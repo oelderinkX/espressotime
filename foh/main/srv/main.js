@@ -81,12 +81,13 @@ module.exports = function(app) {
 		
 		var sqlBreaks = "select id, starttime, finishtime, breaktype from espresso.break where employeeid = $1 and starttime >= $2 and starttime <= $3;";
 
-		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopid = $1 AND employeeid = $2 AND date = $3";
+		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopid = $1 AND employeeid = $2 AND date = $3 limit 1";
 
 		common.logPoolConnect();
-		pool.connect(function(err, connection, done) {
+		pool.connect(function(err, client, done) {
 			common.logDbStats(pool);
-			connection.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
+			//client.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
+			cache.query(client, sqlEmployeeDetails, [employeeId, shopId], 240, function(err, employeeResult) {
 				var employee = {};
 
 				if (employeeResult && employeeResult.rowCount == 1) {
