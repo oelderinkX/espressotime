@@ -77,11 +77,10 @@ function getSql(sql, values) {
     let now = new Date();
 
     for(let i = 0; i < sql_cache.length; i++ ) {
-        console.log(sql_cache[i].sql + ' === ' + sql);
-        console.log(JSON.stringify(sql_cache[i].values) + ' === ' + JSON.stringify(values));
-        console.log('');
         if (sql_cache[i].sql === sql && JSON.stringify(sql_cache[i].values) === JSON.stringify(values)) {
+            console.log('matching');
             if (now < sql_cache[i].expire) {
+                console.log('i think we found');
                 return sql_cache[i].result;
             }
         }
