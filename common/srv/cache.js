@@ -2,10 +2,8 @@ let sql_cache = [];
 
 let cache = [];
 
-const cacheName = {
-    shopOptions: 'shopOptions'
-}
-module.exports.cacheName = cacheName;
+const shopOptions = 'shopOptions';
+module.exports.shopOptions = shopOptions;
 
 function hasCache(shopid, name) {
     console.log('hasCache: ' + shopid + ' ' + name);

@@ -408,7 +408,7 @@ module.exports = function(app) {
 
 		let sql = "SELECT options from espresso.shop where id = $1;"
 
-		let shopOptions = cache.getCache(shopId, cache.cacheName.shopOptions);
+		let shopOptions = cache.getCache(shopId, cache.shopOptions);
 
 		if (shopOptions !== null) {
 			res.send(shopOptions);
