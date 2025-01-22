@@ -3,6 +3,7 @@ var express = require('express');
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var common = require('../../../common/srv/common.js');
+var cache = require('../../../common/srv/cache.js');
 var pool = new pg.Pool(common.postgresConfig());
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -54,6 +55,8 @@ module.exports = function(app) {
 		var address = req.body.address || '';
 
 		var sql = "update espresso.shop set options = $2, phone = $3, address = $4 where id = $1";
+
+		cache.clearCache(shopId, cache.shopOptions);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, options, phone, address], function(err, result) {
