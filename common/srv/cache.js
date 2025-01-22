@@ -2,9 +2,10 @@ let sql_cache = [];
 
 let cache = [];
 
-export const cacheName = {
+const cacheName = {
     shopOptions: 'shopOptions'
 }
+module.exports.cacheName = cacheName;
 
 function hasCache(shopid, name) {
     console.log('hasCache: ' + shopid + ' ' + name);
@@ -76,7 +77,7 @@ module.exports.query = query;
 
 function getSql(sql, values) {
     console.log('getSql: ' + sql + ' ' + JSON.stringify(values) );
-    
+
     let now = new Date();
 
     for(let i = 0; i < sql_cache.length; i++ ) {
