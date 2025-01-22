@@ -42,9 +42,9 @@ module.exports.clearCache = clearCache;
 
 function setCache(shopid, name, value, expireMinutes)
 {
-    console.log('setCache: ' + shopid + ' ' + name);
-
     clearCache(shopid, name);
+
+    console.log('setCache: ' + shopid + ' ' + name);
 
     let expire = new Date();
     expire.setMinutes(expire.getMinutes() + expireMinutes);
