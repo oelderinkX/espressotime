@@ -32,33 +32,41 @@ module.exports = function(app) {
 		
 		var sql = 'select id, name, colour, textcolour, rights, isjob from espresso.role where shopid = $1 order by id'
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, [shopId], function(err, result) {
-				done();
+		let roles = cache.getCache(shopId, cache.roles);
 
-				var roles = [];
-				roles.push({ id: 0, 
-                             name: '-', 
-                             colour: '#FFFFFF', 
-                             textcolour: '#000000', 
-                             rights: 0
-                });
+		if (roles !== null) {
+			res.send(roles);
+		} else {
+			pool.connect(function(err, client, done) {
+				client.query(sql, [shopId], function(err, result) {
+					done();
 
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						roles.push({ id: result.rows[i].id,
-									 name: result.rows[i].name,
-                                     colour: result.rows[i].colour,
-                                     textcolour: result.rows[i].textcolour,
-                                     rights: result.rows[i].rights,
-									 isjob: result.rows[i].isjob
-						});
+					var roles = [];
+					roles.push({ id: 0, 
+								name: '-', 
+								colour: '#FFFFFF', 
+								textcolour: '#000000', 
+								rights: 0
+					});
+
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							roles.push({ id: result.rows[i].id,
+										name: result.rows[i].name,
+										colour: result.rows[i].colour,
+										textcolour: result.rows[i].textcolour,
+										rights: result.rows[i].rights,
+										isjob: result.rows[i].isjob
+							});
+						}
 					}
-				}
-					
-				res.send(roles);
+						
+					cache.setCache(shopId, cache.roles, roles, 240);
+
+					res.send(roles);
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/updaterole', jsonParser, function(req, res) {
@@ -87,6 +95,8 @@ module.exports = function(app) {
             values = [shopId, id, name, colour, textcolour, rights, isjob];
         }
 
+		cache.clearCache(shopId, cache.roles);
+
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
 				done();
@@ -110,6 +120,8 @@ module.exports = function(app) {
 		var id = req.body.id;
 
         var sql = "delete from espresso.role where shopid = $1 and id = $2";
+
+		cache.clearCache(shopId, cache.roles);
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [shopId, id], function(err, result) {

@@ -5,6 +5,9 @@ let cache = [];
 const shopOptions = 'shopOptions';
 module.exports.shopOptions = shopOptions;
 
+const roles = 'roles';
+module.exports.roles = roles;
+
 function hasCache(shopid, name) {
     console.log('hasCache: ' + shopid + ' ' + name);
 
