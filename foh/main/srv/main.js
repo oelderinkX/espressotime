@@ -421,7 +421,7 @@ module.exports = function(app) {
 	
 					if (result && result.rowCount == 1) {
 						options = result.rows[0].options;
-						cache.setCache(shopId, cache.cacheName, options, 240);
+						cache.setCache(shopId, cache.shopOptions, options, 240);
 					}
 						
 					res.send(options);

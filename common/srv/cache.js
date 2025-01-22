@@ -22,6 +22,7 @@ function getCache(shopid, name) {
     for(let i = 0; i < cache.length; i++ ) {
         if (cache[i].shopid === shopid && cache[i].name === name) {
             if (now < cache[i].expire) {
+                console.log('getCache: used cache');
                 value = cache[i].value;
                 break;
             }
