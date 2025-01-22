@@ -2,7 +2,7 @@ var express = require('express');
 var pg = require('pg');
 var common = require('../../../common/srv/common.js');
 var cache = require('../../../common/srv/cache.js');
-var cache = require('../../../common/srv/logging.js');
+var logging = require('../../../common/srv/logging.js');
 var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
@@ -48,9 +48,9 @@ module.exports = function(app) {
 
 		var sql = "SELECT id, name from espresso.employee where shopid = $1 and ex = false order by name;"
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, [shopId], function(err, result) {
 				done();
 
@@ -84,9 +84,9 @@ module.exports = function(app) {
 
 		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopid = $1 AND employeeid = $2 AND date = $3 limit 1";
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, client, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			//client.query(sqlEmployeeDetails, [employeeId, shopId], function(err, employeeResult) {
 			cache.query(client, sqlEmployeeDetails, [employeeId, shopId], 240, function(err, employeeResult) {
 				var employee = {};
@@ -153,9 +153,9 @@ module.exports = function(app) {
 		sql += " and NOT EXISTS (select id from espresso.start_finish where employeeid = " + employeeId + "";
 		sql += " and starttime > '" + startTime + "'::timestamp::date and finishtime is null)"
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, function(err, result) {
 				done();
 
@@ -184,9 +184,9 @@ module.exports = function(app) {
 		sql += " (SELECT id FROM espresso.start_finish WHERE employeeid = '" + employeeId + "' and starttime >= '" + dateFrom + "' and starttime <= '" + dateTo + "'";
 		sql += " and finishtime is null ORDER BY starttime DESC LIMIT 1);"
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, function(err, result) {
 				done();
 
@@ -212,9 +212,9 @@ module.exports = function(app) {
 		sql += " SELECT '" + employeeId + "', '" + startTime + "', " + "'" + breakType + "'";
 		sql += " WHERE EXISTS ( SELECT id FROM espresso.employee WHERE id = '" + employeeId + "');"
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, function(err, result) {
 				done();
 
@@ -240,9 +240,9 @@ module.exports = function(app) {
 		sql += " (SELECT id FROM espresso.break WHERE employeeid = '" + employeeId + "' and breakType = '" + breakType + "' and starttime <= '" + finishTime + "'";
 		sql += " ORDER BY starttime DESC LIMIT 1);"
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, function(err, result) {
 				done();
 
@@ -268,9 +268,9 @@ module.exports = function(app) {
 		var sql = "INSERT INTO espresso.break (employeeid, starttime, finishtime, breakType)";
 		sql += " VALUES ($1,$2,$3,$4);";
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, [employeeId, startTime, finishTime, breakType], function(err, result) {
 				done();
 
@@ -297,9 +297,9 @@ module.exports = function(app) {
 		sql += ' left join espresso.employee on espresso.employee.id = espresso.start_finish.employeeid';
 		sql += ' where espresso.employee.shopid = $1 and espresso.start_finish.starttime >= $2 order by espresso.employee.name';
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(sql, [shopId, starttime], function(err, result) {
 				if (err) {
 					console.error(err);
@@ -368,9 +368,9 @@ module.exports = function(app) {
 		insertSql += " SELECT $1, $2, $3, $4";
 		insertSql += " WHERE NOT EXISTS (SELECT 1 FROM espresso.shift_notes WHERE shopid=$1 AND employeeid=$2 AND date=$3);";
 
-		common.logPoolConnect();
+		logging.logPoolConnect();
 		pool.connect(function(err, connection, done) {
-			common.logDbStats(pool);
+			logging.logDbStats(pool);
 			connection.query(updateSql, [shopId, employeeId, date, notes], function(err, result) {
 				done();
 
@@ -383,9 +383,9 @@ module.exports = function(app) {
 					results.push({ "result": "success" });
 				}
 
-				common.logPoolConnect();
+				logging.logPoolConnect();
 				pool.connect(function(err, connection, done) {
-					common.logDbStats(pool);
+					logging.logDbStats(pool);
 					connection.query(insertSql, [shopId, employeeId, date, notes], function(err, result) {
 						done();
 
