@@ -27,24 +27,6 @@ function postgresConfig() {
 }
 module.exports.postgresConfig = postgresConfig;
 
-function logDbStats(pool) {
-  if (pool) {
-    console.log('');
-    console.log('pg.Pool.totalCount: ' + pool.totalCount);
-    console.log('pg.Pool.idleCount: ' + pool.idleCount);
-    console.log('pg.Pool.waitingCount: ' + pool.waitingCount);
-    console.log('');
-  }
-}
-module.exports.logDbStats = logDbStats;
-
-function logPoolConnect() {
-  console.log('');
-  console.log('Connecting to Db Pool...');
-  console.log('');
-}
-module.exports.logPoolConnect = logPoolConnect;
-
 function replaceAll(str, searchValue, replaceWith) {
 	if (searchValue == replaceWith) {
 		return str;

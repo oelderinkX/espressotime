@@ -2,6 +2,7 @@ var express = require('express');
 var pg = require('pg');
 var common = require('../../../common/srv/common.js');
 var cache = require('../../../common/srv/cache.js');
+var cache = require('../../../common/srv/logging.js');
 var dateHelper = require('../../../common/srv/dateHelper.js');
 var bodyParser = require('body-parser');
 var fs = require("fs");
@@ -403,22 +404,29 @@ module.exports = function(app) {
 	});
 
 	app.post('/get_shop_options', urlencodedParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']);
+		let shopId = common.getShopId(req.cookies['identifier']);
 
-		var sql = "SELECT options from espresso.shop where id = $1;"
+		let sql = "SELECT options from espresso.shop where id = $1;"
 
-		pool.connect(function(err, client, done) {
-			client.query(sql, [shopId], function(err, result) {
-				done();
+		let shopOptions = cache.getCache(shopId, cache.cacheName.shopOptions);
 
-				var options = {};
-
-				if (result && result.rowCount == 1) {
-					options = result.rows[0].options;
-				}
-					
-				res.send(options);
-			});
-		});
+		if (shopOptions !== null) {
+			res.send(shopOptions);
+		} else {
+			pool.connect(function(err, client, done) {
+				client.query(sql, [shopId], function(err, result) {
+					done();
+	
+					var options = {};
+	
+					if (result && result.rowCount == 1) {
+						options = result.rows[0].options;
+						cache.setCache(shopId, cache.cacheName, options, 240);
+					}
+						
+					res.send(options);
+				});
+			});	
+		}
 	});
 }

@@ -2,17 +2,21 @@ let sql_cache = [];
 
 let cache = [];
 
-const cacheName = {
-    shopoptions: 'shopoptions'
+export const cacheName = {
+    shopOptions: 'shopOptions'
 }
 
 function hasCache(shopid, name) {
+    console.log('hasCache: ' + shopid + ' ' + name);
+
     return getCache(shopid, name) !== null;
 }
 module.exports.hasCache = hasCache;
 
 // usage getCache(1, cacheName.shopoptions)
 function getCache(shopid, name) {
+    console.log('getCache: ' + shopid + ' ' + name);
+
     let value = null;
     let now = new Date();
 
@@ -30,12 +34,16 @@ function getCache(shopid, name) {
 module.exports.getCache = getCache;
 
 function clearCache(shopid, name) {
+    console.log('clearCache: ' + shopid + ' ' + name);
+
     cache = cache.filter(c => c.shopid !== shopid && c.name !== name);
 }
 module.exports.clearCache = clearCache;
 
 function setCache(shopid, name, value, expireMinutes)
 {
+    console.log('setCache: ' + shopid + ' ' + name);
+
     clearCache(shopid, name);
 
     let expire = new Date();
@@ -54,26 +62,27 @@ function query(client, sql, values, expireMinutes, callback) {
     let result = getSql(sql, values);
 
     if (result === null) {
-        console.log('no cache');
+        console.log('query: No cache');
         client.query(sql, values, function(err, result) {
             setSql(sql, values, result, expireMinutes);
             callback(err, result);
         });
     } else {
         let err;
-        console.log('used cache');
         callback(err, result);
     }
 }
 module.exports.query = query;
 
 function getSql(sql, values) {
-    console.log('getSql...');
+    console.log('getSql: ' + sql + ' ' + JSON.stringify(values) );
+    
     let now = new Date();
 
     for(let i = 0; i < sql_cache.length; i++ ) {
         if (sql_cache[i].sql === sql && JSON.stringify(sql_cache[i].values) === JSON.stringify(values)) {
             if (now < sql_cache[i].expire) {
+                console.log('getSql: used cache');
                 return sql_cache[i].result;
             }
         }
@@ -83,7 +92,7 @@ function getSql(sql, values) {
 }
 
 function setSql(sql, values, result, expireMinutes) {
-    console.log('setSql...');
+    console.log('setSql: ' + sql + ' ' + JSON.stringify(values) );
 
     // clear old cached css
     sql_cache = sql_cache.filter(s => !(s.sql === sql && JSON.stringify(s.values) === JSON.stringify(values)));
