@@ -469,25 +469,23 @@ function loadRequestTimeOff() {
   request_table.innerHTML = '';
   request_table.style = "display: none";
 
-  var date7days = new Date();
-  date7days.setDate(date7days.getDate() + 7);
+  var today = new Date();
+  today.setDate(today.getDate());
 
   var isoDate = date7days.toISOString();
-  var oneWeekAfter = isoDate.split('T')[0];
+  var todayIso = isoDate.split('T')[0];
 
   var rowValue = addTimeOffRow(request_table, 'yellow', 'Start Date', 'white', '');
   var startDate = document.createElement('input');  
   startDate.type = 'date';
-  startDate.value = oneWeekAfter;
-  startDate.setAttribute('min', oneWeekAfter);
+  startDate.value = todayIso;
   startDate.setAttribute('id', 'startDate');
   rowValue.appendChild(startDate);
 
   rowValue = addTimeOffRow(request_table, 'yellow', 'End Date', 'white', '');
   var endDate = document.createElement('input');  
   endDate.type = 'date';
-  endDate.value = oneWeekAfter;
-  endDate.setAttribute('min', oneWeekAfter);
+  endDate.value = todayIso;
   endDate.setAttribute('id', 'endDate');
   rowValue.appendChild(endDate);
 
