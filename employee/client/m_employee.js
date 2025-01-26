@@ -472,7 +472,7 @@ function loadRequestTimeOff() {
   var today = new Date();
   today.setDate(today.getDate());
 
-  var isoDate = date7days.toISOString();
+  var isoDate = today.toISOString();
   var todayIso = isoDate.split('T')[0];
 
   var rowValue = addTimeOffRow(request_table, 'yellow', 'Start Date', 'white', '');
