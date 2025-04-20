@@ -116,7 +116,7 @@ module.exports = function(app) {
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
 							for(var e = 0; e < employees.length; e++) {
-								if (result.rows[i].employeeid === employees[e].id) {
+								if (result.rows[i].employeeid == employees[e].id) {
 									employees[e].starttime = result.rows[i].starttime;
 									employees[e].finishtime = result.rows[i].finishtime;
 								}
@@ -130,7 +130,7 @@ module.exports = function(app) {
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {
 								for(var e = 0; e < employees.length; e++) {
-									if (result.rows[i].employeeid === employees[e].id) {
+									if (result.rows[i].employeeid == employees[e].id) {
 										employees[e].roster_start = result.rows[i].start;
 										employees[e].roster_finish = result.rows[i].finish;
 										employees[e].role = result.rows[i].role;
@@ -147,7 +147,7 @@ module.exports = function(app) {
 							if (result && result.rowCount > 0) {
 								for(var i = 0; i < result.rowCount; i++) {
 									for(var e = 0; e < employees.length; e++) {
-										if (result.rows[i].employeeid === employees[e].id) {
+										if (result.rows[i].employeeid == employees[e].id) {
 											employees[e].breaks.push({ 
 												starttime: result.rows[i].starttime,
 												finishtime: result.rows[i].finishtime,
