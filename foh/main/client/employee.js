@@ -59,6 +59,18 @@ function getEmployees() {
         sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
             var employees = JSON.parse(response);
 
+            employees = employees.sort((a, b) => {
+                var n1 = a.roster_start ? new Date(a.roster_start) : new Date(8640000000000000);
+                var n2 = b.roster_start ? new Date(b.roster_start) : new Date(8640000000000000);
+                if (n1 > n2) {
+                    return 1;
+                } else if (n1 < n2) {
+                    return - 1;
+                } else {
+                    return 0;
+                }
+              });
+
             var mobileemployeelist = document.getElementById("mobileemployeelist");
             var webemployeelist = document.getElementById("webemployeelist");
 
@@ -80,6 +92,12 @@ function getEmployees() {
                     a2.setAttribute('onclick', 'getEmployeeDetails(' + employees[i].id + ');');
                     li2.appendChild(a2);
                     li2.classList.add('active');
+
+                    var roleBg = getRoleColour(employees[i].role);
+                    var roleTxt = getRoleTextColour(employees[i].role);
+                    li2.style.background = roleBg;
+                    li2.style.color = roleTxt;
+
                     webemployeelist.appendChild(li2);
                 }
             }
