@@ -100,7 +100,8 @@ function getEmployees() {
 
                         if (employees[i].starttime !== '') {
                             var span = document.createElement("span");
-                            span.classList.add('glyphicon glyphicon-ok');
+                            span.classList.add('glyphicon');
+                            span.classList.add('glyphicon-ok');
                             a2.appendChild(span);
                         }
 
@@ -113,7 +114,8 @@ function getEmployees() {
     
                         if (employees[i].starttime !== '') {
                             var span = document.createElement("span");
-                            span.classList.add('glyphicon glyphicon-ok');
+                            span.classList.add('glyphicon');
+                            span.classList.add('glyphicon-ok');
                             a2.appendChild(span);
                         }
 
