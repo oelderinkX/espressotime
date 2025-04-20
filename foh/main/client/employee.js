@@ -97,7 +97,7 @@ function getEmployees() {
                     var roleBg = getRoleColour(employees[i].role);
                     var roleTxt = getRoleTextColour(employees[i].role);
                     //li2.style.background = roleBg;
-                    li2.style.background = 'blue';
+                    li2.style.backgroundColor = 'blue';
                     li2.style.color = roleTxt;
 
                     a2.style.background = 'red';
