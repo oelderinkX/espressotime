@@ -124,8 +124,6 @@ module.exports = function(app) {
 						}
 					}
 
-					console.log(sql_roster);
-
 					connection.query(sql_roster, [shopId], function(err, result) {
 						if (result && result.rowCount > 0) {
 							for(var i = 0; i < result.rowCount; i++) {

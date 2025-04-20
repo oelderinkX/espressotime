@@ -2,6 +2,8 @@ var backToMainTimer;
 var refreshMainTimer;
 var slowConnectTimer;
 
+var roles = [];
+
 function clock() {
     var today = new Date();
     var h = today.getHours();
@@ -50,34 +52,38 @@ function isMobileDevice() {
 
 function getEmployees() {
     //sendPost("/getemployees", '', function(response) {
-    var request = { date: getDbFormat() }
-    sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
-        var employees = JSON.parse(response);
+    var request = {};
+    sendPost("/getroles", JSON.stringify(request), function(response) {
+        roles =  JSON.parse(response);
+        var request = { date: getDbFormat() }
+        sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
+            var employees = JSON.parse(response);
 
-        var mobileemployeelist = document.getElementById("mobileemployeelist");
-        var webemployeelist = document.getElementById("webemployeelist");
+            var mobileemployeelist = document.getElementById("mobileemployeelist");
+            var webemployeelist = document.getElementById("webemployeelist");
 
-        for(var i = 0; i < employees.length; i++) {
-            if (isMobileDevice()) {
-                var li1 = document.createElement("li");
-                var a1 = document.createElement("a");
-                a1.setAttribute('href', '#');
-                a1.innerHTML = employees[i].name;
-                a1.setAttribute('onclick', 'document.getElementById("hamburger").click(); getEmployeeDetails(' + employees[i].id + ');');
-                li1.appendChild(a1);
-                li1.classList.add('active');
-                mobileemployeelist.appendChild(li1);
-            } else {
-                var li2 = document.createElement("li");
-                var a2 = document.createElement("a");
-                a2.setAttribute('href', '#');
-                a2.innerHTML = employees[i].name;
-                a2.setAttribute('onclick', 'getEmployeeDetails(' + employees[i].id + ');');
-                li2.appendChild(a2);
-                li2.classList.add('active');
-                webemployeelist.appendChild(li2);
+            for(var i = 0; i < employees.length; i++) {
+                if (isMobileDevice()) {
+                    var li1 = document.createElement("li");
+                    var a1 = document.createElement("a");
+                    a1.setAttribute('href', '#');
+                    a1.innerHTML = employees[i].name;
+                    a1.setAttribute('onclick', 'document.getElementById("hamburger").click(); getEmployeeDetails(' + employees[i].id + ');');
+                    li1.appendChild(a1);
+                    li1.classList.add('active');
+                    mobileemployeelist.appendChild(li1);
+                } else {
+                    var li2 = document.createElement("li");
+                    var a2 = document.createElement("a");
+                    a2.setAttribute('href', '#');
+                    a2.innerHTML = employees[i].name;
+                    a2.setAttribute('onclick', 'getEmployeeDetails(' + employees[i].id + ');');
+                    li2.appendChild(a2);
+                    li2.classList.add('active');
+                    webemployeelist.appendChild(li2);
+                }
             }
-        }
+        });
     });
 }
 
@@ -407,3 +413,19 @@ function setTasksButton() {
         tasksbutton.setAttribute('onclick', "window.location.href='/tasksmobile';");
     }
 }
+
+function getRoleColour(role) {
+    for(var i = 0; i < roles.length; i++) {
+      if (roles[i].name.toLowerCase() == role.toLowerCase()) {
+        return roles[i].colour;
+      }
+    }
+  }
+  
+  function getRoleTextColour(role) {
+    for(var i = 0; i < roles.length; i++) {
+      if (roles[i].name.toLowerCase() == role.toLowerCase()) {
+        return roles[i].textcolour;
+      }
+    }
+  }
