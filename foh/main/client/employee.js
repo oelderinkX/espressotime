@@ -94,17 +94,16 @@ function getEmployees() {
                     li2.appendChild(a2);
                     li2.classList.add('active');
 
-                    var roleBg = getRoleColour(employees[i].role);
-                    var roleTxt = getRoleTextColour(employees[i].role);
-                    //li2.style.background = roleBg;
-                    li2.style.backgroundColor = 'blue';
-                    li2.style.color = roleTxt;
-
-                    a2.style.background = 'red';
-
                     if (employees[i].roster_start == '') {
                         webemployeelist2.appendChild(li2);
+                        a2.style.background = '#1f1f1f';
+                        a2.style.color = '#f3f4e6';
                     } else {
+                        var roleBg = getRoleColour(employees[i].role);
+                        var roleTxt = getRoleTextColour(employees[i].role);
+                        a2.style.background = roleBg;
+                        a2.style.color = roleTxt;
+    
                         webemployeelist.appendChild(li2);
                     }                    
                 }
