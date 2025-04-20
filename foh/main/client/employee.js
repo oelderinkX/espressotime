@@ -73,6 +73,7 @@ function getEmployees() {
 
             var mobileemployeelist = document.getElementById("mobileemployeelist");
             var webemployeelist = document.getElementById("webemployeelist");
+            var webemployeelist2 = document.getElementById("webemployeelist2");
 
             for(var i = 0; i < employees.length; i++) {
                 if (isMobileDevice()) {
@@ -95,10 +96,17 @@ function getEmployees() {
 
                     var roleBg = getRoleColour(employees[i].role);
                     var roleTxt = getRoleTextColour(employees[i].role);
-                    li2.style.background = roleBg;
+                    //li2.style.background = roleBg;
+                    li2.style.background = 'blue';
                     li2.style.color = roleTxt;
 
-                    webemployeelist.appendChild(li2);
+                    a2.style.background = 'red';
+
+                    if (employees[i].roster_start == '') {
+                        webemployeelist2.appendChild(li2);
+                    } else {
+                        webemployeelist.appendChild(li2);
+                    }                    
                 }
             }
         });
