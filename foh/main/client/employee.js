@@ -99,7 +99,7 @@ function getEmployees() {
                         a2.style.background = '#1f1f1f';
                         a2.style.color = '#f3f4e6';
 
-                        if (employees[i].starttime !== '' && employees[i].finishtime == '') {
+                        if (employees[i].starttime !== '' && (employees[i].finishtime == '' || employees[i].finishtime == null)) {
                             var space = document.createTextNode("\u00A0");
                             var span = document.createElement("span");
                             span.classList.add('glyphicon');
@@ -115,7 +115,7 @@ function getEmployees() {
                         a2.style.background = roleBg;
                         a2.style.color = roleTxt;
     
-                        if (employees[i].starttime !== '' && employees[i].finishtime == '') {
+                        if (employees[i].starttime !== '' && (employees[i].finishtime == '' || employees[i].finishtime == null)) {
                             var space = document.createTextNode("\u00A0");
                             var span = document.createElement("span");
                             span.classList.add('glyphicon');
