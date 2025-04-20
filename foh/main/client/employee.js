@@ -94,10 +94,10 @@ function getEmployees() {
                     li2.appendChild(a2);
                     li2.classList.add('active');
 
-                    if (employees[i].roster_start == '') {
-                        webemployeelist2.appendChild(li2);
+                    if (employees[i].roster_start == '' || (new Date(employees[i].roster_finish) - new Date(employees[i].roster_start)) == 0) {
                         a2.style.background = '#1f1f1f';
                         a2.style.color = '#f3f4e6';
+                        webemployeelist2.appendChild(li2);
                     } else {
                         var roleBg = getRoleColour(employees[i].role);
                         var roleTxt = getRoleTextColour(employees[i].role);
