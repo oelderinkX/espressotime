@@ -69,7 +69,7 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/getemployees_new', urlencodedParser, function(req, res) {
+	app.post('/getemployees_new', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var date = req.body.date;
 
@@ -112,7 +112,7 @@ module.exports = function(app) {
 				
 				sql_start_finish = sql_start_finish.replace('$1', employeeids.join(','));
 				console.log(sql_start_finish);
-				
+
 				connection.query(sql_start_finish, function(err, result) {
 					if (result && result.rowCount > 0) {
 						for(var i = 0; i < result.rowCount; i++) {
