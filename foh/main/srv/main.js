@@ -111,7 +111,6 @@ module.exports = function(app) {
 				}
 				
 				sql_start_finish = sql_start_finish.replace('$1', employeeids.join(','));
-				console.log(sql_start_finish);
 
 				connection.query(sql_start_finish, function(err, result) {
 					if (result && result.rowCount > 0) {
@@ -124,6 +123,8 @@ module.exports = function(app) {
 							}
 						}
 					}
+
+					console.log(sql_roster);
 
 					connection.query(sql_roster, [shopId], function(err, result) {
 						if (result && result.rowCount > 0) {
