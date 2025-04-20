@@ -51,7 +51,6 @@ function isMobileDevice() {
 }
 
 function getEmployees() {
-    //sendPost("/getemployees", '', function(response) {
     var request = {};
     sendPost("/getroles", JSON.stringify(request), function(response) {
         roles =  JSON.parse(response);
@@ -73,7 +72,9 @@ function getEmployees() {
 
             var mobileemployeelist = document.getElementById("mobileemployeelist");
             var webemployeelist = document.getElementById("webemployeelist");
+            webemployeelist.innerHTML = '';
             var webemployeelist2 = document.getElementById("webemployeelist2");
+            webemployeelist2.innerHTML = '';
 
             for(var i = 0; i < employees.length; i++) {
                 if (isMobileDevice()) {
@@ -385,6 +386,7 @@ function employeeStart(employeeId) {
     shiftbutton.removeAttribute('onclick');
 
     sendPost("/employeestart", JSON.stringify(json), function(response) {
+        getEmployees();
         getEmployeeDetails(employeeId);
     });
 }
