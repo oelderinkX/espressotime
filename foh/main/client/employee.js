@@ -50,7 +50,8 @@ function isMobileDevice() {
 
 function getEmployees() {
     //sendPost("/getemployees", '', function(response) {
-    sendPost("/getemployees_new", '', function(response) {
+    var request = { date: getDbFormat() }
+    sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
         var employees = JSON.parse(response);
 
         var mobileemployeelist = document.getElementById("mobileemployeelist");
