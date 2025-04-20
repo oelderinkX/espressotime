@@ -69,6 +69,101 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/getemployees_new', urlencodedParser, function(req, res) {
+		var shopId = common.getShopId(req.cookies['identifier']);
+		var date = req.body.date;
+
+		var sql_employee = 'select name, id from espresso.employee where ex = false';
+		sql_employee += ' and shopid = $1';
+
+		var sql_start_finish = "select employeeid, starttime, finishtime from espresso.start_finish";
+		sql_start_finish += " where starttime >= '" + date + " 00:00:00' and employeeid in ($1)";
+
+		var sql_roster = "select employeeid, start, finish, role from espresso.roster";
+		sql_roster += " where date = '" + date + "' and shopid = $1";
+
+		var sql_break = "select employeeid, starttime, finishtime, breaktype from espresso.break";
+		sql_break += " where starttime >= '" + date + " 00:00:00' and starttime <= '" + date + " 23:59:59' and employeeid in ($1)";
+
+		logging.logPoolConnect();
+		pool.connect(function(err, connection, done) {
+			logging.logDbStats(pool);
+			connection.query(sql_employee, [shopId], function(err, result) {
+				var employees = [];
+				var employeeids = [];
+
+				if (result && result.rowCount > 0) {
+					for(var i = 0; i < result.rowCount; i++) {
+						var id = result.rows[i].id;
+						var name = result.rows[i].name;
+
+						employees.push({	id: id,
+											name: name,
+											starttime: '',
+											finishtime: '',
+											roster_start: '',
+											roster_finish: '',
+											role: '',
+											breaks: []
+										 });
+						employeeids.push(id);
+					}
+				}
+				
+				sql_start_finish = sql_start_finish.replace('$1', employeeids.join(','));
+
+				connection.query(sql_start_finish, function(err, result) {
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							for(var e = 0; e < employees.length; e++) {
+								if (result.rows[i].employeeid === employees[e].id) {
+									employees[e].starttime = result.rows[i].starttime;
+									employees[e].finishtime = result.rows[i].finishtime;
+								}
+							}
+						}
+					}
+
+					connection.query(sql_roster, [shopId], function(err, result) {
+						if (result && result.rowCount > 0) {
+							for(var i = 0; i < result.rowCount; i++) {
+								for(var e = 0; e < employees.length; e++) {
+									if (result.rows[i].employeeid === employees[e].id) {
+										employees[e].roster_start = result.rows[i].start;
+										employees[e].roster_finish = result.rows[i].finish;
+										employees[e].role = result.rows[i].role;
+									}
+								}
+							}
+						}
+
+						sql_break = sql_break.replace('$1', employeeids.join(','));
+
+						connection.query(sql_break, function(err, result) {
+							done();
+
+							if (result && result.rowCount > 0) {
+								for(var i = 0; i < result.rowCount; i++) {
+									for(var e = 0; e < employees.length; e++) {
+										if (result.rows[i].employeeid === employees[e].id) {
+											employees[e].breaks.push({ 
+												starttime: result.rows[i].starttime,
+												finishtime: result.rows[i].finishtime,
+												breaktype: result.rows[i].breaktype
+											});
+										}
+									}
+								}
+							}
+
+							res.send(employees);
+						});		
+					});
+				});				
+			});
+		});
+	});
+
 	app.post('/getemployeedetails', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
 		var employeeId = req.body.employeeId;
