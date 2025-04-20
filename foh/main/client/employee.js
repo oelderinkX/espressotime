@@ -49,7 +49,8 @@ function isMobileDevice() {
 }
 
 function getEmployees() {
-    sendPost("/getemployees", '', function(response) {
+    //sendPost("/getemployees", '', function(response) {
+    sendPost("/getemployees_new", '', function(response) {
         var employees = JSON.parse(response);
 
         var mobileemployeelist = document.getElementById("mobileemployeelist");
