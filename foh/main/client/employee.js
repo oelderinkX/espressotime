@@ -139,9 +139,9 @@ function getEmployees() {
                     var is10Break = false;
                     
                     for(var b = 0; rostered_employees[i].breaks && b < rostered_employees[i].breaks.length; b++) {
-                        if (rostered_employees[i].breaks.finishtime == '' || rostered_employees[i].breaks.finishtime == null) {
+                        if (rostered_employees[i].breaks[b].finishtime == '' || rostered_employees[i].breaks[b].finishtime == null) {
                             isOnBreak = true;
-                            if (rostered_employees[i].breaks.breaktype == "10") {
+                            if (rostered_employees[i].breaks[b].breaktype == "10") {
                                 is10Break = true;
                             } else {
                                 is10Break = false;
