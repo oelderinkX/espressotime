@@ -197,8 +197,8 @@ function getEmployees() {
                     var li2 = document.createElement("li");
                     var a2 = document.createElement("a");
                     a2.setAttribute('href', '#');
-                    a2.innerHTML = rostered_employees[i].name;
-                    a2.setAttribute('onclick', 'getEmployeeDetails(' + rostered_employees[i].id + ');');
+                    a2.innerHTML = other_employees[i].name;
+                    a2.setAttribute('onclick', 'getEmployeeDetails(' + other_employees[i].id + ');');
                     li2.appendChild(a2);
                     li2.classList.add('active');
                     a2.style.background = '#1f1f1f';
