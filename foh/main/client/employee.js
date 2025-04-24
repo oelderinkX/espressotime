@@ -94,7 +94,7 @@ function getEmployees() {
 
                 for(var i = 0; i < employees.length; i++) {
                     if (employees[i].starttime == '') {
-                        if (employees[i].roster_start == '') {
+                        if (employees[i].roster_start == '' || (new Date(employees[i].roster_finish) - new Date(employees[i].roster_start)) == 0 ) {
                             other_employees.push(employees[i]);
                         } else {
                             rostered_employees.push(employees[i]);
