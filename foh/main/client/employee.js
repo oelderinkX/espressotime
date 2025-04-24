@@ -99,8 +99,6 @@ function getEmployees() {
                         } else {
                             rostered_employees.push(employees[i]);
                         }
-                    } else if ((new Date(employees[i].roster_finish) - new Date(employees[i].roster_start)) == 0) {
-                        other_employees.push(employees[i]);
                     } else {
                         rostered_employees.push(employees[i]);
                     }
