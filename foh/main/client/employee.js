@@ -138,10 +138,10 @@ function getEmployees() {
                     var isOnBreak = false;
                     var is10Break = false;
                     
-                    for(var b = 0; rostered_employees.breaks && b < rostered_employees.breaks.length; b++) {
-                        if (rostered_employees.breaks.finishtime == '' || rostered_employees.breaks.finishtime == null) {
+                    for(var b = 0; rostered_employees[i].breaks && b < rostered_employees[i].breaks.length; b++) {
+                        if (rostered_employees[i].breaks.finishtime == '' || rostered_employees[i].breaks.finishtime == null) {
                             isOnBreak = true;
-                            if (rostered_employees.breaks.breaktype == 10) {
+                            if (rostered_employees[i].breaks.breaktype == 10) {
                                 is10Break = true;
                             } else {
                                 is10Break = false;
