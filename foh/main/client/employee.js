@@ -510,10 +510,12 @@ function employeeStartBreak(employeeId, breakType) {
         var finishTime =  getDbFormat() + ' ' + getTime(futureTime);
         json = { "employeeId": employeeId, "startTime": startTime, "finishTime": finishTime, "breakType": breakType };
         sendPost("/employeehavebreak", JSON.stringify(json), function(response) {
+            getEmployees();
             getEmployeeDetails(employeeId);
         });
     } else {
         sendPost("/employeebreakstart", JSON.stringify(json), function(response) {
+            getEmployees();
             getEmployeeDetails(employeeId);
         });
     }
@@ -529,6 +531,7 @@ function employeeFinishBreak(employeeId, breakType) {
     mealButton.removeAttribute('onclick');
 
     sendPost("/employeebreakfinish", JSON.stringify(json), function(response) {
+        getEmployees();
         getEmployeeDetails(employeeId);
     });
 }
