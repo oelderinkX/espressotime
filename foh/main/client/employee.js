@@ -58,26 +58,22 @@ function getEmployees() {
         sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
             var employees = JSON.parse(response);
 
-            employees = employees.sort((a, b) => {
-                var n1 = a.roster_start ? new Date(a.roster_start) : new Date(8640000000000000);
-                var n2 = b.roster_start ? new Date(b.roster_start) : new Date(8640000000000000);
-                if (n1 > n2) {
-                    return 1;
-                } else if (n1 < n2) {
-                    return - 1;
-                } else {
-                    return 0;
-                }
-              });
+            if (isMobileDevice()) {
+                var mobileemployeelist = document.getElementById("mobileemployeelist");
 
-            var mobileemployeelist = document.getElementById("mobileemployeelist");
-            var webemployeelist = document.getElementById("webemployeelist");
-            webemployeelist.innerHTML = '';
-            var webemployeelist2 = document.getElementById("webemployeelist2");
-            webemployeelist2.innerHTML = '';
+                employees = employees.sort((a, b) => {
+                    var n1 = a.name;
+                    var n2 = b.name;
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
 
-            for(var i = 0; i < employees.length; i++) {
-                if (isMobileDevice()) {
+                for(var i = 0; i < employees.length; i++) {
                     var li1 = document.createElement("li");
                     var a1 = document.createElement("a");
                     a1.setAttribute('href', '#');
@@ -86,46 +82,131 @@ function getEmployees() {
                     li1.appendChild(a1);
                     li1.classList.add('active');
                     mobileemployeelist.appendChild(li1);
-                } else {
+                }
+            } else {
+                var web_rostered_employees = document.getElementById("webrosteredemployees");
+                web_rostered_employees.innerHTML = '';
+                var web_other_employees = document.getElementById("webotheremployees");
+                web_other_employees.innerHTML = '';
+
+                var rostered_employees = [];
+                var other_employees = [];
+
+                for(var i = 0; i < employees.length; i++) {
+                    if (employees[i].starttime == '') {
+                        if (employees[i].roster_start == '') {
+                            other_employees.push(employees[i]);
+                        } else {
+                            rostered_employees.push(employees[i]);
+                        }
+                    } else if ((new Date(employees[i].roster_finish) - new Date(employees[i].roster_start)) == 0) {
+                        other_employees.push(employees[i]);
+                    } else {
+                        rostered_employees.push(employees[i]);
+                    }
+                }
+
+                for(var i = 0; i < rostered_employees.length; i++) {
+                    rostered_employees = rostered_employees.sort((a, b) => {
+                        var n1 = a.roster_start ? new Date(a.roster_start) : new Date(8640000000000000);
+                        var n2 = b.roster_start ? new Date(b.roster_start) : new Date(8640000000000000);
+                        if (n1 > n2) {
+                            return 1;
+                        } else if (n1 < n2) {
+                            return - 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+
                     var li2 = document.createElement("li");
                     var a2 = document.createElement("a");
                     a2.setAttribute('href', '#');
-                    a2.innerHTML = employees[i].name;
-                    a2.setAttribute('onclick', 'getEmployeeDetails(' + employees[i].id + ');');
+                    a2.innerHTML = rostered_employees[i].name;
+                    a2.setAttribute('onclick', 'getEmployeeDetails(' + rostered_employees[i].id + ');');
                     li2.appendChild(a2);
                     li2.classList.add('active');
 
-                    if (employees[i].roster_start == '' || (new Date(employees[i].roster_finish) - new Date(employees[i].roster_start)) == 0) {
+                    if (rostered_employees[i].roster_start == '') {
                         a2.style.background = '#1f1f1f';
                         a2.style.color = '#f3f4e6';
-
-                        if (employees[i].starttime !== '' && (employees[i].finishtime == '' || employees[i].finishtime == null)) {
-                            var space = document.createTextNode("\u00A0");
-                            var span = document.createElement("span");
-                            span.classList.add('glyphicon');
-                            span.classList.add('glyphicon-ok');
-                            a2.appendChild(space);
-                            a2.appendChild(span);
-                        }
-
-                        webemployeelist2.appendChild(li2);
                     } else {
-                        var roleBg = getRoleColour(employees[i].role);
-                        var roleTxt = getRoleTextColour(employees[i].role);
+                        var roleBg = getRoleColour(rostered_employees[i].role);
+                        var roleTxt = getRoleTextColour(rostered_employees[i].role);
                         a2.style.background = roleBg;
                         a2.style.color = roleTxt;
-    
-                        if (employees[i].starttime !== '' && (employees[i].finishtime == '' || employees[i].finishtime == null)) {
-                            var space = document.createTextNode("\u00A0");
-                            var span = document.createElement("span");
-                            span.classList.add('glyphicon');
-                            span.classList.add('glyphicon-ok');
-                            a2.appendChild(space);
-                            a2.appendChild(span);
+                    }
+
+                    var isOnBreak = false;
+                    var is10Break = false;
+                    
+                    for(var b = 0; rostered_employees.breaks && b < rostered_employees.breaks.length; b++) {
+                        if (rostered_employees.breaks.finishtime == '' || rostered_employees.breaks.finishtime == null) {
+                            isOnBreak = true;
+                            if (rostered_employees.breaks.breaktype == 10) {
+                                is10Break = true;
+                            } else {
+                                is10Break = false;
+                            }
+                        } 
+                    }
+
+                    if (rostered_employees[i].finishtime !== '' && rostered_employees[i].finishtime !== null) {
+                        var space = document.createTextNode("\u00A0");
+                        var span = document.createElement("span");
+                        span.classList.add('glyphicon');
+                        span.classList.add('glyphicon-log-out');
+                        a2.appendChild(space);
+                        a2.appendChild(span);
+                    } else if (isOnBreak == true) {
+                        var space = document.createTextNode("\u00A0");
+                        var span = document.createElement("span");
+                        span.classList.add('glyphicon');
+
+                        if (is10Break == true) {
+                            span.classList.add('glyphicon-time');
+                        } else {
+                            span.classList.add('glyphicon-cutlery');
                         }
 
-                        webemployeelist.appendChild(li2);
-                    }                    
+                        a2.appendChild(space);
+                        a2.appendChild(span);
+                    } else if (employees[i].starttime !== '') {
+                        var space = document.createTextNode("\u00A0");
+                        var span = document.createElement("span");
+                        span.classList.add('glyphicon');
+                        span.classList.add('glyphicon-ok');
+                        a2.appendChild(space);
+                        a2.appendChild(span);
+                    }
+
+                    web_rostered_employees.appendChild(li2);
+                }
+
+                for(var i = 0; i < other_employees.length; i++) {
+                    other_employees = other_employees.sort((a, b) => {
+                        var n1 = a.name;
+                        var n2 = b.name;
+                        if (n1 > n2) {
+                            return 1;
+                        } else if (n1 < n2) {
+                            return - 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+
+                    var li2 = document.createElement("li");
+                    var a2 = document.createElement("a");
+                    a2.setAttribute('href', '#');
+                    a2.innerHTML = rostered_employees[i].name;
+                    a2.setAttribute('onclick', 'getEmployeeDetails(' + rostered_employees[i].id + ');');
+                    li2.appendChild(a2);
+                    li2.classList.add('active');
+                    a2.style.background = '#1f1f1f';
+                    a2.style.color = '#f3f4e6';
+
+                    web_other_employees.appendChild(li2);
                 }
             }
         });
