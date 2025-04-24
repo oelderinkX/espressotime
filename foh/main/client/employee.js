@@ -104,19 +104,19 @@ function getEmployees() {
                     }
                 }
 
-                for(var i = 0; i < rostered_employees.length; i++) {
-                    rostered_employees = rostered_employees.sort((a, b) => {
-                        var n1 = a.roster_start ? new Date(a.roster_start) : new Date(8640000000000000);
-                        var n2 = b.roster_start ? new Date(b.roster_start) : new Date(8640000000000000);
-                        if (n1 > n2) {
-                            return 1;
-                        } else if (n1 < n2) {
-                            return - 1;
-                        } else {
-                            return 0;
-                        }
-                    });
+                rostered_employees = rostered_employees.sort((a, b) => {
+                    var n1 = a.roster_start ? new Date(a.roster_start) : new Date(8640000000000000);
+                    var n2 = b.roster_start ? new Date(b.roster_start) : new Date(8640000000000000);
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
 
+                for(var i = 0; i < rostered_employees.length; i++) {
                     var li2 = document.createElement("li");
                     var a2 = document.createElement("a");
                     a2.setAttribute('href', '#');
@@ -169,7 +169,7 @@ function getEmployees() {
 
                         a2.appendChild(space);
                         a2.appendChild(span);
-                    } else if (employees[i].starttime !== '') {
+                    } else if (rostered_employees[i].starttime !== '') {
                         var space = document.createTextNode("\u00A0");
                         var span = document.createElement("span");
                         span.classList.add('glyphicon');
@@ -181,19 +181,19 @@ function getEmployees() {
                     web_rostered_employees.appendChild(li2);
                 }
 
-                for(var i = 0; i < other_employees.length; i++) {
-                    other_employees = other_employees.sort((a, b) => {
-                        var n1 = a.name;
-                        var n2 = b.name;
-                        if (n1 > n2) {
-                            return 1;
-                        } else if (n1 < n2) {
-                            return - 1;
-                        } else {
-                            return 0;
-                        }
-                    });
+                other_employees = other_employees.sort((a, b) => {
+                    var n1 = a.name;
+                    var n2 = b.name;
+                    if (n1 > n2) {
+                        return 1;
+                    } else if (n1 < n2) {
+                        return - 1;
+                    } else {
+                        return 0;
+                    }
+                });
 
+                for(var i = 0; i < other_employees.length; i++) {
                     var li2 = document.createElement("li");
                     var a2 = document.createElement("a");
                     a2.setAttribute('href', '#');
