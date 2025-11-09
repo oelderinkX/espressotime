@@ -505,7 +505,7 @@ module.exports = function(app) {
 
 		let shopId = common.getShopId(req.cookies['identifier']);
 	
-		getShopOptions(shopId).then( function(option) {
+		getShopOptions(shopId).then( function(options) {
 			console.log('options: ' + JSON.stringify(options));
 			res.send(options);
 		});
