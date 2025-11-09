@@ -517,7 +517,7 @@ module.exports = function(app) {
 		let shopOptions = cache.getCache(shopId, cache.shopOptions);
 
 		if (shopOptions !== null) {
-			res.send(shopOptions);
+			return shopOptions;
 		} else {
 			let client = await pool.connect();
 			let result = await client.query(sql, [shopId]);
