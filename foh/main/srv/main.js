@@ -513,8 +513,6 @@ module.exports = function(app) {
 	});
 
 	function getShopOptions(shopId) {
-		let shopId = common.getShopId(req.cookies['identifier']);
-
 		let sql = "SELECT options from espresso.shop where id = $1;"
 
 		let shopOptions = cache.getCache(shopId, cache.shopOptions);
