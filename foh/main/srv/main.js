@@ -504,12 +504,11 @@ module.exports = function(app) {
 		console.log('/get_shop_options');
 
 		let shopId = common.getShopId(req.cookies['identifier']);
-
-		let options = getShopOptions(shopId);
-
-		console.log('options: ' + options);
-
-		res.send(options);
+	
+		getShopOptions(shopId).then( function(option) {
+			console.log('options: ' + JSON.stringify(options));
+			res.send(options);
+		});
 	});
 
 	async function getShopOptions(shopId) {
