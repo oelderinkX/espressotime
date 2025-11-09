@@ -10,6 +10,7 @@ function clearTable() {
   modals.innerHTML = '';
 }
 
+
 function drawTable() {
   clearTable();
   

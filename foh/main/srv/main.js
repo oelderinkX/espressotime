@@ -179,6 +179,8 @@ module.exports = function(app) {
 
 		var sqlNotes = "select id, shopid, employeeid, date, notes from espresso.shift_notes where shopid = $1 AND employeeid = $2 AND date = $3 limit 1";
 
+		//select start::time from espresso.roster where start >= '2025-11-09 00:00:00' and start <= '2025-11-09 23:59:59' and employeeid = 47 and shopid = 1 limit 100
+
 		logging.logPoolConnect();
 		pool.connect(function(err, client, done) {
 			logging.logDbStats(pool);
@@ -499,6 +501,18 @@ module.exports = function(app) {
 	});
 
 	app.post('/get_shop_options', urlencodedParser, function(req, res) {
+		console.log('/get_shop_options');
+
+		let shopId = common.getShopId(req.cookies['identifier']);
+
+		let options = getShopOptions(shopId);
+
+		console.log('options ' + options);
+
+		res.send(options);
+	});
+
+	function getShopOptions(shopId) {
 		let shopId = common.getShopId(req.cookies['identifier']);
 
 		let sql = "SELECT options from espresso.shop where id = $1;"
@@ -519,9 +533,9 @@ module.exports = function(app) {
 						cache.setCache(shopId, cache.shopOptions, options, 240);
 					}
 						
-					res.send(options);
+					return options;
 				});
 			});	
 		}
-	});
+	}
 }
