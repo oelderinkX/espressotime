@@ -507,12 +507,12 @@ module.exports = function(app) {
 
 		let options = getShopOptions(shopId);
 
-		console.log('options ' + options);
+		console.log('options: ' + options);
 
 		res.send(options);
 	});
 
-	function getShopOptions(shopId) {
+	async function getShopOptions(shopId) {
 		let sql = "SELECT options from espresso.shop where id = $1;"
 
 		let shopOptions = cache.getCache(shopId, cache.shopOptions);
@@ -520,20 +520,33 @@ module.exports = function(app) {
 		if (shopOptions !== null) {
 			res.send(shopOptions);
 		} else {
-			pool.connect(function(err, client, done) {
-				client.query(sql, [shopId], function(err, result) {
-					done();
+			let client = await pool.connect();
+			let result = await client.query(sql, [shopId]);
+
+			var options = {};
+			if (result && result.rowCount == 1) {
+				options = result.rows[0].options;
+				cache.setCache(shopId, cache.shopOptions, options, 240)
+			}
+
+			client.end();
+
+			return options;
+
+			// pool.connect(function(err, client, done) {
+			// 	client.query(sql, [shopId], function(err, result) {
+			// 		done();
 	
-					var options = {};
+			// 		var options = {};
 	
-					if (result && result.rowCount == 1) {
-						options = result.rows[0].options;
-						cache.setCache(shopId, cache.shopOptions, options, 240);
-					}
+			// 		if (result && result.rowCount == 1) {
+			// 			options = result.rows[0].options;
+			// 			cache.setCache(shopId, cache.shopOptions, options, 240);
+			// 		}
 						
-					return options;
-				});
-			});	
+			// 		return options;
+			// 	});
+			// });	
 		}
 	}
 }
