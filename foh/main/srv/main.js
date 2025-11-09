@@ -531,21 +531,6 @@ module.exports = function(app) {
 			client.end();
 
 			return options;
-
-			// pool.connect(function(err, client, done) {
-			// 	client.query(sql, [shopId], function(err, result) {
-			// 		done();
-	
-			// 		var options = {};
-	
-			// 		if (result && result.rowCount == 1) {
-			// 			options = result.rows[0].options;
-			// 			cache.setCache(shopId, cache.shopOptions, options, 240);
-			// 		}
-						
-			// 		return options;
-			// 	});
-			// });	
 		}
 	}
 }
