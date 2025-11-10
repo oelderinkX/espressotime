@@ -528,7 +528,7 @@ module.exports = function(app) {
 				cache.setCache(shopId, cache.shopOptions, options, 240)
 			}
 
-			client.end();
+			await client.end();
 
 			return options;
 		}
