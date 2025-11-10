@@ -530,7 +530,7 @@ module.exports = function(app) {
 			if (result && result.rowCount == 1) {
 				console.log('result && result.rowCount == 1');
 				options = result.rows[0].options;
-				cache.setCache(shopId, cache.shopOptions, options, 240)
+				cache.setCache(shopId, cache.shopOptions, options, 240);
 			}
 
 			console.log('await client.end(); START');
