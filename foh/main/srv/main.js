@@ -535,8 +535,8 @@ module.exports = function(app) {
 			}
 
 			console.log('await client.release(); START');
-			//client.release();
-			await pool.end();
+			client.release();
+			//await pool.end();
 			//await pool.relea
 			console.log('await client.release(); END');
 
