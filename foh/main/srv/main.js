@@ -447,6 +447,7 @@ module.exports = function(app) {
 							res.send(working);
 						});
 					} else {
+						done();
 						res.send(working);
 					}
 				}
@@ -533,9 +534,11 @@ module.exports = function(app) {
 				cache.setCache(shopId, cache.shopOptions, options, 240);
 			}
 
-			console.log('await client.end(); START');
-			await client.end();
-			console.log('await client.end(); END');
+			console.log('await client.release(); START');
+			//client.release();
+			await pool.end();
+			//await pool.relea
+			console.log('await client.release(); END');
 
 			return options;
 		}
