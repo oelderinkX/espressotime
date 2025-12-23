@@ -57,8 +57,8 @@ function loadContacts() {
         row.appendChild(plus);
       } else {
         const nophone = document.createElement('td');
-        txt.innerHTML = '<a style="font-size:25px;" class="ah3" href="#">&#128245;</a>';
-        txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        nophone.innerHTML = '<a style="font-size:25px;" class="ah3" href="#">&#128245;</a>';
+        nophone.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(nophone);
       }
 
