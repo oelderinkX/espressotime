@@ -7,11 +7,12 @@ let smsnames = [];
 
 function addSms(txt, name) {
   const smsarea = document.getElementById('smsarea');
-  sms.push(txt);
+  sms.push(txt.replace(/ /g, ''));
   smsnames.push(name);
 
+  const href=`sms://open?addresses=${sms.join(",")}`;
   const clearbutton = '\n&nbsp;<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#9940;</a>';
-  const sendbutton = '\n&nbsp;<a style="font-size:25px;" class="ah3" href="sms:' + sms.join(",") + '">&#128221;</a>';
+  const sendbutton = `\n&nbsp;<a style="font-size:25px;" class="ah3" href="${href}">&#128221;</a>`;
   smsarea.innerHTML = smsnames.join(", ") + clearbutton + sendbutton;
 }
 
