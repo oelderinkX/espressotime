@@ -2,40 +2,65 @@ var roles = [];
 
 var rosterStart = new Date(); // GLOBAL
 
-function loadContacts()
-{
+let sms = [];
+let smsnames = [];
+
+function addSms(txt, name) {
+  const smsarea = document.getElementById('smsarea');
+  sms.push(txt);
+  smsnames.push(name);
+
+  const button = '\n<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#10060;</a>';
+  smsarea.innerHTML = smsnames.join(", ") + button;
+}
+
+function clearSms() {
+  const smsarea = document.getElementById('smsarea');
+  sms = [];
+  smsnames = [];
+  smsarea.innerHTML = '';
+}
+
+function loadContacts() {
   var contacts = document.getElementById('contacts');
 
   var request = { };
 
   sendPost("/manager_name_contact", JSON.stringify(request), function(response) {
-    var namephone =  JSON.parse(response);
+    const namephone =  JSON.parse(response);
 
-    for(var i = 0; i < namephone.length; i++) {
-      var row = document.createElement('tr');
+    for(let i = 0; i < namephone.length; i++) {
+      const row = document.createElement('tr');
       if (i % 2 == 0) {
         row.setAttribute('style', 'background-color: LightGray');
       }      
 
-      var name = document.createElement('td');
+      const name = document.createElement('td');
       name.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 200px; padding: 4px;');
       name.innerText = namephone[i].name;
       row.appendChild(name);
 
-      var contact = document.createElement('td');
-      contact.innerText = namephone[i].contact;
-      contact.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 100px; padding: 4px;');
-      row.appendChild(contact);
+      if (namephone[i].contact && namephone[i].contact.length > 0) {
+        const call = document.createElement('td');
+        call.innerHTML = '<a style="font-size:25px;" class="ah3" href="tel:' + namephone[i].contact + '">&#128222;</a>';
+        call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(call);
 
-      var call = document.createElement('td');
-      call.innerHTML = '<a style="font-size:25px;" class="ah3" href="tel:' + namephone[i].contact + '">&#128222;</a>';
-      call.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
-      row.appendChild(call);
+        const txt = document.createElement('td');
+        txt.innerHTML = '<a style="font-size:25px;" class="ah3" href="sms:' + namephone[i].contact + '">&#128221;</a>';
+        txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(txt);
 
-      var txt = document.createElement('td');
-      txt.innerHTML = '<a style="font-size:25px;" class="ah3" href="sms:' + namephone[i].contact + '">&#128221;</a>';
-      txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
-      row.appendChild(txt);
+        const plus = document.createElement('td');
+        plus.innerHTML = '<a style="font-size:25px;" class="ah3" onclick="addSms(' + namephone[i].contact + ');">&#10133;</a>';
+        plus.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(plus);
+      } else {
+        const nophone = document.createElement('td');
+        txt.innerHTML = '<a style="font-size:25px;" class="ah3" href="#">&#128245;</a>';
+        txt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(nophone);
+      }
 
       contacts.appendChild(row);
     }
