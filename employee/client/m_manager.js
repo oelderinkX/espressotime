@@ -10,8 +10,9 @@ function addSms(txt, name) {
   sms.push(txt);
   smsnames.push(name);
 
-  const button = '\n<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#10060;</a>';
-  smsarea.innerHTML = smsnames.join(", ") + button;
+  const clearbutton = '\n<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#10060;</a>';
+  const sendbutton = '\n<a style="font-size:25px;" class="ah3" href="sms:' + sms.join(",") + '">&#10060;</a>';
+  smsarea.innerHTML = smsnames.join(", ") + button + sendbutton;
 }
 
 function clearSms() {
@@ -52,7 +53,7 @@ function loadContacts() {
         row.appendChild(txt);
 
         const plus = document.createElement('td');
-        plus.innerHTML = '<a style="font-size:25px;" class="ah3" onclick="addSms(' + namephone[i].contact + ');">&#10133;</a>';
+        plus.innerHTML = '<a style="font-size:25px;" class="ah3" onclick="addSms(\'' + namephone[i].contact + '\', \'' + namephone[i].name + '\');">&#10133;</a>';
         plus.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(plus);
       } else {
@@ -60,6 +61,14 @@ function loadContacts() {
         nophone.innerHTML = '<a style="font-size:25px;" class="ah3" href="#">&#128245;</a>';
         nophone.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(nophone);
+
+        notxt.innerHTML = '<a style="font-size:25px;" class="ah3"></a>';
+        notxt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(notxt);
+
+        noplus.innerHTML = '<a style="font-size:25px;" class="ah3"></a>';
+        noplus.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
+        row.appendChild(noplus);
       }
 
       contacts.appendChild(row);
