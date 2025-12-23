@@ -62,10 +62,12 @@ function loadContacts() {
         nophone.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(nophone);
 
+        const notxt = document.createElement('td');
         notxt.innerHTML = '<a style="font-size:25px;" class="ah3"></a>';
         notxt.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(notxt);
 
+        const noplus = document.createElement('td');
         noplus.innerHTML = '<a style="font-size:25px;" class="ah3"></a>';
         noplus.setAttribute('style', 'text-align: center; vertical-align: middle; height: 50px; width: 50px; padding: 4px;');
         row.appendChild(noplus);
