@@ -10,8 +10,8 @@ function addSms(txt, name) {
   sms.push(txt);
   smsnames.push(name);
 
-  const clearbutton = '\n<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#10060;</a>';
-  const sendbutton = '\n&nbsp;&nbsp;&nbsp;<a style="font-size:25px;" class="ah3" href="sms:' + sms.join(",") + '">&#10060;</a>';
+  const clearbutton = '\n&nbsp;<a style="font-size:25px;" class="ah3" onclick="clearSms();">&#9940;</a>';
+  const sendbutton = '\n&nbsp;<a style="font-size:25px;" class="ah3" href="sms:' + sms.join(",") + '">&#128221;</a>';
   smsarea.innerHTML = smsnames.join(", ") + clearbutton + sendbutton;
 }
 
