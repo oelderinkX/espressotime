@@ -32,7 +32,7 @@ module.exports = function(app) {
 
             var formatted = employeePage;
 
-            if (employeeDetails && employeeDetails.role && employeeDetails.role.toLowerCase().includes('manager')) {
+            if (employeeDetails && employeeDetails.role && (employeeDetails.role.toLowerCase().includes('manager') || employeeDetails.role.toLowerCase().includes('supervisor'))) {
                 while (formatted.includes('display: none')) {
                     formatted = formatted.replace('display: none', 'display: inline');
                 }
@@ -55,7 +55,7 @@ module.exports = function(app) {
 			var formatted = employeePage;
 
 			// if manager/owner then display contacts!
-			if (employeeDetails && employeeDetails.role && employeeDetails.role.toLowerCase().includes('manager')) {
+			if (employeeDetails && employeeDetails.role && (employeeDetails.role.toLowerCase().includes('manager') || employeeDetails.role.toLowerCase().includes('supervisor'))) {
 				while (formatted.includes('display: none')) {
 					formatted = formatted.replace('display: none', 'display: inline');
 				}
