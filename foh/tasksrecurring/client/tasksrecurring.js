@@ -35,6 +35,27 @@ function loadEmployees() {
     });
 }
 
+// 1 = Monday
+// 2 = Tuesday
+// 3 = Wednesday
+// 4 = Thursday
+// 5 = Friday
+// 6 = Saturday
+// 0 = Sunday
+// 9 = Monthly
+// 10 = January
+// 11 = February
+// 12 = March
+// 13 = April
+// 14 = May
+// 15 = June
+// 16 = July
+// 17 = August
+// 18 = September
+// 19 = October
+// 20 = November
+// 21 = December
+// -1 = Disabled
 function getRecurrentTasks() {
     var date = new Date();
 

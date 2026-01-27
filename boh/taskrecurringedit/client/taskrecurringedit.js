@@ -102,7 +102,7 @@ function save() {
         name: name.value,
         description: description.value,
         input: input.selectedIndex,
-        recur: recur.selectedIndex
+        recur: recur.value
     };
 
     if (task.name.length > 0 && task.description.length > 0) {

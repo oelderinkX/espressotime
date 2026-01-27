@@ -515,30 +515,21 @@ module.exports = function(app) {
 	async function getShopOptions(shopId) {
 		let sql = "SELECT options from espresso.shop where id = $1;"
 
-		console.log('cache.getCache(shopId, cache.shopOptions); START');
 		let shopOptions = cache.getCache(shopId, cache.shopOptions);
-		console.log('cache.getCache(shopId, cache.shopOptions); FINISH');
 
 		if (shopOptions !== null) {
-			console.log('shopOptions !== null RETURN');
 			return shopOptions;
 		} else {
-			console.log('shopOptions IS NULL');
 			let client = await pool.connect();
 			let result = await client.query(sql, [shopId]);
 
 			var options = {};
 			if (result && result.rowCount == 1) {
-				console.log('result && result.rowCount == 1');
 				options = result.rows[0].options;
 				cache.setCache(shopId, cache.shopOptions, options, 240);
 			}
 
-			console.log('await client.release(); START');
 			client.release();
-			//await pool.end();
-			//await pool.relea
-			console.log('await client.release(); END');
 
 			return options;
 		}

@@ -24,15 +24,48 @@ module.exports = function(app) {
 		}
 	});
 
+	// 1 = Monday
+	// 2 = Tuesday
+	// 3 = Wednesday
+	// 4 = Thursday
+	// 5 = Friday
+	// 6 = Saturday
+	// 0 = Sunday
+	// 9 = Monthly
+	// 10 = January
+	// 11 = February
+	// 12 = March
+	// 13 = April
+	// 14 = May
+	// 15 = June
+	// 16 = July
+	// 17 = August
+	// 18 = September
+	// 19 = October
+	// 20 = November
+	// 21 = December
+	// -1 = Disabled
 	app.post('/getrecurringtasks', jsonParser, function(req, res) {
-		var shopId = common.getShopId(req.cookies['identifier']);
-		var day = req.body.day;
-		var month = req.body.month;
+		const shopId = common.getShopId(req.cookies['identifier']);
+		const day = req.body.day;
+		const month = req.body.month;
+		const monthly = 9;
 
-		var sql = "select id, name, description, recur, inputtype,";
+		const days = [];
+
+		for(let i = 1; i <= day; i++) {
+			days.push(i);
+		}
+		if (day === 0) {
+			for(let i = 0; i <= 6; i++) {
+				days.push(i);
+			}
+		}
+
+		let sql = "select id, name, description, recur, inputtype,";
 		sql += " exists(select taskid from espresso.recurring_task_complete where timestamp is not null) as completed";
 		sql += " from espresso.recurring_task";
-		sql += " where recur in (9, " + day + ", " + month + ") and shopid = " + shopId;
+		sql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
 
 		console.log('/getrecurringtasks ' + sql);
 
@@ -40,10 +73,10 @@ module.exports = function(app) {
 			connection.query(sql, [], function(err, result) {
 				done();
 
-				var tasks = [];
+				const tasks = [];
 
 				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
+					for(let i = 0; i < result.rowCount; i++) {
 						tasks.push({id: result.rows[i].id,
 									name: result.rows[i].name,
 									description: result.rows[i].description,
