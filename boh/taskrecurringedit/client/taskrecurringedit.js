@@ -23,7 +23,7 @@ function displayRecurringTask(id) {
     input.selectedIndex = task.input;
 
     var recur = document.getElementById('recur');
-    recur.selectedIndex = task.recur;
+    recur.value = task.recur;
 }
 
 function loadRecurringTasks(id) {
