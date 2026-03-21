@@ -62,11 +62,9 @@ module.exports = function(app) {
 			}
 		}
 
-		let sql = "select id, name, description, recur, inputtype,";
-		sql += " exists(select taskid from espresso.recurring_task_complete where timestamp is not null) as completed";
-		sql += " from espresso.recurring_task";
+		let sql = "select id, name, description, recur, inputtype";
+		sql += " from espresso.recurring_task ";
 		sql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
-
 		console.log('/getrecurringtasks ' + sql);
 
 		pool.connect(function(err, connection, done) {
