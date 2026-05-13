@@ -72,17 +72,17 @@ module.exports = function(app) {
 		}
 
 		let firstDateOfWeek = datetime;	
-		firstDateOfWeek.setDate(datetime.getFullYear(), datetime.getMonth(), -days.length);
+		firstDateOfWeek.setDate(datetime.getDate() - days.length);
 		const firstDateOfWeekDb = dateHelper.formatDate(firstDateOfWeek);
 		console.log(`first date of week ${firstDateOfWeekDb}`);
 
 		let lastDateOfWeek = new Date(firstDateOfWeek);
-		lastDateOfWeek.setDate(firstDateOfWeek.getFullYear(), firstDateOfWeek.getMonth(), 7);
+		lastDateOfWeek.setDate(lastDateOfWeek.getDate() + 7);
 		const lastDateOfWeekDb = dateHelper.formatDate(lastDateOfWeek);
 		console.log(`last date of week ${lastDateOfWeekDb}`);
 
 		let getTasksSql = "select id, name, description, recur, inputtype";
-		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= ${firstDateOfWeek} and timestamp <= ${lastDateOfWeek} ) as completed`
+		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= ${firstDateOfWeekDb} and timestamp <= ${lastDateOfWeekDb} ) as completed`
 		getTasksSql += " from espresso.recurring_task";
 		getTasksSql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
 		console.log('/getrecurringtasks ' + getTasksSql);
