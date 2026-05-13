@@ -47,7 +47,7 @@ module.exports = function(app) {
 	// -1 = Disabled
 	app.post('/getrecurringtasks', jsonParser, function(req, res) {
 		const shopId = common.getShopId(req.cookies['identifier']);
-		const datetime = new Date(req.body.datetime);
+		const datetime = new Date(req.body.date);
 		const day = req.body.day;
 		const month = req.body.month;
 		const monthly = 9;
