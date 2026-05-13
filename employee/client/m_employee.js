@@ -581,8 +581,8 @@ function loadEmployeeDetails() {
       employee_name.innerText = employee.name;
       employee_contact.value = employee.contact;
       employee_pin.value = employee.pin;
-      employee_start_date.value = employee.start_date;
-      employee_role.value = employee.role;
+      employee_start_date.innerText = employee.start_date;
+      employee_role.innerText = employee.role;
 
       save_button.disabled = false;
   });
