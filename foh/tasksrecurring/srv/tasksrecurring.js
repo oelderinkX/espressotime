@@ -81,8 +81,8 @@ module.exports = function(app) {
 		const lastDateOfWeekDb = dateHelper.formatDate(lastDateOfWeek);
 		console.log(`last date of week ${lastDateOfWeekDb}`);
 
-		let getTasksSql = "select id, name, description, recur, inputtype";
-		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= ${firstDateOfWeekDb} and timestamp <= ${lastDateOfWeekDb} ) as completed`
+		let getTasksSql = "select id, name, description, recur, inputtype,";
+		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
 		getTasksSql += " from espresso.recurring_task";
 		getTasksSql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
 		console.log('/getrecurringtasks ' + getTasksSql);
