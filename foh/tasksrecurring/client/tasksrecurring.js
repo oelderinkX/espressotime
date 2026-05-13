@@ -61,7 +61,7 @@ function getRecurrentTasks() {
 
     var month = parseInt(date.getMonth()) + 10;
     var day = parseInt(date.getDay());
-    var request = {day: day, month: month};
+    var request = {date: date, day: day, month: month};
 
     sendPost("/getrecurringtasks", JSON.stringify(request), function(response) {
         var tasks = JSON.parse(response);

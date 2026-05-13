@@ -375,10 +375,18 @@ module.exports = function(app) {
 	});
 
 	app.post('/employee_get_details', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = common.getEmployeeId(req.cookies['identifier']);
 
-		var sql = "select name, contact, pin from espresso.employee where id = $1 limit 1";
-		var values = [employeeid];
+		let sql = "select espresso.employee.name,";
+		sql += " espresso.employee.contact,";
+		sql += " espresso.employee.pin,";
+		sql += " espresso.employee.start_date,";
+		sql += " espresso.role.name as role";
+		sql += " from espresso.employee";
+		sql += " join espresso.role on espresso.employee.job_title = espresso.role.id";
+		sql += " where espresso.employee.id = $1 limit 1";
+
+		const values = [employeeid];
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, values, function(err, result) {
@@ -389,6 +397,8 @@ module.exports = function(app) {
 					employee.name = result.rows[0].name;
 					employee.contact = result.rows[0].contact;
 					employee.pin = result.rows[0].pin;
+					employee.start_date = result.rows[0].start_date;
+					employee.role = result.rows[0].role;
 				}
 					
 				res.send(employee);

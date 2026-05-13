@@ -565,13 +565,15 @@ function saveLeaveRequests()
 }
 
 function loadEmployeeDetails() {
-  var request = {};
+  let request = {};
   
-  var employee_name =  document.getElementById('employee_name');
-  var employee_contact =  document.getElementById('employee_contact');
-  var employee_pin =  document.getElementById('employee_pin');
+  const employee_name =  document.getElementById('employee_name');
+  const employee_contact =  document.getElementById('employee_contact');
+  const employee_pin =  document.getElementById('employee_pin');
+  const employee_start_date =  document.getElementById('employee_start_date');
+  const employee_role =  document.getElementById('employee_role');
   
-  var save_button =  document.getElementById('savebutton');
+  const save_button =  document.getElementById('savebutton');
 
   sendPost("/employee_get_details", JSON.stringify(request), function(response) {
       employee =  JSON.parse(response);
@@ -579,6 +581,8 @@ function loadEmployeeDetails() {
       employee_name.innerText = employee.name;
       employee_contact.value = employee.contact;
       employee_pin.value = employee.pin;
+      employee_start_date.value = employee.start_date;
+      employee_role.value = employee.role;
 
       save_button.disabled = false;
   });

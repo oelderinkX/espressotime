@@ -47,9 +47,18 @@ module.exports = function(app) {
 	// -1 = Disabled
 	app.post('/getrecurringtasks', jsonParser, function(req, res) {
 		const shopId = common.getShopId(req.cookies['identifier']);
+		const datetime = new Date(req.body.datetime);
 		const day = req.body.day;
 		const month = req.body.month;
 		const monthly = 9;
+
+		let firstDayOfMonth = new Date(datetime.getFullYear(), datetime.getMonth(), 1);
+		firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
+		const firstDayOfMonthDb = dateHelper.formatDate(firstDayOfMonth);
+
+		let firstDayOfNextMonth = new Date(datetime.getFullYear(), datetime.getMonth()+1, 1);
+		firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
+		const firstDayOfNextMonthDb = dateHelper.formatDate(firstDayOfNextMonth);
 
 		const days = [];
 
@@ -62,33 +71,89 @@ module.exports = function(app) {
 			}
 		}
 
-		let sql = "select id, name, description, recur, inputtype";
-		sql += " from espresso.recurring_task ";
-		sql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
-		console.log('/getrecurringtasks ' + sql);
+		let firstDateOfWeek = datetime;	
+		firstDateOfWeek.setDate(datetime.getFullYear(), datetime.getMonth(), -days.length);
+		const firstDateOfWeekDb = dateHelper.formatDate(firstDateOfWeek);
+		console.log(`first date of week ${firstDateOfWeekDb}`);
+
+		let lastDateOfWeek = new Date(firstDateOfWeek);
+		lastDateOfWeek.setDate(firstDateOfWeek.getFullYear(), firstDateOfWeek.getMonth(), 7);
+		const lastDateOfWeekDb = dateHelper.formatDate(lastDateOfWeek);
+		console.log(`last date of week ${lastDateOfWeekDb}`);
+
+		let getTasksSql = "select id, name, description, recur, inputtype";
+		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= ${firstDateOfWeek} and timestamp <= ${lastDateOfWeek} ) as completed`
+		getTasksSql += " from espresso.recurring_task";
+		getTasksSql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
+		console.log('/getrecurringtasks ' + getTasksSql);
 
 		pool.connect(function(err, connection, done) {
-			connection.query(sql, [], function(err, result) {
+			connection.query(getTasksSql, [], function(err, result) {
 				done();
 
 				const tasks = [];
+				const incomplete_tasks = [];
+				const recurIds = [];
 
+				// also, need to check what is valid!  for the current date
+				// also create array of ids
 				if (result && result.rowCount > 0) {
 					for(let i = 0; i < result.rowCount; i++) {
-						tasks.push({id: result.rows[i].id,
-									name: result.rows[i].name,
-									description: result.rows[i].description,
-									recur: result.rows[i].recur,
-									inputtype: result.rows[i].inputtype,
-									completed: result.rows[i].completed
-						});
+						const recur = result.rows[i].recur;
+
+						if (days.includes(recur) || recur === 9 || recur === month) {
+							recurIds.push(recur);
+							tasks.push({id: result.rows[i].id,
+										name: result.rows[i].name,
+										description: result.rows[i].description,
+										recur: result.rows[i].recur,
+										inputtype: result.rows[i].inputtype,
+										completed: result.rows[i].completed
+							});
+						}
 					}
 				}
-					
-				res.send(tasks);
+
+		// next step
+		// select * from espresso.recurring_task_complete where taskid in (67) and timestamp > '2026-03-23' and timestamp < '2026-05-07' and shopid = 1
+				// const ids = [];
+				// for(let i = 0; i < tasks.length; i++) {
+				// 	ids.push(tasks[i].id);
+				// }
+				// let getCompletedTasks = "select taskid, timestamp";
+				// getCompletedTasks += " from from espresso.recurring_task_complete ";
+				// getCompletedTasks += ` where taskid in (${recurIds.join(',')}) and `;
+				// getCompletedTasks += `timestamp >= ${firstDayOfMonthDb} and timestamp <= ${firstDayOfNextMonthDb} and `;
+				// getCompletedTasks += `shopid = ${shopId}`;
+
+				// pool.connect(function(err, connection, done) {
+				// 	connection.query(getCompletedTasks, [shopId], function(err, employee_result) {
+				// 		done();
+
+				// 		if (result && result.rowCount > 0) {
+				// 			for(let i = 0; i < result.rowCount; i++) {
+				// 				const taskid =  result.rows[i].taskid;
+				// 				const timestamp = result.rows[i].timestamp;
+				// 				const taskIndex =  tasks.map(t => t.id) === taskid;
+				// 				const task = tasks[taskIndex];
+				// 				if (tasks[i].recur >= 0 && tasks[i].recur <= 6) {
+
+				// 				// weekly
+				// 				if (tasks[i].)
+				// 				tasks.splice(index, 1);
+				// 			} else if (tasks.recur === 9) {
+				// 				// monthly
+				// 			} else {
+				// 				// a month!
+				// 			}
+				// 		}
+
+						res.send(tasks);
+					});
+				});
 			});
-		});
-	});
+		// });
+	// });
 
 	app.post('/gettaskrecurringemployees', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
