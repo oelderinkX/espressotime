@@ -47,16 +47,16 @@ module.exports = function(app) {
 	// -1 = Disabled
 	app.post('/getrecurringtasks', jsonParser, function(req, res) {
 		const shopId = common.getShopId(req.cookies['identifier']);
-		const datetime = new Date(req.body.date);
+		const now = new Date(req.body.date);
 		const day = req.body.day;
 		const month = req.body.month;
 		const monthly = 9;
 
-		let firstDayOfMonth = new Date(datetime.getFullYear(), datetime.getMonth(), 1);
+		let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 		firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
 		const firstDayOfMonthDb = dateHelper.getDbFormat(firstDayOfMonth);
 
-		let firstDayOfNextMonth = new Date(datetime.getFullYear(), datetime.getMonth()+1, 1);
+		let firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
 		firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
 		const firstDayOfNextMonthDb = dateHelper.getDbFormat(firstDayOfNextMonth);
 
@@ -71,13 +71,13 @@ module.exports = function(app) {
 			}
 		}
 
-		let firstDateOfWeek = datetime;	
-		firstDateOfWeek.setDate(datetime.getDate() - days.length);
+		let firstDateOfWeek = new Date(req.body.date);	
+		firstDateOfWeek.setDate(now.getDate() - days.length);
 		const firstDateOfWeekDb = dateHelper.getDbFormat(firstDateOfWeek);
 		console.log(`first date of week ${firstDateOfWeekDb}`);
 
 		let lastDateOfWeek = new Date(firstDateOfWeek);
-		lastDateOfWeek.setDate(lastDateOfWeek.getDate() + 7);
+		lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 7);
 		const lastDateOfWeekDb = dateHelper.getDbFormat(lastDateOfWeek);
 		console.log(`last date of week ${lastDateOfWeekDb}`);
 
