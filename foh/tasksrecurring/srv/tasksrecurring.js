@@ -72,7 +72,7 @@ module.exports = function(app) {
 		}
 
 		const firstDateOfWeek = new Date(req.body.date);	
-		firstDateOfWeek.setDate(now.getDate() - days.length);
+		firstDateOfWeek.setDate(now.getDate() - (days.length - 1));
 		console.log(`first date of week ${firstDateOfWeek}`);
 		const firstDateOfWeekDb = dateHelper.getDbFormat2(firstDateOfWeek);
 		console.log(`first date of week db ${firstDateOfWeekDb}`);
