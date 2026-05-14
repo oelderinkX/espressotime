@@ -78,7 +78,7 @@ module.exports = function(app) {
 		console.log(`first date of week db ${firstDateOfWeekDb}`);
 
 		const lastDateOfWeek = new Date(firstDateOfWeek);
-		lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 7);
+		lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 6);
 		console.log(`last date of week db ${lastDateOfWeek}`);
 		const lastDateOfWeekDb = dateHelper.getDbFormat2(lastDateOfWeek);
 		console.log(`last date of week db ${lastDateOfWeekDb}`);
