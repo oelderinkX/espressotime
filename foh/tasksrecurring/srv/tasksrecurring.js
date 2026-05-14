@@ -54,11 +54,11 @@ module.exports = function(app) {
 
 		let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 		firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
-		const firstDayOfMonthDb = dateHelper.getDbFormat(firstDayOfMonth);
+		const firstDayOfMonthDb = dateHelper.getDbFormat2(firstDayOfMonth);
 
 		let firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
 		firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
-		const firstDayOfNextMonthDb = dateHelper.getDbFormat(firstDayOfNextMonth);
+		const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
 
 		const days = [];
 
@@ -73,12 +73,12 @@ module.exports = function(app) {
 
 		let firstDateOfWeek = new Date(req.body.date);	
 		firstDateOfWeek.setDate(now.getDate() - days.length);
-		const firstDateOfWeekDb = dateHelper.getDbFormat(firstDateOfWeek);
+		const firstDateOfWeekDb = dateHelper.getDbFormat2(firstDateOfWeek);
 		console.log(`first date of week ${firstDateOfWeekDb}`);
 
 		let lastDateOfWeek = new Date(firstDateOfWeek);
 		lastDateOfWeek.setDate(firstDateOfWeek.getDate() + 7);
-		const lastDateOfWeekDb = dateHelper.getDbFormat(lastDateOfWeek);
+		const lastDateOfWeekDb = dateHelper.getDbFormat2(lastDateOfWeek);
 		console.log(`last date of week ${lastDateOfWeekDb}`);
 
 		let getTasksSql = "select id, name, description, recur, inputtype,";

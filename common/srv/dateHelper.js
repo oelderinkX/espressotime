@@ -41,6 +41,18 @@ function getDbFormat() {
 }
 module.exports.getDbFormat = getDbFormat;
 
+function getDbFormat2(paramDate) {
+  let d = new Date();
+  
+  if (paramDate) {
+    if (isString(paramDate)) {
+      d = new Date(paramDate);
+    }
+  }
+
+  return pad(d.getFullYear()) + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+module.exports.getDbFormat2 = getDbFormat2;
 
 function getDate() {
   var d = new Date();
