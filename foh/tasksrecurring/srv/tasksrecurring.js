@@ -84,9 +84,10 @@ module.exports = function(app) {
 		console.log(`last date of week db ${lastDateOfWeekDb}`);
 
 		let getTasksSql = "select id, name, description, recur, inputtype,";
-		getTasksSql += ` exists(select taskid from espresso.recurring_task_complete where timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
-		getTasksSql += " from espresso.recurring_task";
+		getTasksSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
+		getTasksSql += " from espresso.recurring_task task";
 		getTasksSql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
+
 		console.log('/getrecurringtasks ' + getTasksSql);
 
 		pool.connect(function(err, connection, done) {
