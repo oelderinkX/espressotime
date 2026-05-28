@@ -104,12 +104,11 @@ module.exports = function(app) {
 					}
 				}
 
-				let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-				firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
+				const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 				const firstDayOfMonthDb = dateHelper.getDbFormat2(firstDayOfMonth);
 
-				let firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
-				firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
+				const firstDayOfNextMonth = new Date(firstDayOfMonth);
+				firstDayOfNextMonth.setMonth(firstDayOfNextMonth.getMonth()+1);
 				const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
 
 				let getTasksMonthSql = "select id, name, description, recur, inputtype,";
