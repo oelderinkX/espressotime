@@ -52,14 +52,6 @@ module.exports = function(app) {
 		const month = req.body.month;
 		const monthly = 9;
 
-		let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-		firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
-		const firstDayOfMonthDb = dateHelper.getDbFormat2(firstDayOfMonth);
-
-		let firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
-		firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
-		const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
-
 		const days = [];
 
 		for(let i = 1; i <= day; i++) {
@@ -83,29 +75,24 @@ module.exports = function(app) {
 		const lastDateOfWeekDb = dateHelper.getDbFormat2(lastDateOfWeek);
 		console.log(`last date of week db ${lastDateOfWeekDb}`);
 
-		let getTasksSql = "select id, name, description, recur, inputtype,";
-		getTasksSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
-		getTasksSql += " from espresso.recurring_task task";
-		getTasksSql += ` where recur in (${monthly}, ${days.join(',')}, ${month}) and shopid = ${shopId}`;
+		let getTasksWeekSql = "select id, name, description, recur, inputtype,";
+		getTasksWeekSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
+		getTasksWeekSql += " from espresso.recurring_task task";
+		getTasksWeekSql += ` where recur in (${days.join(',')}) and shopid = ${shopId}`;
 
-		console.log('/getrecurringtasks ' + getTasksSql);
+		console.log('/getrecurringtasks_week ' + getTasksWeekSql);
 
 		pool.connect(function(err, connection, done) {
-			connection.query(getTasksSql, [], function(err, result) {
+			connection.query(getTasksWeekSql, [], function(err, result) {
 				done();
 
 				const tasks = [];
-				const incomplete_tasks = [];
-				const recurIds = [];
 
-				// also, need to check what is valid!  for the current date
-				// also create array of ids
 				if (result && result.rowCount > 0) {
 					for(let i = 0; i < result.rowCount; i++) {
 						const recur = result.rows[i].recur;
 
-						if (days.includes(recur) || recur === 9 || recur === month) {
-							recurIds.push(recur);
+						if (days.includes(recur)) {
 							tasks.push({id: result.rows[i].id,
 										name: result.rows[i].name,
 										description: result.rows[i].description,
@@ -117,46 +104,47 @@ module.exports = function(app) {
 					}
 				}
 
-		// next step
-		// select * from espresso.recurring_task_complete where taskid in (67) and timestamp > '2026-03-23' and timestamp < '2026-05-07' and shopid = 1
-				// const ids = [];
-				// for(let i = 0; i < tasks.length; i++) {
-				// 	ids.push(tasks[i].id);
-				// }
-				// let getCompletedTasks = "select taskid, timestamp";
-				// getCompletedTasks += " from from espresso.recurring_task_complete ";
-				// getCompletedTasks += ` where taskid in (${recurIds.join(',')}) and `;
-				// getCompletedTasks += `timestamp >= ${firstDayOfMonthDb} and timestamp <= ${firstDayOfNextMonthDb} and `;
-				// getCompletedTasks += `shopid = ${shopId}`;
+				let firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+				firstDayOfMonth.setDate(firstDayOfMonth.getDate() - 7);
+				const firstDayOfMonthDb = dateHelper.getDbFormat2(firstDayOfMonth);
 
-				// pool.connect(function(err, connection, done) {
-				// 	connection.query(getCompletedTasks, [shopId], function(err, employee_result) {
-				// 		done();
+				let firstDayOfNextMonth = new Date(now.getFullYear(), now.getMonth()+1, 1);
+				firstDayOfNextMonth.setDate(firstDayOfNextMonth.getDate() + 7);  // this is probably invalid since it would be the future
+				const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
 
-				// 		if (result && result.rowCount > 0) {
-				// 			for(let i = 0; i < result.rowCount; i++) {
-				// 				const taskid =  result.rows[i].taskid;
-				// 				const timestamp = result.rows[i].timestamp;
-				// 				const taskIndex =  tasks.map(t => t.id) === taskid;
-				// 				const task = tasks[taskIndex];
-				// 				if (tasks[i].recur >= 0 && tasks[i].recur <= 6) {
+				let getTasksMonthSql = "select id, name, description, recur, inputtype,";
+				getTasksMonthSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
+				getTasksMonthSql += " from espresso.recurring_task task";
+				getTasksMonthSql += ` where recur in (${monthly}, ${month}) and shopid = ${shopId}`;
 
-				// 				// weekly
-				// 				if (tasks[i].)
-				// 				tasks.splice(index, 1);
-				// 			} else if (tasks.recur === 9) {
-				// 				// monthly
-				// 			} else {
-				// 				// a month!
-				// 			}
-				// 		}
+				console.log('/getrecurringtasks_month ' + getTasksMonthSql);
+
+				pool.connect(function(err, connection, done) {
+					connection.query(getTasksMonthSql, [shopId], function(err, employee_result) {
+						done();
+
+						if (result && result.rowCount > 0) {
+							for(let i = 0; i < result.rowCount; i++) {
+								const recur = result.rows[i].recur;
+
+								if (recur === 9 || recur === month) {
+									tasks.push({id: result.rows[i].id,
+												name: result.rows[i].name,
+												description: result.rows[i].description,
+												recur: result.rows[i].recur,
+												inputtype: result.rows[i].inputtype,
+												completed: result.rows[i].completed
+									});
+								}
+							}
+						}
 
 						res.send(tasks);
 					});
 				});
 			});
-		// });
-	// });
+		});
+	});
 
 	app.post('/gettaskrecurringemployees', jsonParser, function(req, res) {
 		var shopId = common.getShopId(req.cookies['identifier']);
