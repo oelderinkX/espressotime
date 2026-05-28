@@ -113,7 +113,7 @@ module.exports = function(app) {
 				const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
 
 				let getTasksMonthSql = "select id, name, description, recur, inputtype,";
-				getTasksMonthSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
+				getTasksMonthSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDayOfMonthDb}' and timestamp < '${firstDayOfNextMonthDb}' ) as completed`
 				getTasksMonthSql += " from espresso.recurring_task task";
 				getTasksMonthSql += ` where recur in (${monthly}, ${month}) and shopid = ${shopId}`;
 
