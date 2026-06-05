@@ -79,7 +79,7 @@ function getRecurrentTasks() {
                 const task = document.createElement("li");
                 task.innerHTML = tasks[t].name;
                 task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-                const description = tasks[t].description;
+                let description = tasks[t].description;
                 description = replaceAll(description, '\n', '<br/>');
                 description = replaceAll(description, '\'', '&#39;');
                 let params = "'" + tasks[t].id + "',";
