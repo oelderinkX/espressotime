@@ -104,8 +104,8 @@ function getRecurrentTasks() {
         }
 
         const completedtasksheader = document.getElementById("completedtasksheader");
-        if (hasCompletedTasks === false) {
-            completedtasksheader.innerHTML = '';
+        if (hasCompletedTasks === true) {
+            completedtasksheader.innerHTML = 'Recently completed tasks &nbsp;';
         }
     });
 
