@@ -57,43 +57,55 @@ function loadEmployees() {
 // 21 = December
 // -1 = Disabled
 function getRecurrentTasks() {
-    var date = new Date();
+    const date = new Date();
 
-    var month = parseInt(date.getMonth()) + 10;
-    var day = parseInt(date.getDay());
-    var request = {date: date, day: day, month: month};
+    const month = parseInt(date.getMonth()) + 10;
+    const day = parseInt(date.getDay());
+    const request = {date: date, day: day, month: month};
 
     sendPost("/getrecurringtasks", JSON.stringify(request), function(response) {
-        var tasks = JSON.parse(response);
-        var hasTasks = false;
+        const tasks = JSON.parse(response);
+        let hasTasks = false;
+        let hasCompletedTasks = false;
 
         var tasksarea = document.getElementById("tasksarea")
         tasksarea.innerHTML = '';
+        const taskscompletedarea = document.getElementById("taskscompletedarea");
+        taskscompletedarea.innerHTML = '';
 
-        for(var t in tasks) {
-            if (tasks[t].completed == false) {
+        for(const t in tasks) {
+            if (tasks[t].completed === false) {
                 hasTasks = true;
-                var task = document.createElement("li");
+                const task = document.createElement("li");
                 task.innerHTML = tasks[t].name;
                 task.className = 'list-group-item d-flex justify-content-between align-items-center li-em';
-                var description = tasks[t].description;
+                const description = tasks[t].description;
                 description = replaceAll(description, '\n', '<br/>');
                 description = replaceAll(description, '\'', '&#39;');
-                var params = "'" + tasks[t].id + "',";
+                let params = "'" + tasks[t].id + "',";
                 params += "'" + tasks[t].name + "',";
                 params += "'" + tasks[t].inputtype + "',";
                 params += "'" + description + "'";
                 task.setAttribute('onclick', 'showDescription(' + params + ');');
                 
                 tasksarea.appendChild(task);
+            } else {
+                hasCompletedTasks = true;
+                const task = document.createElement("li");
+                task.innerHTML = tasks[t].name;
             }
         }
 
-        var taskstatus = document.getElementById("taskstatus");
-        if (hasTasks == false) {
+        const taskstatus = document.getElementById("taskstatus");
+        if (hasTasks === false) {
             taskstatus.innerHTML = '<h4>&nbsp;&nbsp;&nbsp;Nothing to do at the moment...</h4>';
         } else {
             taskstatus.innerHTML = '';
+        }
+
+        const completedtasksheader = document.getElementById("completedtasksheader");
+        if (hasCompletedTasks === false) {
+            completedtasksheader.innerHTML = '';
         }
     });
 
