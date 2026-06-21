@@ -26,7 +26,7 @@ module.exports = function(app) {
 		const employeeid = common.getEmployeeId(req.cookies['identifier']);
 		console.log(`getEmployeeId '${employeeid}'`);
 
-		if (typeof employeeid === 'undefined' || employeeid === null) {
+		if (typeof employeeid === 'undefined' || employeeid === null || employeeid === -1) {
 			res.redirect(common.getLoginUrl(req.originalUrl));
 			return -1;
 		} else {
