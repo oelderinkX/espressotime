@@ -368,7 +368,6 @@ module.exports = function(app) {
 		
 		if (employeeid > 0) {
 			const id = req.body.id;
-			const values = [];
 
 			const sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
 			const values = [employeeid, id];
