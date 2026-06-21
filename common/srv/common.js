@@ -70,7 +70,7 @@ module.exports.getEmployeeDetails = getEmployeeDetails;
 
 function getLoginUrl(path) {
   if (path) {
-    return 'https://login.managemycafe.com/?redirect=' + path;
+    return `https://login.managemycafe.com/?redirect=${path}`;
   } else {
     return 'https://login.managemycafe.com';
   }

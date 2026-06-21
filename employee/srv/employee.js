@@ -22,8 +22,20 @@ module.exports = function(app) {
 
 	app.use('/scripts/m_employee.js', express.static(__dirname + '"/../client/m_employee.js'));
 
+	function getEmployeeId(req, res) {
+		const employeeid = common.getEmployeeId(req.cookies['identifier']);
+		console.log(`getEmployeeId '${employeeid}'`);
+
+		if (typeof employeeid === 'undefined' || employeeid === null) {
+			res.redirect(common.getLoginUrl(req.originalUrl));
+			return -1;
+		} else {
+			return employeeid;
+		}
+	}
+
     app.get('/employee', urlencodedParser, function(req, res) {
-        var employeeid = common.getEmployeeId(req.cookies['identifier']);
+        const employeeid = common.getEmployeeId(req.cookies['identifier']);
 		console.log('get /employee, employeeid: ' + employeeid);
 
         if (employeeid && employeeid != -1) {
@@ -102,22 +114,18 @@ module.exports = function(app) {
 	});
 
 	app.get('/employee_breaks', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(breaksPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_breaks'));
 		}
 	});
 
 	app.get('/employee_details', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(employeeDetailsPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_details'));
 		}
 	});
 
@@ -195,6 +203,19 @@ module.exports = function(app) {
 		var breaks = [];
 
 		var sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime asc";
+
+		console.log(`employeid '${employeeid}', date '${date}'`);
+
+		if (typeof employeeid === 'undefined' || employeeid === null) {
+			res.send(employee_breaks);
+			return;
+		}
+
+		if (typeof date === 'undefined' || date === null) {
+			res.send(employee_breaks);
+			return;
+		}
+
 
 		pool.connect(function(err, connection, done) {
 			connection.query(sql, [employeeid, date], function(err, result) {
