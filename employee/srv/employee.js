@@ -35,14 +35,13 @@ module.exports = function(app) {
 	}
 
     app.get('/employee', urlencodedParser, function(req, res) {
-        const employeeid = common.getEmployeeId(req.cookies['identifier']);
-		console.log('get /employee, employeeid: ' + employeeid);
-
-        if (employeeid && employeeid != -1) {
-            var employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+            const employeeDetails = common.getEmployeeDetails(req.cookies['identifier']);
             console.log('get /employee, employeeDetails: ' + JSON.stringify(employeeDetails));
 
-            var formatted = employeePage;
+            let formatted = employeePage;
 
             if (employeeDetails && employeeDetails.role && (employeeDetails.role.toLowerCase().includes('manager') || employeeDetails.role.toLowerCase().includes('supervisor'))) {
                 while (formatted.includes('display: none')) {
@@ -51,8 +50,6 @@ module.exports = function(app) {
             }
 
             res.send(formatted);
-        } else {
-            res.redirect(common.getLoginUrl('/employee'));
         }
     });
 
@@ -80,36 +77,29 @@ module.exports = function(app) {
 	});
 
 	app.get('/employee_timeoff', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(timeOffPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_timeoff'));
 		}
 	});
 
 	app.get('/employee_request_timeoff', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		var id = req.query.id || 0;
-
-		if (employeeid && employeeid != -1) {
-			var formatted = requestTimeOffPage;
+		if (employeeid > 0) {
+			const id = req.query.id || 0;
+			let formatted = requestTimeOffPage;
 			formatted = formatted.replace('<input type="hidden" id="id" value="0">', '<input type="hidden" id="id" value="' + id + '">');
 			res.send(formatted);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_request_timeoff'));
 		}
 	});
 
 	app.get('/employee_roster', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(rosterPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_roster'));
 		}
 	});
 
@@ -130,346 +120,358 @@ module.exports = function(app) {
 	});
 
 	app.get('/employee_help', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(helpPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_help'));
 		}
 	});
 
 	app.get('/employee_shopdetails', urlencodedParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
 		
-		if (employeeid && employeeid != -1) {
+		if (employeeid > 0) {
 			res.send(shopDetailsPage);
-		} else {
-			res.redirect(common.getLoginUrl('/employee_shopdetails'));
 		}
 	});
 
 	app.post('/getemployeeweek', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const date = req.body.date;
+			const employeestimes = [];
 
-		var date = req.body.date;
-		var employeestimes = [];
+			const sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
 
-		var sql = "select employeeid, date, start, finish, role from espresso.roster where employeeid = $1 and date between '" +  date + "' and '" + date + "'::date + interval '1 week'  order by date;";
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, [employeeid], function(err, result) {
+					done();
 
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeid], function(err, result) {
-				done();
+					employeestimes.push({
+						id: employeeid,
+						times: []			
+					});
 
-				employeestimes.push({
-					id: employeeid,
-					times: []			
-				});
+					if (result && result.rowCount > 0) {
+						for(let i = 0; i < result.rowCount; i++) {
+							for(let x = 0; x < employeestimes.length; x++) {
+								if (employeestimes[x].id == result.rows[i].employeeid) {
+									const d = new Date(result.rows[i].date);
+									const dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
 
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						for(var x = 0; x < employeestimes.length; x++) {
-							if (employeestimes[x].id == result.rows[i].employeeid) {
-								var d = new Date(result.rows[i].date);
-								var dateStr = dateHelper.pad(d.getFullYear()) + '-' + dateHelper.pad(d.getMonth() + 1) + '-' + dateHelper.pad(d.getDate());
+									const start = new Date(result.rows[i].start);
+									const startStr = dateHelper.formatTime(start);
 
-								var start = new Date(result.rows[i].start);
-								var startStr = dateHelper.formatTime(start);
+									const end = new Date(result.rows[i].finish);
+									const endStr = dateHelper.formatTime(end);
 
-								var end = new Date(result.rows[i].finish);
-								var endStr = dateHelper.formatTime(end);
-
-								employeestimes[x].times.push({
-									date: dateStr,
-									start: startStr,
-									end: endStr,
-									role: result.rows[i].role
-								});
+									employeestimes[x].times.push({
+										date: dateStr,
+										start: startStr,
+										end: endStr,
+										role: result.rows[i].role
+									});
+								}
 							}
 						}
 					}
-				}
-					
-				res.send(employeestimes);
+						
+					res.send(employeestimes);
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_breaks', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const date = req.body.date;
+			let employee_breaks = {};
+			const breaks = [];
 
-		var date = req.body.date;
-		var employee_breaks = {};
-		var breaks = [];
+			let sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime asc";
 
-		var sql = "select starttime, breaktype, finishtime from espresso.break where employeeid = $1 and starttime::date = $2 order by starttime asc";
+			console.log(`date '${date}'`);
 
-		console.log(`employeid '${employeeid}', date '${date}'`);
+			if (typeof employeeid === 'undefined' || employeeid === null) {
+				res.send(employee_breaks);
+				return;
+			}
 
-		if (typeof employeeid === 'undefined' || employeeid === null) {
-			res.send(employee_breaks);
-			return;
-		}
+			if (typeof date === 'undefined' || date === null) {
+				res.send(employee_breaks);
+				return;
+			}
 
-		if (typeof date === 'undefined' || date === null) {
-			res.send(employee_breaks);
-			return;
-		}
-
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeid, date], function(err, result) {
-
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-
-						var finishtime = '-';
-						if (result.rows[i].finishtime) {
-							finishtime = result.rows[i].finishtime;
-						}
-
-						breaks.push({
-							starttime: result.rows[i].starttime,
-							breaktype: result.rows[i].breaktype,
-							finishtime: finishtime,
-						});
-					}
-				}
-				
-				employee_breaks.breaks = breaks;
-
-				sql = "select start, finish from espresso.roster where employeeid = $1 and start::date = $2";
-
+			pool.connect(function(err, connection, done) {
 				connection.query(sql, [employeeid, date], function(err, result) {
-					done();
 
-					var roster = {};
-					if (result && result.rowCount == 1) {
-						roster.start = result.rows[0].start;
-						roster.finish = result.rows[0].finish;
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
 
-						employee_breaks.roster = roster;
+							var finishtime = '-';
+							if (result.rows[i].finishtime) {
+								finishtime = result.rows[i].finishtime;
+							}
+
+							breaks.push({
+								starttime: result.rows[i].starttime,
+								breaktype: result.rows[i].breaktype,
+								finishtime: finishtime,
+							});
+						}
 					}
 					
+					employee_breaks.breaks = breaks;
 
-					res.send(employee_breaks);
-				});			
+					sql = "select start, finish from espresso.roster where employeeid = $1 and start::date = $2";
+
+					connection.query(sql, [employeeid, date], function(err, result) {
+						done();
+
+						var roster = {};
+						if (result && result.rowCount == 1) {
+							roster.start = result.rows[0].start;
+							roster.finish = result.rows[0].finish;
+
+							employee_breaks.roster = roster;
+						}
+						
+
+						res.send(employee_breaks);
+					});			
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_timeoff', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const timeoff = [];
 
-		var timeoff = [];
+			let sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
+			sql += "where employee_id = $1 and  (('now'::timestamp - '12 month'::interval) < start_date) order by start_date";
 
-		var sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
-		sql += "where employee_id = $1 and  (('now'::timestamp - '12 month'::interval) < start_date) order by start_date";
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, [employeeid], function(err, result) {
+					done();
 
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeid], function(err, result) {
-				done();
-
-				if (result && result.rowCount > 0) {
-					for(var i = 0; i < result.rowCount; i++) {
-						timeoff.push({
-							id: result.rows[i].id,
-							employee_id: result.rows[i].employee_id,
-							start_date: result.rows[i].start_date,
-							end_date: result.rows[i].end_date,
-							role: result.rows[i].role,
-							paid: result.rows[i].paid,
-							reason: result.rows[i].reason,
-							approved: result.rows[i].approved,
-							unapproved_reason: result.rows[i].unapproved_reason
-						});
+					if (result && result.rowCount > 0) {
+						for(var i = 0; i < result.rowCount; i++) {
+							timeoff.push({
+								id: result.rows[i].id,
+								employee_id: result.rows[i].employee_id,
+								start_date: result.rows[i].start_date,
+								end_date: result.rows[i].end_date,
+								role: result.rows[i].role,
+								paid: result.rows[i].paid,
+								reason: result.rows[i].reason,
+								approved: result.rows[i].approved,
+								unapproved_reason: result.rows[i].unapproved_reason
+							});
+						}
 					}
-				}
-					
-				res.send(timeoff);
+						
+					res.send(timeoff);
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_gettimeoffquest', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const timeoff = [];
+			const id = req.body.id;
 
-		var timeoff = [];
-		var id = req.body.id;
+			let sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
+			sql += "where employee_id = $1 and id = $2 limit 1";
 
-		var sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
-		sql += "where employee_id = $1 and id = $2 limit 1";
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, [employeeid, id], function(err, result) {
+					done();
 
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, [employeeid, id], function(err, result) {
-				done();
-
-				if (result && result.rowCount > 0) {
-					timeoff.push({
-						id: result.rows[0].id,
-						employee_id: result.rows[0].employee_id,
-						start_date: result.rows[0].start_date,
-						end_date: result.rows[0].end_date,
-						role: result.rows[0].role,
-						paid: result.rows[0].paid,
-						reason: result.rows[0].reason,
-						approved: result.rows[0].approved,
-						unapproved_reason: result.rows[0].unapproved_reason
-					});
-				}
-					
-				res.send(timeoff);
+					if (result && result.rowCount > 0) {
+						timeoff.push({
+							id: result.rows[0].id,
+							employee_id: result.rows[0].employee_id,
+							start_date: result.rows[0].start_date,
+							end_date: result.rows[0].end_date,
+							role: result.rows[0].role,
+							paid: result.rows[0].paid,
+							reason: result.rows[0].reason,
+							approved: result.rows[0].approved,
+							unapproved_reason: result.rows[0].unapproved_reason
+						});
+					}
+						
+					res.send(timeoff);
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_timeoff_update', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const id = req.body.id;
+			const start_date = req.body.start_date;
+			const end_date = req.body.end_date;
+			const role = req.body.role;
+			const paid = req.body.paid;
+			const reason = req.body.reason;
 
-		var id = req.body.id;
-		var start_date = req.body.start_date;
-		var end_date = req.body.end_date;
-		var role = req.body.role;
-		var paid = req.body.paid;
-		var reason = req.body.reason;
+			const values = [];
 
-        var values = [];
+			if (id == 0) {
+				console.log('insert');
+				sql = "INSERT INTO espresso.timeoff (employee_id, start_date, end_date, role, paid, reason, approved)";
+				sql += " values ($1, $2, $3, $4, $5, $6, 0) returning id";
+				values = [employeeid, start_date, end_date, role, paid, reason];
+			} else {
+				console.log('update');
+				sql = "UPDATE espresso.timeoff SET start_date = $2, end_date = $3, role = $4, paid = $5,";
+				sql += " reason = $6";
+				sql += " WHERE id = $1";
+				values = [id, start_date, end_date, role, paid, reason];
+			}
 
-        if (id == 0) {
-            console.log('insert');
-            sql = "INSERT INTO espresso.timeoff (employee_id, start_date, end_date, role, paid, reason, approved)";
-            sql += " values ($1, $2, $3, $4, $5, $6, 0) returning id";
-            values = [employeeid, start_date, end_date, role, paid, reason];
-        } else {
-            console.log('update');
-            sql = "UPDATE espresso.timeoff SET start_date = $2, end_date = $3, role = $4, paid = $5,";
-			sql += " reason = $6";
-            sql += " WHERE id = $1";
-            values = [id, start_date, end_date, role, paid, reason];
-        }
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, values, function(err, result) {
+					done();
 
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, values, function(err, result) {
-				done();
-
-				if (err) {
-					console.error(err);
-					var result = { "result": "fail", "error": err };
-					res.send({ result: 'fail', "error": err });
-				} else if (result && result.rowCount == 1) {
-					if (id == 0) {
-						id = result.rows[0].id;
+					if (err) {
+						console.error(err);
+						var result = { "result": "fail", "error": err };
+						res.send({ result: 'fail', "error": err });
+					} else if (result && result.rowCount == 1) {
+						if (id == 0) {
+							id = result.rows[0].id;
+						}
+						res.send({ result: 'success', id: id });
+					} else {
+						res.send({ result: 'fail', "error": "unknown error ?!?" });
 					}
-					res.send({ result: 'success', id: id });
-				} else {
-					res.send({ result: 'fail', "error": "unknown error ?!?" });
-				}
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_timeoff_delete', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const id = req.body.id;
+			const values = [];
 
-		var id = req.body.id;
+			const sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
+			const values = [employeeid, id];
 
-        var values = [];
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, values, function(err, result) {
+					done();
 
-		var sql = "DELETE FROM espresso.timeoff where employee_id = $1 and id = $2";
-		var values = [employeeid, id];
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, values, function(err, result) {
-				done();
-
-				if (err) {
-					console.error(err);
-					var result = { "result": "fail", "error": err };
-					res.send({ result: 'fail', "error": err });
-				} else if (result && result.rowCount == 1) {
-					res.send({ result: 'success', id: id });
-				} else {
-					res.send({ result: 'fail', "error": "unknown error ?!?" });
-				}
+					if (err) {
+						console.error(err);
+						var result = { "result": "fail", "error": err };
+						res.send({ result: 'fail', "error": err });
+					} else if (result && result.rowCount == 1) {
+						res.send({ result: 'success', id: id });
+					} else {
+						res.send({ result: 'fail', "error": "unknown error ?!?" });
+					}
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_get_details', jsonParser, function(req, res) {
-		const employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			let sql = "select espresso.employee.name,";
+			sql += " espresso.employee.contact,";
+			sql += " espresso.employee.pin,";
+			sql += " espresso.employee.start_date,";
+			sql += " espresso.role.name as role";
+			sql += " from espresso.employee";
+			sql += " join espresso.role on espresso.employee.job_title = espresso.role.id";
+			sql += " where espresso.employee.id = $1 limit 1";
 
-		let sql = "select espresso.employee.name,";
-		sql += " espresso.employee.contact,";
-		sql += " espresso.employee.pin,";
-		sql += " espresso.employee.start_date,";
-		sql += " espresso.role.name as role";
-		sql += " from espresso.employee";
-		sql += " join espresso.role on espresso.employee.job_title = espresso.role.id";
-		sql += " where espresso.employee.id = $1 limit 1";
+			const values = [employeeid];
 
-		const values = [employeeid];
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, values, function(err, result) {
+					done();
 
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, values, function(err, result) {
-				done();
-
-				var employee = {};
-				if (result && result.rowCount > 0) {
-					employee.name = result.rows[0].name;
-					employee.contact = result.rows[0].contact;
-					employee.pin = result.rows[0].pin;
-					employee.start_date = result.rows[0].start_date;
-					employee.role = result.rows[0].role;
-				}
-					
-				res.send(employee);
+					var employee = {};
+					if (result && result.rowCount > 0) {
+						employee.name = result.rows[0].name;
+						employee.contact = result.rows[0].contact;
+						employee.pin = result.rows[0].pin;
+						employee.start_date = result.rows[0].start_date;
+						employee.role = result.rows[0].role;
+					}
+						
+					res.send(employee);
+				});
 			});
-		});
+		}
 	});
 
 	app.post('/employee_set_details', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const contact = req.body.contact;
+			const pin = req.body.pin;
 
-		var contact = req.body.contact;
-		var pin = req.body.pin;
+			const sql = "UPDATE espresso.employee SET contact = $2, pin = $3 where id = $1";
+			const values = [employeeid, contact, pin];
 
-		var sql = "UPDATE espresso.employee SET contact = $2, pin = $3 where id = $1";
-		var values = [employeeid, contact, pin];
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, values, function(err, result) {
-				done();
-					
-				if (err) {
-					res.send({ result: 'fail', "error": err })
-				} else {
-					res.send({ result: 'success' });
-				}
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, values, function(err, result) {
+					done();
+						
+					if (err) {
+						res.send({ result: 'fail', "error": err })
+					} else {
+						res.send({ result: 'success' });
+					}
+				});
 			});
-		});
+		}
 	});
 
 
 	app.post('/employee_get_shop_details', jsonParser, function(req, res) {
-		var employeeid = common.getEmployeeId(req.cookies['identifier']);
+		const employeeid = getEmployeeId(req, res);
+		
+		if (employeeid > 0) {
+			const sql = "select name, phone, address, options from espresso.shop where id = (select shopid from espresso.employee where id = $1);";
+			const values = [employeeid];
 
-		var sql = "select name, phone, address, options from espresso.shop where id = (select shopid from espresso.employee where id = $1);";
-		var values = [employeeid];
-
-		pool.connect(function(err, connection, done) {
-			connection.query(sql, values, function(err, result) {
-				done();
-					
-				var shop = {};
-				if (result && result.rowCount == 1) {
-					shop.name = result.rows[0].name;
-					shop.phone = result.rows[0].phone;
-					shop.address = result.rows[0].address;
-					shop.options = result.rows[0].options;
-				}
-					
-				res.send(shop);
+			pool.connect(function(err, connection, done) {
+				connection.query(sql, values, function(err, result) {
+					done();
+						
+					let shop = {};
+					if (result && result.rowCount == 1) {
+						shop.name = result.rows[0].name;
+						shop.phone = result.rows[0].phone;
+						shop.address = result.rows[0].address;
+						shop.options = result.rows[0].options;
+					}
+						
+					res.send(shop);
+				});
 			});
-		});
+		}
 	});
 }
