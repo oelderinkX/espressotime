@@ -93,6 +93,8 @@ function getRecurrentTasks() {
                 hasCompletedTasks = true;
                 const task = document.createElement("li");
                 task.innerHTML = tasks[t].name;
+
+                taskscompletedarea.append(task);
             }
         }
 
