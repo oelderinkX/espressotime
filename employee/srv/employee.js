@@ -320,7 +320,7 @@ module.exports = function(app) {
 		const employeeid = getEmployeeId(req, res);
 		
 		if (employeeid > 0) {
-			const id = req.body.id;
+			let id = req.body.id;
 			const start_date = req.body.start_date;
 			const end_date = req.body.end_date;
 			const role = req.body.role;
