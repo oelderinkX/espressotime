@@ -327,7 +327,7 @@ module.exports = function(app) {
 			const paid = req.body.paid;
 			const reason = req.body.reason;
 
-			const values = [];
+			let values = [];
 
 			if (id == 0) {
 				console.log('insert');
