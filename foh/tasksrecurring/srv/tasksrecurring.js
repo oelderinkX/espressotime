@@ -122,9 +122,14 @@ module.exports = function(app) {
 					connection.query(getTasksMonthSql, [shopId], function(err, employee_result) {
 						done();
 
+						console.log('employee_result.rowCount ' + employee_result.rowCount);
+
 						if (employee_result && employee_result.rowCount > 0) {
 							for(let i = 0; i < employee_result.rowCount; i++) {
 								const recur = employee_result.rows[i].recur;
+
+								console.log('recur ' + recur);
+								console.log('month ' + month);
 
 								if (recur === 9 || recur === month) {
 									tasks.push({id: employee_result.rows[i].id,
