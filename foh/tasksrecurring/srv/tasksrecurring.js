@@ -94,11 +94,11 @@ module.exports = function(app) {
 
 						if (days.includes(recur)) {
 							tasks.push({id: result.rows[i].id,
-										name: result.rows[i].name,
-										description: result.rows[i].description,
-										recur: result.rows[i].recur,
-										inputtype: result.rows[i].inputtype,
-										completed: result.rows[i].completed
+								name: result.rows[i].name,
+								description: result.rows[i].description,
+								recur: result.rows[i].recur,
+								inputtype: result.rows[i].inputtype,
+								completed: result.rows[i].completed
 							});
 						}
 					}
@@ -122,17 +122,17 @@ module.exports = function(app) {
 					connection.query(getTasksMonthSql, [shopId], function(err, employee_result) {
 						done();
 
-						if (result && result.rowCount > 0) {
-							for(let i = 0; i < result.rowCount; i++) {
-								const recur = result.rows[i].recur;
+						if (employee_result && employee_result.rowCount > 0) {
+							for(let i = 0; i < employee_result.rowCount; i++) {
+								const recur = employee_result.rows[i].recur;
 
 								if (recur === 9 || recur === month) {
-									tasks.push({id: result.rows[i].id,
-												name: result.rows[i].name,
-												description: result.rows[i].description,
-												recur: result.rows[i].recur,
-												inputtype: result.rows[i].inputtype,
-												completed: result.rows[i].completed
+									tasks.push({id: employee_result.rows[i].id,
+										name: employee_result.rows[i].name,
+										description: employee_result.rows[i].description,
+										recur: employee_result.rows[i].recur,
+										inputtype: employee_result.rows[i].inputtype,
+										completed: employee_result.rows[i].completed
 									});
 								}
 							}
