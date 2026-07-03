@@ -1,11 +1,11 @@
-var refreshPageTimer;
-var employees = [];
+let refreshPageTimer;
+let employees = [];
 
 function clock() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var ampm = "am";
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let ampm = "am";
     m = pad(m);
 
     if (h > 11) {
@@ -24,12 +24,12 @@ function clock() {
 }
 
 function loadEmployees() {
-    var date = getDbFormat() + ' 00:00:00';
+    const date = getDbFormat() + ' 00:00:00';
     sendPost("/gettaskrecurringemployees", '{ "date": "' + date + '"}', function(response) {
         employees = [];
-        var taskemployees = JSON.parse(response);
+        const taskemployees = JSON.parse(response);
 
-        for(var i = 0; i < taskemployees.length; i++) {
+        for(let i = 0; i < taskemployees.length; i++) {
             employees.push({id: taskemployees[i].id, name: taskemployees[i].name});
         }
     });
@@ -68,7 +68,7 @@ function getRecurrentTasks() {
         let hasTasks = false;
         let hasCompletedTasks = false;
 
-        var tasksarea = document.getElementById("tasksarea")
+        const tasksarea = document.getElementById("tasksarea")
         tasksarea.innerHTML = '';
         const taskscompletedarea = document.getElementById("taskscompletedarea");
         taskscompletedarea.innerHTML = '';
@@ -92,7 +92,7 @@ function getRecurrentTasks() {
             } else {
                 hasCompletedTasks = true;
                 const task = document.createElement("li");
-                task.innerHTML = tasks[t].name;
+                task.innerHTML = `${tasks[t].name} &#x2705;`;
 
                 taskscompletedarea.append(task);
             }
@@ -113,8 +113,8 @@ function getRecurrentTasks() {
 
     window.clearTimeout(refreshPageTimer);
     refreshPageTimer = window.setTimeout(function() {
-        var randomPage = Math.floor(Math.random() * 4) + 1;
-        var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
+        const randomPage = Math.floor(Math.random() * 4) + 1;
+        const refresh = Math.floor(Math.random() * 9007199254740990) + 1;
 
         if (randomPage == 1) {
             window.location.href = "/device?refresh=" + refresh;
@@ -129,8 +129,8 @@ function getRecurrentTasks() {
 }
 
 function showDescription(taskid, name, inputtype, description) {
-    var descriptionarea = document.getElementById('descriptionarea');
-    var desciptiontitle = document.getElementById('descriptiontitle');
+    const descriptionarea = document.getElementById('descriptionarea');
+    const desciptiontitle = document.getElementById('descriptiontitle');
     descriptionarea.classList.remove("invisible");
     desciptiontitle.classList.remove("invisible");
     
@@ -152,7 +152,7 @@ function showDescription(taskid, name, inputtype, description) {
     buttonarea.innerHTML = '';
 
     for(var e in employees) {
-        var b = document.createElement('button');
+        const b = document.createElement('button');
         b.setAttribute('type', 'button');
         b.className = 'btn btn-em';
         b.innerHTML = employees[e].name;
