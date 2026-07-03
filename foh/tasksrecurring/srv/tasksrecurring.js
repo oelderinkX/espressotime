@@ -119,7 +119,7 @@ module.exports = function(app) {
 				console.log('/getrecurringtasks_month ' + getTasksMonthSql);
 
 				pool.connect(function(err, connection, done) {
-					connection.query(getTasksMonthSql, [shopId], function(err, employee_result) {
+					connection.query(getTasksMonthSql, [], function(err, employee_result) {
 						done();
 
 						if(err) {
