@@ -45,7 +45,7 @@ function loadEmployees() {
 
 function getEmployeeNameById(id) {
     for(let i = 0; i < allemployees.length; i++) {
-        if (allemployees[i].id === id) {
+        if (`${allemployees[i].id}` === id) {
             return allemployees[i].name;
         }
     }
