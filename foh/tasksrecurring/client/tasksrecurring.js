@@ -25,7 +25,8 @@ function clock() {
 }
 
 function loadAllEmployees() {
-    sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
+    const request = {};
+    sendPost("/getemployees",  JSON.stringify(request), function(response) {
         allemployees = JSON.parse(response);
     });
 }
