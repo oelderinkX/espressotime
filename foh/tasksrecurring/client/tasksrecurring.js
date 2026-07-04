@@ -74,7 +74,7 @@ function getRecurrentTasks() {
         taskscompletedarea.innerHTML = '';
 
         for(const t in tasks) {
-            if (tasks[t].completed === false) {
+            if (tasks[t].completed_user === null) {
                 hasTasks = true;
                 const task = document.createElement("li");
                 task.innerHTML = tasks[t].name;

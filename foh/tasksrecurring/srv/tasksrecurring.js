@@ -76,7 +76,7 @@ module.exports = function(app) {
 		console.log(`last date of week db ${lastDateOfWeekDb}`);
 
 		let getTasksWeekSql = "select id, name, description, recur, inputtype,";
-		getTasksWeekSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed`
+		getTasksWeekSql += ` (select by from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed_user`
 		getTasksWeekSql += " from espresso.recurring_task task";
 		getTasksWeekSql += ` where recur in (${days.join(',')}) and shopid = ${shopId}`;
 
@@ -98,7 +98,7 @@ module.exports = function(app) {
 								description: result.rows[i].description,
 								recur: result.rows[i].recur,
 								inputtype: result.rows[i].inputtype,
-								completed: result.rows[i].completed
+								completed: result.rows[i].completed_user
 							});
 						}
 					}
@@ -112,7 +112,7 @@ module.exports = function(app) {
 				const firstDayOfNextMonthDb = dateHelper.getDbFormat2(firstDayOfNextMonth);
 
 				let getTasksMonthSql = "select id, name, description, recur, inputtype,";
-				getTasksMonthSql += ` exists(select 1 from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDayOfMonthDb}' and timestamp < '${firstDayOfNextMonthDb}' ) as completed`
+				getTasksMonthSql += ` select by from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDayOfMonthDb}' and timestamp < '${firstDayOfNextMonthDb}' ) as completed_user`
 				getTasksMonthSql += " from espresso.recurring_task task";
 				getTasksMonthSql += ` where recur in (${monthly}, ${month}) and shopid = ${shopId}`;
 
@@ -135,7 +135,7 @@ module.exports = function(app) {
 											description: employee_result.rows[i].description,
 											recur: employee_result.rows[i].recur,
 											inputtype: employee_result.rows[i].inputtype,
-											completed: employee_result.rows[i].completed
+											completed: employee_result.rows[i].completed_user
 										});
 									}
 								}
