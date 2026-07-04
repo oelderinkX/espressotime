@@ -1,5 +1,6 @@
 let refreshPageTimer;
 let employees = [];
+let allemployees = [];
 
 function clock() {
     const today = new Date();
@@ -23,6 +24,12 @@ function clock() {
     }, 10000);
 }
 
+function loadAllEmployees() {
+    sendPost("/getemployees_new",  JSON.stringify(request), function(response) {
+        allemployees = JSON.parse(response);
+    });
+}
+
 function loadEmployees() {
     const date = getDbFormat() + ' 00:00:00';
     sendPost("/gettaskrecurringemployees", '{ "date": "' + date + '"}', function(response) {
@@ -33,6 +40,14 @@ function loadEmployees() {
             employees.push({id: taskemployees[i].id, name: taskemployees[i].name});
         }
     });
+}
+
+function getEmployeeNameById(id) {
+    for(let i = 0; i < allemployees.length; i++) {
+        if (allemployees[i].id === id) {
+            return allemployees[i].name;
+        }
+    }
 }
 
 // 1 = Monday
@@ -92,7 +107,7 @@ function getRecurrentTasks() {
             } else {
                 hasCompletedTasks = true;
                 const task = document.createElement("li");
-                task.innerHTML = `${tasks[t].name} &#x2705;`;
+                task.innerHTML = `${tasks[t].name} &#x2705; ( ${getEmployeeNameById(tasks[t].completed_user)} )`;
 
                 taskscompletedarea.append(task);
             }
