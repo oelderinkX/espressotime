@@ -98,7 +98,7 @@ module.exports = function(app) {
 								description: result.rows[i].description,
 								recur: result.rows[i].recur,
 								inputtype: result.rows[i].inputtype,
-								completed: result.rows[i].completed_user
+								completed_user: result.rows[i].completed_user
 							});
 						}
 					}
@@ -135,7 +135,7 @@ module.exports = function(app) {
 											description: employee_result.rows[i].description,
 											recur: employee_result.rows[i].recur,
 											inputtype: employee_result.rows[i].inputtype,
-											completed: employee_result.rows[i].completed_user
+											completed_user: employee_result.rows[i].completed_user
 										});
 									}
 								}
