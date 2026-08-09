@@ -76,7 +76,7 @@ module.exports = function(app) {
 		console.log(`last date of week db ${lastDateOfWeekDb}`);
 
 		let getTasksWeekSql = "select id, name, description, recur, inputtype,";
-		getTasksWeekSql += ` ( select by from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb}' ) as completed_user`
+		getTasksWeekSql += ` ( select by from espresso.recurring_task_complete complete where task.id = complete.taskid and timestamp is not null and timestamp >= '${firstDateOfWeekDb}' and timestamp <= '${lastDateOfWeekDb} 23:29:59' limit 1 ) as completed_user`
 		getTasksWeekSql += " from espresso.recurring_task task";
 		getTasksWeekSql += ` where recur in (${days.join(',')}) and shopid = ${shopId}`;
 
