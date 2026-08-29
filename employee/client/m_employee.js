@@ -381,7 +381,7 @@ function loadTimeOff() {
       }
     }
 
-    if (leaveCounts.length === 0) {
+    if (!leaveCounts) {
       paid_leave.innerHTML = 'You have taken no paid time off<br/><br/>';
     } else {
       let leaveDescription = 'You have taken the following paid time off:<br/>';
