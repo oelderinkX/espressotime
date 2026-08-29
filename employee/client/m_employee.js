@@ -381,19 +381,21 @@ function loadTimeOff() {
       }
     }
 
-    if (leaveCounts.size === 0) {
-      paid_leave.innerHTML = 'You have taken no paid time off<br/><br/>';
-    } else {
-      let leaveDescription = 'You have taken the following paid time off:<br/>';
-      leaveDescription += '<ul style="display: inline-block; text-align:left;">';
+    if (allTimeOff.length > 0) {
+      if (leaveCounts.size === 0) {
+        paid_leave.innerHTML = 'You have taken no paid time off<br/><br/>';
+      } else {
+        let leaveDescription = 'You have taken the following paid time off:<br/>';
+        leaveDescription += '<ul style="display: inline-block; text-align:left;">';
 
-      for (const [leaveType, count] of leaveCounts) {
-       leaveDescription += `<li>${leaveType}: ${count} day/s</li>`;
+        for (const [leaveType, count] of leaveCounts) {
+        leaveDescription += `<li>${leaveType}: ${count} day/s</li>`;
+        }
+
+        leaveDescription += '</ul><br/><br/>';
+
+        paid_leave.innerHTML = leaveDescription;
       }
-
-      leaveDescription += '</ul><br/><br/>';
-
-      paid_leave.innerHTML = leaveDescription;
     }
 
     for(let i = 0; i < unapprovedItems.length; i++) {
