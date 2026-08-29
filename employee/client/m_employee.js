@@ -366,9 +366,11 @@ function loadTimeOff() {
     for(let i = 0; i < allTimeOff.length; i++) {
       if (allTimeOff[i].approved === 1 && allTimeOff[i].paid === true) {
         const startDateOfLeave = new Date(allTimeOff[i].start_date);
+        const endDateOfLeave = new Date(allTimeOff[i].end_date);
         if (hasEmployeeStartDate === false || (startDateOfLeave > employeeLastAnniversaryDate)) {
-          const count = leaveCounts.get(allTimeOff[i].role) || 0;
-          leaveCounts.set(allTimeOff[i].role, count + 1);
+          const lastTotalDays = leaveCounts.get(allTimeOff[i].role) || 0;
+          const totalDays = Math.floor((endDateOfLeave - startDateOfLeave) / (1000 * 60 * 60 * 24)) + 1;
+          leaveCounts.set(allTimeOff[i].role, lastTotalDays + totalDays);
         }
       }
 
