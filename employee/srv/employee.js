@@ -278,7 +278,8 @@ module.exports = function(app) {
 								approved: result.rows[i].approved,
 								unapproved_reason: result.rows[i].unapproved_reason,
 								employee_start_date: result.rows[i].employee_start_date,
-								has_employee_start_date: result.rows[i].has_employee_start_date
+								has_employee_start_date: result.rows[i].has_employee_start_date,
+								rostered_days: result.rows[i].rostered_days
 							});
 						}
 					}
