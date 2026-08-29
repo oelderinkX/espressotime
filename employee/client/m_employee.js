@@ -343,13 +343,35 @@ function loadTimeOff() {
   var request = {};
 
   sendPost("/employee_timeoff", JSON.stringify(request), function(response) {
-    var allTimeOff =  JSON.parse(response);
+    const paid_leave = document.getElementById('paid_leave');
+    const leaveCounts = new Map();
+    let hasEmployeeStartDate = false;
+    let now = new Date();
+    let employeeLastAnniversaryDate = new Date();
 
-    var unapprovedItems = [];
-    var sickItems = [];
-    var timeoffItems = [];
+    const allTimeOff =  JSON.parse(response);
 
-    for(var i = 0; i < allTimeOff.length; i++) {
+    if (allTimeOff.length === 0) {
+      paid_leave.innerHTML = 'You have taken no time off<br/><br/>';
+    } else {
+      hasEmployeeStartDate = allTimeOff[0].has_employee_start_date;
+      employeeLastAnniversaryDate =  new Date(allTimeOff[0].employee_start_date);
+      employeeLastAnniversaryDate.setFullYear(now.getFullYear() - 1);
+    }
+
+    const unapprovedItems = [];
+    const sickItems = [];
+    const timeoffItems = [];
+
+    for(let i = 0; i < allTimeOff.length; i++) {
+      if (allTimeOff[i].approved === 1 && allTimeOff[i].paid === true) {
+        const startDateOfLeave = new Date(allTimeOff[i].start_date);
+        if (hasEmployeeStartDate === false || (startDateOfLeave > employeeLastAnniversaryDate)) {
+          const count = leaveCounts.get(allTimeOff[i].role) || 0;
+          leaveCounts.set(allTimeOff[i].role, count + 1);
+        }
+      }
+
       if (allTimeOff[i].approved == 0) {
         unapprovedItems.push(allTimeOff[i]);
       } else if (allTimeOff[i].role.toLowerCase().includes('sick') && allTimeOff[i].approved == 1) {
@@ -359,7 +381,22 @@ function loadTimeOff() {
       }
     }
 
-    for(var i = 0; i < unapprovedItems.length; i++) {
+    if (leaveCounts.length === 0) {
+      paid_leave.innerHTML = 'You have taken no paid time off<br/><br/>';
+    } else {
+      let leaveDescription = 'You have taken the following paid time off:<br/>';
+      leaveDescription += '<ul>';
+
+      for (const [leaveType, count] of leaveCounts) {
+       leaveDescription += `<li>${leaveType}: ${count} day/s</li>`;
+      }
+
+      leaveDescription += '</ul><br/><br/>';
+
+      paid_leave.innerHTML = leaveDescription;
+    }
+
+    for(let i = 0; i < unapprovedItems.length; i++) {
         unapproved_title.style = "display: inline";
         addTimeOffRow(unapproved_table, 'lightgray', 'Start', 'white', new Date(unapprovedItems[i].start_date).toDateString());
         addTimeOffRow(unapproved_table, 'lightgray', 'End', 'white', new Date(unapprovedItems[i].end_date).toDateString());
@@ -369,7 +406,7 @@ function loadTimeOff() {
         addTimeOffEdit(unapproved_table, unapprovedItems[i].id);
     }
 
-    for(var i = 0; i < sickItems.length; i++) {
+    for(let i = 0; i < sickItems.length; i++) {
         sickdays_title.style = "display: inline";
         addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'Start', 'white', new Date(sickItems[i].start_date).toDateString());
         addTimeOffRow(sickdays_table, 'MediumSeaGreen', 'End', 'white', new Date(sickItems[i].end_date).toDateString());
@@ -380,7 +417,7 @@ function loadTimeOff() {
         }
     }
 
-    for(var i = 0; i < timeoffItems.length; i++) {
+    for(let i = 0; i < timeoffItems.length; i++) {
       timeoff_title.style = "display: inline";
       addTimeOffRow(timeoff_table, 'DodgerBlue', 'Start', 'white', new Date(timeoffItems[i].start_date).toDateString());
       addTimeOffRow(timeoff_table, 'DodgerBlue', 'End', 'white', new Date(timeoffItems[i].end_date).toDateString());
