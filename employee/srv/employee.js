@@ -253,8 +253,12 @@ module.exports = function(app) {
 		if (employeeid > 0) {
 			const timeoff = [];
 
-			let sql = "select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason from espresso.timeoff ";
-			sql += "where employee_id = $1 and  (('now'::timestamp - '12 month'::interval) < start_date) order by start_date";
+			let sql = "select ";
+			sql += "t.id, t.employee_id, t.start_date, t.end_date, t.role, t.paid, t.reason, t.approved, t.unapproved_reason, ";
+			sql += "e.start_date as employee_start_date, e.start_date is not NULL as has_employee_start_date ";
+			sql += "from espresso.timeoff t ";
+			sql += "join espresso.employee as e on e.id = t.employee_id ";
+			sql += "where t.employee_id = $1 and (('now'::timestamp - '12 month'::interval) < t.start_date) order by t.start_date desc";
 
 			pool.connect(function(err, connection, done) {
 				connection.query(sql, [employeeid], function(err, result) {
@@ -271,7 +275,9 @@ module.exports = function(app) {
 								paid: result.rows[i].paid,
 								reason: result.rows[i].reason,
 								approved: result.rows[i].approved,
-								unapproved_reason: result.rows[i].unapproved_reason
+								unapproved_reason: result.rows[i].unapproved_reason,
+								employee_start_date: result.rows[i].employee_start_date,
+								has_employee_start_date: result.rows[i].has_employee_start_date
 							});
 						}
 					}
