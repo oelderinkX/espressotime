@@ -370,7 +370,7 @@ function loadTimeOff() {
         if (hasEmployeeStartDate === false || (startDateOfLeave > employeeLastAnniversaryDate)) {
           const lastTotalDays = leaveCounts.get(allTimeOff[i].role) || 0;
           const rosteredDays = allTimeOff[i].rostered_days;
-          leaveCounts.set(allTimeOff[i].role, lastTotalDays + rosteredDays);
+          leaveCounts.set(allTimeOff[i].role, Number(lastTotalDays) + Number(rosteredDays));
         }
       }
 
