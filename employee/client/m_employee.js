@@ -385,7 +385,7 @@ function loadTimeOff() {
       paid_leave.innerHTML = 'You have taken no paid time off<br/><br/>';
     } else {
       let leaveDescription = 'You have taken the following paid time off:<br/>';
-      leaveDescription += '<ul>';
+      leaveDescription += '<ul style="display: inline-block; text-align:left;">';
 
       for (const [leaveType, count] of leaveCounts) {
        leaveDescription += `<li>${leaveType}: ${count} day/s</li>`;
