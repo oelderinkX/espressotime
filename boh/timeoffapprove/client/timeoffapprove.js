@@ -65,27 +65,38 @@ function displayAllTimeoffs() {
 
     const heading1 = document.createElement('th');
     heading1.innerText = 'Employee Name';
+    heading1.style = 'text-align: center;';
     row.appendChild(heading1);
 
     const heading2 = document.createElement('th');
-    heading2.innerText = 'Time Off Dates';
+    heading2.innerText = 'Start Date';
+    heading2.style = 'text-align: center;';
     row.appendChild(heading2);
 
     const heading3 = document.createElement('th');
-    heading3.innerText = 'Type';
+    heading3.innerText = 'End Date';
+    heading3.style = 'text-align: center;';
     row.appendChild(heading3);
 
     const heading4 = document.createElement('th');
-    heading4.innerText = 'Paid';
+    heading4.innerText = 'Type';
+    heading4.style = 'text-align: center;';
     row.appendChild(heading4);
 
     const heading5 = document.createElement('th');
-    heading5.innerText = 'Reason';
+    heading5.innerText = 'Paid';
+    heading5.style = 'text-align: center;';
     row.appendChild(heading5);
 
     const heading6 = document.createElement('th');
-    heading6.innerText = 'Status';
+    heading6.innerText = 'Reason';
+    heading6.style = 'padding-left: 5px; padding-right: 5px;'
     row.appendChild(heading6);
+
+    const heading7 = document.createElement('th');
+    heading7.innerText = 'Status';
+    heading7.style = 'padding-left: 5px; padding-right: 5px;'
+    row.appendChild(heading7);
 
     timeoffs_table.appendChild(row);
 
@@ -102,42 +113,50 @@ function displayAllTimeoffs() {
 
                 const column1 = document.createElement('td');
                 column1.innerText = getEmployeeNameById(timeoffs.timeoff[i].employee_id);
+                column1.style = 'text-align: center;';
                 row.appendChild(column1);
             
                 const column2 = document.createElement('td');
-                var startDate = new Date(removeZuluTime(timeoffs.timeoff[i].start_date));
-                var startDateDay = dayNames[startDate.getDay()];
-                var endDate = new Date(removeZuluTime(timeoffs.timeoff[i].end_date));
-                var endDateDay = dayNames[endDate.getDay()];
-                //var timeOffDates = '' + getDbFormat(startDate) + ' (' + startDateDay + ') to ' + getDbFormat(endDate) + ' (' + endDateDay + ')';
-                const timeOffDates = `${formatter.format(startDate)} (${startDateDay}) to ${formatter.format(endDate)} (${endDateDay})`;
-
-                column2.innerText = timeOffDates; 
+                const startDate = new Date(removeZuluTime(timeoffs.timeoff[i].start_date));
+                const startDateDay = dayNames[startDate.getDay()];
+                column2.innerText = `${formatter.format(startDate)} (${startDateDay})`;
+                column2.style = 'text-align: center;';
                 row.appendChild(column2);
-            
+
                 const column3 = document.createElement('td');
-                column3.innerText =  timeoffs.timeoff[i].role;
+                const endDate = new Date(removeZuluTime(timeoffs.timeoff[i].end_date));
+                const endDateDay = dayNames[endDate.getDay()];
+                column3.innerText = `${formatter.format(endDate)} (${endDateDay})`;
+                column3.style = 'text-align: center;';
                 row.appendChild(column3);
-            
+
                 const column4 = document.createElement('td');
-                column4.innerText =  YesOrNo(timeoffs.timeoff[i].paid);
+                column4.innerText =  timeoffs.timeoff[i].role;
+                column4.style = 'text-align: center;';
                 row.appendChild(column4);
             
                 const column5 = document.createElement('td');
-                column5.innerText =  timeoffs.timeoff[i].reason;
+                column5.innerText =  YesOrNo(timeoffs.timeoff[i].paid);
+                column5.style = 'text-align: center;';
                 row.appendChild(column5);
             
                 const column6 = document.createElement('td');
+                column6.innerText =  timeoffs.timeoff[i].reason;
+                column6.style = 'padding-left: 5px; padding-right: 5px;';
+                row.appendChild(column6);
+            
+                const column7 = document.createElement('td');
 
                 if (timeoffs.timeoff[i].approved == 0) {
-                    column6.innerHTML =  'Pending... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 1' + ');">Approve</button>';
+                    column7.innerHTML =  'Pending... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 1' + ');">Approve</button>';
                 } else if (timeoffs.timeoff[i].approved == 1) {
-                    column6.innerHTML =  'Approved... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 0' + ');">Reset Approval...</button>';
+                    column7.innerHTML =  'Approved... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 0' + ');">Reset Approval...</button>';
                 } else if (timeoffs.timeoff[i].approved == 2) {
-                    column6.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
+                    column7.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
                 }
 
-                row.appendChild(column6);
+                column7.style = 'padding-left: 5px; padding-right: 5px;';
+                row.appendChild(column7);
             
                 timeoffs_table.appendChild(row);
             }
