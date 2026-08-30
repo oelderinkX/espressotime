@@ -95,7 +95,7 @@ function displayAllTimeoffs() {
         year: 'numeric'
     });
 
-    for(const i = 0; i < timeoffs.timeoff.length; i++) {
+    for(let i = 0; i < timeoffs.timeoff.length; i++) {
         if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employee_id) {
             if (status.value == -1 || status.value == timeoffs.timeoff[i].approved) {
                 const row = document.createElement('tr');
