@@ -46,7 +46,8 @@ module.exports = function(app) {
 
                 var sql = 'select id, employee_id, start_date, end_date, role, paid, reason, approved, unapproved_reason '
                 sql += 'from espresso.timeoff ';
-                sql += 'where employee_id in (select id from espresso.employee where shopid = $1)';
+                sql += 'where employee_id in (select id from espresso.employee where shopid = $1) ';
+                sql += 'order by employee_id, start_date desc';
 
                 pool.connect(function(err, connection, done) {
                     connection.query(sql, [shopId], function(err, result) {
