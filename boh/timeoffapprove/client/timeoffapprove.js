@@ -98,6 +98,11 @@ function displayAllTimeoffs() {
     heading7.style = 'padding-left: 5px; padding-right: 5px;'
     row.appendChild(heading7);
 
+    const heading8 = document.createElement('th');
+    heading8.innerText = 'Action';
+    heading8.style = 'padding-left: 5px; padding-right: 5px;'
+    row.appendChild(heading8);
+
     timeoffs_table.appendChild(row);
 
     const formatter = new Intl.DateTimeFormat('en-GB', {
@@ -148,9 +153,9 @@ function displayAllTimeoffs() {
                 const column7 = document.createElement('td');
 
                 if (timeoffs.timeoff[i].approved == 0) {
-                    column7.innerHTML =  'Pending... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 1' + ');">Approve</button>';
+                    column7.innerHTML =  'Pending...';
                 } else if (timeoffs.timeoff[i].approved == 1) {
-                    column7.innerHTML =  'Approved... <button type="button" onclick="update(' + timeoffs.timeoff[i].id + ',' + timeoffs.timeoff[i].employee_id + ', 0' + ');">Reset Approval...</button>';
+                    column7.innerHTML =  'Approved';
                 } else if (timeoffs.timeoff[i].approved == 2) {
                     column7.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
                 }
@@ -158,6 +163,31 @@ function displayAllTimeoffs() {
                 column7.style = 'padding-left: 5px; padding-right: 5px;';
                 row.appendChild(column7);
             
+                const column8 = document.createElement('td');
+                const select = document.createElement("select");
+
+                const option1 = document.createElement("option");
+                option1.value = '-1';
+                option1.innerHTML = '--- Select Action ---';
+                select.appendChild(option1);
+
+                const option2 = document.createElement("option");
+
+                if (timeoffs.timeoff[i].approved == 0) {
+                    option2.value = '0';
+                    option2.innerHTML = 'Approve';
+                    option2.onclick = () => { update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1); };
+                } else if (timeoffs.timeoff[i].approved == 1) {
+                    option2.value = '1';
+                    option2.innerHTML = 'Reset Approval';
+                    option2.onclick = () => { update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0); };
+                }
+                select.appendChild(option2);
+
+                // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
+
+                column8.appendChild(select);
+
                 timeoffs_table.appendChild(row);
             }
         }
@@ -172,6 +202,6 @@ function update(id, employeeid, approved) {
     };
     sendPost("/updateapprove", JSON.stringify(request), function(response) {
         loadTimeOffs();
-        alert('Approved!');
+        alert('Updated approval');
     });
 }

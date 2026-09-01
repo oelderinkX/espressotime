@@ -530,6 +530,7 @@ function loadRequestTimeOff() {
   endDate.setAttribute('id', 'endDate');
   rowValue.appendChild(endDate);
 
+  // TODO: options should match the roles DB
   rowValue = addTimeOffRow(request_table, 'yellow', 'Type', 'white', '');
   var select = document.createElement('select');
   select.setAttribute('id', 'role');
