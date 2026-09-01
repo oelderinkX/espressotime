@@ -165,10 +165,10 @@ function displayAllTimeoffs() {
             
                 const column8 = document.createElement('td');
                 const select = document.createElement("select");
-                select.onchange = () => {
-                    if (this.value === 'approve') {
+                select.onchange = (event) => {
+                    if (event.target.value === 'approve') {
                         update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
-                    } else if (this.value === 'resetapproval') {
+                    } else if (event.target.value === 'resetapproval') {
                         update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
                     }
                 };
