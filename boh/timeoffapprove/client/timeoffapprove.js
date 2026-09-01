@@ -165,6 +165,13 @@ function displayAllTimeoffs() {
             
                 const column8 = document.createElement('td');
                 const select = document.createElement("select");
+                select.onchange = () => {
+                    if (this.value === 'approve') {
+                        update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
+                    } else if (this.value === 'resetapproval') {
+                        update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
+                    }
+                };
 
                 const option1 = document.createElement("option");
                 option1.value = '-1';
@@ -172,15 +179,12 @@ function displayAllTimeoffs() {
                 select.appendChild(option1);
 
                 const option2 = document.createElement("option");
-
                 if (timeoffs.timeoff[i].approved == 0) {
-                    option2.value = '0';
+                    option2.value = 'approve';
                     option2.innerHTML = 'Approve';
-                    option2.onclick = () => { update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1); };
                 } else if (timeoffs.timeoff[i].approved == 1) {
-                    option2.value = '1';
+                    option2.value = 'resetapproval';
                     option2.innerHTML = 'Reset Approval';
-                    option2.onclick = () => { update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0); };
                 }
                 select.appendChild(option2);
 
