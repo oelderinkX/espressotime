@@ -187,6 +187,7 @@ function displayAllTimeoffs() {
                 // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
 
                 column8.appendChild(select);
+                row.appendChild(column8);
 
                 timeoffs_table.appendChild(row);
             }
