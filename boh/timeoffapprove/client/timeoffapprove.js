@@ -265,11 +265,6 @@ function update(id, employeeid, approved) {
 }
 
 function updateRoster(id, startdate, finishdate, role, paid) {
-/*
-shopid, employeeid, date, start, finish, role
-1, 58, 2026-09-20, 2026-09-20 09:00:00 to
-
-*/
     if (startdate > finishdate) {
         alert('Start date is after Finish date of request - this is incorrect')
     } else {
@@ -279,13 +274,20 @@ shopid, employeeid, date, start, finish, role
             lines: []
         };
 
-        for(let rosterDate = new Date(startdate); rosterDate.toDateString() !== finishdate.toDateString(); ) {           
+        const sd = new Date(startdate);
+        const fd = new Date(finishdate);
+        const dd = sd.getTime() - fd.getTime();
+        let totalDays = Math.round(diffInTime / (1000 * 60 * 60 * 24));
+
+        for (let rosterDate = new Date(startdate); rosterDate > finishdate ; rosterDate.setDate(rosterDate.getDate() + 1)) {
             let day = rosterDate.getDay();
             let rosterStart = new Date(rosterDate);
             let rosterFinish = new Date(rosterDate);          
-
-            // if Sunday or Saturday its unpaid
-            if (day === 0 || day === 6 || paid === false) {
+            
+            if (paid === false) {
+                rosterStart.setHours(9, 0, 0, 0);
+                rosterFinish.setHours(9, 0, 0, 0);
+            } else if (totalDays > 6 && (day === 0 || day === 6)) { // if Sunday or Saturday its unpaid
                 rosterStart.setHours(9, 0, 0, 0);
                 rosterFinish.setHours(9, 0, 0, 0);
             } else {
@@ -299,8 +301,8 @@ shopid, employeeid, date, start, finish, role
                 rosterFinish: rosterFinish
             };
             request.lines.push(line);
-            rosterDate.setDate(rosterDate.getDate() + 1);
         }
+
         console.log(request);
         // do sendPost
     }
