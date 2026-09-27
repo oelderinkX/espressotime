@@ -277,7 +277,7 @@ function updateRoster(id, startdate, finishdate, role, paid) {
         const sd = new Date(startdate);
         const fd = new Date(finishdate);
         const dd = sd.getTime() - fd.getTime();
-        let totalDays = Math.round(diffInTime / (1000 * 60 * 60 * 24));
+        let totalDays = Math.round(dd / (1000 * 60 * 60 * 24));
 
         for (let rosterDate = new Date(startdate); rosterDate > finishdate ; rosterDate.setDate(rosterDate.getDate() + 1)) {
             let day = rosterDate.getDay();
