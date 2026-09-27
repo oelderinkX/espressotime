@@ -178,15 +178,8 @@ function displayAllTimeoffs() {
                     row.appendChild(column7);
                 
                     const column8 = document.createElement('td');
-                    column8.style = 'text-align: center;';
+                    column8.style = 'text-align: center; padding-bottom: 5px; padding-top: 5px';
                     const select = document.createElement("select");
-                    select.onchange = (event) => {
-                        if (event.target.value === 'approve') {
-                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
-                        } else if (event.target.value === 'resetapproval') {
-                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
-                        }
-                    };
 
                     const option1 = document.createElement("option");
                     option1.value = '-1';
@@ -234,6 +227,21 @@ function displayAllTimeoffs() {
                         select.appendChild(optionN);
                     }
 
+                    select.onchange = (event) => {
+                        if (event.target.value === 'approve') {
+                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
+                        } else if (event.target.value === 'resetapproval') {
+                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
+                        } else {
+                            updateRoster(   timeoffs.timeoff[i].employee_id, 
+                                            new Date(removeZuluTime(timeoffs.timeoff[i].start_date)), 
+                                            new Date(removeZuluTime(timeoffs.timeoff[i].end_date)),
+                                            timeoffs.timeoff[i].role,
+                                            timeoffs.timeoff[i].paid
+                                        );
+                        }
+                    };
+
                     column8.appendChild(select);
                     row.appendChild(column8);
 
@@ -254,4 +262,22 @@ function update(id, employeeid, approved) {
         loadTimeOffs();
         alert('Updated approval');
     });
+}
+
+function updateRoster(id, startdate, finishdate, role, paid) {
+/*
+shopid, employeeid, date, start, finish, role
+1, 58, 2026-09-20, 2026-09-20 09:00:00 to
+
+*/
+    if (startdate > finishdate) {
+        alert('Start date is after Finish date of request - this is incorrect')
+    } else {
+        let sql = '';
+        for(let rosterDate = new Date(startdate); rosterDate.toDateString() !== finishdate.toDateString(); ) {
+            sql += `${id}, ${getDbFormat(rosterDate)}, ${startdate}, ${finishdate}\n`;
+        }
+        alert(sql);
+    }
+
 }
