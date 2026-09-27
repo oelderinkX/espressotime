@@ -205,6 +205,12 @@ function displayAllTimeoffs() {
                     }
                     select.appendChild(option2);
 
+                    const optionSep1 = document.createElement("option");
+                    optionSep1.value = '-1';
+                    optionSep1.innerHTML = '---------------------';
+                    optionSep1.disabled = true;
+                    select.appendChild(optionSep1);
+
                     // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
                     const rolePaid = [];
                     for(const tOff of timeoffs.timeoff) {
@@ -213,6 +219,8 @@ function displayAllTimeoffs() {
                             rolePaid.push(item);
                         }
                     }
+                    rolePaid.sort();
+
                     for(const role of rolePaid) {
                         const split = role.split('^');
                         let paidOrNot = '';
