@@ -273,13 +273,36 @@ shopid, employeeid, date, start, finish, role
     if (startdate > finishdate) {
         alert('Start date is after Finish date of request - this is incorrect')
     } else {
-        let sql = '';
-        for(let rosterDate = new Date(startdate); rosterDate.toDateString() !== finishdate.toDateString(); ) {
-            sql += `${id}, ${getDbFormat(rosterDate)}, ${startdate}, ${finishdate}\n`;
-            rosterDate.setDate(rosterDate.getDate() + 1);
+        let request = {
+            id: id,
+            role: role,
+            lines: []
+        };
 
+        for(let rosterDate = new Date(startdate); rosterDate.toDateString() !== finishdate.toDateString(); ) {           
+            let day = rosterDate.getDay();
+            let rosterStart = new Date(rosterDate);
+            let rosterFinish = new Date(rosterDate);          
+
+            // if Sunday or Saturday its unpaid
+            if (day === 0 || day === 6 || paid === false) {
+                rosterStart.setHours(9, 0, 0, 0);
+                rosterFinish.setHours(9, 0, 0, 0);
+            } else {
+                rosterStart.setHours(9, 0, 0, 0);
+                rosterFinish.setHours(5, 0, 0, 0);
+            }
+
+            let line = {
+                rosterDate: getDbFormat(rosterDate),
+                rosterStart: rosterStart,
+                rosterFinish: rosterFinish
+            };
+            request.lines.push(line);
+            rosterDate.setDate(rosterDate.getDate() + 1);
         }
-        alert(sql);
+        console.log(request);
+        // do sendPost
     }
 
 }
