@@ -125,7 +125,7 @@ function displayAllTimeoffs() {
     const displayExEmployees = ex.checked;
 
     for(let i = 0; i < timeoffs.timeoff.length; i++) {
-        if (getEmployeeEx(timeoffs.employee[i].employee_id) == false || displayExEmployees == true) {
+        if (getEmployeeEx(timeoffs.employee[i].id) == false || displayExEmployees == true) {
             if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employee_id) {
                 if (status.value == -1 || status.value == timeoffs.timeoff[i].approved) {
                     const row = document.createElement('tr');
