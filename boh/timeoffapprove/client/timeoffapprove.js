@@ -111,89 +111,95 @@ function displayAllTimeoffs() {
         year: 'numeric'
     });
 
+    const ex = document.getElementById('ex');
+    const displayExEmployees = ex.checked;
+
     for(let i = 0; i < timeoffs.timeoff.length; i++) {
-        if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employee_id) {
-            if (status.value == -1 || status.value == timeoffs.timeoff[i].approved) {
-                const row = document.createElement('tr');
+        if (timeoffs.employee[i].ex == false || displayExEmployees == true) {
+            if (employees.value == 0 || employees.value == timeoffs.timeoff[i].employee_id) {
+                if (status.value == -1 || status.value == timeoffs.timeoff[i].approved) {
+                    const row = document.createElement('tr');
 
-                const column1 = document.createElement('td');
-                column1.innerText = getEmployeeNameById(timeoffs.timeoff[i].employee_id);
-                column1.style = 'text-align: center;';
-                row.appendChild(column1);
-            
-                const column2 = document.createElement('td');
-                const startDate = new Date(removeZuluTime(timeoffs.timeoff[i].start_date));
-                const startDateDay = dayNames[startDate.getDay()];
-                column2.innerText = `${formatter.format(startDate)} (${startDateDay})`;
-                column2.style = 'text-align: center;';
-                row.appendChild(column2);
+                    const column1 = document.createElement('td');
+                    column1.innerText = getEmployeeNameById(timeoffs.timeoff[i].employee_id);
+                    column1.style = 'text-align: center;';
+                    row.appendChild(column1);
+                
+                    const column2 = document.createElement('td');
+                    const startDate = new Date(removeZuluTime(timeoffs.timeoff[i].start_date));
+                    const startDateDay = dayNames[startDate.getDay()];
+                    column2.innerText = `${formatter.format(startDate)} (${startDateDay})`;
+                    column2.style = 'text-align: center;';
+                    row.appendChild(column2);
 
-                const column3 = document.createElement('td');
-                const endDate = new Date(removeZuluTime(timeoffs.timeoff[i].end_date));
-                const endDateDay = dayNames[endDate.getDay()];
-                column3.innerText = `${formatter.format(endDate)} (${endDateDay})`;
-                column3.style = 'text-align: center;';
-                row.appendChild(column3);
+                    const column3 = document.createElement('td');
+                    const endDate = new Date(removeZuluTime(timeoffs.timeoff[i].end_date));
+                    const endDateDay = dayNames[endDate.getDay()];
+                    column3.innerText = `${formatter.format(endDate)} (${endDateDay})`;
+                    column3.style = 'text-align: center;';
+                    row.appendChild(column3);
 
-                const column4 = document.createElement('td');
-                column4.innerText =  timeoffs.timeoff[i].role;
-                column4.style = 'text-align: center;';
-                row.appendChild(column4);
-            
-                const column5 = document.createElement('td');
-                column5.innerText =  YesOrNo(timeoffs.timeoff[i].paid);
-                column5.style = 'text-align: center;';
-                row.appendChild(column5);
-            
-                const column6 = document.createElement('td');
-                column6.innerText =  timeoffs.timeoff[i].reason;
-                column6.style = 'padding-left: 5px; padding-right: 5px;';
-                row.appendChild(column6);
-            
-                const column7 = document.createElement('td');
+                    const column4 = document.createElement('td');
+                    column4.innerText =  timeoffs.timeoff[i].role;
+                    column4.style = 'text-align: center;';
+                    row.appendChild(column4);
+                
+                    const column5 = document.createElement('td');
+                    column5.innerText =  YesOrNo(timeoffs.timeoff[i].paid);
+                    column5.style = 'text-align: center;';
+                    row.appendChild(column5);
+                
+                    const column6 = document.createElement('td');
+                    column6.innerText =  timeoffs.timeoff[i].reason;
+                    column6.style = 'padding-left: 5px; padding-right: 5px;';
+                    row.appendChild(column6);
+                
+                    const column7 = document.createElement('td');
 
-                if (timeoffs.timeoff[i].approved == 0) {
-                    column7.innerHTML =  'Pending...';
-                } else if (timeoffs.timeoff[i].approved == 1) {
-                    column7.innerHTML =  'Approved';
-                } else if (timeoffs.timeoff[i].approved == 2) {
-                    column7.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
-                }
-
-                column7.style = 'padding-left: 5px; padding-right: 5px;';
-                row.appendChild(column7);
-            
-                const column8 = document.createElement('td');
-                const select = document.createElement("select");
-                select.onchange = (event) => {
-                    if (event.target.value === 'approve') {
-                        update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
-                    } else if (event.target.value === 'resetapproval') {
-                        update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
+                    if (timeoffs.timeoff[i].approved == 0) {
+                        column7.innerHTML =  'Pending...';
+                    } else if (timeoffs.timeoff[i].approved == 1) {
+                        column7.innerHTML =  'Approved';
+                    } else if (timeoffs.timeoff[i].approved == 2) {
+                        column7.innerText =  'Unapproved: ' + timeoffs.timeoff[i].unapproved_reason;
                     }
-                };
 
-                const option1 = document.createElement("option");
-                option1.value = '-1';
-                option1.innerHTML = '--- Select Action ---';
-                select.appendChild(option1);
+                    column7.style = 'padding-left: 5px; padding-right: 5px;';
+                    row.appendChild(column7);
+                
+                    const column8 = document.createElement('td');
+                    column8.style = 'text-align: center;';
+                    const select = document.createElement("select");
+                    select.onchange = (event) => {
+                        if (event.target.value === 'approve') {
+                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 1);
+                        } else if (event.target.value === 'resetapproval') {
+                            update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
+                        }
+                    };
 
-                const option2 = document.createElement("option");
-                if (timeoffs.timeoff[i].approved == 0) {
-                    option2.value = 'approve';
-                    option2.innerHTML = 'Approve';
-                } else if (timeoffs.timeoff[i].approved == 1) {
-                    option2.value = 'resetapproval';
-                    option2.innerHTML = 'Reset Approval';
+                    const option1 = document.createElement("option");
+                    option1.value = '-1';
+                    option1.innerHTML = '--- Select Action ---';
+                    select.appendChild(option1);
+
+                    const option2 = document.createElement("option");
+                    if (timeoffs.timeoff[i].approved == 0) {
+                        option2.value = 'approve';
+                        option2.innerHTML = 'Approve';
+                    } else if (timeoffs.timeoff[i].approved == 1) {
+                        option2.value = 'resetapproval';
+                        option2.innerHTML = 'Reset Approval';
+                    }
+                    select.appendChild(option2);
+
+                    // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
+
+                    column8.appendChild(select);
+                    row.appendChild(column8);
+
+                    timeoffs_table.appendChild(row);
                 }
-                select.appendChild(option2);
-
-                // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
-
-                column8.appendChild(select);
-                row.appendChild(column8);
-
-                timeoffs_table.appendChild(row);
             }
         }
     }
