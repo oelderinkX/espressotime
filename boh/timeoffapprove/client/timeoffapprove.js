@@ -193,6 +193,7 @@ function displayAllTimeoffs() {
                     option1.innerHTML = '--- Select Action ---';
                     select.appendChild(option1);
 
+                    let isRosterUploadDisabled = true;
                     const option2 = document.createElement("option");
                     if (timeoffs.timeoff[i].approved == 0) {
                         option2.value = 'approve';
@@ -200,10 +201,30 @@ function displayAllTimeoffs() {
                     } else if (timeoffs.timeoff[i].approved == 1) {
                         option2.value = 'resetapproval';
                         option2.innerHTML = 'Reset Approval';
+                        isRosterUploadDisabled = false;
                     }
                     select.appendChild(option2);
 
                     // TODO: Update Roster with Time off or Unavailable or Annual leave and stuff
+                    const rolePaid = [];
+                    for(const tOff of timeoffs.timeoff) {
+                        const item = `${tOff.role}^${tOff.paid}`;
+                        if (!rolePaid.includes(item)) {
+                            rolePaid.push(item);
+                        }
+                    }
+                    for(const role in rolePaid) {
+                        const split = role.split('^');
+                        let paidOrNot = '';
+                        if (split[1] === 'true') {
+                            paidOrNot = ' (Paid)';
+                        }
+                        const optionN = document.createElement("option");
+                        optionN.value = role;
+                        optionN.innerHTML = `${split[0]}${paidOrNot}`;
+                        optionN.disabled = isRosterUploadDisabled;
+                        select.appendChild(option2);
+                    }
 
                     column8.appendChild(select);
                     row.appendChild(column8);
