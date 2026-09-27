@@ -276,7 +276,7 @@ shopid, employeeid, date, start, finish, role
         let sql = '';
         for(let rosterDate = new Date(startdate); rosterDate.toDateString() !== finishdate.toDateString(); ) {
             sql += `${id}, ${getDbFormat(rosterDate)}, ${startdate}, ${finishdate}\n`;
-            rosterDate.setDate(date.getDate() + 1);
+            rosterDate.setDate(rosterDate.getDate() + 1);
 
         }
         alert(sql);
