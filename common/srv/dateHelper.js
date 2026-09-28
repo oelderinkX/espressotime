@@ -59,7 +59,7 @@ function getDbDateTime(paramDate) {
     d = new Date(paramDate);
   }
 
-  return `${pad(d.getFullYear())}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.setSeconds())}`;
+  return `${pad(d.getFullYear())}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 module.exports.getDbDateTime = getDbDateTime;
 
