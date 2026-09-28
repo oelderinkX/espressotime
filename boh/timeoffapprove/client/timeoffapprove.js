@@ -292,7 +292,7 @@ function updateRoster(id, startdate, finishdate, role, paid) {
                 rosterFinish.setHours(9, 0, 0, 0);
             } else {
                 rosterStart.setHours(9, 0, 0, 0);
-                rosterFinish.setHours(5, 0, 0, 0);
+                rosterFinish.setHours(17, 0, 0, 0);
             }
 
             let line = {
@@ -304,7 +304,11 @@ function updateRoster(id, startdate, finishdate, role, paid) {
         }
 
         console.log(request);
-        // do sendPost
+
+        sendPost("/updaterostertimes", JSON.stringify(request), function(response) {
+            loadTimeOffs();
+            alert('Updated roster');
+        });
     }
 
 }

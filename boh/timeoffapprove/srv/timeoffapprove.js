@@ -102,4 +102,38 @@ module.exports = function(app) {
 			});
 		});
 	});
+
+    app.post('/updaterostertimes', jsonParser, function(req, res) {
+		const shopId = common.getShopId(req.cookies['identifier']);
+        const id = req.body.id;
+        const role = req.body.id;
+        const employeeid = req.body.employeeid;
+       
+        const sqls = [];
+
+        for(const line of req.body.lines) {
+            const dbRosterStart = getDbDateTime(line.rosterStart);
+            const dbRosterFinish = getDbDateTime(line.rosterFinish);
+            var sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
+            sql += `VALUES (${shopId}, ${id}, '${line.rosterDate}', '${dbRosterStart}', '${dbRosterFinish}', ${role}) `;
+            sql += `ON CONFLICT (shopid, employeeid, date) `;
+            sql += `DO UPDATE SET start =  '${dbRosterStart}', finish = '${dbRosterFinish}', role = '${role}'`;
+        }
+
+        console.log(sqls.join(';\n'));
+
+        res.send({});
+
+		// pool.connect(function(err, connection, done) {
+		// 	connection.query(sql, [], function(err, result) {
+		// 		done();
+
+        //         if (err) {
+        //             console.log(err);
+        //         }
+       
+        //         res.send({});
+		// 	});
+		// });
+	});
 }
