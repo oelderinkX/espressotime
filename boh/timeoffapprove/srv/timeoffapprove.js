@@ -115,13 +115,14 @@ module.exports = function(app) {
         for(const line of req.body.lines) {
             const dbRosterStart = dateHelper.getDbDateTime(line.rosterStart);
             const dbRosterFinish = dateHelper.getDbDateTime(line.rosterFinish);
-            var sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
+            let sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
             sql += `VALUES (${shopId}, ${id}, '${line.rosterDate}', '${dbRosterStart}', '${dbRosterFinish}', ${role}) `;
             sql += `ON CONFLICT (shopid, employeeid, date) `;
             sql += `DO UPDATE SET start =  '${dbRosterStart}', finish = '${dbRosterFinish}', role = '${role}'`;
+            sqls.push(sql);
         }
 
-        console.log(sqls.join(';\n'));
+        console.log(`sqls: ${sqls.join(';\n')}`);
 
         res.send({});
 
