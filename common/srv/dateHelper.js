@@ -52,6 +52,17 @@ function getDbFormat2(paramDate) {
 }
 module.exports.getDbFormat2 = getDbFormat2;
 
+function getDbDateTime(paramDate) {
+  let d = new Date();
+
+  if (paramDate) {
+    d = new Date(paramDate);
+  }
+
+  return `${pad(d.getFullYear())}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.setSeconds())}`;
+}
+module.exports.getDbDateTime = getDbDateTime;
+
 function getDate() {
   var d = new Date();
   return formatDate(d);
