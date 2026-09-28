@@ -1,8 +1,9 @@
-var fs = require("fs");
-var pg = require('pg');
-var express = require('express');
-var bodyParser = require('body-parser');
-var common = require('../../../common/srv/common.js');
+const fs = require("fs");
+const pg = require('pg');
+const express = require('express');
+const bodyParser = require('body-parser');
+const common = require('../../../common/srv/common.js');
+const dateHelper = require('../../../common/srv/dateHelper.js');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
@@ -112,8 +113,8 @@ module.exports = function(app) {
         const sqls = [];
 
         for(const line of req.body.lines) {
-            const dbRosterStart = getDbDateTime(line.rosterStart);
-            const dbRosterFinish = getDbDateTime(line.rosterFinish);
+            const dbRosterStart = dateHelper.getDbDateTime(line.rosterStart);
+            const dbRosterFinish = dateHelper.getDbDateTime(line.rosterFinish);
             var sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
             sql += `VALUES (${shopId}, ${id}, '${line.rosterDate}', '${dbRosterStart}', '${dbRosterFinish}', ${role}) `;
             sql += `ON CONFLICT (shopid, employeeid, date) `;
