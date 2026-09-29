@@ -1,5 +1,5 @@
 var backToMainTimer;
-var refreshMainTimer;
+let refreshMainTimer;
 var slowConnectTimer;
 
 var roles = [];
@@ -424,7 +424,7 @@ function getEmployeeDetails(employeeId) {
 
                 allemployeestatus.innerHTML = update;
             });
-            refreshPageTimer = switchPages(refreshPageTimer);
+            refreshMainTimer = switchPages(refreshMainTimer);
         }
     });
 }
