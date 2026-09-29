@@ -1,4 +1,4 @@
-var refreshPageTimer;
+let refreshPageTimer;
 var employees = [];
 var alltasks = [];
 

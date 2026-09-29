@@ -195,7 +195,7 @@ function YesOrNo(yesOrNo) {
 function switchPages(refreshPageTimer) {
     window.clearTimeout(refreshPageTimer);
     return window.setTimeout(function() {
-        const randomPage = Math.floor(Math.random() * 5) + 1;
+        const randomPage = Math.floor(Math.random() * 6) + 1;
         const refresh = Math.floor(Math.random() * 9007199254740990) + 1;
 
         if (randomPage == 1) {
@@ -207,7 +207,9 @@ function switchPages(refreshPageTimer) {
         } else if (randomPage == 4) {
             window.location.href = "/tasks?refresh=" + refresh;
         } else if (randomPage == 5) {
+            window.location.href = "/bookings?refresh=" + refresh;
+          } else if (randomPage == 6) {
             window.location.href = "/tasksrecurring?refresh=" + refresh;
         }
-    }, 1000);
+    }, 3000);
 }

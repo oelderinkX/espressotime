@@ -1,4 +1,4 @@
-var refreshPageTimer;
+let refreshPageTimer;
 
 var roles = [];
 
@@ -272,24 +272,6 @@ function getEmployeeTimes() {
       var loading = document.getElementById('loading');
       loading.innerHTML = '';
 
-      window.clearTimeout(refreshPageTimer);
-      refreshPageTimer = window.setTimeout(function() {
-          var randomPage = Math.floor(Math.random() * 6) + 1;
-          var refresh = Math.floor(Math.random() * 9007199254740990) + 1;
-
-          if (randomPage == 1) {
-              window.location.href = "/device?refresh=" + refresh;
-          } else if (randomPage == 2) {
-              window.location.href = "/how?refresh=" + refresh;
-          } else if (randomPage == 3) {
-              window.location.href = "/foh_roster?refresh=" + refresh;
-          } else if (randomPage == 4) {
-              window.location.href = "/tasks?refresh=" + refresh;
-          } else if (randomPage == 5) {
-              window.location.href = "/bookings?refresh=" + refresh;
-            } else if (randomPage == 6) {
-              window.location.href = "/tasksrecurring?refresh=" + refresh;
-          }
-      }, 240000);
+      refreshPageTimer = switchPages(refreshPageTimer);
   });
 }
