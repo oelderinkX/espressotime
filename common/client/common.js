@@ -82,6 +82,15 @@ function getDbFormat(d)
   return pad(d.getFullYear()) + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
 }
 
+function getDbTime(d)
+{
+  if (!d) {
+    var d = new Date();
+  }
+
+  return pad(d.getHours()) + ':' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+}
+
 function getDate() {
   var d = new Date();
   return formatDate(d);
