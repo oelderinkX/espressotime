@@ -297,8 +297,8 @@ function updateRoster(id, startdate, finishdate, role, paid) {
 
             let line = {
                 rosterDate: getDbFormat(rosterDate),
-                rosterStart: getDbTime(rosterStart),
-                rosterFinish: getDbTime(rosterFinish)
+                rosterStart: `${getDbFormat(rosterDate)} ${getDbTime(rosterStart)}`,
+                rosterFinish: `${getDbFormat(rosterDate)} ${getDbTime(rosterFinish)}`
             };
             request.lines.push(line);
         }
