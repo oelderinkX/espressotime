@@ -55,7 +55,9 @@ module.exports.getDbFormat2 = getDbFormat2;
 function getDbDateTime(paramDate) {
   let d = new Date();
 
+  console.log(`before ${paramDate}`);
   if (paramDate) {
+    console.log(`if ${paramDate}`);
     d = new Date(paramDate);
   }
 
