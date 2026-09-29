@@ -88,7 +88,7 @@ function getDbTime(d)
     var d = new Date();
   }
 
-  return pad(d.getHours()) + ':' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+  return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
 }
 
 function getDate() {
