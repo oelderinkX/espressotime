@@ -192,24 +192,58 @@ function YesOrNo(yesOrNo) {
   }
 }
 
-function switchPages(refreshPageTimer) {
-    window.clearTimeout(refreshPageTimer);
-    return window.setTimeout(function() {
-        const randomPage = Math.floor(Math.random() * 6) + 1;
-        const refresh = Math.floor(Math.random() * 9007199254740990) + 1;
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
-        if (randomPage == 1) {
-            window.location.href = "/device?refresh=" + refresh;
-        } else if (randomPage == 2) {
-            window.location.href = "/how?refresh=" + refresh;
-        } else if (randomPage == 3) {
-            window.location.href = "/foh_roster?refresh=" + refresh;
-        } else if (randomPage == 4) {
-            window.location.href = "/tasks?refresh=" + refresh;
-        } else if (randomPage == 5) {
-            window.location.href = "/bookings?refresh=" + refresh;
-          } else if (randomPage == 6) {
-            window.location.href = "/tasksrecurring?refresh=" + refresh;
-        }
-    }, 3000);
+function switchPages(refreshPageTimer) {
+  const now = new Date();
+  const hour = now.getHours();
+  let timeout = getRandom(590000, 600000);
+  
+  if (hour === 5) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 6) {
+    timeout = getRandom(110000, 120000);
+  }  else if (hour === 7) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 8) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 9) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 10) {
+    timeout = getRandom(210000, 240000);
+  } else if (hour === 11) {
+    timeout = getRandom(210000, 240000);
+  } else if (hour === 12) {
+    timeout = getRandom(210000, 240000);
+  } else if (hour === 13) {
+    timeout = getRandom(210000, 240000);
+  } else if (hour === 14) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 15) {
+    timeout = getRandom(110000, 120000);
+  } else if (hour === 16) {
+    timeout = getRandom(110000, 120000);
+  }
+
+  window.clearTimeout(refreshPageTimer);
+  return window.setTimeout(function() {
+      const randomPage = Math.floor(Math.random() * 6) + 1;
+      const refresh = Math.floor(Math.random() * 9007199254740990) + 1;
+
+      if (randomPage == 1) {
+          window.location.href = "/device?refresh=" + refresh;
+      } else if (randomPage == 2) {
+          window.location.href = "/how?refresh=" + refresh;
+      } else if (randomPage == 3) {
+          window.location.href = "/foh_roster?refresh=" + refresh;
+      } else if (randomPage == 4) {
+          window.location.href = "/tasks?refresh=" + refresh;
+      } else if (randomPage == 5) {
+          window.location.href = "/bookings?refresh=" + refresh;
+        } else if (randomPage == 6) {
+          window.location.href = "/tasksrecurring?refresh=" + refresh;
+      }
+  }, timeout);
 }
