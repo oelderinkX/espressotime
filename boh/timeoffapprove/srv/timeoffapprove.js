@@ -116,7 +116,7 @@ module.exports = function(app) {
             let sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
             sql += `VALUES (${shopId}, ${id}, '${line.rosterDate}', '${line.rosterStart}', '${line.rosterFinish}', ${role}) `;
             sql += `ON CONFLICT (shopid, employeeid, date) `;
-            sql += `DO UPDATE SET start =  '${line.rosterStart}', finish = '${line.rosterFinish}', role = '${role}'`;
+            sql += `DO UPDATE SET start = '${line.rosterStart}', finish = '${line.rosterFinish}', role = '${role}'`;
             sqls.push(sql);
         }
 
