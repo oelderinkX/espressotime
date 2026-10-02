@@ -199,32 +199,32 @@ function getRandom(min, max) {
 function switchPages(refreshPageTimer) {
   const now = new Date();
   const hour = now.getHours();
-  let timeout = getRandom(590000, 600000);
+  let timeout = getRandom(590000, 900000);
   
   if (hour === 5) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 6) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   }  else if (hour === 7) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 8) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 9) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 10) {
-    timeout = getRandom(210000, 240000);
+    timeout = getRandom(210000, 480000);
   } else if (hour === 11) {
-    timeout = getRandom(210000, 240000);
+    timeout = getRandom(210000, 480000);
   } else if (hour === 12) {
-    timeout = getRandom(210000, 240000);
+    timeout = getRandom(210000, 480000);
   } else if (hour === 13) {
-    timeout = getRandom(210000, 240000);
+    timeout = getRandom(210000, 480000);
   } else if (hour === 14) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 15) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   } else if (hour === 16) {
-    timeout = getRandom(110000, 120000);
+    timeout = getRandom(110000, 240000);
   }
 
   window.clearTimeout(refreshPageTimer);
