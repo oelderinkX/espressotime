@@ -236,8 +236,8 @@ function displayAllTimeoffs() {
                             updateRoster(   timeoffs.timeoff[i].employee_id, 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].start_date)), 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].end_date)),
-                                            timeoffs.timeoff[i].role,
-                                            timeoffs.timeoff[i].paid
+                                            split[0],
+                                            split[1]
                                         );
                         }
                     };
