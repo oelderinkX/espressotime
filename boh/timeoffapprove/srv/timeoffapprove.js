@@ -106,15 +106,14 @@ module.exports = function(app) {
 
     app.post('/updaterostertimes', jsonParser, function(req, res) {
 		const shopId = common.getShopId(req.cookies['identifier']);
-        const id = req.body.id;
-        const role = req.body.id;
-        const employeeid = req.body.employeeid;
+        const role = req.body.role;
+        const employeeid = req.body.id;
        
         const sqls = [];
 
         for(const line of req.body.lines) {
             let sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
-            sql += `VALUES (${shopId}, ${id}, '${line.rosterDate}', '${line.rosterStart}', '${line.rosterFinish}', ${role}) `;
+            sql += `VALUES (${shopId}, ${employeeid}, '${line.rosterDate}', '${line.rosterStart}', '${line.rosterFinish}', ${role}) `;
             sql += `ON CONFLICT (shopid, employeeid, date) `;
             sql += `DO UPDATE SET start = '${line.rosterStart}', finish = '${line.rosterFinish}', role = '${role}'`;
             sqls.push(sql);
