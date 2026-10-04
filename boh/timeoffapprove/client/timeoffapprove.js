@@ -238,7 +238,7 @@ function displayAllTimeoffs() {
                             if (split[1] === 'true') {
                                 paidOrNot = true;
                             }
-                            const role = split[1];
+                            const role = split[0];
                             updateRoster(   timeoffs.timeoff[i].employee_id, 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].start_date)), 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].end_date)),
