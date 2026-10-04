@@ -214,9 +214,6 @@ function displayAllTimeoffs() {
                     }
                     rolePaid.sort();
 
-                    let roleOption = '';
-                    let paidOption = false;
-
                     for(const role of rolePaid) {
                         const split = role.split('^');
                         let paidOrNot = '';
@@ -227,10 +224,6 @@ function displayAllTimeoffs() {
                         optionN.value = role;
                         optionN.innerHTML = `${split[0]}${paidOrNot}`;
                         optionN.disabled = isRosterUploadDisabled;
-                        optionN.addEventListener('click', () => {
-                            console.log('Button was clicked!');
-                        });
-
                         select.appendChild(optionN);
                     }
 
@@ -240,11 +233,17 @@ function displayAllTimeoffs() {
                         } else if (event.target.value === 'resetapproval') {
                             update(timeoffs.timeoff[i].id, timeoffs.timeoff[i].employee_id, 0);
                         } else {
+                            const split = event.target.value.split('^');
+                            let paidOrNot = false;
+                            if (split[1] === 'true') {
+                                paidOrNot = true;
+                            }
+                            const role = split[1];
                             updateRoster(   timeoffs.timeoff[i].employee_id, 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].start_date)), 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].end_date)),
-                                            '',
-                                            ''
+                                            role,
+                                            paidOrNot
                                         );
                         }
                     };
