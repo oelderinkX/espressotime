@@ -214,6 +214,9 @@ function displayAllTimeoffs() {
                     }
                     rolePaid.sort();
 
+                    let roleOption = '';
+                    let paidOption = false;
+
                     for(const role of rolePaid) {
                         const split = role.split('^');
                         let paidOrNot = '';
@@ -224,6 +227,8 @@ function displayAllTimeoffs() {
                         optionN.value = role;
                         optionN.innerHTML = `${split[0]}${paidOrNot}`;
                         optionN.disabled = isRosterUploadDisabled;
+                        optionN.setAttribute('onclick', 'alert("what");');
+                        
                         select.appendChild(optionN);
                     }
 
