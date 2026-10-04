@@ -227,7 +227,9 @@ function displayAllTimeoffs() {
                         optionN.value = role;
                         optionN.innerHTML = `${split[0]}${paidOrNot}`;
                         optionN.disabled = isRosterUploadDisabled;
-                        optionN.setAttribute('onclick', 'alert("what");');
+                        optionN.addEventListener('click', () => {
+                            console.log('Button was clicked!');
+                        });
 
                         select.appendChild(optionN);
                     }
