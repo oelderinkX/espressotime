@@ -113,7 +113,7 @@ module.exports = function(app) {
 
         for(const line of req.body.lines) {
             let sql = `INSERT INTO espresso.roster (shopid, employeeid, date, start, finish, role) `;
-            sql += `VALUES (${shopId}, ${employeeid}, '${line.rosterDate}', '${line.rosterStart}', '${line.rosterFinish}', ${role}) `;
+            sql += `VALUES (${shopId}, ${employeeid}, '${line.rosterDate}', '${line.rosterStart}', '${line.rosterFinish}', '${role}') `;
             sql += `ON CONFLICT (shopid, employeeid, date) `;
             sql += `DO UPDATE SET start = '${line.rosterStart}', finish = '${line.rosterFinish}', role = '${role}'`;
             sqls.push(sql);
