@@ -228,7 +228,7 @@ function displayAllTimeoffs() {
                         optionN.innerHTML = `${split[0]}${paidOrNot}`;
                         optionN.disabled = isRosterUploadDisabled;
                         optionN.setAttribute('onclick', 'alert("what");');
-                        
+
                         select.appendChild(optionN);
                     }
 
@@ -241,8 +241,8 @@ function displayAllTimeoffs() {
                             updateRoster(   timeoffs.timeoff[i].employee_id, 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].start_date)), 
                                             new Date(removeZuluTime(timeoffs.timeoff[i].end_date)),
-                                            split[0],
-                                            split[1]
+                                            '',
+                                            ''
                                         );
                         }
                     };
